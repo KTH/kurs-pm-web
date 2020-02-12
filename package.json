@@ -1,0 +1,110 @@
+{
+  "//": "JSHint configuration - http://jshint.com/docs/options/",
+  "name": "node-web",
+  "version": "2.0.0",
+  "description": "Template project for a node express web server",
+  "main": "app.js",
+  "private": true,
+  "license": "MIT",
+  "author": "KTH",
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/KTH/node-web"
+  },
+  "scripts": {
+    "vendor": "parcel build  ./public/js/vendor.js",
+    "test": "NODE_ENV=development mocha --exit test/unit/*.js",
+    "docker": "npm install --development && npm run build && npm prune --production",
+    "build": "NODE_ENV=production npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/app/app.jsx && npm run vendor --preserve-comments",
+    "build-dev": "cross-env NODE_ENV=development npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/vendor.js --public-url /node/static && parcel watch ./public/js/app/app.jsx --public-url /node/static",
+    "start": "NODE_ENV=production node app.js",
+    "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\"",
+    "move-handlebar-pages": "cp ./node_modules/kth-node-web-common/lib/handlebars/pages/views/error.handlebars ./server/views/system/error.handlebars && cp ./node_modules/kth-node-web-common/lib/handlebars/pages/layouts/errorLayout.handlebars ./server/views/layouts/errorLayout.handlebars"
+  },
+  "dependencies": {
+    "applicationinsights": "^1.6.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "component-registry": "^1.0.2",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.0.0",
+    "kth-node-access-log": "^0.2.0",
+    "kth-node-api-call": "^3.0.4",
+    "kth-node-configuration": "^2.0.1",
+    "kth-node-express-routing": "^2.0.3",
+    "kth-node-i18n": "^1.0.2",
+    "kth-node-ldap": "^3.0.5",
+    "kth-node-log": "^3.0.2",
+    "kth-node-monitor": "^1.0.26",
+    "kth-node-passport-cas": "^3.1.9",
+    "kth-node-redis": "^2.0.1",
+    "kth-node-server": "^3.1.2",
+    "kth-node-session": "^1.0.4",
+    "kth-node-web-common": "^4.0.1",
+    "kth-style": "^4.2.2",
+    "locale": "^0.1.0",
+    "mobx": "^5.13.0",
+    "mobx-react": "^5.4.4",
+    "passport": "^0.4.0",
+    "popper.js": "^1.16.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "safe-utils": "^0.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "concurrently": "^4.1.2",
+    "cross-env": "^5.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.9",
+    "kth-node-build-commons": "^4.0.5",
+    "merge-stream": "^2.0.0",
+    "mocha": "6.2.2",
+    "mockery": "^2.1.0",
+    "nock": "^11.7.0",
+    "node-mocks-http": "^1.8.0",
+    "nodemon": "^1.19.4",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "sass": "^1.23.3",
+    "zombie": "6.1.4"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 120
+  },
+  "engines": {
+    "node": "8.16.1"
+  },
+  "jshintConfig": {
+    "maxerr": 5
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test",
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
