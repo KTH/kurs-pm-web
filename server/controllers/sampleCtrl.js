@@ -35,8 +35,6 @@ async function getIndex(req, res, next) {
     const context = {}
     const renderProps = _staticRender(context, req.url)
 
-    renderProps.props.children.props.routerStore.getData()
-
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('sample/index', {

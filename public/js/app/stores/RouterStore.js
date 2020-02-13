@@ -1,11 +1,13 @@
 import { observable, action } from 'mobx'
 
 class RouterStore {
-  @observable message = 'This is the default string...'
+  @observable courseCode
 
-  @action getData() {
-    this.message = 'Happy coding!! :)'
-  }
+  @observable semester
+
+  @observable koppsFreshData = {}
+
+  @observable memoData = {}
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
@@ -27,11 +29,7 @@ class RouterStore {
   initializeStore(storeName) {
     const store = this
 
-    if (
-      typeof window !== 'undefined' &&
-      window.__initialState__ &&
-      window.__initialState__[storeName]
-    ) {
+    if (typeof window !== 'undefined' && window.__initialState__ && window.__initialState__[storeName]) {
       /* TODO:
         const util = globalRegistry.getUtility(IDeserialize, 'kursinfo-web')
         const importData = JSON.parse(decodeURIComponent(window.__initialState__[storeName]))

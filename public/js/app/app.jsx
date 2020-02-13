@@ -11,7 +11,7 @@ import '../../css/node-web.scss'
 import RouterStore from './stores/RouterStore'
 
 // Pages
-import Start from './pages/Start'
+import CourseMemo from './pages/CourseMemo'
 
 function appFactory() {
   const routerStore = new RouterStore()
@@ -23,7 +23,7 @@ function appFactory() {
   return (
     <Provider routerStore={routerStore}>
       <Switch>
-        <Route exact path="/node" component={Start} />
+        <Route exact path="/node" component={CourseMemo} />
       </Switch>
     </Provider>
   )
