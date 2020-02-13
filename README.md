@@ -18,11 +18,12 @@ TBD
 
 ### API:s
 
-Application is fetching data from _kurs-pm-data-api_.
+Application is fetching data from [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api).
 
 ### Related projects
 
-- [https://github.com/KTH/kurs-pm-data-web](https://github.com/KTH/kurs-pm-data-web)
+- [https://github.com/KTH/kurs-pm-data-admin-web](https://github.com/KTH/kurs-pm-data-admin-web)
+- [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
 - [https://github.com/KTH/node-web](https://github.com/KTH/node-web)
 
 ## Prerequisites
