@@ -1,118 +1,68 @@
-# node-web
+# Welcome to kurs-pm-data-web 👋
 
-In an attempt to simplify the process of starting up new node.js based projects, there exists two template projects to use as a foundation.
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
+![Prerequisite](https://img.shields.io/badge/node-12.14.1-blue.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
-The two projects are [node-web](https://github.com/KTH/node-web), a web server with express and react, and [node-api](https://github.com/KTH/node-api), a RESTful api. Both of them use OpenID Connect and/or CAS as a mechanism for authorisation and authentication.
+## Introduction
 
-**The projects can be found here:**
-[https://github.com/KTH/node-web](https://github.com/KTH/node-web)
-[https://github.com/KTH/node-api](https://github.com/KTH/node-api)
+The course information project (KIP) is an initiative at KTH that was launched in 2018 to improve the quality and availability of information about KTH:s courses. The background to the project is, among other things, that it was difficult for the student to find information about the courses and even more difficult to compare information about several courses. The reason for the problems is scattered course information in several places and that there is no uniformity or assigned places for the course information. The project takes measures to consolidate course information into two locations and to present the information in a manner that is uniform for KTH. The student should find the right information about the course, depending on their needs. The result of the project is a public course site where the correct course information is collected and presented uniformly. Also, a tool is developed for teachers to enter and publish course information. Eventually, this will lead to the student making better decisions based on their needs, and it will also reduce the burden on teachers and administration regarding questions and support for the student.
 
-It's important that we try to make changes that affect the template projects in the template projects themselves.
+Kurs-pm-data-web is a microservice with the public view of course information.
 
-## Where do you keep you secrets?
+### 🏠 [Homepage](https://github.com/KTH/kurs-pm-data-web)
 
-Secrets during local development are ALWAYS stored in a `.env`-file in the root of your project. This file should be in .gitignore. It needs to contain at least ldap connection URI and password in order for authentication to work properly:
+## Overview
+
+TBD
+
+### API:s
+
+Application is fetching data from _kurs-pm-data-api_.
+
+### Related projects
+
+- [https://github.com/KTH/kurs-pm-data-web](https://github.com/KTH/kurs-pm-data-web)
+
+## Prerequisites
+
+- node 12.14.1
+
+### Secrets for Development
+
+Secrets during local development are ALWAYS stored in a `.env`-file in the root of your project. This file should be in .gitignore. It needs to contain at least ldap connection URI and password in order for authentication to work properly.
 
 ```
-LDAP_URI=ldaps://[usertname]@ldap.ref.ug.kth.se
+LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
+LDAP_URI=ldaps://[find in gsv-key vault]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
 LDAP_PASSWORD=[password]
+#KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data #Default development setting
+#KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
 ```
 
-During local development the defaults in serverSettings.js should work fine. If you need to make specific changes for your machine, add these to the `.env`-file. If you want changes that should be used by anyone developing your project, change the default variables in the settings-files.
+These settings are also available in an `env.in` file.
 
-## How do I use node-web template project for a project of my own?
+## Install
 
-1. Create a new git repository on github.com/KTH (or other somewhere else).
-
-2. Clone the node-web repository by using:
-
-```bash
-git clone git@github.com/KTH/node-web.git NEW_REPOSITORY_NAME
+```sh
+npm install
 ```
 
-3. Navigate to the cloned project directory
+## Usage
 
-4. Change remote repo
-
-```bash
-git remote add origin https://github.com/KTH/<NEW_REPOSITORY_NAME>.git
+```sh
+npm run start-dev
 ```
 
-## If your application is going to be proxied
+## Run tests
 
-If your application is going to be proxied on www.kth.se/api/your-api-path make sure you set the following paths and properties.
-
-1. Make sure you add the proxy prefix path in your paths in /server/init/routing/paths.js e.g
-
-```json
-monitor : {
-  uri : '/api/node/_monitor',
-  method : 'GET'
-}
+```sh
+npm run test
 ```
 
-2. Set you basePath property in /swagger.json e.g.
+## Author
 
-```javascript
-"basePath": "/api/node/v1"
-```
+👤 **KTH**
 
-## Development
-
-Before you start coding it is important that you have both listed extensions installed in VS Code.
-
-- Prettier
-- Eslint
-
-### Starting the server
-
-Always start by installing dependencies:
-
-```bash
-$ npm install
-```
-
-Then you need to start the server:
-
-```bash
-$ npm run start-dev
-```
-
-This will
-
-1. run `parcel build` once to build SASS-files, and prepare browser JavaScript files
-2. start `nodemon` which triggers restart when server-side files have been updated
-3. run `parcel watch` which triggers a rebuild of browser assets when files have been updated
-
-### Debugging
-
-#### Debugging in VS Code
-
-If you start Node.js from VS Code you can set breakpoints in your editor. The launch config will look like this:
-
-```json
-{
-  "type": "node",
-  "request": "launch",
-  "name": "Launch Program",
-  "program": "${workspaceRoot}/app.js",
-  "cwd": "${workspaceRoot}",
-  "env": {
-    "NODE_ENV": "development"
-  }
-}
-```
-
-Setting NODE_ENV is currently required.
-
-### Stack
-
-- Parcel (Alternative to webpack)
-- Babel 7
-- Eslint
-- Prettier
-- Husky (Pre-commit)
-- Sass
-- React
-- Mobx (State management)
+- Website: https://kth.github.io/
+- Github: [@KTH](https://github.com/KTH)
