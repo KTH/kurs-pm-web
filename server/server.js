@@ -81,8 +81,8 @@ const browserConfigHandler = require('kth-node-configuration').getHandler(browse
 const express = require('express')
 
 // helper
-function setCustomCacheControl(res, path) {
-  if (express.static.mime.lookup(path) === 'text/html') {
+function setCustomCacheControl(res, mime) {
+  if (express.static.mime.lookup(mime) === 'text/html') {
     // Custom Cache-Control for HTML files
     res.setHeader('Cache-Control', 'no-cache')
   }
@@ -212,7 +212,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { System, Sample } = require('./controllers')
+const { System, CourseMemo } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -225,15 +225,17 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/', serverLogin, Sample.getIndex)
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
+
+appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester*', CourseMemo.getContent)
+
 appRoute.get(
   'system.gateway',
   config.proxyPrefixPath.uri + '/gateway',
   getServerGatewayLogin('/'),
   requireRole('isAdmin'),
-  Sample.getIndex
+  CourseMemo.getContent
 )
+
 server.use('/', appRoute.getRouter())
 
 // Not found etc

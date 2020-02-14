@@ -1,6 +1,5 @@
 'use strict'
 
-const api = require('../api')
 const log = require('kth-node-log')
 
 const { toJS } = require('mobx')
@@ -30,11 +29,11 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
-async function getIndex(req, res, next) {
+async function getContent(req, res, next) {
   try {
     const context = {}
     const renderProps = _staticRender(context, req.url)
-
+    // const { courseCode, semester } = req.params
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('sample/index', {
@@ -45,11 +44,11 @@ async function getIndex(req, res, next) {
       description: 'TODO' // lang === 'sv' ? "KTH  för "+courseCode.toUpperCase() : "KTH course information "+courseCode.toUpperCase()
     })
   } catch (err) {
-    log.error('Error in getIndex', { error: err })
+    log.error('Error in getContent', { error: err })
     next(err)
   }
 }
 
 module.exports = {
-  getIndex
+  getContent
 }

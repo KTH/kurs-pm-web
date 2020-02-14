@@ -41,7 +41,7 @@ describe('Index page', () => {
       name: 'asdasd'
     })
 
-    const ctrl = require('../../server/controllers/sampleCtrl')
+    const ctrl = require('../../server/controllers/memoCtrl')
     const { req, res } = httpMocks.createMocks()
 
     res.render = (view, data) => {
@@ -49,6 +49,6 @@ describe('Index page', () => {
       done()
     }
 
-    ctrl.getIndex(req, res, () => {})
+    ctrl.getContent(req, res, () => {})
   })
 })
