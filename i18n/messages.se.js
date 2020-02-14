@@ -1,5 +1,5 @@
 module.exports = {
-  shortNames: [ 'sv', 'se' ],
+  shortNames: ['sv', 'se'],
   longNameSe: 'Svenska',
   longNameEn: 'Swedish',
   messages: {
@@ -30,10 +30,9 @@ module.exports = {
     field_label_post_example: 'Min datamodell(Svar från api anrop POST): ',
 
     lang_block_id: '1.272446',
-    locale_text: 'Node.js på svenska',
+    locale_text: 'Kurs-pm på svenska',
 
-    site_name: 'Node.js Mall',
+    site_name: 'Kurs-pm',
     host_name: 'KTH'
   }
-
 }

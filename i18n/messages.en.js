@@ -1,5 +1,5 @@
 module.exports = {
-  shortNames: [ 'en' ],
+  shortNames: ['en'],
   longNameSe: 'Engelska',
   longNameEn: 'English',
   messages: {
@@ -12,7 +12,7 @@ module.exports = {
      * Error messages
      */
 
-    error_not_found: 'Sorry, we can\'t find your requested page',
+    error_not_found: "Sorry, we can't find your requested page",
     error_generic: 'Something went wrong on the server, please try again later.',
 
     /**
@@ -30,10 +30,9 @@ module.exports = {
     field_label_post_example: 'My modelData(Response from api call POST): ',
 
     lang_block_id: '1.77273',
-    locale_text: 'Node.js in English',
+    locale_text: 'Course Memo in English',
 
-    site_name: 'Node.js Template',
+    site_name: 'Course Memo',
     host_name: 'KTH'
   }
-
 }

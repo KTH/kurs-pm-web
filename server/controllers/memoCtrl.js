@@ -1,6 +1,7 @@
 'use strict'
 
 const log = require('kth-node-log')
+const language = require('kth-node-web-common/lib/language')
 
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
@@ -32,16 +33,19 @@ function _staticRender(context, location) {
 async function getContent(req, res, next) {
   try {
     const context = {}
+    const lang = language.getLanguage(res) || 'sv'
     const renderProps = _staticRender(context, req.url)
-    // const { courseCode, semester } = req.params
+    const { courseCode /* semester */ } = req.params
     const html = ReactDOMServer.renderToString(renderProps)
+
+    const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
     res.render('sample/index', {
       html,
-      title: 'TODO',
+      title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
-      // lang: lang,
-      description: 'TODO' // lang === 'sv' ? "KTH  för "+courseCode.toUpperCase() : "KTH course information "+courseCode.toUpperCase()
+      lang,
+      description: shortDescription
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
