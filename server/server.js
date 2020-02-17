@@ -213,7 +213,6 @@ server.use(
  * **********************************
  */
 const { System, CourseMemo } = require('./controllers')
-const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
@@ -227,14 +226,6 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester*', CourseMemo.getContent)
-
-appRoute.get(
-  'system.gateway',
-  config.proxyPrefixPath.uri + '/gateway',
-  getServerGatewayLogin('/'),
-  requireRole('isAdmin'),
-  CourseMemo.getContent
-)
 
 server.use('/', appRoute.getRouter())
 
