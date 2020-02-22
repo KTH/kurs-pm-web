@@ -5,8 +5,6 @@ class RouterStore {
 
   @observable semester
 
-  @observable koppsFreshData = {}
-
   @observable memoData = {}
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {

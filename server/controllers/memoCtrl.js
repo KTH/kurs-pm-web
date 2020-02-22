@@ -1,10 +1,15 @@
 'use strict'
 
+const { toJS } = require('mobx')
+const ReactDOMServer = require('react-dom/server')
+
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
 
-const { toJS } = require('mobx')
-const ReactDOMServer = require('react-dom/server')
+const apis = require('../api')
+const serverPaths = require('../server').getPaths()
+const { browser, server } = require('../configuration')
+const { getMemoDataById } = require('../kursPmDataApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -32,15 +37,20 @@ function _staticRender(context, location) {
 
 async function getContent(req, res, next) {
   try {
-    const context = {}
     const lang = language.getLanguage(res) || 'sv'
-    const renderProps = _staticRender(context, req.url)
-    const { courseCode /* semester */ } = req.params
-    const html = ReactDOMServer.renderToString(renderProps)
+    const renderProps = _staticRender({}, req.url)
+    const { courseCode, semester } = req.params
+
+    renderProps.props.children.props.routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
+    renderProps.props.children.props.routerStore.courseCode = courseCode
+    renderProps.props.children.props.routerStore.semester = semester
+    renderProps.props.children.props.routerStore.memoData = await getMemoDataById(courseCode, semester, lang)
 
     const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+    const html = ReactDOMServer.renderToString(renderProps)
 
-    res.render('sample/index', {
+    res.render('memo/index', {
       html,
       title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
