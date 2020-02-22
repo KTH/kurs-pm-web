@@ -35,7 +35,7 @@ describe('Index page', () => {
     }, 500)
   })
 
-  it('should get the index page', done => {
+  xit('should get the index page', done => {
     api.get('/v1/data/123').reply(200, {
       id: '123',
       name: 'asdasd'
