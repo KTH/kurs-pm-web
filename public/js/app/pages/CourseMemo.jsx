@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
+import { sections } from '../util/fieldsByType'
+
 const parseSemester = (semesterCode, language) => {
   const semesterNumber = semesterCode.slice(semesterCode.length - 1)
   const year = semesterCode.slice(0, semesterCode.length - 1)
@@ -9,6 +11,20 @@ const parseSemester = (semesterCode, language) => {
     return (semesterNumber === 1 ? 'VT' : 'HT') + year
   }
   return (semesterNumber === 1 ? 'Spring' : 'Autumn') + year
+}
+
+const renderAllSections = memoData => {
+  return sections.map(section => (
+    <span key={section.id}>
+      <h2 id={section.id} key={'header-' + section.id}>
+        {section.title}
+      </h2>
+      {section.content.map(contentId => {
+        // eslint-disable-next-line react/no-danger
+        return <div dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
+      })}
+    </span>
+  ))
 }
 
 @inject(['routerStore'])
@@ -23,9 +39,13 @@ class CourseMemo extends Component {
   language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
 
   render() {
-    console.log('render')
-    console.log(this.props.routerStore)
-    return <h1>{'Kurs-pm ' + parseSemester(this.semester, this.language) + ' ' + this.courseCode}</h1>
+    const allSections = renderAllSections(this.memoData)
+    return (
+      <>
+        <h1>{'Kurs-pm ' + parseSemester(this.semester, this.language) + ' ' + this.courseCode}</h1>
+        {allSections}
+      </>
+    )
   }
 }
 
