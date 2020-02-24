@@ -8,7 +8,7 @@
 
 The course information project (KIP) is an initiative at KTH that was launched in 2018 to improve the quality and availability of information about KTH:s courses. The background to the project is, among other things, that it was difficult for the student to find information about the courses and even more difficult to compare information about several courses. The reason for the problems is scattered course information in several places and that there is no uniformity or assigned places for the course information. The project takes measures to consolidate course information into two locations and to present the information in a manner that is uniform for KTH. The student should find the right information about the course, depending on their needs. The result of the project is a public course site where the correct course information is collected and presented uniformly. Also, a tool is developed for teachers to enter and publish course information. Eventually, this will lead to the student making better decisions based on their needs, and it will also reduce the burden on teachers and administration regarding questions and support for the student.
 
-Kurs-pm-data-web is a microservice with the public view of course information. It uses ```React```, ```MobX```, and is based on [https://github.com/KTH/node-web](https://github.com/KTH/node-web).
+Kurs-pm-data-web is a microservice with the public view of course memos. It uses `React`, `MobX`, and is based on [https://github.com/KTH/node-web](https://github.com/KTH/node-web).
 
 ### 🏠 [Homepage](https://github.com/KTH/kurs-pm-data-web)
 
@@ -40,6 +40,8 @@ LDAP_URI=ldaps://[find in gsv-key vault]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
 LDAP_PASSWORD=[password]
 #KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data #Default development setting
 #KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
+SESSION_SECRET=[secret]
+SESSION_KEY=kurs-pm-data-web.pid
 ```
 
 These settings are also available in an `env.in` file.
