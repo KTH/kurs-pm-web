@@ -1,4 +1,4 @@
-FROM kthse/kth-nodejs:10.14.0
+FROM kthse/kth-nodejs:12.0.0
 
 LABEL maintainer="KTH-Webb web-developers@kth.se"
 
@@ -27,6 +27,7 @@ COPY [".babelrc", ".babelrc"]
 RUN npm run docker
 
 # Copy source files, so changes does not trigger gulp.
+# COPY [".env", ".env"]
 COPY ["app.js", "app.js"]
 COPY ["server", "server"]
 
