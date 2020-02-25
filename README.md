@@ -64,6 +64,16 @@ npm run start-dev
 npm run test
 ```
 
+## Use 🐳
+
+Copy `docker-compose.yml.in` to `docker-compose.yml` and make necessary changes, if any. `KURS_PM_DATA_API_URI` probably needs to be set to reflect your local development setup.
+
+Start with command:
+
+```sh
+docker-compose-up
+```
+
 ## Author
 
 👤 **KTH**
