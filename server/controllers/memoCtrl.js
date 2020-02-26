@@ -37,15 +37,20 @@ function _staticRender(context, location) {
 
 async function getContent(req, res, next) {
   try {
-    const lang = language.getLanguage(res) || 'sv'
-    const renderProps = _staticRender({}, req.url)
+    const context = {}
+    const renderProps = _staticRender(context, req.url)
+
+    log.debug(`renderProps ${JSON.stringify(renderProps)}`)
+    const { routerStore } = renderProps.props.children.props
+
+    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
     const { courseCode, semester } = req.params
+    routerStore.courseCode = courseCode
+    routerStore.semester = semester
 
-    renderProps.props.children.props.routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
-
-    renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.memoData = await getMemoDataById(courseCode, semester, lang)
+    const lang = language.getLanguage(res) || 'sv'
+    routerStore.memoData = await getMemoDataById(courseCode, semester, lang)
 
     const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
     const html = ReactDOMServer.renderToString(renderProps)
