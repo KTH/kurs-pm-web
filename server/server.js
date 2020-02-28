@@ -242,8 +242,8 @@ if (process.env.NODE_ENV === 'development') {
     online: false,
     // Stop the browser from automatically opening
     open: false,
-    // Use a specific port (instead of the one auto-detected by Browsersync)
-    port: config.port + 10,
+    // Use a specific port (instead of the one auto-detected by BrowserSync)
+    port: config.browserSyncPort,
     // Using a localhost address with a port
     proxy: 'localhost:' + config.port,
     // Disable UI completely
