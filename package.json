@@ -24,6 +24,7 @@
     "applicationinsights": "^1.7.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
+    "browser-sync": "^2.26.7",
     "component-registry": "^1.2.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
