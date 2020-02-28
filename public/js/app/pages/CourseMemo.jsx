@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import { Container, Row, Col } from 'reactstrap'
 
 import { sections } from '../util/fieldsByType'
 
@@ -41,10 +42,28 @@ class CourseMemo extends Component {
   render() {
     const allSections = renderAllSections(this.memoData)
     return (
-      <>
-        <h1>{'Kurs-pm ' + parseSemester(this.semester, this.language) + ' ' + this.courseCode}</h1>
-        {allSections}
-      </>
+      <Container className="kip-container">
+        <Row>
+          <Col lg="12">
+            <h1>{'Kurs-pm ' + parseSemester(this.semester, this.language) + ' ' + this.courseCode}</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="12">
+            <div style={{ backgroundColor: 'lightgray', height: '12rem' }}>Information about course</div>
+            <hr />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="3">
+            <h2>Side Menu</h2>
+          </Col>
+          <Col lg="6">{allSections}</Col>
+          <Col lg="3">
+            <h2>Sidebar</h2>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
