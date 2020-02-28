@@ -38,10 +38,11 @@ Secrets during local development are ALWAYS stored in a `.env`-file in the root 
 LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
 LDAP_URI=ldaps://[find in gsv-key vault]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
 LDAP_PASSWORD=[password]
-#KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data #Default development setting
-#KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
+KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data #Default development setting
+KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
 SESSION_SECRET=[secret]
 SESSION_KEY=kurs-pm-data-web.pid
+BROWSER_SYNC_PORT=[default is SERVER_PORT + 10]
 ```
 
 These settings are also available in an `env.in` file.
@@ -53,6 +54,8 @@ npm install
 ```
 
 ## Usage
+
+Start the service on [localhost:3000/kurs-pm/:courseCode/:semester](http://localhost:3000/kurs-pm/:courseCode/:semester).
 
 ```sh
 npm run start-dev
@@ -71,6 +74,14 @@ Copy `docker-compose.yml.in` to `docker-compose.yml` and make necessary changes,
 ```sh
 docker-compose up
 ```
+
+## Browsersync
+
+[Browsersync](https://www.browsersync.io/) is added as a dev dependency and will run if `NODE_ENV` is `'development'`, e.g. when the service is started with `npm run start-dev`.
+
+### Port
+
+On a started service, _Browsersync_ is available on [localhost:3010/kurs-pm/:courseCode/:semester](http://localhost:3010/kurs-pm/:courseCode/:semester). The _Browsersync_ port can be set with the environment variable `BROWSER_SYNC_PORT`.
 
 ## Author
 

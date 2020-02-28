@@ -55,6 +55,7 @@ module.exports = {
   hostUrl: getEnv('SERVER_HOST_URL', devUrl),
   useSsl: safeGet(() => getEnv('SERVER_SSL', devSsl + '').toLowerCase() === 'true'),
   port: getEnv('SERVER_PORT', devPort),
+  browsersyncPort: getEnv('BROWSER_SYNC_PORT', devPort + 10),
   ssl: {
     // In development we don't have SSL feature enabled
     pfx: getEnv('SERVER_CERT_FILE', ''),

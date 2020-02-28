@@ -1,4 +1,6 @@
 const server = require('kth-node-server')
+// eslint-disable-next-line import/no-extraneous-dependencies
+const browsersync = require('browser-sync')
 
 // Now read the server config etc.
 const config = require('./configuration').server
@@ -232,6 +234,27 @@ server.use('/', appRoute.getRouter())
 // Not found etc
 server.use(System.notFound)
 server.use(System.final)
+
+/* **********************************
+ * ********** BROWSERSYNC ***********
+ * **********************************
+ */
+if (process.env.NODE_ENV === 'development') {
+  browsersync({
+    // Watch all HTML, JavaScript, and CSS files. TODO: Add path
+    files: ['dist/*.{html,js,css}'],
+    // Will not attempt to determine your network status, assumes you're OFFLINE
+    online: false,
+    // Stop the browser from automatically opening
+    open: false,
+    // Use a specific port (instead of the one auto-detected by Browsersync)
+    port: config.browsersyncPort,
+    // Using a localhost address with a port
+    proxy: 'localhost:' + config.port,
+    // Disable UI completely
+    ui: false
+  })
+}
 
 // Register handlebar helpers
 require('./views/helpers')
