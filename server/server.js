@@ -234,6 +234,10 @@ server.use('/', appRoute.getRouter())
 server.use(System.notFound)
 server.use(System.final)
 
+/* **********************************
+ * ********** BROWSERSYNC ***********
+ * **********************************
+ */
 if (process.env.NODE_ENV === 'development') {
   browsersync({
     // Watch all HTML, JavaScript, and CSS files. TODO: Add path
