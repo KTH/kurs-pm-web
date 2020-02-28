@@ -1,4 +1,5 @@
 const server = require('kth-node-server')
+// eslint-disable-next-line import/no-extraneous-dependencies
 const browsersync = require('browser-sync')
 
 // Now read the server config etc.
