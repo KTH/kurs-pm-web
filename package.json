@@ -1,6 +1,6 @@
 {
   "//": "JSHint configuration - http://jshint.com/docs/options/",
-  "name": "kurs-pm-data-web",
+  "name": "kurs-pm-web",
   "version": "0.1.0",
   "description": "Kurs-pm-data-web is a microservice with the public view of course memos. It uses React, MobX, and is based on KTH/node-web.",
   "main": "app.js",
@@ -9,7 +9,7 @@
   "author": "KTH",
   "repository": {
     "type": "git",
-    "uri": "https://github.com/KTH/kurs-pm-data-web"
+    "uri": "https://github.com/KTH/kurs-pm-web"
   },
   "scripts": {
     "vendor": "parcel build  ./public/js/vendor.js",
