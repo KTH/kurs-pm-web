@@ -1,6 +1,4 @@
 const server = require('kth-node-server')
-// eslint-disable-next-line import/no-extraneous-dependencies
-const browsersync = require('browser-sync')
 
 // Now read the server config etc.
 const config = require('./configuration').server
@@ -240,6 +238,8 @@ server.use(System.final)
  * **********************************
  */
 if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  const browsersync = require('browser-sync')
   browsersync({
     // Watch all HTML, JavaScript, and CSS files. TODO: Add path
     files: ['dist/*.{html,js,css}'],
