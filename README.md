@@ -28,7 +28,8 @@ Application is fetching data from [https://github.com/KTH/kurs-pm-data-api](http
 
 ## Prerequisites
 
-- node 12.14.1
+- Node.js 12.14.1
+- Ansible Vault
 
 ### Secrets for Development
 
@@ -82,6 +83,28 @@ docker-compose up
 ### Port
 
 On a started service, _Browsersync_ is available on [localhost:3010/kurs-pm/:courseCode/:semester](http://localhost:3010/kurs-pm/:courseCode/:semester). The _Browsersync_ port can be set with the environment variable `BROWSER_SYNC_PORT`.
+
+## Deploy in Stage
+
+The deployment process is described in [Build, release, deploy](https://confluence.sys.kth.se/confluence/x/aY3_Ag).
+
+### Edit secrets.env
+
+```sh
+ansible-vault edit secrets.env
+```
+
+### Configure secrets.env
+
+```sh
+LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
+LDAP_URI=ldaps://[find in gsv-key vault]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
+LDAP_PASSWORD=[password]
+KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
+SESSION_SECRET=[secret]
+SESSION_KEY=kurs-pm-web.pid
+REDIS_URI=[find in gsv-key vault]
+```
 
 ## Author
 
