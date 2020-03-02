@@ -1,4 +1,4 @@
-# Welcome to kurs-pm-data-web 👋
+# Welcome to kurs-pm-web 👋
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
 ![Prerequisite](https://img.shields.io/badge/node-12.14.1-blue.svg)
@@ -8,9 +8,9 @@
 
 The course information project (KIP) is an initiative at KTH that was launched in 2018 to improve the quality and availability of information about KTH:s courses. The background to the project is, among other things, that it was difficult for the student to find information about the courses and even more difficult to compare information about several courses. The reason for the problems is scattered course information in several places and that there is no uniformity or assigned places for the course information. The project takes measures to consolidate course information into two locations and to present the information in a manner that is uniform for KTH. The student should find the right information about the course, depending on their needs. The result of the project is a public course site where the correct course information is collected and presented uniformly. Also, a tool is developed for teachers to enter and publish course information. Eventually, this will lead to the student making better decisions based on their needs, and it will also reduce the burden on teachers and administration regarding questions and support for the student.
 
-Kurs-pm-data-web is a microservice with the public view of course memos. It uses `React`, `MobX`, and is based on [https://github.com/KTH/node-web](https://github.com/KTH/node-web).
+Kurs-pm-web is a microservice with the public view of course memos. It uses `React`, `MobX`, and is based on [https://github.com/KTH/node-web](https://github.com/KTH/node-web).
 
-### 🏠 [Homepage](https://github.com/KTH/kurs-pm-data-web)
+### 🏠 [Homepage](https://github.com/KTH/kurs-pm-web)
 
 ## Overview
 
@@ -41,7 +41,7 @@ LDAP_PASSWORD=[password]
 KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data #Default development setting
 KURS_PM_DATA_API_KEY=[secret key to connect to kurs-pm-data-api]
 SESSION_SECRET=[secret]
-SESSION_KEY=kurs-pm-data-web.pid
+SESSION_KEY=kurs-pm-web.pid
 BROWSER_SYNC_PORT=[default is SERVER_PORT + 10]
 ```
 
