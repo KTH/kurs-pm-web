@@ -3,16 +3,17 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 
 import { sections } from '../util/fieldsByType'
+import CoursePresentation from '../components/CoursePresentation'
 
-const parseSemester = (semesterCode, language) => {
-  const semesterNumber = semesterCode.slice(semesterCode.length - 1)
-  const year = semesterCode.slice(0, semesterCode.length - 1)
+// const parseSemester = (semesterCode, language) => {
+//   const semesterNumber = semesterCode.slice(semesterCode.length - 1)
+//   const year = semesterCode.slice(0, semesterCode.length - 1)
 
-  if (language === 'sv') {
-    return (semesterNumber === 1 ? 'VT' : 'HT') + year
-  }
-  return (semesterNumber === 1 ? 'Spring' : 'Autumn') + year
-}
+//   if (language === 'sv') {
+//     return (semesterNumber === 1 ? 'VT' : 'HT') + year
+//   }
+//   return (semesterNumber === 1 ? 'Spring' : 'Autumn') + year
+// }
 
 const renderAllSections = memoData => {
   return sections.map(section => (
@@ -45,13 +46,12 @@ class CourseMemo extends Component {
       <Container className="kip-container">
         <Row>
           <Col lg="12">
-            <h1>{'Kurs-pm ' + parseSemester(this.semester, this.language) + ' ' + this.courseCode}</h1>
+            <h1>Inför kursval</h1>
           </Col>
         </Row>
         <Row>
           <Col lg="12">
-            <div style={{ backgroundColor: 'lightgray', height: '12rem' }}>Information about course</div>
-            <hr />
+            <CoursePresentation semester={this.semester} language={this.language} courseCode={this.courseCode} />
           </Col>
         </Row>
         <Row>
