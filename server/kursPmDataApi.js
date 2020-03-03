@@ -3,10 +3,11 @@
 const log = require('kth-node-log')
 const api = require('./api')
 
-async function getMemoDataById(courseCode, semester) {
+const PUBLISHED = 'published'
+
+async function getMemoDataById(courseCode) {
   const { client, paths } = api.kursPmDataApi
-  const id = `${courseCode}${semester}`
-  const uri = client.resolve(paths.getCourseMemoDataById.uri, { id })
+  const uri = client.resolve(paths.getAllMemosByCourseCodeAndType.uri, { courseCode, type: PUBLISHED })
 
   try {
     const res = await client.getAsync({ uri })

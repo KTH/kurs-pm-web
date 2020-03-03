@@ -50,7 +50,7 @@ async function getContent(req, res, next) {
     routerStore.semester = semester
 
     const lang = language.getLanguage(res) || 'sv'
-    routerStore.memoData = await getMemoDataById(courseCode, semester, lang)
+    routerStore.memoData = await getMemoDataById(courseCode)
 
     const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
     const html = ReactDOMServer.renderToString(renderProps)

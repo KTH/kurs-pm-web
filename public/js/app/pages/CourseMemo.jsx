@@ -31,7 +31,7 @@ const renderAllSections = memoData => {
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  memoData = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
+  memoData = this.props.routerStore.memoData[0] ? this.props.routerStore.memoData[0] : {}
 
   courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : []
 
