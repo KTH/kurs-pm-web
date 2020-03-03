@@ -11,12 +11,19 @@ const deafultIntroText = `<p>Spicy jalapeno bacon ipsum dolor amet drumstick tem
 
 const defaultCourseImageUrl = 'https://picsum.photos/400/300'
 
-const courseImageStyle = { float: 'left', height: '300px', width: '400px', margin: '0 10px 10px 0' }
-
 const CoursePresentation = ({ courseImageUrl = defaultCourseImageUrl, introText = deafultIntroText, title = '' }) => {
   return (
     <>
-      <img src={courseImageUrl} alt={title} title={title} style={courseImageStyle} />
+      <img
+        // >= lg : float left, x margins spacer * .5
+        // < lg : x margins auto, display block
+        className="float-lg-left mx-lg-2 mx-sm-auto d-sm-block"
+        height="300px"
+        width="400px"
+        src={courseImageUrl}
+        alt={title}
+        title={title}
+      />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
       <hr />
     </>
