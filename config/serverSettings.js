@@ -12,7 +12,8 @@ const {
   devDefaults,
   unpackLDAPConfig,
   unpackRedisConfig,
-  unpackNodeApiConfig
+  unpackNodeApiConfig,
+  unpackKOPPSConfig
 } = require('kth-node-configuration')
 const { typeConversion } = require('kth-node-configuration/lib/utils')
 const { safeGet } = require('safe-utils')
@@ -22,6 +23,7 @@ const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000')
+const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/')
 const devSessionKey = devDefaults('kurs-pm-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -80,6 +82,8 @@ module.exports = {
   nodeApi: {
     kursPmDataApi: unpackNodeApiConfig('KURS_PM_DATA_API_URI', devKursPmDataApi)
   },
+
+  koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
 
   // Cortina
   blockApi: {
