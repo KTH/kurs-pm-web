@@ -11,7 +11,7 @@ async function getMemoDataById(courseCode) {
 
   try {
     const res = await client.getAsync({ uri })
-    log.debug(res)
+    // log.debug(res)
     return res.body
   } catch (err) {
     log.debug('getMemoDataById is not available', err)
