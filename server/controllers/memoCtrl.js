@@ -41,7 +41,7 @@ async function getContent(req, res, next) {
     const context = {}
     const renderProps = _staticRender(context, req.url)
 
-    log.debug(`renderProps ${JSON.stringify(renderProps)}`)
+    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const { routerStore } = renderProps.props.children.props
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
