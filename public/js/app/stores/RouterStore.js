@@ -11,6 +11,8 @@ class RouterStore {
 
   @observable courseMainSubjects = ''
 
+  @observable sellingText = {}
+
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
     this.paths = paths
