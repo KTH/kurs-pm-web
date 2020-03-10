@@ -57,7 +57,7 @@ async function getContent(req, res, next) {
 
     const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
-    log.debug(`renderProps ${JSON.stringify(renderProps)}`)
+    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('memo/index', {
