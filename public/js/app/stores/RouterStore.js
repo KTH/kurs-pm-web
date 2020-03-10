@@ -7,6 +7,10 @@ class RouterStore {
 
   @observable memoData = {}
 
+  @observable imageFromAdmin = ''
+
+  @observable courseMainSubjects = ''
+
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
     this.paths = paths
