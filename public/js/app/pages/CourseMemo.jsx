@@ -4,35 +4,41 @@ import { Container, Row, Col } from 'reactstrap'
 
 import { sections } from '../util/fieldsByType'
 import CoursePresentation from '../components/CoursePresentation'
-
-// const parseSemester = (semesterCode, language) => {
-//   const semesterNumber = semesterCode.slice(semesterCode.length - 1)
-//   const year = semesterCode.slice(0, semesterCode.length - 1)
-
-//   if (language === 'sv') {
-//     return (semesterNumber === 1 ? 'VT' : 'HT') + year
-//   }
-//   return (semesterNumber === 1 ? 'Spring' : 'Autumn') + year
-// }
+import i18n from '../../../../i18n'
 
 const renderAllSections = memoData => {
-  return sections.map(section => (
-    <span key={section.id}>
-      <h2 id={section.id} key={'header-' + section.id}>
-        {section.title}
-      </h2>
-      {section.content.map(contentId => {
-        // eslint-disable-next-line react/no-danger
-        return <div dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
-      })}
-    </span>
-  ))
+  return sections.map(section => <Section key={section.id} memoData={memoData} {...section} />)
+}
+
+const Section = ({ id, title, content, memoData }) => (
+  <>
+    <h2 id={id} key={'header-' + id}>
+      {title}
+    </h2>
+    {content.map(contentId => {
+      // eslint-disable-next-line react/no-danger
+      return <div key={contentId} dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
+    })}
+  </>
+)
+
+const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language = 'sv') => {
+  const messages = language === 'en' ? i18n.messages[0].messages : i18n.messages[1].messages
+  let courseImage = ''
+  if (imageFromAdmin && imageFromAdmin.length > 4) {
+    courseImage = imageFromAdmin
+  } else {
+    const mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+    const mainSubjectImages = mainSubjects.map(subject => messages.courseImage[subject])
+    courseImage = mainSubjectImages.length ? mainSubjectImages.sort()[0] : messages.courseImage.default
+  }
+  return courseImage
 }
 
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  memoData = this.props.routerStore.memoData[0] ? this.props.routerStore.memoData[0] : {}
+  memoData = this.props.routerStore.memoData.length > 0 ? this.props.routerStore.memoData[0] : {}
 
   courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : []
 
@@ -40,8 +46,15 @@ class CourseMemo extends Component {
 
   language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
 
+  imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
+
+  courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
+
   render() {
     const allSections = renderAllSections(this.memoData)
+    const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, this.language)
+    const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
+
     return (
       <Container className="kip-container">
         <Row>
@@ -51,7 +64,12 @@ class CourseMemo extends Component {
         </Row>
         <Row>
           <Col lg="12">
-            <CoursePresentation semester={this.semester} language={this.language} courseCode={this.courseCode} />
+            <CoursePresentation
+              courseImageUrl={courseImageUrl}
+              semester={this.semester}
+              language={this.language}
+              courseCode={this.courseCode}
+            />
           </Col>
         </Row>
         <Row>
@@ -67,14 +85,5 @@ class CourseMemo extends Component {
     )
   }
 }
-
-// function useStores() {
-//   return React.useContext(MobXProviderContext)
-// }
-
-// const CourseMemo = observer(() => {
-//   const { courseCode = 'SF1624', semester = '20191', language = 'sv' } = useStores()
-//   return <h1>{'Kurs-pm ' + parseSemester(semester, language) + ' ' + courseCode}</h1>
-// })
 
 export default CourseMemo
