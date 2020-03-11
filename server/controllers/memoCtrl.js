@@ -10,6 +10,7 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoDataById } = require('../kursPmDataApi')
+const { getSellingText } = require('../kursInfoApi')
 const { getMainSubjects } = require('../koppsApi')
 
 function hydrateStores(renderProps) {
@@ -41,7 +42,6 @@ async function getContent(req, res, next) {
     const context = {}
     const renderProps = _staticRender(context, req.url)
 
-    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const { routerStore } = renderProps.props.children.props
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
@@ -53,8 +53,11 @@ async function getContent(req, res, next) {
     const lang = language.getLanguage(res) || 'sv'
     routerStore.memoData = await getMemoDataById(courseCode)
     routerStore.courseMainSubjects = await getMainSubjects(courseCode, lang)
+    routerStore.sellingText = await getSellingText(courseCode)
 
     const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+
+    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('memo/index', {
