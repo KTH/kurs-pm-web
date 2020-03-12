@@ -50,14 +50,17 @@ async function getContent(req, res, next) {
     routerStore.courseCode = courseCode
     routerStore.semester = semester
 
-    const lang = language.getLanguage(res) || 'sv'
+    const responseLanguage = language.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
     routerStore.memoData = await getMemoDataById(courseCode)
-    routerStore.courseMainSubjects = await getMainSubjects(courseCode, lang)
+    routerStore.courseMainSubjects = await getMainSubjects(courseCode, responseLanguage)
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = sellingText
     routerStore.imageFromAdmin = imageInfo
 
-    const shortDescription = (lang === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+    // TODO: Proper language constant
+    const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
     // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const html = ReactDOMServer.renderToString(renderProps)
@@ -66,7 +69,7 @@ async function getContent(req, res, next) {
       html,
       title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
-      lang,
+      responseLanguage,
       description: shortDescription
     })
   } catch (err) {
