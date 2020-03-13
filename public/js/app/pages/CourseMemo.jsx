@@ -29,7 +29,7 @@ const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language = 
     courseImage = imageFromAdmin
   } else {
     const mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
-    const mainSubjectImages = mainSubjects.map(subject => messages.courseImage[subject])
+    const mainSubjectImages = mainSubjects.filter(subject => subject).map(subject => messages.courseImage[subject])
     courseImage = mainSubjectImages.length ? mainSubjectImages.sort()[0] : messages.courseImage.default
   }
   return courseImage
