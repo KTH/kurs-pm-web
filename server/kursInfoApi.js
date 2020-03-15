@@ -9,8 +9,11 @@ async function getCourseInfo(courseCode) {
 
   try {
     const res = await client.getAsync({ uri }, { useCache: false })
-    const { sellingText, imageInfo } = res.body
-    return { sellingText, imageInfo }
+    if (res.body) {
+      const { sellingText, imageInfo } = res.body
+      return { sellingText, imageInfo }
+    }
+    return { sellingText: '', imageInfo: '' }
   } catch (err) {
     log.debug('getCourseInfo is not available', err)
     return err
