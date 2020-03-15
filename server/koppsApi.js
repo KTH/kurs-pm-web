@@ -25,9 +25,9 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-async function getMainSubjects(courseCode) {
+async function getMainSubjects(courseCode, language = 'sv') {
   const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
+  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { mainSubjects, course } = res.body
