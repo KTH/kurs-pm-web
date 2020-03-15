@@ -22,15 +22,26 @@ const Section = ({ id, title, content, memoData }) => (
   </>
 )
 
-const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language = 'sv') => {
-  const messages = language === 'en' ? i18n.messages[0].messages : i18n.messages[1].messages
+// Logic copied from kursinfo-web
+export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language = 'sv') => {
   let courseImage = ''
+  // If course administrator has set own picture, use that
   if (imageFromAdmin && imageFromAdmin.length > 4) {
     courseImage = imageFromAdmin
+    // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    const mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
-    const mainSubjectImages = mainSubjects.filter(subject => subject).map(subject => messages.courseImage[subject])
-    courseImage = mainSubjectImages.length ? mainSubjectImages.sort()[0] : messages.courseImage.default
+    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+    // If main subjects exist, and the language is English, get Swedish translations of main subjects
+    if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
+      mainSubjects = mainSubjects.map(subject => i18n.messages[0].messages.courseMainSubjects[subject])
+    }
+    // Get picture according to Swedish translation of first main subject
+    courseImage = i18n.messages[1].messages.courseImage[mainSubjects.sort()[0]]
+    // If no picture is available for first main subject, use default picture for language
+    if (!courseImage === undefined) {
+      const translation = language === 'en' ? i18n.messages[0] : i18n.messages[1]
+      courseImage = translation.messages.courseImage.default
+    }
   }
   return courseImage
 }
