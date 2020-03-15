@@ -30,18 +30,20 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
+    const englishTranslations = i18n.messages[0].messages
+    const swedishTranslations = i18n.messages[1].messages
     let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map(subject => i18n.messages[0].messages.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
-    courseImage = i18n.messages[1].messages.courseImage[mainSubjects.sort()[0]]
+    courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
     // If no picture is available for first main subject, use default picture for language
-    if (!courseImage === undefined) {
-      const translation = language === 'en' ? i18n.messages[0] : i18n.messages[1]
-      courseImage = translation.messages.courseImage.default
-    }
+    courseImage =
+      courseImage ||
+      (language === 'en' ? englishTranslations.courseImage.default : swedishTranslations.courseImage.default)
   }
   return courseImage
 }
