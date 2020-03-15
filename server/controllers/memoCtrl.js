@@ -11,7 +11,7 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoDataById } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
-const { getMainSubjects } = require('../koppsApi')
+const { getDetailedInformation } = require('../koppsApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -58,7 +58,7 @@ async function getContent(req, res, next) {
     routerStore.language = responseLanguage
 
     routerStore.memoData = await getMemoDataById(courseCode)
-    const { courseMainSubjects, recruitmentText } = await getMainSubjects(courseCode, responseLanguage)
+    const { courseMainSubjects, recruitmentText } = await getDetailedInformation(courseCode, responseLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, responseLanguage)
