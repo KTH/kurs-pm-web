@@ -34,13 +34,13 @@ async function getMainSubjects(courseCode) {
 
     if (res.body) {
       return {
-        mainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
+        courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : ''
       }
     }
 
     return {
-      mainSubjects: '',
+      courseMainSubjects: '',
       recruitmentText: ''
     }
   } catch (err) {
