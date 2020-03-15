@@ -30,9 +30,19 @@ async function getMainSubjects(courseCode) {
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const { mainSubjects } = res.body
+    const { mainSubjects, course } = res.body
 
-    return mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : ''
+    if (res.body) {
+      return {
+        mainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
+        recruitmentText: course && course.recruitmentText ? course.recruitmentText : ''
+      }
+    }
+
+    return {
+      mainSubjects: '',
+      recruitmentText: ''
+    }
   } catch (err) {
     log.debug('Kopps is not available', err)
     return err

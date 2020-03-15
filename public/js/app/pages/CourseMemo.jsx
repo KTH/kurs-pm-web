@@ -67,7 +67,7 @@ class CourseMemo extends Component {
         <Row>
           <Col lg="12">
             <CoursePresentation
-              introText={this.introText[this.language]}
+              introText={typeof this.introText === 'object' ? this.introText[this.language] : this.introText}
               courseImageUrl={courseImageUrl}
               semester={this.semester}
               language={this.language}
