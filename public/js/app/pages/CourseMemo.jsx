@@ -63,7 +63,7 @@ class CourseMemo extends Component {
 
   courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
 
-  introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : { en: '', sv: '' }
+  introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
 
   render() {
     const allSections = renderAllSections(this.memoData)
@@ -80,7 +80,7 @@ class CourseMemo extends Component {
         <Row>
           <Col lg="12">
             <CoursePresentation
-              introText={typeof this.introText === 'object' ? this.introText[this.language] : this.introText}
+              introText={this.introText}
               courseImageUrl={courseImageUrl}
               semester={this.semester}
               language={this.language}

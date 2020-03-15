@@ -15,7 +15,6 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' })
         title={title}
       />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
-      <hr />
     </>
   )
 }
