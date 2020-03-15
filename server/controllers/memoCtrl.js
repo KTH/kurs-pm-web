@@ -37,6 +37,10 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
+function resolveSellingText(sellingText, recruitmentText, lang) {
+  return sellingText[lang] ? sellingText[lang] : recruitmentText
+}
+
 async function getContent(req, res, next) {
   try {
     const context = {}
@@ -57,7 +61,7 @@ async function getContent(req, res, next) {
     const { courseMainSubjects, recruitmentText } = await getMainSubjects(courseCode, responseLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    routerStore.sellingText = sellingText || recruitmentText
+    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, responseLanguage)
     routerStore.imageFromAdmin = imageInfo
 
     // TODO: Proper language constant
