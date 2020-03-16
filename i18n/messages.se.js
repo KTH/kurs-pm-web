@@ -61,6 +61,8 @@ module.exports = {
       Teknik: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
       'Teknik och lärande': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
-    }
+    },
+
+    courseHeaderTitle: 'Inför kursval'
   }
 }

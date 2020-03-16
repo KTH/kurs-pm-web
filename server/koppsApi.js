@@ -35,7 +35,10 @@ async function getDetailedInformation(courseCode, language = 'sv') {
     if (res.body) {
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
-        recruitmentText: course && course.recruitmentText ? course.recruitmentText : ''
+        recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
+        title: course && course.title ? course.title : '',
+        credits: course && course.credits ? course.credits : '',
+        creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : ''
       }
     }
 

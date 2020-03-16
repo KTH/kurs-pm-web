@@ -6,6 +6,7 @@ import { sections } from '../util/fieldsByType'
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
+import CourseHeader from '../components/CourseHeader'
 
 const renderAllSections = memoData => {
   return sections.map(section => <Section key={section.id} memoData={memoData} {...section} />)
@@ -60,6 +61,12 @@ class CourseMemo extends Component {
 
   language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
 
+  title = this.props.routerStore.title ? this.props.routerStore.title : ''
+
+  credits = this.props.routerStore.credits ? this.props.routerStore.credits : ''
+
+  creditUnitAbbr = this.props.routerStore.creditUnitAbbr ? this.props.routerStore.creditUnitAbbr : ''
+
   imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
 
   courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
@@ -80,6 +87,13 @@ class CourseMemo extends Component {
           <Col>
             <Row>
               <Col>
+                <CourseHeader
+                  courseCode={this.courseCode}
+                  title={this.title}
+                  credits={this.credits}
+                  creditUnitAbbr={this.creditUnitAbbr}
+                  language={this.language}
+                />
                 <CoursePresentation
                   introText={this.introText}
                   courseImageUrl={courseImageUrl}
