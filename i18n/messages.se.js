@@ -63,6 +63,7 @@ module.exports = {
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
     },
 
-    courseHeaderTitle: 'Inför kursval'
+    courseHeaderTitle: 'Inför kursval',
+    courseInformationTitle: 'Information'
   }
 }
