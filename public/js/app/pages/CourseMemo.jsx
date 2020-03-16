@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap'
 
 import { sections } from '../util/fieldsByType'
 import CoursePresentation from '../components/CoursePresentation'
+import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 
 const renderAllSections = memoData => {
@@ -73,6 +74,30 @@ class CourseMemo extends Component {
     return (
       <Container className="kip-container">
         <Row>
+          <Col lg="3">
+            <SideMenu courseCode={this.courseCode} />
+          </Col>
+          <Col>
+            <Row>
+              <Col>
+                <CoursePresentation
+                  introText={this.introText}
+                  courseImageUrl={courseImageUrl}
+                  semester={this.semester}
+                  language={this.language}
+                  courseCode={this.courseCode}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>{allSections}</Col>
+              <Col lg="3">
+                <h2>Sidebar</h2>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        {/* <Row>
           <Col lg="12">
             <h1>Inför kursval</h1>
           </Col>
@@ -96,7 +121,7 @@ class CourseMemo extends Component {
           <Col lg="3">
             <h2>Sidebar</h2>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     )
   }
