@@ -104,6 +104,7 @@ class CourseMemo extends Component {
                 />
               </Col>
             </Row>
+            <Row className="w-100 p-1" style={{ borderBottom: '1px solid lightgray' }} />
             <Row>
               <Col>{allSections}</Col>
               <Col lg="4">
