@@ -11,6 +11,12 @@ class RouterStore {
 
   @observable courseMainSubjects = ''
 
+  @observable title = ''
+
+  @observable credits = ''
+
+  @observable creditUnitAbbr = ''
+
   @observable sellingText = {}
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {

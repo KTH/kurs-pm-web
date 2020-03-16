@@ -91,6 +91,9 @@ module.exports = {
       'Engineering and Management': 'Picture_by_MainFieldOfStudy_24_Engineering_Management.jpg',
       'Technology and Learning': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
-    }
+    },
+
+    courseHeaderTitle: 'Before Choosing a Course',
+    courseInformationTitle: 'Information'
   }
 }
