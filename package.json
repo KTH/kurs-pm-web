@@ -76,7 +76,6 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.9",
-    "kth-node-build-commons": "^4.0.5",
     "merge-stream": "^2.0.0",
     "mocha": "6.2.2",
     "mockery": "^2.1.0",
@@ -86,8 +85,7 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "sass": "^1.23.3",
-    "zombie": "6.1.4"
+    "sass": "^1.23.3"
   },
   "prettier": {
     "trailingComma": "none",
