@@ -11,14 +11,14 @@ const Contact = ({ username, givenName, lastName }) => {
   const displayName = `${givenName} ${lastName}`
 
   return (
-    <>
+    <div>
       <span itemsScope="" itemType={itemTypeSchemaUrl}>
         <a href={`${defaultProfileUrl}${username}`} itemProp="url">
           <Thumbnail itemProp="image" username={username} />
           <span itemProp="name">{displayName}</span>
         </a>
       </span>
-    </>
+    </div>
   )
 }
 
