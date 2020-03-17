@@ -30,7 +30,7 @@ async function getDetailedInformation(courseCode, language = 'sv') {
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const { mainSubjects, course } = res.body
+    const { mainSubjects, course, examiners } = res.body
 
     if (res.body) {
       return {
@@ -38,7 +38,8 @@ async function getDetailedInformation(courseCode, language = 'sv') {
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
         title: course && course.title ? course.title : '',
         credits: course && course.credits ? course.credits : '',
-        creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : ''
+        creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
+        examiners
       }
     }
 

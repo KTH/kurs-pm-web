@@ -94,6 +94,8 @@ module.exports = {
     },
 
     courseHeaderTitle: 'Before Choosing a Course',
-    courseInformationTitle: 'Information'
+    courseInformationTitle: 'Information',
+    courseContactsTitle: 'Contacts',
+    courseContactsExaminerTitle: 'Examiner'
   }
 }
