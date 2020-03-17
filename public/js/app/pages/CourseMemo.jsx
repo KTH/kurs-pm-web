@@ -129,31 +129,6 @@ class CourseMemo extends Component {
             </Row>
           </Col>
         </Row>
-        {/* <Row>
-          <Col lg="12">
-            <h1>Inför kursval</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="12">
-            <CoursePresentation
-              introText={this.introText}
-              courseImageUrl={courseImageUrl}
-              semester={this.semester}
-              language={this.language}
-              courseCode={this.courseCode}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="3">
-            <h2>Side Menu</h2>
-          </Col>
-          <Col lg="6">{allSections}</Col>
-          <Col lg="3">
-            <h2>Sidebar</h2>
-          </Col>
-        </Row> */}
       </Container>
     )
   }
