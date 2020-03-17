@@ -58,14 +58,20 @@ async function getContent(req, res, next) {
     routerStore.language = responseLanguage
 
     routerStore.memoData = await getMemoDataById(courseCode)
-    const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr } = await getDetailedInformation(
-      courseCode,
-      responseLanguage
-    )
+    const {
+      courseMainSubjects,
+      recruitmentText,
+      title,
+      credits,
+      creditUnitAbbr,
+      examiners
+    } = await getDetailedInformation(courseCode, responseLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
     routerStore.credits = credits
     routerStore.creditUnitAbbr = creditUnitAbbr
+    routerStore.examiners = examiners
+
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, responseLanguage)
     routerStore.imageFromAdmin = imageInfo

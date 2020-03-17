@@ -17,6 +17,8 @@ class RouterStore {
 
   @observable creditUnitAbbr = ''
 
+  @observable examiners = []
+
   @observable sellingText = {}
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {

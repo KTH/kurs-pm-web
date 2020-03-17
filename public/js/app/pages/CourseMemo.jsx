@@ -69,6 +69,8 @@ class CourseMemo extends Component {
 
   creditUnitAbbr = this.props.routerStore.creditUnitAbbr ? this.props.routerStore.creditUnitAbbr : ''
 
+  examiners = this.props.routerStore.examiners ? this.props.routerStore.examiners : ''
+
   imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
 
   courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
@@ -109,7 +111,7 @@ class CourseMemo extends Component {
             <Row>
               <Col>{allSections}</Col>
               <Col lg="4">
-                <CourseContacts language={this.language} />
+                <CourseContacts language={this.language} examiners={this.examiners} />
               </Col>
             </Row>
           </Col>
