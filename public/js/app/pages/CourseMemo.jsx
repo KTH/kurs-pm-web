@@ -7,6 +7,7 @@ import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 import CourseHeader from '../components/CourseHeader'
+import CourseContacts from '../components/CourseContacts'
 
 const renderAllSections = memoData => {
   return sections.map(section => <Section key={section.id} memoData={memoData} {...section} />)
@@ -108,23 +109,7 @@ class CourseMemo extends Component {
             <Row>
               <Col>{allSections}</Col>
               <Col lg="4">
-                <h2>
-                  {this.language === 'en'
-                    ? englishTranslations.courseInformationTitle
-                    : swedishTranslations.courseInformationTitle}
-                </h2>
-                <div className="text-muted">
-                  Spicy jalapeno bacon ipsum dolor amet velit aliquip tempor ea cupim tongue flank chislic burgdoggen
-                  tail proident kevin dolore. Commodo shoulder culpa eu kielbasa, pork belly voluptate dolore. Quis ham
-                  enim bresaola, buffalo venison sausage jowl dolore lorem ball tip chicken picanha. Flank cupim id
-                  tempor pancetta in t-bone voluptate burgdoggen ullamco spare ribs. In do labore buffalo occaecat beef
-                  ribs short ribs. Short loin hamburger frankfurter spare ribs nulla t-bone shoulder.
-                </div>
-                <div className="text-muted">
-                  Nisi shoulder ex, chuck sed t-bone pork exercitation burgdoggen chislic officia quis turkey. Sed velit
-                  pariatur, kevin strip steak sirloin turkey duis lorem brisket beef ribs pork loin aute. Meatball jowl
-                  tail pork loin t-bone aute eu duis tri-tip. Picanha pork meatball culpa id.
-                </div>
+                <CourseContacts language={this.language} />
               </Col>
             </Row>
           </Col>

@@ -64,6 +64,8 @@ module.exports = {
     },
 
     courseHeaderTitle: 'Inför kursval',
-    courseInformationTitle: 'Information'
+    courseInformationTitle: 'Information',
+    courseContactsTitle: 'Kontakter',
+    courseContactsExaminerTitle: 'Examinator'
   }
 }
