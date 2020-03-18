@@ -12,7 +12,7 @@ const Contact = ({ username, givenName, lastName }) => {
 
   return (
     <div>
-      <span itemsScope="" itemType={itemTypeSchemaUrl}>
+      <span itemType={itemTypeSchemaUrl}>
         <a href={`${defaultProfileUrl}${username}`} itemProp="url">
           <Thumbnail itemProp="image" username={username} />
           <span itemProp="name">{displayName}</span>
