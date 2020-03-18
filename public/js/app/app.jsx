@@ -22,7 +22,7 @@ function appFactory() {
 
   return (
     <Provider routerStore={routerStore}>
-      <Route exact path="/kurs-pm/:courseCode/:semester" component={CourseMemo} />
+      <Route exact path="/kurs-pm/:courseCode/:semester/:roundId" component={CourseMemo} />
     </Provider>
   )
 }
