@@ -17,7 +17,7 @@ const CourseContacts = ({ language = 'sv', examiners = [] }) => (
           : englishTranslations.courseContactsExaminerTitle}
       </h3>
       {examiners.map(e => (
-        <Contact username={e.username} givenName={e.givenName} lastName={e.lastName} />
+        <Contact key={e.username} username={e.username} givenName={e.givenName} lastName={e.lastName} />
       ))}
     </>
   </>
