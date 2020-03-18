@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 
@@ -61,6 +62,10 @@ class CourseMemo extends Component {
 
   semester = this.props.routerStore.semester ? this.props.routerStore.semester : ''
 
+  roundId = this.props.routerStore.roundId ? this.props.routerStore.roundId : ''
+
+  roundInfo = this.props.routerStore.roundInfo ? this.props.routerStore.roundInfo : {}
+
   language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
 
   title = this.props.routerStore.title ? this.props.routerStore.title : ''
@@ -81,6 +86,11 @@ class CourseMemo extends Component {
     const allSections = renderAllSections(this.memoData)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, this.language)
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
+
+    // eslint-disable-next-line no-console
+    console.log('roundId', this.roundId)
+    // eslint-disable-next-line no-console
+    console.log('roundInfo', toJS(this.roundInfo))
 
     return (
       <Container className="kip-container">

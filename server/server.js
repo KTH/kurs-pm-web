@@ -225,7 +225,11 @@ server.use('/', systemRoute.getRouter())
 // App routes
 const appRoute = AppRouter()
 
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester*', CourseMemo.getContent)
+appRoute.get(
+  'courseMemo.getContent',
+  config.proxyPrefixPath.uri + '/:courseCode/:semester/:roundId',
+  CourseMemo.getContent
+)
 
 server.use('/', appRoute.getRouter())
 
