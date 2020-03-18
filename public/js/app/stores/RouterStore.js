@@ -5,21 +5,25 @@ class RouterStore {
 
   @observable semester
 
-  @observable memoData = {}
+  @observable roundId
 
-  @observable imageFromAdmin = ''
+  @observable roundInfo
 
-  @observable courseMainSubjects = ''
+  @observable memoData
 
-  @observable title = ''
+  @observable imageFromAdmin
 
-  @observable credits = ''
+  @observable courseMainSubjects
 
-  @observable creditUnitAbbr = ''
+  @observable title
 
-  @observable examiners = []
+  @observable credits
 
-  @observable sellingText = {}
+  @observable creditUnitAbbr
+
+  @observable examiners
+
+  @observable sellingText
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
