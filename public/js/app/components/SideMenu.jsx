@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-const SideMenu = ({ courseCode = '' }) => {
+const SideMenu = ({ courseCode = '', courseMemoLabels = [] }) => {
   return (
     <div>
       <p>
@@ -16,6 +16,11 @@ const SideMenu = ({ courseCode = '' }) => {
       <p>
         <b>Förbereda, gå (kurs-pm)</b>
       </p>
+      <ul>
+        {courseMemoLabels.map((label) => (
+          <li key={label}>{label}</li>
+        ))}
+      </ul>
       <p>Slutföra ej avklarad kurs</p>
       <p>Kursens utveckling och historik</p>
     </div>

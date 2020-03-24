@@ -9,7 +9,7 @@ class RouterStore {
 
   @observable roundInfo
 
-  @observable memoData
+  @observable memoDatas
 
   @observable imageFromAdmin
 
@@ -59,7 +59,7 @@ class RouterStore {
 
       const tmp = JSON.parse(decodeURIComponent(window.__initialState__[storeName]))
 
-      Object.keys(tmp).map(key => {
+      Object.keys(tmp).map((key) => {
         store[key] = tmp[key]
         delete tmp[key]
       })
