@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 
-const SideMenu = ({ courseCode = '', courseMemoLabels = [] }) => {
+const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
   return (
     <div>
       <p>
@@ -17,9 +19,17 @@ const SideMenu = ({ courseCode = '', courseMemoLabels = [] }) => {
         <b>Förbereda, gå (kurs-pm)</b>
       </p>
       <ul>
-        {courseMemoLabels.map((label) => (
-          <li key={label}>{label}</li>
-        ))}
+        {courseMemoItems.map(({ label, action, active }) => {
+          return active ? (
+            <b>
+              <li key={label}>{label}</li>
+            </b>
+          ) : (
+            <li key={label}>
+              <a onClick={() => action()}>{label}</a>
+            </li>
+          )
+        })}
       </ul>
       <p>Slutföra ej avklarad kurs</p>
       <p>Kursens utveckling och historik</p>
