@@ -18,7 +18,7 @@ function hydrateStores(renderProps) {
   const outp = {}
   const { props } = renderProps.props.children
 
-  Object.keys(props).map(key => {
+  Object.keys(props).map((key) => {
     if (typeof props[key].initializeStore === 'function') {
       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
     }
@@ -58,7 +58,8 @@ async function getContent(req, res, next) {
     const responseLanguage = language.getLanguage(res) || 'sv'
     routerStore.language = responseLanguage
 
-    routerStore.memoData = await getMemoDataById(courseCode)
+    routerStore.memoDatas = await getMemoDataById(courseCode)
+
     const {
       courseMainSubjects,
       recruitmentText,
