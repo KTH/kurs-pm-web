@@ -9,10 +9,10 @@ class RouterStore {
 
   @observable roundInfo
 
-  @observable memoDatas
+  @observable memoDatas = []
 
   // This is really the current memo id
-  @observable memoEndPoint
+  @observable memoEndPoint = ''
 
   @observable imageFromAdmin
 
@@ -30,6 +30,10 @@ class RouterStore {
 
   @computed get memoData() {
     return this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+  }
+
+  @action setMemoEndPoint(memoEndPoint) {
+    this.memoEndPoint = memoEndPoint
   }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
