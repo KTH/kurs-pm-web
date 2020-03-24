@@ -58,7 +58,9 @@ async function getContent(req, res, next) {
     const responseLanguage = language.getLanguage(res) || 'sv'
     routerStore.language = responseLanguage
 
-    routerStore.memoDatas = await getMemoDataById(courseCode)
+    const memoDatas = await getMemoDataById(courseCode)
+    routerStore.memoDatas = memoDatas
+    routerStore.memoEndPoint = memoDatas[0].memoEndPoint
 
     const {
       courseMainSubjects,

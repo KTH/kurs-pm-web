@@ -59,7 +59,7 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 class CourseMemo extends Component {
   memoDatas = this.props.routerStore.memoDatas ? this.props.routerStore.memoDatas : {}
 
-  memoData = this.props.routerStore.memoDatas.length > 0 ? this.props.routerStore.memoDatas[0] : {}
+  memoData = this.props.routerStore.memoData
 
   courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : []
 

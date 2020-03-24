@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
 
 class RouterStore {
   @observable courseCode
@@ -10,6 +10,9 @@ class RouterStore {
   @observable roundInfo
 
   @observable memoDatas
+
+  // This is really the current memo id
+  @observable memoEndPoint
 
   @observable imageFromAdmin
 
@@ -24,6 +27,10 @@ class RouterStore {
   @observable examiners
 
   @observable sellingText
+
+  @computed get memoData() {
+    return this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+  }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
