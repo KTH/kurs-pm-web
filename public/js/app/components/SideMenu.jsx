@@ -12,10 +12,10 @@ const SideMenu = ({ courseCode = '' }) => {
         <b>Om kursen {courseCode}</b>
       </p>
       <hr />
+      <p>Inför kursval</p>
       <p>
-        <b>Inför kursval</b>
+        <b>Förbereda, gå (kurs-pm)</b>
       </p>
-      <p>Förbereda, gå (kurs-pm)</p>
       <p>Slutföra ej avklarad kurs</p>
       <p>Kursens utveckling och historik</p>
     </div>
