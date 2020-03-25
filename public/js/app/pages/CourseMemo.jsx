@@ -10,9 +10,13 @@ import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
 
 const renderAllSections = (memoData) => {
-  return sections.map((section) => (
-    <Section key={section.id} id={section.id} title={section.title} content={section.content} memoData={memoData} />
-  ))
+  return memoData ? (
+    sections.map((section) => (
+      <Section key={section.id} id={section.id} title={section.title} content={section.content} memoData={memoData} />
+    ))
+  ) : (
+    <h2>Inga publicerade kurs-pm</h2>
+  )
 }
 
 const Section = ({ id, title, content, memoData }) => (

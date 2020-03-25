@@ -60,7 +60,7 @@ async function getContent(req, res, next) {
 
     const memoDatas = await getMemoDataById(courseCode)
     routerStore.memoDatas = memoDatas
-    routerStore.memoEndPoint = memoDatas[0].memoEndPoint
+    routerStore.memoEndPoint = memoDatas[0] ? memoDatas[0].memoEndPoint : ''
 
     const {
       courseMainSubjects,
