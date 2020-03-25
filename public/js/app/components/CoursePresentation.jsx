@@ -3,7 +3,7 @@ import React from 'react'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' }) => {
   return (
-    <>
+    <div style={{ minHeight: '160px' }}>
       <img
         // >= lg : float left, x margins spacer * .5
         // < lg : x margins auto, display block
@@ -15,7 +15,7 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' })
         title={title}
       />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
-    </>
+    </div>
   )
 }
 
