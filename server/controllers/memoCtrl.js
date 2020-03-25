@@ -32,6 +32,8 @@ function _staticRender(context, location) {
     delete require.cache[require.resolve('../../dist/app.js')]
   }
 
+  // During startup, before build, there might not be a app.js yet
+  // eslint-disable-next-line import/no-unresolved
   const { staticRender } = require('../../dist/app.js')
 
   return staticRender(context, location)
