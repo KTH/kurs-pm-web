@@ -96,7 +96,7 @@ class CourseMemo extends Component {
                 const label = m.memoEndPoint
                 return {
                   label,
-                  active: false,
+                  active: this.props.routerStore.activeMemoEndPoint(label),
                   action: () => {
                     this.props.routerStore.setMemoEndPoint(label)
                   }
