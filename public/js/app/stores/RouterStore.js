@@ -81,6 +81,10 @@ class RouterStore {
       }
     }
   }
+
+  activeMemoEndPoint(memoEndPoint) {
+    return this.memoEndPoint === memoEndPoint
+  }
 }
 
 export default RouterStore
