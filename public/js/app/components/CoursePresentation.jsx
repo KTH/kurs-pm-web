@@ -8,8 +8,8 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' })
         // >= lg : float left, x margins spacer * .5
         // < lg : x margins auto, display block
         className="float-lg-left mx-lg-2 mx-sm-auto d-sm-block"
-        height="300px"
-        width="400px"
+        height="150px"
+        width="200px"
         src={courseImageUrl}
         alt={title}
         title={title}
