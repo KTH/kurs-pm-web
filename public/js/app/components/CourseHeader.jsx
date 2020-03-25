@@ -12,18 +12,24 @@ const formatCredits = (credits, creditUnitAbbr, language) => {
   return `${localeCredits} ${creditUnit}`
 }
 
-const CourseHeader = ({ courseCode = '', title = '', credits = '', creditUnitAbbr = '', language = 'sv' }) => {
+const CourseHeader = ({
+  courseMemo = '',
+  courseCode = '',
+  title = '',
+  credits = '',
+  creditUnitAbbr = '',
+  language = 'sv'
+}) => {
+  const headerTitle = language === 'sv' ? swedishTranslations.courseHeaderTitle : englishTranslations.courseHeaderTitle
   return (
-    <>
-      <h1 className="course-header-title">
-        {language === 'sv' ? swedishTranslations.courseHeaderTitle : englishTranslations.courseHeaderTitle}
-      </h1>
+    <div>
+      <h1 className="course-header-title">{`${headerTitle} ${courseMemo}`}</h1>
       <p>
         <b>
           {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
         </b>
       </p>
-    </>
+    </div>
   )
 }
 

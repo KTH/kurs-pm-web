@@ -8,9 +8,11 @@ const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
 const CourseContacts = ({ language = 'sv', examiners = [] }) => (
-  <>
-    <h2>{language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}</h2>
-    <>
+  <div>
+    <h2 style={{ marginTop: '0' }}>
+      {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
+    </h2>
+    <div>
       <h3>
         {language === 'sv'
           ? swedishTranslations.courseContactsExaminerTitle
@@ -19,8 +21,8 @@ const CourseContacts = ({ language = 'sv', examiners = [] }) => (
       {examiners.map(e => (
         <Contact key={e.username} username={e.username} givenName={e.givenName} lastName={e.lastName} />
       ))}
-    </>
-  </>
+    </div>
+  </div>
 )
 
 export default CourseContacts

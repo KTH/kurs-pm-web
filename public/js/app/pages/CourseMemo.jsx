@@ -110,14 +110,17 @@ class CourseMemo extends Component {
           </Col>
           <Col>
             <Row>
+              <CourseHeader
+                courseMemo={this.props.routerStore.memoEndPoint}
+                courseCode={this.courseCode}
+                title={this.title}
+                credits={this.credits}
+                creditUnitAbbr={this.creditUnitAbbr}
+                language={this.language}
+              />
+            </Row>
+            <Row>
               <Col>
-                <CourseHeader
-                  courseCode={this.courseCode}
-                  title={this.title}
-                  credits={this.credits}
-                  creditUnitAbbr={this.creditUnitAbbr}
-                  language={this.language}
-                />
                 <CoursePresentation
                   introText={this.introText}
                   courseImageUrl={courseImageUrl}
@@ -125,12 +128,9 @@ class CourseMemo extends Component {
                   language={this.language}
                   courseCode={this.courseCode}
                 />
+                {allSections}
               </Col>
-            </Row>
-            <Row className="w-100 p-1" style={{ borderBottom: '1px solid lightgray' }} />
-            <Row>
-              <Col>{allSections}</Col>
-              <Col lg="4">
+              <Col lg="3">
                 <CourseContacts language={this.language} examiners={this.examiners} />
               </Col>
             </Row>

@@ -93,7 +93,7 @@ module.exports = {
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
     },
 
-    courseHeaderTitle: 'Before Choosing a Course',
+    courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Contacts',
     courseContactsExaminerTitle: 'Examiner'
