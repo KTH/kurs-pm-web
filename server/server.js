@@ -56,7 +56,7 @@ server.set('partials', path.join(__dirname, '/views/partials'))
 server.engine(
   'handlebars',
   exphbs({
-    defaultLayout: 'publicLayout',
+    defaultLayout: process.env.NODE_ENV === 'development' ? 'devPublicLayout' : 'publicLayout',
     layoutsDir: server.settings.layouts,
     partialsDir: server.settings.partials
   })
@@ -225,11 +225,7 @@ server.use('/', systemRoute.getRouter())
 // App routes
 const appRoute = AppRouter()
 
-appRoute.get(
-  'courseMemo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:semester/:roundId',
-  CourseMemo.getContent
-)
+appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
 
 server.use('/', appRoute.getRouter())
 

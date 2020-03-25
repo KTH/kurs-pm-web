@@ -1,21 +1,39 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 
-const SideMenu = ({ courseCode = '' }) => {
+import { Button } from 'reactstrap'
+
+const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
   return (
     <div>
       <p>
-        &lsaquo; <a href="https://www.kth.se/student/kurser/kurser-inom-program">Kurs- och programkatalogen</a>
+        &lsaquo;&nbsp;
+        <a href="https://www.kth.se/student/kurser/kurser-inom-program">Kurs- och programkatalogen</a>
       </p>
       <p>
-        <b>Om kursen {courseCode}</b>
+        <b>
+          Om kursen&nbsp;
+          {courseCode}
+        </b>
+      </p>
+      <hr />
+      <p>Inför kursval</p>
+      <p>
+        <b>Förbereda, gå (kurs-pm)</b>
       </p>
       <hr />
       <p>
-        <b>Inför kursval</b>
+        {courseMemoItems.map(({ label, action, active }) => {
+          return active ? (
+            <Button key={label} className="menu" color="link" disabled>
+              {label}
+            </Button>
+          ) : (
+            <Button key={label} className="menu" color="link" onClick={() => action()}>
+              {label}
+            </Button>
+          )
+        })}
       </p>
-      <p>Förbereda, gå (kurs-pm)</p>
       <p>Slutföra ej avklarad kurs</p>
       <p>Kursens utveckling och historik</p>
     </div>

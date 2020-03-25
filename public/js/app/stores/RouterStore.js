@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
 
 class RouterStore {
   @observable courseCode
@@ -9,7 +9,10 @@ class RouterStore {
 
   @observable roundInfo
 
-  @observable memoData
+  @observable memoDatas = []
+
+  // This is really the current memo id
+  @observable memoEndPoint = ''
 
   @observable imageFromAdmin
 
@@ -24,6 +27,14 @@ class RouterStore {
   @observable examiners
 
   @observable sellingText
+
+  @computed get memoData() {
+    return this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+  }
+
+  @action setMemoEndPoint(memoEndPoint) {
+    this.memoEndPoint = memoEndPoint
+  }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
@@ -59,7 +70,7 @@ class RouterStore {
 
       const tmp = JSON.parse(decodeURIComponent(window.__initialState__[storeName]))
 
-      Object.keys(tmp).map(key => {
+      Object.keys(tmp).map((key) => {
         store[key] = tmp[key]
         delete tmp[key]
       })
@@ -69,6 +80,10 @@ class RouterStore {
         window.__initialState__ = 'Mobx store state initialized'
       }
     }
+  }
+
+  activeMemoEndPoint(memoEndPoint) {
+    return this.memoEndPoint === memoEndPoint
   }
 }
 

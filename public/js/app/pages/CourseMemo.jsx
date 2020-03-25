@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 
@@ -10,8 +9,14 @@ import i18n from '../../../../i18n'
 import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
 
-const renderAllSections = memoData => {
-  return sections.map(section => <Section key={section.id} memoData={memoData} {...section} />)
+const renderAllSections = (memoData) => {
+  return memoData ? (
+    sections.map((section) => (
+      <Section key={section.id} id={section.id} title={section.title} content={section.content} memoData={memoData} />
+    ))
+  ) : (
+    <h2>Inga publicerade kurs-pm</h2>
+  )
 }
 
 const Section = ({ id, title, content, memoData }) => (
@@ -19,7 +24,7 @@ const Section = ({ id, title, content, memoData }) => (
     <h2 id={id} key={'header-' + id}>
       {title}
     </h2>
-    {content.map(contentId => {
+    {content.map((contentId) => {
       // eslint-disable-next-line react/no-danger
       return <div key={contentId} dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
     })}
@@ -37,11 +42,11 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+    let mainSubjects = courseMainSubjects.split(',').map((s) => s.trim())
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
     courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
@@ -56,8 +61,6 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  memoData = this.props.routerStore.memoData.length > 0 ? this.props.routerStore.memoData[0] : {}
-
   courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : []
 
   semester = this.props.routerStore.semester ? this.props.routerStore.semester : ''
@@ -83,20 +86,27 @@ class CourseMemo extends Component {
   introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
 
   render() {
-    const allSections = renderAllSections(this.memoData)
+    const allSections = renderAllSections(this.props.routerStore.memoData)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, this.language)
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
-
-    // eslint-disable-next-line no-console
-    console.log('roundId', this.roundId)
-    // eslint-disable-next-line no-console
-    console.log('roundInfo', toJS(this.roundInfo))
 
     return (
       <Container className="kip-container">
         <Row>
           <Col lg="3">
-            <SideMenu courseCode={this.courseCode} />
+            <SideMenu
+              courseCode={this.courseCode}
+              courseMemoItems={this.props.routerStore.memoDatas.map((m) => {
+                const label = m.memoEndPoint
+                return {
+                  label,
+                  active: this.props.routerStore.activeMemoEndPoint(label),
+                  action: () => {
+                    this.props.routerStore.setMemoEndPoint(label)
+                  }
+                }
+              })}
+            />
           </Col>
           <Col>
             <Row>

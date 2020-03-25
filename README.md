@@ -56,7 +56,7 @@ npm install
 
 ## Usage
 
-Start the service on [localhost:3000/kurs-pm/:courseCode/:semester](http://localhost:3000/kurs-pm/:courseCode/:semester).
+Start the service on [localhost:3000/kurs-pm/:courseCode](http://localhost:3000/kurs-pm/:courseCode).
 
 ```sh
 npm run start-dev
@@ -82,7 +82,7 @@ docker-compose up
 
 ### Port
 
-On a started service, _Browsersync_ is available on [localhost:3010/kurs-pm/:courseCode/:semester](http://localhost:3010/kurs-pm/:courseCode/:semester). The _Browsersync_ port can be set with the environment variable `BROWSER_SYNC_PORT`.
+On a started service, _Browsersync_ is available on [localhost:3010/kurs-pm/:courseCode](http://localhost:3010/kurs-pm/:courseCode). The _Browsersync_ port can be set with the environment variable `BROWSER_SYNC_PORT`.
 
 ## Deploy in Stage
 
