@@ -49,6 +49,16 @@ const teacher = (language, memoData) =>
     </div>
   )
 
+const teacherAssistants = (language, memoData) =>
+  !memoData.teacherAssistants || (
+    <div>
+      <h3>
+        {language === 'sv' ? swedishTranslations.teacherAssistantsTitle : englishTranslations.teacherAssistantsTitle}
+      </h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+    </div>
+  )
+
 const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
@@ -58,6 +68,7 @@ const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
       {communicationWithTeachers(language, memoData)}
       {courseCoordinator(language, memoData)}
       {teacher(language, memoData)}
+      {teacherAssistants(language, memoData)}
       <div>
         <h3>
           {language === 'sv'
