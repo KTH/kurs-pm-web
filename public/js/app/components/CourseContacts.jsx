@@ -36,6 +36,19 @@ const courseCoordinator = (language, memoData) =>
     </div>
   )
 
+const teacher = (language, memoData) =>
+  memoData.teacher ? (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+    </div>
+  ) : (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
 const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
@@ -44,6 +57,7 @@ const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
     <div style={{ backgroundColor: '#f4f4f4' }}>
       {communicationWithTeachers(language, memoData)}
       {courseCoordinator(language, memoData)}
+      {teacher(language, memoData)}
       <div>
         <h3>
           {language === 'sv'
