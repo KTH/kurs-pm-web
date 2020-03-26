@@ -72,6 +72,7 @@ module.exports = {
     courseCoordinatorTitle: 'Kursansvarig',
     teacherTitle: 'Lärare',
     teacherAssistantsTitle: 'Lärarassistenter',
-    examinerTitle: 'Examinator'
+    examinerTitle: 'Examinator',
+    otherContactsTitle: 'Övriga kontakter'
   }
 }

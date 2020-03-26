@@ -77,6 +77,15 @@ const examiner = (language, memoData) =>
     </div>
   )
 
+// Volontary information
+const otherContacts = (language, memoData) =>
+  !memoData.otherContacts || (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.otherContactsTitle : englishTranslations.otherContactsTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+    </div>
+  )
+
 const CourseContacts = ({ language = 'sv', /* examiners = [] ,*/ memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
@@ -88,6 +97,7 @@ const CourseContacts = ({ language = 'sv', /* examiners = [] ,*/ memoData = {} }
       {teacher(language, memoData)}
       {teacherAssistants(language, memoData)}
       {examiner(language, memoData)}
+      {otherContacts(language, memoData)}
       {/* <div>
         <h3>
           {language === 'sv'

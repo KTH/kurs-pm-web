@@ -102,6 +102,7 @@ module.exports = {
     courseCoordinatorTitle: 'Course Coordinator',
     teacherTitle: 'Teacher',
     teacherAssistantsTitle: 'Teacher Assistants',
-    examinerTitle: 'Examiner'
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts'
   }
 }
