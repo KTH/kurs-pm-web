@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Kurs-pm',
     host_name: 'KTH',
 
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
+
     courseImage: {
       Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
       Bioteknik: 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
@@ -67,6 +69,7 @@ module.exports = {
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Kontakter',
     courseContactsExaminerTitle: 'Examinator',
-    communicationWithTeachersTitle: 'Kommunikation i kursen'
+    communicationWithTeachersTitle: 'Kommunikation i kursen',
+    courseCoordinatorTitle: 'Kursansvarig'
   }
 }
