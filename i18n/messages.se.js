@@ -66,6 +66,7 @@ module.exports = {
     courseHeaderTitle: 'Kurs-pm',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Kontakter',
-    courseContactsExaminerTitle: 'Examinator'
+    courseContactsExaminerTitle: 'Examinator',
+    communicationWithTeachersTitle: 'Kommunikation i kursen'
   }
 }

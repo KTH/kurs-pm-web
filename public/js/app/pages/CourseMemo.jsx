@@ -26,7 +26,7 @@ const Section = ({ id, title, content, memoData }) => (
     </h2>
     {content.map((contentId) => {
       // eslint-disable-next-line react/no-danger
-      return <div key={contentId} dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
+      return <div key={contentId} className="text-break" dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
     })}
   </>
 )
@@ -131,7 +131,11 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="3">
-                <CourseContacts language={this.language} examiners={this.examiners} />
+                <CourseContacts
+                  language={this.language}
+                  examiners={this.examiners}
+                  memoData={this.props.routerStore.memoData}
+                />
               </Col>
             </Row>
           </Col>
