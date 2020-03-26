@@ -7,6 +7,7 @@ import Contact from './Contact'
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
+// Volontary information
 const communicationWithTeachers = (language, memoData) =>
   !memoData.communicationDuringCourse || (
     <div>
@@ -19,14 +20,85 @@ const communicationWithTeachers = (language, memoData) =>
     </div>
   )
 
-const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
+// Mandatory information
+const courseCoordinator = (language, memoData) =>
+  memoData.courseCoordinator ? (
+    <div>
+      <h3>
+        {language === 'sv' ? swedishTranslations.courseCoordinatorTitle : englishTranslations.courseCoordinatorTitle}
+      </h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
+    </div>
+  ) : (
+    <div>
+      <h3>
+        {language === 'sv' ? swedishTranslations.courseCoordinatorTitle : englishTranslations.courseCoordinatorTitle}
+      </h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
+// Mandatory information
+const teacher = (language, memoData) =>
+  memoData.teacher ? (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+    </div>
+  ) : (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
+// Volontary information
+const teacherAssistants = (language, memoData) =>
+  !memoData.teacherAssistants || (
+    <div>
+      <h3>
+        {language === 'sv' ? swedishTranslations.teacherAssistantsTitle : englishTranslations.teacherAssistantsTitle}
+      </h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+    </div>
+  )
+
+// Mandatory information
+const examiner = (language, memoData) =>
+  memoData.examiner ? (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+    </div>
+  ) : (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
+// Volontary information
+const otherContacts = (language, memoData) =>
+  !memoData.otherContacts || (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.otherContactsTitle : englishTranslations.otherContactsTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+    </div>
+  )
+
+const CourseContacts = ({ language = 'sv', /* examiners = [] ,*/ memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
       {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
     </h2>
     <div style={{ backgroundColor: '#f4f4f4' }}>
       {communicationWithTeachers(language, memoData)}
-      <div>
+      {courseCoordinator(language, memoData)}
+      {teacher(language, memoData)}
+      {teacherAssistants(language, memoData)}
+      {examiner(language, memoData)}
+      {otherContacts(language, memoData)}
+      {/* <div>
         <h3>
           {language === 'sv'
             ? swedishTranslations.courseContactsExaminerTitle
@@ -35,7 +107,7 @@ const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
         {examiners.map((e) => (
           <Contact key={e.username} username={e.username} givenName={e.givenName} lastName={e.lastName} />
         ))}
-      </div>
+      </div> */}
     </div>
   </div>
 )

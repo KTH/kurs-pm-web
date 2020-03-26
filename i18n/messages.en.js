@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Course Memo',
     host_name: 'KTH',
 
+    mandatoryFieldMissing: 'Missing mandatory information',
+
     courseMainSubjects: {
       Architecture: 'Arkitektur',
       Biotechnology: 'Bioteknik',
@@ -96,7 +98,11 @@ module.exports = {
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Contacts',
-    courseContactsExaminerTitle: 'Examiner',
-    communicationWithTeachersTitle: 'Communication With Teachers'
+    communicationWithTeachersTitle: 'Communication With Teachers',
+    courseCoordinatorTitle: 'Course Coordinator',
+    teacherTitle: 'Teacher',
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts'
   }
 }
