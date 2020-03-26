@@ -26,7 +26,7 @@ const Section = ({ id, title, content, memoData }) => (
     </h2>
     {content.map((contentId) => {
       // eslint-disable-next-line react/no-danger
-      return <div key={contentId} dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
+      return <div key={contentId} className="text-break" dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
     })}
   </>
 )
