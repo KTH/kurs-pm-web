@@ -7,6 +7,7 @@ import Contact from './Contact'
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
+// Volontary information
 const communicationWithTeachers = (language, memoData) =>
   !memoData.communicationDuringCourse || (
     <div>
@@ -19,6 +20,7 @@ const communicationWithTeachers = (language, memoData) =>
     </div>
   )
 
+// Mandatory information
 const courseCoordinator = (language, memoData) =>
   memoData.courseCoordinator ? (
     <div>
@@ -36,6 +38,7 @@ const courseCoordinator = (language, memoData) =>
     </div>
   )
 
+// Mandatory information
 const teacher = (language, memoData) =>
   memoData.teacher ? (
     <div>
@@ -49,6 +52,7 @@ const teacher = (language, memoData) =>
     </div>
   )
 
+// Volontary information
 const teacherAssistants = (language, memoData) =>
   !memoData.teacherAssistants || (
     <div>
@@ -59,7 +63,21 @@ const teacherAssistants = (language, memoData) =>
     </div>
   )
 
-const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
+// Mandatory information
+const examiner = (language, memoData) =>
+  memoData.examiner ? (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+    </div>
+  ) : (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
+const CourseContacts = ({ language = 'sv', /* examiners = [] ,*/ memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
       {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
@@ -69,7 +87,8 @@ const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
       {courseCoordinator(language, memoData)}
       {teacher(language, memoData)}
       {teacherAssistants(language, memoData)}
-      <div>
+      {examiner(language, memoData)}
+      {/* <div>
         <h3>
           {language === 'sv'
             ? swedishTranslations.courseContactsExaminerTitle
@@ -78,7 +97,7 @@ const CourseContacts = ({ language = 'sv', examiners = [], memoData = {} }) => (
         {examiners.map((e) => (
           <Contact key={e.username} username={e.username} givenName={e.givenName} lastName={e.lastName} />
         ))}
-      </div>
+      </div> */}
     </div>
   </div>
 )

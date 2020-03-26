@@ -98,10 +98,10 @@ module.exports = {
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Contacts',
-    courseContactsExaminerTitle: 'Examiner',
     communicationWithTeachersTitle: 'Communication With Teachers',
     courseCoordinatorTitle: 'Course Coordinator',
     teacherTitle: 'Teacher',
-    teacherAssistantsTitle: 'Teacher Assistants'
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner'
   }
 }

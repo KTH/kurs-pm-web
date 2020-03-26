@@ -68,10 +68,10 @@ module.exports = {
     courseHeaderTitle: 'Kurs-pm',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Kontakter',
-    courseContactsExaminerTitle: 'Examinator',
     communicationWithTeachersTitle: 'Kommunikation i kursen',
     courseCoordinatorTitle: 'Kursansvarig',
     teacherTitle: 'Lärare',
-    teacherAssistantsTitle: 'Lärarassistenter'
+    teacherAssistantsTitle: 'Lärarassistenter',
+    examinerTitle: 'Examinator'
   }
 }
