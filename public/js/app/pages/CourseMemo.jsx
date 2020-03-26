@@ -131,7 +131,11 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="3">
-                <CourseContacts language={this.language} examiners={this.examiners} />
+                <CourseContacts
+                  language={this.language}
+                  examiners={this.examiners}
+                  memoData={this.props.routerStore.memoData}
+                />
               </Col>
             </Row>
           </Col>
