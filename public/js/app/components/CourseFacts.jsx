@@ -7,11 +7,20 @@ const swedishTranslations = i18n.messages[1].messages
 
 const linkToSchool = (name = '') => `https://www.kth.se/${name.toLowerCase().split('/')[0]}`
 
+const formatVersion = (language = 'sv', version) => {
+  const unixTime = Date.parse(version)
+  if (unixTime) {
+    const locale = language === 'sv' ? 'sv-SE' : 'en-US'
+    return new Date(unixTime).toLocaleString(locale)
+  }
+  return null
+}
+
 const version = (language, memoVersion) =>
   memoVersion ? (
     <div>
       <h3>{language === 'sv' ? swedishTranslations.versionTitle : englishTranslations.versionTitle}</h3>
-      <p>{memoVersion}</p>
+      <p>{formatVersion(language, memoVersion)}</p>
     </div>
   ) : (
     <div>
@@ -58,7 +67,7 @@ const languageOfInstruction = (language, memoLanguageOfInstructions) =>
 
 const CourseFacts = ({ language = 'sv', department = {}, memoData = {} }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-    {version(language, memoData.version)}
+    {version(language, memoData.lastChangeDate)}
     {offeredBy(language, department)}
     {languageOfInstruction(language, memoData.languageOfInstructions)}
   </div>
