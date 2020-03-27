@@ -74,6 +74,7 @@ module.exports = {
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
-    versionTitle: 'Version'
+    versionTitle: 'Version',
+    languageOfInstructionTitle: 'Undervisningsspråk'
   }
 }
