@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-danger */
 import React from 'react'
 import i18n from '../../../../i18n'
@@ -8,11 +7,11 @@ const swedishTranslations = i18n.messages[1].messages
 
 const linkToSchool = (name = '') => `https://www.kth.se/${name.toLowerCase().split('/')[0]}`
 
-const version = (language, memoData) =>
-  memoData.version ? (
+const version = (language, memoVersion) =>
+  memoVersion ? (
     <div>
       <h3>{language === 'sv' ? swedishTranslations.versionTitle : englishTranslations.versionTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.version }} />
+      <p>{memoVersion}</p>
     </div>
   ) : (
     <div>
@@ -36,15 +35,15 @@ const offeredBy = (language, department) =>
     </div>
   )
 
-const languageOfInstruction = (language, memoData) =>
-  memoData.languageOfInstructions ? (
+const languageOfInstruction = (language, memoLanguageOfInstructions) =>
+  memoLanguageOfInstructions ? (
     <div>
       <h3>
         {language === 'sv'
           ? swedishTranslations.languageOfInstructionTitle
           : englishTranslations.languageOfInstructionTitle}
       </h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.languageOfInstructions }} />
+      <p>{memoLanguageOfInstructions}</p>
     </div>
   ) : (
     <div>
@@ -58,12 +57,10 @@ const languageOfInstruction = (language, memoData) =>
   )
 
 const CourseFacts = ({ language = 'sv', department = {}, memoData = {} }) => (
-  <div>
-    <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-      {version(language, memoData)}
-      {offeredBy(language, department)}
-      {languageOfInstruction(language, memoData)}
-    </div>
+  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
+    {version(language, memoData.version)}
+    {offeredBy(language, department)}
+    {languageOfInstruction(language, memoData.languageOfInstructions)}
   </div>
 )
 
