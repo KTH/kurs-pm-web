@@ -70,6 +70,7 @@ async function getContent(req, res, next) {
       title,
       credits,
       creditUnitAbbr,
+      department,
       examiners,
       roundInfo
     } = await getDetailedInformation(courseCode, roundId, responseLanguage)
@@ -77,6 +78,7 @@ async function getContent(req, res, next) {
     routerStore.title = title
     routerStore.credits = credits
     routerStore.creditUnitAbbr = creditUnitAbbr
+    routerStore.department = department
     routerStore.examiners = examiners
     routerStore.roundInfo = roundInfo
 

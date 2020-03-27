@@ -73,6 +73,9 @@ module.exports = {
     teacherTitle: 'Lärare',
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
-    otherContactsTitle: 'Övriga kontakter'
+    otherContactsTitle: 'Övriga kontakter',
+    versionTitle: 'Version',
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    offeredByTitle: 'Kursen ges av'
   }
 }

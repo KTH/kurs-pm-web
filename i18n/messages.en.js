@@ -103,6 +103,9 @@ module.exports = {
     teacherTitle: 'Teacher',
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
-    otherContactsTitle: 'Other Contacts'
+    otherContactsTitle: 'Other Contacts',
+    versionTitle: 'Version',
+    languageOfInstructionTitle: 'Language Of Instruction',
+    offeredByTitle: 'Offered By'
   }
 }

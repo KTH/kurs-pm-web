@@ -8,6 +8,7 @@ import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
+import CourseFacts from '../components/CourseFacts'
 
 const renderAllSections = (memoData) => {
   return memoData ? (
@@ -77,6 +78,8 @@ class CourseMemo extends Component {
 
   creditUnitAbbr = this.props.routerStore.creditUnitAbbr ? this.props.routerStore.creditUnitAbbr : ''
 
+  department = this.props.routerStore.department ? this.props.routerStore.department : ''
+
   examiners = this.props.routerStore.examiners ? this.props.routerStore.examiners : ''
 
   imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
@@ -131,6 +134,11 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="3">
+                <CourseFacts
+                  language={this.language}
+                  department={this.department}
+                  memoData={this.props.routerStore.memoData}
+                />
                 <CourseContacts
                   language={this.language}
                   examiners={this.examiners}
