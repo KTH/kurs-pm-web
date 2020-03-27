@@ -9,6 +9,7 @@ import i18n from '../../../../i18n'
 import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
 import CourseFacts from '../components/CourseFacts'
+import CourseLinks from '../components/CourseLinks'
 
 const renderAllSections = (memoData) => {
   return memoData ? (
@@ -139,6 +140,7 @@ class CourseMemo extends Component {
                   department={this.department}
                   memoData={this.props.routerStore.memoData}
                 />
+                <CourseLinks language={this.language} memoData={this.props.routerStore.memoData} />
                 <CourseContacts
                   language={this.language}
                   examiners={this.examiners}
