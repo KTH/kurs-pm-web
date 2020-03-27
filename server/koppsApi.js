@@ -33,7 +33,7 @@ async function getDetailedInformation(courseCode, roundId, language = 'sv') {
     const { mainSubjects, course, examiners, roundInfos } = res.body
 
     if (res.body) {
-      const roundInfo = roundInfos ? roundInfos.find(r => r.round && r.round.ladokRoundId === roundId) : {}
+      const roundInfo = roundInfos ? roundInfos.find((r) => r.round && r.round.ladokRoundId === roundId) : {}
 
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
@@ -41,6 +41,7 @@ async function getDetailedInformation(courseCode, roundId, language = 'sv') {
         title: course && course.title ? course.title : '',
         credits: course && course.credits ? course.credits : '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
+        department: course && course.department ? course.department : '',
         examiners,
         roundInfo
       }

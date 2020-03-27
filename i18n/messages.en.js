@@ -105,6 +105,7 @@ module.exports = {
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
     versionTitle: 'Version',
-    languageOfInstructionTitle: 'Language Of Instruction'
+    languageOfInstructionTitle: 'Language Of Instruction',
+    offeredByTitle: 'Offered By'
   }
 }

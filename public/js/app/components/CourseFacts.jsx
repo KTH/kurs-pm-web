@@ -19,6 +19,19 @@ const version = (language, memoData) =>
     </div>
   )
 
+const offeredBy = (language, department) =>
+  department.name ? (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.offeredByTitle : englishTranslations.offeredByTitle}</h3>
+      <div dangerouslySetInnerHTML={{ __html: department.name }} />
+    </div>
+  ) : (
+    <div>
+      <h3>{language === 'sv' ? swedishTranslations.versionTitle : englishTranslations.versionTitle}</h3>
+      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+    </div>
+  )
+
 const languageOfInstruction = (language, memoData) =>
   memoData.languageOfInstructions ? (
     <div>
@@ -40,10 +53,11 @@ const languageOfInstruction = (language, memoData) =>
     </div>
   )
 
-const CourseFacts = ({ language = 'sv', memoData = {} }) => (
+const CourseFacts = ({ language = 'sv', department = {}, memoData = {} }) => (
   <div>
     <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
       {version(language, memoData)}
+      {offeredBy(language, department)}
       {languageOfInstruction(language, memoData)}
     </div>
   </div>

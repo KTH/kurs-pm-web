@@ -24,6 +24,8 @@ class RouterStore {
 
   @observable creditUnitAbbr
 
+  @observable department
+
   @observable examiners
 
   @observable sellingText
