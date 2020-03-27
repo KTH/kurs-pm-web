@@ -91,7 +91,7 @@ const CourseContacts = ({ language = 'sv', /* examiners = [] ,*/ memoData = {} }
     <h2 style={{ marginTop: '0' }}>
       {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
     </h2>
-    <div style={{ backgroundColor: '#f4f4f4' }}>
+    <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
       {communicationWithTeachers(language, memoData)}
       {courseCoordinator(language, memoData)}
       {teacher(language, memoData)}
