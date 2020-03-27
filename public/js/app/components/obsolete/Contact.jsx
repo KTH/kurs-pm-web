@@ -5,6 +5,7 @@ import Thumbnail from './Thumbnail'
 const defaultProfileUrl = 'https://www.kth.se/profile/'
 const itemTypeSchemaUrl = 'http://schema.org/Person'
 
+// TODO Remove this component if it isn't used anymore
 const Contact = ({ username, givenName, lastName }) => {
   if (!username || !givenName || !lastName) return null
 
