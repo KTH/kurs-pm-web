@@ -78,6 +78,8 @@ module.exports = {
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
 
-    scheduleLabel: 'Schema'
+    beforeAndDuringACourse: 'Inför och under en kurs',
+    contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
+    manageMyStudies: 'Administrera mina studier'
   }
 }
