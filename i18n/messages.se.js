@@ -76,6 +76,8 @@ module.exports = {
     otherContactsTitle: 'Övriga kontakter',
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Undervisningsspråk',
-    offeredByTitle: 'Kursen ges av'
+    offeredByTitle: 'Kursen ges av',
+
+    scheduleLabel: 'Schema'
   }
 }

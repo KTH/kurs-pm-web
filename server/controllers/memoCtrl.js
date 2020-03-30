@@ -52,10 +52,9 @@ async function getContent(req, res, next) {
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
-    const { courseCode, semester, roundId } = req.params
+    const { courseCode, semester } = req.params
     routerStore.courseCode = courseCode
     routerStore.semester = semester
-    routerStore.roundId = roundId
 
     const responseLanguage = language.getLanguage(res) || 'sv'
     routerStore.language = responseLanguage
@@ -72,15 +71,15 @@ async function getContent(req, res, next) {
       creditUnitAbbr,
       department,
       examiners,
-      roundInfo
-    } = await getDetailedInformation(courseCode, roundId, responseLanguage)
+      roundInfos
+    } = await getDetailedInformation(courseCode, routerStore.roundIds, responseLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
     routerStore.credits = credits
     routerStore.creditUnitAbbr = creditUnitAbbr
     routerStore.department = department
     routerStore.examiners = examiners
-    routerStore.roundInfo = roundInfo
+    routerStore.allRoundInfos = roundInfos
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, responseLanguage)

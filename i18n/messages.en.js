@@ -106,6 +106,8 @@ module.exports = {
     otherContactsTitle: 'Other Contacts',
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
-    offeredByTitle: 'Offered By'
+    offeredByTitle: 'Offered By',
+
+    scheduleLabel: 'Schedule'
   }
 }
