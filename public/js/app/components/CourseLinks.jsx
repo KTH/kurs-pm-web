@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons'
 import { MdLaunch } from 'react-icons/md'
 
 import i18n from '../../../../i18n'
-import { courseLinks } from '../util/staticLinks'
+import { courseLinks } from '../util/links'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages

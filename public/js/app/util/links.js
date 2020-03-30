@@ -4,6 +4,11 @@ const courseLinks = {
   manageMyStudies: 'https://www.student.ladok.se/student/#/aktuell'
 }
 
+function adminLink(courseCode, language) {
+  return `/kursinfoadmin/kurser/kurs/${courseCode}?l=${language}`
+}
+
 module.exports = {
-  courseLinks
+  courseLinks,
+  adminLink
 }

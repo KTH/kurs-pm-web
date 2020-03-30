@@ -110,6 +110,8 @@ module.exports = {
 
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    manageMyStudies: 'Manage my studies'
+    manageMyStudies: 'Manage my studies',
+
+    adminLinkLabel: 'Administrate About course information'
   }
 }

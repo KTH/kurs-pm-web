@@ -80,6 +80,8 @@ module.exports = {
 
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    manageMyStudies: 'Administrera mina studier'
+    manageMyStudies: 'Administrera mina studier',
+
+    adminLinkLabel: 'Administrera Om kursen'
   }
 }
