@@ -5,9 +5,7 @@ class RouterStore {
 
   @observable semester
 
-  @observable roundId
-
-  @observable roundInfo
+  @observable allRoundInfos = []
 
   @observable memoDatas = []
 
@@ -32,6 +30,14 @@ class RouterStore {
 
   @computed get memoData() {
     return this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+  }
+
+  @computed get roundIds() {
+    return this.memoData.ladokRoundIds || []
+  }
+
+  @computed get roundInfos() {
+    return this.allRoundInfos.filter((r) => r.round && this.roundIds.includes(r.round.ladokRoundId))
   }
 
   @action setMemoEndPoint(memoEndPoint) {

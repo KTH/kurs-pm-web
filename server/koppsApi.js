@@ -25,7 +25,7 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-async function getDetailedInformation(courseCode, roundId, language = 'sv') {
+async function getDetailedInformation(courseCode, roundIds, language = 'sv') {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
@@ -33,8 +33,6 @@ async function getDetailedInformation(courseCode, roundId, language = 'sv') {
     const { mainSubjects, course, examiners, roundInfos } = res.body
 
     if (res.body) {
-      const roundInfo = roundInfos ? roundInfos.find((r) => r.round && r.round.ladokRoundId === roundId) : {}
-
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
@@ -43,7 +41,7 @@ async function getDetailedInformation(courseCode, roundId, language = 'sv') {
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
         department: course && course.department ? course.department : '',
         examiners,
-        roundInfo
+        roundInfos: roundInfos || []
       }
     }
 
@@ -54,7 +52,7 @@ async function getDetailedInformation(courseCode, roundId, language = 'sv') {
       credits: '',
       creditUnitAbbr: '',
       examiners: [],
-      roundInfo: {}
+      filteredRoundInfos: []
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
