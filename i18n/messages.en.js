@@ -108,6 +108,8 @@ module.exports = {
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
 
-    scheduleLabel: 'Schedule'
+    beforeAndDuringACourse: 'Before and during a course',
+    contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
+    manageMyStudies: 'Manage my studies'
   }
 }

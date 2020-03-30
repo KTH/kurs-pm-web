@@ -1,35 +1,51 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import i18n from '../../../../i18n'
 import { IconContext } from 'react-icons'
 import { MdLaunch } from 'react-icons/md'
+
+import i18n from '../../../../i18n'
+import { courseLinks } from '../util/staticLinks'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
-const schedule = (language, scheduleUrls) =>
-  scheduleUrls.map(
-    (s) =>
-      !s.url || (
-        <p key={s.id}>
-          <a href={s.url}>
-            {language === 'sv' ? swedishTranslations.scheduleLabel : englishTranslations.scheduleLabel}
-          </a>
-        </p>
-      )
-  )
-
-const CourseLinks = ({ language, roundInfos }) => (
+const CourseLinks = ({ language }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
     <IconContext.Provider value={{ size: '1.8em' }}>
       <MdLaunch />
     </IconContext.Provider>
-    {schedule(
-      language,
-      roundInfos.map((r) => {
-        return { id: r.round ? r.round.ladokRoundId : '0', url: r.schemaUrl }
-      })
-    )}
+    <p>
+      <a
+        title={englishTranslations.beforeAndDuringACourse}
+        href={courseLinks.beforeAndDuringACourse}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {language === 'en' ? englishTranslations.beforeAndDuringACourse : swedishTranslations.beforeAndDuringACourse}
+      </a>
+    </p>
+    <p>
+      <a
+        title={englishTranslations.contactPersonsAndStudentCounselling}
+        href={courseLinks.contactPersonsAndStudentCounselling}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {language === 'en'
+          ? englishTranslations.contactPersonsAndStudentCounselling
+          : swedishTranslations.contactPersonsAndStudentCounselling}
+      </a>
+    </p>
+    <p>
+      <a
+        title={englishTranslations.manageMyStudies}
+        href={courseLinks.manageMyStudies}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {language === 'en' ? englishTranslations.manageMyStudies : swedishTranslations.manageMyStudies}
+      </a>
+    </p>
   </div>
 )
 
