@@ -11,7 +11,7 @@ import CourseContacts from '../components/CourseContacts'
 import CourseFacts from '../components/CourseFacts'
 import CourseLinks from '../components/CourseLinks'
 
-const renderAllSections = (memoData) => {
+const renderAllSections = ({ memoData }) => {
   return memoData ? (
     sections.map((section) => (
       <Section key={section.id} id={section.id} title={section.title} content={section.content} memoData={memoData} />
@@ -90,9 +90,10 @@ class CourseMemo extends Component {
   introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
 
   render() {
-    const allSections = renderAllSections(this.props.routerStore.memoData)
+    const { routerStore } = this.props
+    const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, this.language)
-    const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
+    const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     return (
       <Container className="kip-container">
@@ -100,13 +101,13 @@ class CourseMemo extends Component {
           <Col lg="3">
             <SideMenu
               courseCode={this.courseCode}
-              courseMemoItems={this.props.routerStore.memoDatas.map((m) => {
+              courseMemoItems={routerStore.memoDatas.map((m) => {
                 const label = m.memoEndPoint
                 return {
                   label,
-                  active: this.props.routerStore.activeMemoEndPoint(label),
+                  active: routerStore.activeMemoEndPoint(label),
                   action: () => {
-                    this.props.routerStore.setMemoEndPoint(label)
+                    routerStore.setMemoEndPoint(label)
                   }
                 }
               })}
@@ -115,7 +116,7 @@ class CourseMemo extends Component {
           <Col>
             <Row>
               <CourseHeader
-                courseMemo={this.props.routerStore.memoEndPoint}
+                courseMemo={routerStore.memoEndPoint}
                 courseCode={this.courseCode}
                 title={this.title}
                 credits={this.credits}
@@ -135,17 +136,9 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="3">
-                <CourseFacts
-                  language={this.language}
-                  department={this.department}
-                  memoData={this.props.routerStore.memoData}
-                />
-                <CourseLinks language={this.language} memoData={this.props.routerStore.memoData} />
-                <CourseContacts
-                  language={this.language}
-                  examiners={this.examiners}
-                  memoData={this.props.routerStore.memoData}
-                />
+                <CourseFacts language={this.language} department={this.department} memoData={routerStore.memoData} />
+                <CourseLinks language={this.language} memoData={routerStore.memoData} />
+                <CourseContacts language={this.language} examiners={this.examiners} memoData={routerStore.memoData} />
               </Col>
             </Row>
           </Col>
