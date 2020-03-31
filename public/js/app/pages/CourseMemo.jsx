@@ -37,7 +37,7 @@ const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
 // Logic copied from kursinfo-web
-export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language = 'sv') => {
+export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
   let courseImage = ''
   // If course administrator has set own picture, use that
   if (imageFromAdmin && imageFromAdmin.length > 4) {
@@ -88,7 +88,7 @@ class CourseMemo extends Component {
   render() {
     const { routerStore } = this.props
     const allSections = renderAllSections(routerStore)
-    const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, this.language)
+    const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     return (
@@ -117,7 +117,7 @@ class CourseMemo extends Component {
                 title={this.title}
                 credits={this.credits}
                 creditUnitAbbr={this.creditUnitAbbr}
-                language={this.language}
+                language={routerStore.language}
               />
             </Row>
             <Row>
@@ -126,8 +126,6 @@ class CourseMemo extends Component {
                   introText={this.introText}
                   courseImageUrl={courseImageUrl}
                   semester={this.semester}
-                  language={this.language}
-                  courseCode={this.courseCode}
                 />
                 {allSections}
               </Col>
