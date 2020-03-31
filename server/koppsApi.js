@@ -25,7 +25,7 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-async function getDetailedInformation(courseCode, roundIds, language = 'sv') {
+async function getDetailedInformation(courseCode, roundIds, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
