@@ -5,6 +5,8 @@ class RouterStore {
 
   @observable semester
 
+  @observable language = 'sv'
+
   @observable allRoundInfos = []
 
   @observable memoDatas = []
@@ -57,8 +59,8 @@ class RouterStore {
     }
   }
 
-  @action doSetLanguage(lang) {
-    this.language = lang
+  @computed get memoLanguage() {
+    return this.memoData.memoCommonLangAbbr || this.language
   }
 
   initializeStore(storeName) {

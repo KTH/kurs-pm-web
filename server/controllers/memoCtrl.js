@@ -72,7 +72,7 @@ async function getContent(req, res, next) {
       department,
       examiners,
       roundInfos
-    } = await getDetailedInformation(courseCode, routerStore.roundIds, responseLanguage)
+    } = await getDetailedInformation(courseCode, routerStore.roundIds, routerStore.memoLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
     routerStore.credits = credits
