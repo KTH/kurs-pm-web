@@ -82,7 +82,7 @@ async function getContent(req, res, next) {
     routerStore.allRoundInfos = roundInfos
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, responseLanguage)
+    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)
     routerStore.imageFromAdmin = imageInfo
 
     // TODO: Proper language constant
