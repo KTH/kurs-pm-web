@@ -85,7 +85,7 @@ const otherContacts = (language, memoData) =>
     </div>
   )
 
-const CourseContacts = ({ language = 'sv', memoData = {} }) => (
+const CourseContacts = ({ language, memoData = {} }) => (
   <div>
     <h2 style={{ marginTop: '0' }}>
       {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
