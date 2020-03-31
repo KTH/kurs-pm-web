@@ -31,7 +31,8 @@ class RouterStore {
   @observable sellingText
 
   @computed get memoData() {
-    return this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+    const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+    return memoData || {}
   }
 
   @computed get roundIds() {
