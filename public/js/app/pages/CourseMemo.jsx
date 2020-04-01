@@ -102,9 +102,7 @@ class CourseMemo extends Component {
                 return {
                   label,
                   active: routerStore.activeMemoEndPoint(label),
-                  action: () => {
-                    routerStore.setMemoEndPoint(label)
-                  }
+                  url: `/kurs-pm/${routerStore.courseCode}/${label}`
                 }
               })}
             />

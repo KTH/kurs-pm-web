@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Button } from 'reactstrap'
-
 const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
   return (
     <div>
@@ -21,19 +19,19 @@ const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
         <b>Förbereda, gå (kurs-pm)</b>
       </p>
       <hr />
-      <p>
-        {courseMemoItems.map(({ label, action, active }) => {
+      <div className="menu-memos">
+        {courseMemoItems.map(({ label, url, active }) => {
           return active ? (
-            <Button key={label} className="menu" color="link" disabled>
+            <p key={label} className="active">
               {label}
-            </Button>
+            </p>
           ) : (
-            <Button key={label} className="menu" color="link" onClick={() => action()}>
-              {label}
-            </Button>
+            <p key={label}>
+              <a href={url}>{label}</a>
+            </p>
           )
         })}
-      </p>
+      </div>
       <p>Slutföra ej avklarad kurs</p>
       <p>Kursens utveckling och historik</p>
     </div>

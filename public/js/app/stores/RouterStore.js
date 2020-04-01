@@ -43,10 +43,6 @@ class RouterStore {
     return this.allRoundInfos.filter((r) => r.round && this.roundIds.includes(r.round.ladokRoundId))
   }
 
-  @action setMemoEndPoint(memoEndPoint) {
-    this.memoEndPoint = memoEndPoint
-  }
-
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
     this.paths = paths
