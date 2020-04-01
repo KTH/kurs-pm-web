@@ -52,7 +52,7 @@ async function getContent(req, res, next) {
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
-    const { courseCode, semester } = req.params
+    const { courseCode, semester, memoId: memoEndPoint } = req.params
     routerStore.courseCode = courseCode
     routerStore.semester = semester
 
@@ -61,7 +61,11 @@ async function getContent(req, res, next) {
 
     const memoDatas = await getMemoDataById(courseCode)
     routerStore.memoDatas = memoDatas
-    routerStore.memoEndPoint = memoDatas[0] ? memoDatas[0].memoEndPoint : ''
+    if (memoEndPoint) {
+      routerStore.memoEndPoint = memoEndPoint
+    } else {
+      routerStore.memoEndPoint = memoDatas[0] ? memoDatas[0].memoEndPoint : ''
+    }
 
     const {
       courseMainSubjects,
