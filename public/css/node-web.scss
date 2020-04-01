@@ -8,10 +8,14 @@
   margin-bottom: 0.5rem;
 }
 
-button.menu {
-  color: #000000;
+.menu-memos {
+  margin-left: 1rem;
+}
 
-  &:hover {
-    color: #000000;
-  }
+.menu-memos a {
+  color: #000000;
+}
+
+.menu-memos .active {
+  font-weight: 700;
 }
