@@ -38,7 +38,8 @@ module.exports = {
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student på KTH',
-      directory: 'Kurs- och programkatalogen'
+      directory: 'Kurs- och programkatalogen',
+      aboutCourse: 'Om kursen'
     },
 
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',

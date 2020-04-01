@@ -4,7 +4,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { sections } from '../util/fieldsByType'
-import { breadcrumbLinks, courseMemoLink } from '../util/links'
+import { breadcrumbLinks, aboutCourseLink } from '../util/links'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -63,7 +63,11 @@ export const breadcrumbs = (language, courseCode) => (
         </a>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <a href={courseMemoLink(courseCode)}>{courseCode}</a>
+        <a href={aboutCourseLink(courseCode, language)}>
+          {language === 'en'
+            ? `${englishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`
+            : `${swedishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`}
+        </a>
       </BreadcrumbItem>
     </Breadcrumb>
   </nav>

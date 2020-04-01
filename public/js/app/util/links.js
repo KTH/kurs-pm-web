@@ -13,8 +13,9 @@ const breadcrumbLinks = {
   }
 }
 
-function courseMemoLink(courseCode) {
-  return `/kurs-pm/${courseCode}/`
+function aboutCourseLink(courseCode, language) {
+  const languageParameter = language === 'en' ? '?l=en' : ''
+  return `https://www.kth.se/student/kurser/kurs/${courseCode}${languageParameter}`
 }
 
 function adminLink(courseCode, language) {
@@ -24,6 +25,6 @@ function adminLink(courseCode, language) {
 module.exports = {
   courseLinks,
   breadcrumbLinks,
-  courseMemoLink,
+  aboutCourseLink,
   adminLink
 }
