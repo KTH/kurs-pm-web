@@ -128,7 +128,11 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="3">
-                <CourseFacts language={this.language} department={this.department} memoData={routerStore.memoData} />
+                <CourseFacts
+                  language={routerStore.memoLanguage}
+                  department={this.department}
+                  memoData={routerStore.memoData}
+                />
                 <CourseLinks language={routerStore.memoLanguage} />
                 <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
               </Col>
