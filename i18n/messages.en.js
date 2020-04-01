@@ -35,6 +35,12 @@ module.exports = {
     site_name: 'Course Memo',
     host_name: 'KTH',
 
+    breadCrumbLabels: {
+      university: 'KTH',
+      student: 'Student at KTH',
+      directory: 'Course and programme directory'
+    },
+
     mandatoryFieldMissing: 'Missing mandatory information',
 
     courseMainSubjects: {

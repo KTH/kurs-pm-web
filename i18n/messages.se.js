@@ -35,6 +35,12 @@ module.exports = {
     site_name: 'Kurs-pm',
     host_name: 'KTH',
 
+    breadCrumbLabels: {
+      university: 'KTH',
+      student: 'Student på KTH',
+      directory: 'Kurs- och programkatalogen'
+    },
+
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 
     courseImage: {

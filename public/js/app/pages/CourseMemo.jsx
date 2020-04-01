@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
+import i18n from '../../../../i18n'
 import { sections } from '../util/fieldsByType'
+import { breadcrumbLinks, courseMemoLink } from '../util/links'
+
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
-import i18n from '../../../../i18n'
 import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
 import CourseFacts from '../components/CourseFacts'
@@ -35,6 +37,37 @@ const Section = ({ id, title, content, memoData }) => (
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
+
+export const breadcrumbs = (language, courseCode) => (
+  <nav>
+    <Breadcrumb>
+      <BreadcrumbItem>
+        <a href={breadcrumbLinks.university[language]}>
+          {language === 'en'
+            ? englishTranslations.breadCrumbLabels.university
+            : swedishTranslations.breadCrumbLabels.university}
+        </a>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href={breadcrumbLinks.student[language]}>
+          {language === 'en'
+            ? englishTranslations.breadCrumbLabels.student
+            : swedishTranslations.breadCrumbLabels.student}
+        </a>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href={breadcrumbLinks.directory[language]}>
+          {language === 'en'
+            ? englishTranslations.breadCrumbLabels.directory
+            : swedishTranslations.breadCrumbLabels.directory}
+        </a>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href={courseMemoLink(courseCode)}>{courseCode}</a>
+      </BreadcrumbItem>
+    </Breadcrumb>
+  </nav>
+)
 
 // Logic copied from kursinfo-web
 export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
@@ -93,6 +126,7 @@ class CourseMemo extends Component {
 
     return (
       <Container className="kip-container">
+        <Row>{breadcrumbs(this.language, this.courseCode)}</Row>
         <Row>
           <Col lg="3">
             <SideMenu
