@@ -78,9 +78,9 @@ module.exports = {
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
 
+    linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    manageMyStudies: 'Administrera mina studier',
 
     adminLinkLabel: 'Administrera Om kursen'
   }
