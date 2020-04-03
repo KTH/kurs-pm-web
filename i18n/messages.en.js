@@ -118,6 +118,7 @@ module.exports = {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
+    rightsAndResponsibilities: 'Rights and responsibilities',
 
     adminLinkLabel: 'Administrate About course information'
   }

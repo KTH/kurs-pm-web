@@ -32,6 +32,18 @@ const CourseLinks = ({ language }) => (
           : swedishTranslations.contactPersonsAndStudentCounselling}
       </a>
     </p>
+    <p>
+      <a
+        title={englishTranslations.rightsAndResponsibilities}
+        href={courseLinks.rightsAndResponsibilities[language]}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {language === 'en'
+          ? englishTranslations.rightsAndResponsibilities
+          : swedishTranslations.rightsAndResponsibilities}
+      </a>
+    </p>
   </div>
 )
 
