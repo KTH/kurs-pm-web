@@ -4,7 +4,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { sections } from '../util/fieldsByType'
-import { breadcrumbLinks, aboutCourseLink } from '../util/links'
+import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -143,6 +143,10 @@ class CourseMemo extends Component {
                   url: `/kurs-pm/${routerStore.courseCode}/${label}`
                 }
               })}
+              backLink={sideMenuBackLink[routerStore.language]}
+              labels={
+                routerStore.language === 'en' ? englishTranslations.sideMenuLabels : swedishTranslations.sideMenuLabels
+              }
             />
           </Col>
           <Col>

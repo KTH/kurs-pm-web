@@ -42,6 +42,15 @@ module.exports = {
       aboutCourse: 'About course'
     },
 
+    sideMenuLabels: {
+      directory: 'Course and programme directory',
+      aboutCourse: 'About course',
+      beforeChoosingCourse: 'Before choosing course',
+      courseMemo: 'Prepare, attend (course memo)',
+      finishCourse: 'Finish course',
+      courseDevelopmentAndHistory: 'Course development and history'
+    },
+
     mandatoryFieldMissing: 'Missing mandatory information',
 
     courseMainSubjects: {

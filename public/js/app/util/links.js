@@ -16,6 +16,11 @@ const breadcrumbLinks = {
   }
 }
 
+const sideMenuBackLink = {
+  en: 'https://www.kth.se/student/kurser/kurser-inom-program?l=en',
+  sv: 'https://www.kth.se/student/kurser/kurser-inom-program'
+}
+
 function aboutCourseLink(courseCode, language) {
   const languageParameter = language === 'en' ? '?l=en' : ''
   return `https://www.kth.se/student/kurser/kurs/${courseCode}${languageParameter}`
@@ -28,6 +33,7 @@ function adminLink(courseCode, language) {
 module.exports = {
   courseLinks,
   breadcrumbLinks,
+  sideMenuBackLink,
   aboutCourseLink,
   adminLink
 }

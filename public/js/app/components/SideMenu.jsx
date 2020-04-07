@@ -1,22 +1,19 @@
 import React from 'react'
 
-const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
+const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
   return (
     <div>
       <p>
         &lsaquo;&nbsp;
-        <a href="https://www.kth.se/student/kurser/kurser-inom-program">Kurs- och programkatalogen</a>
+        <a href={backLink}>{labels.directory}</a>
       </p>
       <p>
-        <b>
-          Om kursen&nbsp;
-          {courseCode}
-        </b>
+        <b>{`${labels.aboutCourse} ${courseCode}`}</b>
       </p>
       <hr />
-      <p>Inför kursval</p>
+      <p>{labels.beforeChoosingCourse}</p>
       <p>
-        <b>Förbereda, gå (kurs-pm)</b>
+        <b>{labels.courseMemo}</b>
       </p>
       <hr />
       <div className="menu-memos">
@@ -32,8 +29,8 @@ const SideMenu = ({ courseCode = '', courseMemoItems = [] }) => {
           )
         })}
       </div>
-      <p>Slutföra ej avklarad kurs</p>
-      <p>Kursens utveckling och historik</p>
+      <p>{labels.finishCourse}</p>
+      <p>{labels.courseDevelopmentAndHistory}</p>
     </div>
   )
 }
