@@ -1,52 +1,40 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import i18n from '../../../../i18n'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
+import { linkToSchool } from '../util/links'
 
-const linkToSchool = (name = '') => `https://www.kth.se/${name.toLowerCase().split('/')[0]}`
-
-const offeredBy = (language, department) =>
+const offeredBy = (language, labels, department) =>
   department.name ? (
     <div>
-      <h3>{language === 'sv' ? swedishTranslations.offeredByTitle : englishTranslations.offeredByTitle}</h3>
+      <h4>{labels.offeredByTitle}</h4>
       <p>
         <a href={linkToSchool(department.name)}>{department.name}</a>
       </p>
     </div>
   ) : (
     <div>
-      <h3>{language === 'sv' ? swedishTranslations.versionTitle : englishTranslations.versionTitle}</h3>
-      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+      <h4>{labels.versionTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
 
-const languageOfInstruction = (language, memoLanguageOfInstructions) =>
+const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
     <div>
-      <h3>
-        {language === 'sv'
-          ? swedishTranslations.languageOfInstructionTitle
-          : englishTranslations.languageOfInstructionTitle}
-      </h3>
+      <h4>{labels.languageOfInstructionTitle}</h4>
       <p>{memoLanguageOfInstructions}</p>
     </div>
   ) : (
     <div>
-      <h3>
-        {language === 'sv'
-          ? swedishTranslations.languageOfInstructionTitle
-          : englishTranslations.languageOfInstructionTitle}
-      </h3>
-      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
+      <h4>{labels.languageOfInstructionTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
 
-const CourseFacts = ({ language = 'sv', department = {}, memoData = {} }) => (
+const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-    {offeredBy(language, department)}
-    {languageOfInstruction(language, memoData.languageOfInstructions)}
+    {offeredBy(language, labels, department)}
+    {languageOfInstruction(labels, memoData.languageOfInstructions)}
   </div>
 )
 

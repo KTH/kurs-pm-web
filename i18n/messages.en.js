@@ -120,9 +120,7 @@ module.exports = {
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
-    versionTitle: 'Version',
-    languageOfInstructionTitle: 'Language Of Instruction',
-    offeredByTitle: 'Offered By',
+    versionTitle: 'Course memo version',
 
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
@@ -130,5 +128,10 @@ module.exports = {
     rightsAndResponsibilities: 'Rights and responsibilities',
 
     adminLinkLabel: 'Administrate About course information'
+  },
+  courseFactsLabels: {
+    offeredByTitle: 'Offered By',
+    languageOfInstructionTitle: 'Language Of Instruction',
+    mandatoryFieldMissing: 'Missing mandatory information'
   }
 }

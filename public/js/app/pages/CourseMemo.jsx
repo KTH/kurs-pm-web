@@ -127,6 +127,7 @@ class CourseMemo extends Component {
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
+    const { courseFactsLabels } = i18n.messages[routerStore.memoLanguageIndex]
 
     return (
       <Container className="kip-container">
@@ -172,6 +173,7 @@ class CourseMemo extends Component {
               <Col lg="3">
                 <CourseFacts
                   language={routerStore.memoLanguage}
+                  labels={courseFactsLabels}
                   department={this.department}
                   memoData={routerStore.memoData}
                 />

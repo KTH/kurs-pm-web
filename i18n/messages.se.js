@@ -90,9 +90,7 @@ module.exports = {
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
-    versionTitle: 'Version',
-    languageOfInstructionTitle: 'Undervisningsspråk',
-    offeredByTitle: 'Kursen ges av',
+    versionTitle: 'Version kurs-pm',
 
     linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
@@ -100,5 +98,10 @@ module.exports = {
     rightsAndResponsibilities: 'Rättigheter och skyldigheter',
 
     adminLinkLabel: 'Administrera Om kursen'
+  },
+  courseFactsLabels: {
+    offeredByTitle: 'Kursen ges av',
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   }
 }
