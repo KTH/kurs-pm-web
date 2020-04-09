@@ -90,7 +90,6 @@ module.exports = {
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
-    versionTitle: 'Version kurs-pm',
 
     linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
@@ -101,7 +100,23 @@ module.exports = {
   },
   courseFactsLabels: {
     offeredByTitle: 'Kursen ges av',
-    languageOfInstructionTitle: 'Undervisningsspråk',
+    languageOfInstructionTitle: 'Undervisningsspråk'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Version kurs-pm',
+    latest: 'Senaste:',
+    courseMemoArchiveLabel: 'Arkiv för kurs-pm',
+    courseMemoPdf: 'Kurs-pm som pdf',
+    syllabus: 'Kursplan',
+    syllabusInformation: '(s) information hämtas från',
+    syllabusLinkStart: 'Kursplan (',
+    syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+  },
+  extraInfo: {
+    season: {
+      1: 'VT ',
+      2: 'HT '
+    }
   }
 }

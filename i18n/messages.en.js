@@ -120,7 +120,6 @@ module.exports = {
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
-    versionTitle: 'Course memo version',
 
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
@@ -133,5 +132,22 @@ module.exports = {
     offeredByTitle: 'Offered By',
     languageOfInstructionTitle: 'Language Of Instruction',
     mandatoryFieldMissing: 'Missing mandatory information'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Course memo version',
+    latest: 'Latest:',
+    courseMemoArchiveLabel: 'Course memo archive',
+    courseMemoPdf: 'Course memo pdf',
+    syllabus: 'Syllabus',
+    syllabusInformation: '(s) fetched from',
+    syllabusLinkStart: 'Syllabus (',
+    syllabusLinkEnd: '– )',
+    mandatoryFieldMissing: 'Missing mandatory information'
+  },
+  extraInfo: {
+    season: {
+      1: 'Spring ',
+      2: 'Autumn '
+    }
   }
 }

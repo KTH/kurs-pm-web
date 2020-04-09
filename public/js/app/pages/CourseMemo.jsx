@@ -12,6 +12,7 @@ import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
 import CourseFacts from '../components/CourseFacts'
 import CourseLinks from '../components/CourseLinks'
+import CourseMemoLinks from '../components/CourseMemoLinks'
 
 const renderAllSections = ({ memoData }) => {
   return memoData ? (
@@ -127,7 +128,7 @@ class CourseMemo extends Component {
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
-    const { courseFactsLabels } = i18n.messages[routerStore.memoLanguageIndex]
+    const { courseFactsLabels, courseMemoLinksLabels, extraInfo } = i18n.messages[routerStore.memoLanguageIndex]
 
     return (
       <Container className="kip-container">
@@ -176,6 +177,13 @@ class CourseMemo extends Component {
                   labels={courseFactsLabels}
                   department={this.department}
                   memoData={routerStore.memoData}
+                />
+                <CourseMemoLinks
+                  language={routerStore.memoLanguage}
+                  labels={courseMemoLinksLabels}
+                  extraInfo={extraInfo}
+                  memoData={routerStore.memoData}
+                  validFromTerm={routerStore.validFromTerm}
                 />
                 <CourseLinks language={routerStore.memoLanguage} />
                 <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
