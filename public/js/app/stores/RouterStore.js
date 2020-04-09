@@ -3,8 +3,6 @@ import { observable, action, computed } from 'mobx'
 class RouterStore {
   @observable courseCode
 
-  @observable semester
-
   @observable language = 'sv'
 
   @observable allRoundInfos = []
@@ -30,6 +28,8 @@ class RouterStore {
 
   @observable sellingText
 
+  @observable validFromTerm
+
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}
@@ -41,6 +41,10 @@ class RouterStore {
 
   @computed get roundInfos() {
     return this.allRoundInfos.filter((r) => r.round && this.roundIds.includes(r.round.ladokRoundId))
+  }
+
+  @computed get semester() {
+    return this.memoData.semester
   }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
