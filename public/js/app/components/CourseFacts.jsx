@@ -8,7 +8,9 @@ const offeredBy = (language, labels, department) =>
     <div>
       <h4>{labels.offeredByTitle}</h4>
       <p>
-        <a href={linkToSchool(department.name)}>{department.name}</a>
+        <a title={department.name} href={linkToSchool(department.name)} target="_blank" rel="noopener noreferrer">
+          {department.name}
+        </a>
       </p>
     </div>
   ) : (
