@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 import i18n from '../../../../i18n'
-import { sections } from '../util/fieldsByType'
+import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
 
 import CoursePresentation from '../components/CoursePresentation'
@@ -13,31 +13,58 @@ import CourseContacts from '../components/CourseContacts'
 import CourseFacts from '../components/CourseFacts'
 import CourseLinks from '../components/CourseLinks'
 import CourseMemoLinks from '../components/CourseMemoLinks'
-
-const renderAllSections = ({ memoData }) => {
-  return memoData ? (
-    sections.map((section) => (
-      <Section key={section.id} id={section.id} title={section.title} content={section.content} memoData={memoData} />
-    ))
-  ) : (
-    <h2>Inga publicerade kurs-pm</h2>
-  )
-}
-
-const Section = ({ id, title, content, memoData }) => (
-  <>
-    <h2 id={id} key={'header-' + id}>
-      {title}
-    </h2>
-    {content.map((contentId) => {
-      // eslint-disable-next-line react/no-danger
-      return <div key={contentId} className="text-break" dangerouslySetInnerHTML={{ __html: memoData[contentId] }} />
-    })}
-  </>
-)
+import Section from '../components/Section'
+import NewSectionEditor from '../components/NewSectionEditor'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
+
+const renderAllSections = ({ memoData, memoLanguageIndex }) => {
+  const { sectionsLabels } = i18n.messages[memoLanguageIndex]
+
+  return sections.map(({ id, content, extraHeaderTitle }) => (
+    <span key={id}>
+      <h2 id={id} key={'header-' + id}>
+        {sectionsLabels[id]}
+      </h2>
+      {content.map((contentId) => {
+        const menuId = id + '-' + contentId
+        const { isRequired } = context[contentId]
+        const initialValue = memoData[contentId]
+        const visibleInMemo = isRequired ? true : !!initialValue
+
+        return (
+          <Section
+            memoLangIndex={memoLanguageIndex}
+            contentId={contentId}
+            menuId={menuId}
+            key={contentId}
+            visibleInMemo={visibleInMemo}
+            html={initialValue}
+          />
+        )
+      })}
+      {extraHeaderTitle &&
+        memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+          return (
+            <NewSectionEditor
+              contentId={extraHeaderTitle}
+              // eslint-disable-next-line react/no-array-index-key
+              key={uKey}
+              initialTitle={title}
+              initialValue={htmlContent}
+              visibleInMemo={visibleInMemo}
+              isEmptyNew={isEmptyNew}
+              uKey={uKey}
+              onEditorChange={() => {}}
+              onBlur={() => {}}
+              onRemove={() => {}}
+            />
+          )
+        })}
+    </span>
+  ))
+}
 
 export const breadcrumbs = (language, courseCode) => (
   <nav>
