@@ -35,6 +35,9 @@ module.exports = {
     site_name: 'Course Memo',
     host_name: 'KTH',
 
+    noPublishedMemo: 'No published course memo',
+    obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
+
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student at KTH',
