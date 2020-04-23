@@ -42,7 +42,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           const visibleInMemo = isRequired ? true : !!initialValue
 
           return (
-            initialValue && (
+            visibleInMemo && (
               <Section
                 memoLangIndex={memoLanguageIndex}
                 contentId={contentId}
