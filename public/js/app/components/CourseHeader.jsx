@@ -25,17 +25,19 @@ const CourseHeader = ({
 }) => {
   const headerTitle = language === 'sv' ? swedishTranslations.courseHeaderTitle : englishTranslations.courseHeaderTitle
   return (
-    <div className="w-100">
-      <Row className="w-100">
-        <h1 className="course-header-title">{`${headerTitle} ${courseMemo}`}</h1>
+    <>
+      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
+        <Col style={{ paddingLeft: '0' }}>
+          <h1 className="course-header-title">{`${headerTitle} ${courseMemo}`}</h1>
+        </Col>
       </Row>
-      <Row className="w-100">
-        <Col className="text-left px-0 pb-4">
+      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
+        <Col className="text-left pb-4" style={{ paddingLeft: '0' }}>
           <b>
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
           </b>
         </Col>
-        <Col className="text-right px-0 pb-4">
+        <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
           <a
             title={language === 'en' ? englishTranslations.adminLinkLabel : swedishTranslations.adminLinkLabel}
             href={adminLink(courseCode, language)}
@@ -46,7 +48,7 @@ const CourseHeader = ({
           </a>
         </Col>
       </Row>
-    </div>
+    </>
   )
 }
 
