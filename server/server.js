@@ -57,7 +57,7 @@ server.set('partials', path.join(__dirname, '/views/partials'))
 server.engine(
   'handlebars',
   exphbs({
-    defaultLayout: process.env.NODE_ENV === 'development' ? 'devPublicLayout' : 'publicLayout',
+    defaultLayout: 'publicLayout',
     layoutsDir: server.settings.layouts,
     partialsDir: server.settings.partials
   })
