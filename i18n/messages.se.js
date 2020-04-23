@@ -32,11 +32,12 @@ module.exports = {
     lang_block_id: '1.272446',
     locale_text: 'Kurs-pm på svenska',
 
-    site_name: 'Kurs-pm',
+    site_name: 'Om kursen',
     host_name: 'KTH',
 
     noPublishedMemo: 'Inget publicerat kurs-pm',
     obsoleteData: 'Data för kurs-pm är sparat med en tidigare version och föråldrat.',
+    aboutCourse: 'Om kursen',
 
     breadCrumbLabels: {
       university: 'KTH',

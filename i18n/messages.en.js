@@ -32,11 +32,12 @@ module.exports = {
     lang_block_id: '1.77273',
     locale_text: 'Course Memo in English',
 
-    site_name: 'Course Memo',
+    site_name: 'About course',
     host_name: 'KTH',
 
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
+    aboutCourse: 'About course',
 
     breadCrumbLabels: {
       university: 'KTH',

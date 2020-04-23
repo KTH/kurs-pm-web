@@ -5,6 +5,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstr
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
+import { aboutCourseStr } from '../util/helpers'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -137,7 +138,7 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : []
+  courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : ''
 
   semester = this.props.routerStore.semester ? this.props.routerStore.semester : ''
 
@@ -158,6 +159,12 @@ class CourseMemo extends Component {
   courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
 
   introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
+
+  componentDidMount() {
+    const siteNameElement = document.querySelector('.block.siteName a')
+    const translate = this.language === 'en' ? englishTranslations : swedishTranslations
+    siteNameElement.textContent = aboutCourseStr(translate, this.courseCode)
+  }
 
   render() {
     const { routerStore } = this.props
