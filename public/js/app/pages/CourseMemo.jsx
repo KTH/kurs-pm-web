@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
@@ -20,50 +20,59 @@ const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
 const renderAllSections = ({ memoData, memoLanguageIndex }) => {
+  if (!memoData || Object.keys(memoData).length === 0) {
+    return <Alert color="info">{i18n.messages[memoLanguageIndex].messages.noPublishedMemo}</Alert>
+  }
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
-  return sections.map(({ id, content, extraHeaderTitle }) => (
-    <span key={id}>
-      <h2 id={id} key={'header-' + id}>
-        {sectionsLabels[id]}
-      </h2>
-      {content.map((contentId) => {
-        const menuId = id + '-' + contentId
-        const { isRequired } = context[contentId]
-        const initialValue = memoData[contentId]
-        const visibleInMemo = isRequired ? true : !!initialValue
+  return sections.map(({ id, content, extraHeaderTitle }) => {
+    const obsoleteData = !Array.isArray(memoData[extraHeaderTitle])
 
-        return (
-          <Section
-            memoLangIndex={memoLanguageIndex}
-            contentId={contentId}
-            menuId={menuId}
-            key={contentId}
-            visibleInMemo={visibleInMemo}
-            html={initialValue}
-          />
-        )
-      })}
-      {extraHeaderTitle &&
-        memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+    return (
+      <span key={id}>
+        {obsoleteData && <Alert color="danger">{i18n.messages[memoLanguageIndex].messages.obsoleteData}</Alert>}
+        <h2 id={id} key={'header-' + id}>
+          {sectionsLabels[id]}
+        </h2>
+        {content.map((contentId) => {
+          const menuId = id + '-' + contentId
+          const { isRequired } = context[contentId]
+          const initialValue = memoData[contentId]
+          const visibleInMemo = isRequired ? true : !!initialValue
+
           return (
-            <NewSectionEditor
-              contentId={extraHeaderTitle}
-              // eslint-disable-next-line react/no-array-index-key
-              key={uKey}
-              initialTitle={title}
-              initialValue={htmlContent}
+            <Section
+              memoLangIndex={memoLanguageIndex}
+              contentId={contentId}
+              menuId={menuId}
+              key={contentId}
               visibleInMemo={visibleInMemo}
-              isEmptyNew={isEmptyNew}
-              uKey={uKey}
-              onEditorChange={() => {}}
-              onBlur={() => {}}
-              onRemove={() => {}}
+              html={initialValue}
             />
           )
         })}
-    </span>
-  ))
+        {extraHeaderTitle &&
+          Array.isArray(memoData[extraHeaderTitle]) &&
+          memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+            return (
+              <NewSectionEditor
+                contentId={extraHeaderTitle}
+                // eslint-disable-next-line react/no-array-index-key
+                key={uKey}
+                initialTitle={title}
+                initialValue={htmlContent}
+                visibleInMemo={visibleInMemo}
+                isEmptyNew={isEmptyNew}
+                uKey={uKey}
+                onEditorChange={() => {}}
+                onBlur={() => {}}
+                onRemove={() => {}}
+              />
+            )
+          })}
+      </span>
+    )
+  })
 }
 
 export const breadcrumbs = (language, courseCode) => (

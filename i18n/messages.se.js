@@ -35,6 +35,9 @@ module.exports = {
     site_name: 'Kurs-pm',
     host_name: 'KTH',
 
+    noPublishedMemo: 'Inget publicerat kurs-pm',
+    obsoleteData: 'Data för kurs-pm är sparat med en tidigare version och föråldrat.',
+
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student på KTH',
