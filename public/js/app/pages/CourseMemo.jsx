@@ -42,14 +42,16 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           const visibleInMemo = isRequired ? true : !!initialValue
 
           return (
-            <Section
-              memoLangIndex={memoLanguageIndex}
-              contentId={contentId}
-              menuId={menuId}
-              key={contentId}
-              visibleInMemo={visibleInMemo}
-              html={initialValue}
-            />
+            initialValue && (
+              <Section
+                memoLangIndex={memoLanguageIndex}
+                contentId={contentId}
+                menuId={menuId}
+                key={contentId}
+                visibleInMemo={visibleInMemo}
+                html={initialValue}
+              />
+            )
           )
         })}
         {extraHeaderTitle &&
