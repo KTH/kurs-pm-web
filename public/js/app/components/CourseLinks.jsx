@@ -13,7 +13,7 @@ const CourseLinks = ({ language }) => (
     <p>
       <a
         title={englishTranslations.beforeAndDuringACourse}
-        href={courseLinks.beforeAndDuringACourse}
+        href={courseLinks(language).beforeAndDuringACourse}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -23,7 +23,7 @@ const CourseLinks = ({ language }) => (
     <p>
       <a
         title={englishTranslations.contactPersonsAndStudentCounselling}
-        href={courseLinks.contactPersonsAndStudentCounselling}
+        href={courseLinks(language).contactPersonsAndStudentCounselling}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -35,7 +35,7 @@ const CourseLinks = ({ language }) => (
     <p>
       <a
         title={englishTranslations.rightsAndResponsibilities}
-        href={courseLinks.rightsAndResponsibilities[language]}
+        href={courseLinks(language).rightsAndResponsibilities}
         target="_blank"
         rel="noopener noreferrer"
       >
