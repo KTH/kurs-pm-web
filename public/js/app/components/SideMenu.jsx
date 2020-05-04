@@ -1,6 +1,8 @@
 import React from 'react'
 
-const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
+import { aboutCourseLink } from '../util/links'
+
+const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) => {
   return (
     <div>
       <p>
@@ -11,7 +13,11 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
         <b>{`${labels.aboutCourse} ${courseCode}`}</b>
       </p>
       <hr />
-      <p>{labels.beforeChoosingCourse}</p>
+      <p>
+        <a className="sideMenuLink" href={aboutCourseLink(courseCode, language)}>
+          {labels.beforeChoosingCourse}
+        </a>
+      </p>
       <p>
         <b>{labels.courseMemo}</b>
       </p>
