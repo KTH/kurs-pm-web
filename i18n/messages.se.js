@@ -30,13 +30,13 @@ module.exports = {
     field_label_post_example: 'Min datamodell(Svar från api anrop POST): ',
 
     lang_block_id: '1.272446',
-    locale_text: 'Kurs-pm på svenska',
+    locale_text: 'Kurs-PM på svenska',
 
     site_name: 'Om kursen',
     host_name: 'KTH',
 
-    noPublishedMemo: 'Inget publicerat kurs-pm',
-    obsoleteData: 'Data för kurs-pm är sparat med en tidigare version och föråldrat.',
+    noPublishedMemo: 'Inget publicerat kurs-PM',
+    obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
 
     breadCrumbLabels: {
@@ -50,7 +50,7 @@ module.exports = {
       directory: 'Kurs- och programkatalogen',
       aboutCourse: 'Om kursen',
       beforeChoosingCourse: 'Inför kursval',
-      courseMemo: 'Förbereda, gå (kurs-pm)',
+      courseMemo: 'Förbereda, gå (kurs-PM)',
       finishCourse: 'Slutföra ej avklarad kurs',
       courseDevelopmentAndHistory: 'Kursens utveckling och historik'
     },
@@ -85,7 +85,7 @@ module.exports = {
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
     },
 
-    courseHeaderTitle: 'Kurs-pm',
+    courseHeaderTitle: 'Kurs-PM',
     courseInformationTitle: 'Information',
     courseContactsTitle: 'Kontakter',
     communicationWithTeachersTitle: 'Kommunikation i kursen',
@@ -107,10 +107,10 @@ module.exports = {
     languageOfInstructionTitle: 'Undervisningsspråk'
   },
   courseMemoLinksLabels: {
-    versionTitle: 'Version kurs-pm',
+    versionTitle: 'Version kurs-PM',
     latest: 'Senaste:',
-    courseMemoArchiveLabel: 'Arkiv för kurs-pm',
-    courseMemoPdf: 'Kurs-pm som pdf',
+    courseMemoArchiveLabel: 'Arkiv för kurs-PM',
+    courseMemoPdf: 'Kurs-PM som pdf',
     syllabus: 'Kursplan',
     syllabusInformation: '(s) information hämtas från',
     syllabusLinkStart: 'Kursplan (',
@@ -136,16 +136,16 @@ module.exports = {
     noInfoYet:
       'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
     // includera rubrik
-    notIncludedInMemoYet: 'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-pm',
+    notIncludedInMemoYet: 'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-PM',
     // includera avsnitt
-    notIncludedInMemoYetOfAddition: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-pm',
+    notIncludedInMemoYetOfAddition: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-PM',
     nothingFetched: {
-      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
+      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
       Välj Redigera för att lägga in innehåll.`,
       mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
       pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. 
-      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-pm.`,
+      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
       Du kan också välja att inte inkludera rubriken.`
     }
