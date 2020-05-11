@@ -50,7 +50,7 @@ module.exports = {
       directory: 'Course and programme directory',
       aboutCourse: 'About course',
       beforeChoosingCourse: 'Before choosing course',
-      courseMemo: 'Prepare, attend (course memo)',
+      courseMemo: 'Prepare and take course',
       finishCourse: 'Finish course',
       courseDevelopmentAndHistory: 'Course development and history'
     },
