@@ -109,6 +109,38 @@ async function getContent(req, res, next) {
   }
 }
 
+async function getNoContent(req, res, next) {
+  try {
+    const context = {}
+    const renderProps = _staticRender(context, req.url)
+
+    const { routerStore } = renderProps.props.children.props
+
+    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
+    const responseLanguage = language.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
+    // TODO: Proper language constant
+    const shortDescription = responseLanguage === 'sv' ? 'Om kurs-PM' : 'About course memos'
+
+    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
+    const html = ReactDOMServer.renderToString(renderProps)
+
+    res.render('memo/index', {
+      html,
+      title: shortDescription,
+      initialState: JSON.stringify(hydrateStores(renderProps)),
+      responseLanguage,
+      description: shortDescription
+    })
+  } catch (err) {
+    log.error('Error in getNoContent', { error: err })
+    next(err)
+  }
+}
+
 module.exports = {
-  getContent
+  getContent,
+  getNoContent
 }

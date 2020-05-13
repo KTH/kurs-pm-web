@@ -38,12 +38,14 @@ module.exports = {
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
+    aboutCourseMemos: 'Om kurs-PM',
 
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student på KTH',
       directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen'
+      aboutCourse: 'Om kursen',
+      aboutCourseMemos: 'Om kurs-PM'
     },
 
     sideMenuLabels: {

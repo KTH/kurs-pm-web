@@ -38,12 +38,14 @@ module.exports = {
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
+    aboutCourseMemos: 'About course memos',
 
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student at KTH',
       directory: 'Course and programme directory',
-      aboutCourse: 'About course'
+      aboutCourse: 'About course',
+      aboutCourseMemos: 'About course memos'
     },
 
     sideMenuLabels: {

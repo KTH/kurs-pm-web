@@ -2,6 +2,13 @@ import React from 'react'
 
 import { aboutCourseLink } from '../util/links'
 
+const beforeChoosingCourse = (courseCode, labels) =>
+  courseCode ? (
+    <p>
+      <b>{`${labels.aboutCourse} ${courseCode}`}</b>
+    </p>
+  ) : null
+
 const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) => {
   return (
     <div>
@@ -9,9 +16,7 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) =
         &lsaquo;&nbsp;
         <a href={backLink}>{labels.directory}</a>
       </p>
-      <p>
-        <b>{`${labels.aboutCourse} ${courseCode}`}</b>
-      </p>
+      {beforeChoosingCourse(courseCode, labels)}
       <hr />
       <p>
         <a className="sideMenuLink" href={aboutCourseLink(courseCode, language)}>
