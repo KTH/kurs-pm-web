@@ -33,9 +33,9 @@ const CourseHeader = ({
       </Row>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
         <Col className="text-left pb-4" style={{ paddingLeft: '0' }}>
-          <b>
+          <h4 className="secondTitle">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </b>
+          </h4>
         </Col>
         <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
           <a
