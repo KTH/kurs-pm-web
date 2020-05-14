@@ -39,6 +39,7 @@ const CourseHeader = ({
         </Col>
         <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
           <a
+            className="course-header-admin-link"
             title={language === 'en' ? englishTranslations.adminLinkLabel : swedishTranslations.adminLinkLabel}
             href={adminLink(courseCode, language)}
             target="_blank"
