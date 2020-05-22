@@ -173,9 +173,13 @@ class CourseMemo extends Component {
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
-    const { courseFactsLabels, courseMemoLinksLabels, extraInfo, courseHeaderLabels } = i18n.messages[
-      routerStore.memoLanguageIndex
-    ]
+    const {
+      courseFactsLabels,
+      courseMemoLinksLabels,
+      extraInfo,
+      courseHeaderLabels,
+      coursePresentationLabels
+    } = i18n.messages[routerStore.memoLanguageIndex]
 
     return (
       // Class preview-container, or equivalent, not needed
@@ -212,9 +216,9 @@ class CourseMemo extends Component {
             <Row>
               <Col lg="8" className="content-center">
                 <CoursePresentation
-                  introText={this.introText}
                   courseImageUrl={courseImageUrl}
-                  semester={this.semester}
+                  introText={routerStore.sellingText}
+                  labels={coursePresentationLabels}
                 />
                 {allSections}
               </Col>

@@ -198,5 +198,9 @@ module.exports = {
   courseHeaderLabels: {
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  coursePresentationLabels: {
+    imageAltText: 'Inspirerande bild för kursen',
+    imageTitleText: ''
   }
 }

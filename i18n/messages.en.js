@@ -223,5 +223,9 @@ module.exports = {
   courseHeaderLabels: {
     adminLinkLabel: 'Administrate About course information',
     linkOpensInNewTab: 'Link will open in new tab'
+  },
+  coursePresentationLabels: {
+    imageAltText: 'Inspiring image for course',
+    imageTitleText: ''
   }
 }
