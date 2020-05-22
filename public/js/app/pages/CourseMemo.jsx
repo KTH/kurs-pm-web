@@ -248,7 +248,7 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
             <Row>
-              <Col lg="8" className="content-center">
+              <Col lg="8" className="text-break content-center">
                 <CoursePresentation
                   courseImageUrl={courseImageUrl}
                   introText={routerStore.sellingText}
