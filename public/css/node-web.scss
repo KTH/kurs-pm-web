@@ -61,3 +61,17 @@ h4.secondTitle {
     }
   }
 }
+
+.info-box {
+  background-color: #f4f4f4;
+  padding: 20px;
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+  h4:first-child {
+    margin-top: 0;
+  }
+  p + h4 {
+    margin-top: 1.5rem;
+  }
+}

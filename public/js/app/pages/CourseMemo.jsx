@@ -223,21 +223,37 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="4" className="content-right">
-                <CourseFacts
-                  language={routerStore.memoLanguage}
-                  labels={courseFactsLabels}
-                  department={this.department}
-                  memoData={routerStore.memoData}
-                />
-                <CourseMemoLinks
-                  language={routerStore.memoLanguage}
-                  labels={courseMemoLinksLabels}
-                  extraInfo={extraInfo}
-                  memoData={routerStore.memoData}
-                  validFromTerm={routerStore.validFromTerm}
-                />
-                <CourseLinks language={routerStore.memoLanguage} />
-                <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
+                <Row className="mb-4">
+                  <Col>
+                    <CourseFacts
+                      language={routerStore.memoLanguage}
+                      labels={courseFactsLabels}
+                      department={routerStore.department}
+                      memoData={routerStore.memoData}
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-4">
+                  <Col>
+                    <CourseMemoLinks
+                      language={routerStore.memoLanguage}
+                      labels={courseMemoLinksLabels}
+                      extraInfo={extraInfo}
+                      memoData={routerStore.memoData}
+                      validFromTerm={routerStore.validFromTerm}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseLinks language={routerStore.memoLanguage} />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>

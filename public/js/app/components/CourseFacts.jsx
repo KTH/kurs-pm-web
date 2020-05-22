@@ -3,40 +3,75 @@ import React from 'react'
 
 import { linkToSchool } from '../util/links'
 
+const formatRounds = (rounds) => {
+  // Split rounds with look behind, so only comma after end parentheses matches
+  const splitRounds = rounds.split(/(?<=\)), /g)
+  return (
+    <>
+      {splitRounds.map((round) => (
+        <span key={round}>
+          {round}
+          <br />
+        </span>
+      ))}
+    </>
+  )
+}
+
 const offeredBy = (language, labels, department) =>
   department.name ? (
-    <div>
+    <>
       <h4>{labels.offeredByTitle}</h4>
       <p>
-        <a title={department.name} href={linkToSchool(department.name)} target="_blank" rel="noopener noreferrer">
+        <a
+          id="link-department-name"
+          title={department.name}
+          href={linkToSchool(department.name)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {department.name}
         </a>
       </p>
-    </div>
+    </>
   ) : (
-    <div>
-      <h4>{labels.versionTitle}</h4>
+    <>
+      <h4>{labels.offeredByTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
-    </div>
+    </>
   )
 
 const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
-    <div>
+    <>
       <h4>{labels.languageOfInstructionTitle}</h4>
       <p>{memoLanguageOfInstructions}</p>
-    </div>
+    </>
   ) : (
-    <div>
+    <>
       <h4>{labels.languageOfInstructionTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
-    </div>
+    </>
   )
 
-const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
-  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
+const rounds = (labels, memoName) =>
+  memoName ? (
+    <>
+      <h4>{labels.roundsTitle}</h4>
+      <p>{formatRounds(memoName)}</p>
+    </>
+  ) : (
+    <>
+      <h4>{labels.roundsTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
+  )
+
+const CourseFacts = ({ language, labels, department = {}, memoData = {} }) => (
+  <div className="info-box text-break">
     {offeredBy(language, labels, department)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
+    {rounds(labels, memoData.memoName)}
   </div>
 )
 
