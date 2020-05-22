@@ -157,6 +157,7 @@ class CourseMemo extends Component {
     )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
     const {
+      sideMenuLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
@@ -166,6 +167,19 @@ class CourseMemo extends Component {
       courseContactsLabels
     } = i18n.messages[routerStore.memoLanguageIndex]
 
+    let courseMemoItems = routerStore.memoDatas.map((m) => {
+      const id = m.memoEndPoint
+      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoLanguageIndex)
+      return {
+        id,
+        label,
+        active: routerStore.activeMemoEndPoint(id),
+        url: `/kurs-pm/${routerStore.courseCode}/${id}`
+      }
+    })
+    // Duplicate id’s filtered out
+    courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
+
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container" fluid>
@@ -174,18 +188,9 @@ class CourseMemo extends Component {
           <Col lg="3" className="side-menu">
             <SideMenu
               courseCode={routerStore.courseCode}
-              courseMemoItems={routerStore.memoDatas.map((m) => {
-                const label = m.memoEndPoint
-                return {
-                  label,
-                  active: routerStore.activeMemoEndPoint(label),
-                  url: `/kurs-pm/${routerStore.courseCode}/${label}`
-                }
-              })}
+              courseMemoItems={courseMemoItems}
               backLink={sideMenuBackLink[routerStore.language]}
-              labels={
-                routerStore.language === 'en' ? englishTranslations.sideMenuLabels : swedishTranslations.sideMenuLabels
-              }
+              labels={sideMenuLabels}
             />
           </Col>
           <Col lg="9">

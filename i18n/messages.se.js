@@ -48,15 +48,6 @@ module.exports = {
       aboutCourse: 'Om kursen'
     },
 
-    sideMenuLabels: {
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen',
-      beforeChoosingCourse: 'Inför kursval',
-      courseMemo: 'Förbereda och gå kurs',
-      finishCourse: 'Slutföra ej avklarad kurs',
-      courseDevelopmentAndHistory: 'Kursens utveckling och historik'
-    },
-
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 
     courseImage: {
@@ -91,6 +82,14 @@ module.exports = {
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administrera Om kursen'
+  },
+  sideMenuLabels: {
+    directory: 'Kurs- och programkatalogen',
+    aboutCourse: 'Om kursen',
+    beforeChoosingCourse: 'Inför kursval',
+    courseMemo: 'Förbereda och gå kurs',
+    finishCourse: 'Slutföra ej avklarad kurs',
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',

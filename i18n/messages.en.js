@@ -48,15 +48,6 @@ module.exports = {
       aboutCourse: 'About course'
     },
 
-    sideMenuLabels: {
-      directory: 'Course and programme directory',
-      aboutCourse: 'About course',
-      beforeChoosingCourse: 'Before choosing course',
-      courseMemo: 'Prepare and take course',
-      finishCourse: 'Finish course',
-      courseDevelopmentAndHistory: 'Course development and history'
-    },
-
     mandatoryFieldMissing: 'Missing mandatory information',
 
     courseMainSubjects: {
@@ -121,6 +112,14 @@ module.exports = {
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administrate About course information'
+  },
+  sideMenuLabels: {
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course',
+    beforeChoosingCourse: 'Before choosing course',
+    courseMemo: 'Prepare and take course',
+    finishCourse: 'Finish course',
+    courseDevelopmentAndHistory: 'Course development and history'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
