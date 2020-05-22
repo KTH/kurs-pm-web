@@ -236,7 +236,7 @@ class CourseMemo extends Component {
                 <Row className="my-4">
                   <Col>
                     <CourseMemoLinks
-                      language={routerStore.memoLanguage}
+                      language={routerStore.memoLanguageIndex}
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
                       memoData={routerStore.memoData}
