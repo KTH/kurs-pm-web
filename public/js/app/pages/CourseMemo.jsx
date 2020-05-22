@@ -210,7 +210,7 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
             <Row>
-              <Col>
+              <Col lg="8" className="content-center">
                 <CoursePresentation
                   introText={this.introText}
                   courseImageUrl={courseImageUrl}
@@ -218,7 +218,7 @@ class CourseMemo extends Component {
                 />
                 {allSections}
               </Col>
-              <Col lg="3">
+              <Col lg="4" className="content-right">
                 <CourseFacts
                   language={routerStore.memoLanguage}
                   labels={courseFactsLabels}

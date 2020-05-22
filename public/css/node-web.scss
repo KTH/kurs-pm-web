@@ -48,3 +48,16 @@
 h4.secondTitle {
   margin-top: 4px;
 }
+
+.content-center {
+  h2 {
+    margin-top: 32px !important; // Resets to KTH Style
+    margin-bottom: 0 !important; // According to sketch
+  }
+  .title-and-info {
+    h3 {
+      margin-top: 24px !important; // Resets to KTH Style
+      margin-bottom: 10px !important; // Resets to KTH Style
+    }
+  }
+}
