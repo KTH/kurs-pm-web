@@ -140,38 +140,21 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : ''
-
-  semester = this.props.routerStore.semester ? this.props.routerStore.semester : ''
-
-  language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
-
-  title = this.props.routerStore.title ? this.props.routerStore.title : ''
-
-  credits = this.props.routerStore.credits ? this.props.routerStore.credits : ''
-
-  creditUnitAbbr = this.props.routerStore.creditUnitAbbr ? this.props.routerStore.creditUnitAbbr : ''
-
-  department = this.props.routerStore.department ? this.props.routerStore.department : ''
-
-  examiners = this.props.routerStore.examiners ? this.props.routerStore.examiners : ''
-
-  imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
-
-  courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
-
-  introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
-
   componentDidMount() {
+    const { routerStore } = this.props
     const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = this.language === 'en' ? englishTranslations : swedishTranslations
-    siteNameElement.textContent = aboutCourseStr(translate, this.courseCode)
+    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
+    siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
   }
 
   render() {
     const { routerStore } = this.props
     const allSections = renderAllSections(routerStore)
-    const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
+    const courseImage = resolveCourseImage(
+      routerStore.imageFromAdmin,
+      routerStore.courseMainSubjects,
+      routerStore.memoLanguage
+    )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
     const {
       courseFactsLabels,
@@ -186,11 +169,11 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container" fluid>
-        <Row>{breadcrumbs(this.language, this.courseCode)}</Row>
+        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
           <Col lg="3" className="side-menu">
             <SideMenu
-              courseCode={this.courseCode}
+              courseCode={routerStore.courseCode}
               courseMemoItems={routerStore.memoDatas.map((m) => {
                 const label = m.memoEndPoint
                 return {
