@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Om kursen',
     host_name: 'KTH',
 
+    memoLabel: 'Kurs-PM',
+
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
@@ -192,5 +194,9 @@ module.exports = {
     software: 'Programvara',
     teacher: 'Lärare',
     teacherAssistants: 'Lärarassistenter'
+  },
+  courseHeaderLabels: {
+    adminLinkLabel: 'Administrera Om kursen',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   }
 }

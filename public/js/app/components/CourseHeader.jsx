@@ -1,13 +1,9 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { Row, Col } from 'reactstrap'
 
-import i18n from '../../../../i18n'
 import { adminLink } from '../util/links'
-
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
+import { Row, Col } from 'reactstrap'
 
 const formatCredits = (credits, creditUnitAbbr, language) => {
   const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
@@ -21,31 +17,33 @@ const CourseHeader = ({
   title = '',
   credits = '',
   creditUnitAbbr = '',
+  labels = {},
   language = 'sv'
 }) => {
-  const headerTitle = language === 'sv' ? swedishTranslations.courseHeaderTitle : englishTranslations.courseHeaderTitle
+  const { adminLinkLabel } = labels
   return (
     <>
-      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
-        <Col style={{ paddingLeft: '0' }}>
-          <h1 className="course-header-title">{`${headerTitle} ${courseMemo}`}</h1>
+      <Row>
+        <Col>
+          <h1 className="course-header-title">{courseMemo}</h1>
         </Col>
       </Row>
-      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
-        <Col className="text-left pb-4" style={{ paddingLeft: '0' }}>
+      <Row className="pb-3">
+        <Col className="text-left" xs="12" lg="6">
           <h4 className="secondTitle">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
           </h4>
         </Col>
-        <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
+        <Col className="text-lg-right" xs="12" lg="6">
           <a
+            id="admin-link"
             className="course-header-admin-link"
-            title={language === 'en' ? englishTranslations.adminLinkLabel : swedishTranslations.adminLinkLabel}
+            title={adminLinkLabel}
             href={adminLink(courseCode, language)}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {language === 'en' ? englishTranslations.adminLinkLabel : swedishTranslations.adminLinkLabel}
+            {adminLinkLabel}
           </a>
         </Col>
       </Row>

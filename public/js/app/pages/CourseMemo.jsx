@@ -5,7 +5,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstr
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
-import { aboutCourseStr } from '../util/helpers'
+import { aboutCourseStr, concatMemoName } from '../util/helpers'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -173,13 +173,16 @@ class CourseMemo extends Component {
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
-    const { courseFactsLabels, courseMemoLinksLabels, extraInfo } = i18n.messages[routerStore.memoLanguageIndex]
+    const { courseFactsLabels, courseMemoLinksLabels, extraInfo, courseHeaderLabels } = i18n.messages[
+      routerStore.memoLanguageIndex
+    ]
 
     return (
-      <Container className="kip-container">
+      // Class preview-container, or equivalent, not needed
+      <Container className="kip-container" fluid>
         <Row>{breadcrumbs(this.language, this.courseCode)}</Row>
         <Row>
-          <Col lg="3">
+          <Col lg="3" className="side-menu">
             <SideMenu
               courseCode={this.courseCode}
               courseMemoItems={routerStore.memoDatas.map((m) => {
@@ -196,19 +199,16 @@ class CourseMemo extends Component {
               }
             />
           </Col>
-          <Col>
-            <Row>
-              <Col>
-                <CourseHeader
-                  courseMemo={routerStore.memoEndPoint}
-                  courseCode={this.courseCode}
-                  title={this.title}
-                  credits={this.credits}
-                  creditUnitAbbr={this.creditUnitAbbr}
-                  language={routerStore.language}
-                />
-              </Col>
-            </Row>
+          <Col lg="9">
+            <CourseHeader
+              courseMemo={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguageIndex)}
+              courseCode={routerStore.courseCode}
+              title={routerStore.title}
+              credits={routerStore.credits}
+              creditUnitAbbr={routerStore.creditUnitAbbr}
+              labels={courseHeaderLabels}
+              language={routerStore.language}
+            />
             <Row>
               <Col>
                 <CoursePresentation

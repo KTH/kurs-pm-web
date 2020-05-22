@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'About course',
     host_name: 'KTH',
 
+    memoLabel: 'Course memo',
+
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
@@ -217,5 +219,9 @@ module.exports = {
     software: 'Software',
     teacher: 'Teacher',
     teacherAssistants: 'Teacher assistants'
+  },
+  courseHeaderLabels: {
+    adminLinkLabel: 'Administrate About course information',
+    linkOpensInNewTab: 'Link will open in new tab'
   }
 }
