@@ -127,12 +127,13 @@ module.exports = {
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
 
+    adminLinkLabel: 'Administrate About course information'
+  },
+  courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    rightsAndResponsibilities: 'Rights and responsibilities',
-
-    adminLinkLabel: 'Administrate About course information'
+    rightsAndResponsibilities: 'Rights and responsibilities'
   },
   courseFactsLabels: {
     offeredByTitle: 'Offered By',
