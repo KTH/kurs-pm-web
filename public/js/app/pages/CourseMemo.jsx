@@ -6,6 +6,7 @@ import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
 import { aboutCourseStr, concatMemoName } from '../util/helpers'
+import { EMPTY } from '../util/constants'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -26,54 +27,97 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
   }
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
+  // TODO Refactor logic for visible sections
+  const sectionsWithContent = []
+  sections.forEach(({ id, content, extraHeaderTitle }) => {
+    content.forEach((contentId) => {
+      const { isRequired, type } = context[contentId]
+      let contentHtml = memoData[contentId]
+      let visibleInMemo = memoData.visibleInMemo[contentId]
+      if (typeof visibleInMemo === 'undefined') {
+        visibleInMemo = true
+      }
+
+      if (isRequired && type === 'mandatory' && !contentHtml) {
+        contentHtml = EMPTY[memoLanguageIndex]
+      } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
+        visibleInMemo = false
+      } else if (!contentHtml) {
+        visibleInMemo = false
+      }
+      if (visibleInMemo && !sectionsWithContent.includes(id)) {
+        sectionsWithContent.push(id)
+      }
+    })
+
+    if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
+      memoData[extraHeaderTitle].forEach((m) => {
+        if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
+          sectionsWithContent.push(id)
+        }
+      })
+    }
+  })
+
+  // TODO Refactor logic for visible sections
   return sections.map(({ id, content, extraHeaderTitle }) => {
-    const obsoleteData = !Array.isArray(memoData[extraHeaderTitle])
+    if (!sectionsWithContent.includes(id)) {
+      return (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {EMPTY[memoLanguageIndex]}
+        </span>
+      )
+    }
 
     return (
-      <span key={id}>
-        {obsoleteData && <Alert color="danger">{i18n.messages[memoLanguageIndex].messages.obsoleteData}</Alert>}
-        <h2 id={id} key={'header-' + id}>
-          {sectionsLabels[id]}
-        </h2>
-        {content.map((contentId) => {
-          const menuId = id + '-' + contentId
-          const { isRequired } = context[contentId]
-          const initialValue = memoData[contentId]
-          const visibleInMemo = isRequired ? true : !!initialValue
+      id !== 'contacts' && (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {content.map((contentId) => {
+            const menuId = id + '-' + contentId
+            const { isRequired } = context[contentId]
+            const initialValue = memoData[contentId]
+            const visibleInMemo = isRequired ? true : !!initialValue
 
-          return (
-            visibleInMemo && (
-              <Section
-                memoLangIndex={memoLanguageIndex}
-                contentId={contentId}
-                menuId={menuId}
-                key={contentId}
-                visibleInMemo={visibleInMemo}
-                html={initialValue}
-              />
-            )
-          )
-        })}
-        {extraHeaderTitle &&
-          Array.isArray(memoData[extraHeaderTitle]) &&
-          memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
             return (
-              <NewSectionEditor
-                contentId={extraHeaderTitle}
-                // eslint-disable-next-line react/no-array-index-key
-                key={uKey}
-                initialTitle={title}
-                initialValue={htmlContent}
-                visibleInMemo={visibleInMemo}
-                isEmptyNew={isEmptyNew}
-                uKey={uKey}
-                onEditorChange={() => {}}
-                onBlur={() => {}}
-                onRemove={() => {}}
-              />
+              visibleInMemo && (
+                <Section
+                  memoLangIndex={memoLanguageIndex}
+                  contentId={contentId}
+                  menuId={menuId}
+                  key={contentId}
+                  visibleInMemo={visibleInMemo}
+                  html={initialValue}
+                />
+              )
             )
           })}
-      </span>
+          {extraHeaderTitle &&
+            Array.isArray(memoData[extraHeaderTitle]) &&
+            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+              return (
+                <NewSectionEditor
+                  contentId={extraHeaderTitle}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={uKey}
+                  initialTitle={title}
+                  initialValue={htmlContent}
+                  visibleInMemo={visibleInMemo}
+                  isEmptyNew={isEmptyNew}
+                  uKey={uKey}
+                  onEditorChange={() => {}}
+                  onBlur={() => {}}
+                  onRemove={() => {}}
+                />
+              )
+            })}
+        </span>
+      )
     )
   })
 }

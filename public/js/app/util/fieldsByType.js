@@ -15,10 +15,9 @@
 
 const context = {
   additionalRegulations: {
-    openIfContent: true,
-    type: 'optional',
+    type: 'mandatoryForSome',
     isEditable: false,
-    isRequired: false,
+    isRequired: true,
     source: '(s)'
   },
   courseContent: {
@@ -39,16 +38,18 @@ const context = {
     isRequired: true,
     source: '(s)'
   },
-  ethicalApproachThisCourse: {
-    // ????avsnit
-    isEditable: true,
-    isRequired: false
-  },
-  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
-  examinationModules: {
+  ethicalApproachSubSection: {
     openIfContent: true,
     isEditable: true,
-    isRequired: false
+    isRequired: false,
+    hasParentTitle: true
+  },
+  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
+  examinationSubSection: {
+    openIfContent: true,
+    isEditable: true,
+    isRequired: false,
+    hasParentTitle: true
   },
   examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
   extraHeaders1: { isEditable: true, isRequired: false },
@@ -93,6 +94,12 @@ const context = {
     source: '(s)'
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
+  permanentDisabilitySubSection: {
+    openIfContent: true,
+    isEditable: true,
+    isRequired: false,
+    hasParentTitle: true
+  },
   possibilityToCompletion: {
     openIfContent: true,
     type: 'optionalEditable',
@@ -146,7 +153,15 @@ const sections = [
   {
     id: 'prep',
     title: 'Förbereda inför kursstart',
-    content: ['prerequisites', 'preparations', 'literature', 'equipment', 'software', 'permanentDisability'],
+    content: [
+      'prerequisites',
+      'preparations',
+      'literature',
+      'equipment',
+      'software',
+      'permanentDisability',
+      'permanentDisabilitySubSection'
+    ],
     extraHeaderTitle: 'extraHeaders2'
   },
   {
@@ -155,15 +170,15 @@ const sections = [
     content: [
       'gradingScale',
       'examination',
+      'examinationSubSection',
       'otherRequirementsForFinalGrade',
-      'examinationModules',
       'gradingCriteria',
       'possibilityToCompletion',
       'possibilityToAddition',
       'possibilityToCompensate',
       'reportingResults',
       'ethicalApproach',
-      'ethicalApproachThisCourse'
+      'ethicalApproachSubSection'
     ],
     extraHeaderTitle: 'extraHeaders3'
   },
@@ -172,6 +187,19 @@ const sections = [
     title: 'Ytterligare Information',
     content: ['additionalRegulations', 'infoForReregisteredStudents'],
     extraHeaderTitle: 'extraHeaders4'
+  },
+  {
+    id: 'contacts',
+    title: 'Kontakter',
+    content: [
+      'communicationDuringCourse',
+      'courseCoordinator',
+      'teacher',
+      'teacherAssistants',
+      'examiner',
+      'otherContacts'
+    ],
+    extraHeaderTitle: null
   }
 ]
 
