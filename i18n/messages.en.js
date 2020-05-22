@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'About course',
     host_name: 'KTH',
 
+    memoLabel: 'Course memo',
+
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
@@ -46,15 +48,6 @@ module.exports = {
       directory: 'Course and programme directory',
       aboutCourse: 'About course',
       aboutCourseMemos: 'About course memos'
-    },
-
-    sideMenuLabels: {
-      directory: 'Course and programme directory',
-      aboutCourse: 'About course',
-      beforeChoosingCourse: 'Before choosing course',
-      courseMemo: 'Prepare and take course',
-      finishCourse: 'Finish course',
-      courseDevelopmentAndHistory: 'Course development and history'
     },
 
     mandatoryFieldMissing: 'Missing mandatory information',
@@ -119,20 +112,22 @@ module.exports = {
 
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
-    courseContactsTitle: 'Contacts',
-    communicationWithTeachersTitle: 'Communication With Teachers',
-    courseCoordinatorTitle: 'Course Coordinator',
-    teacherTitle: 'Teacher',
-    teacherAssistantsTitle: 'Teacher Assistants',
-    examinerTitle: 'Examiner',
-    otherContactsTitle: 'Other Contacts',
 
+    adminLinkLabel: 'Administrate About course information'
+  },
+  sideMenuLabels: {
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course',
+    beforeChoosingCourse: 'Before choosing course',
+    courseMemo: 'Prepare and take course',
+    finishCourse: 'Finish course',
+    courseDevelopmentAndHistory: 'Course development and history'
+  },
+  courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    rightsAndResponsibilities: 'Rights and responsibilities',
-
-    adminLinkLabel: 'Administrate About course information'
+    rightsAndResponsibilities: 'Rights and responsibilities'
   },
   courseFactsLabels: {
     offeredByTitle: 'Offered By',
@@ -145,10 +140,19 @@ module.exports = {
     courseMemoArchiveLabel: 'Course memo archive',
     courseMemoPdf: 'Course memo pdf',
     syllabus: 'Syllabus',
-    syllabusInformation: '(s) fetched from',
+    syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Missing mandatory information'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Contacts',
+    communicationWithTeachersTitle: 'Communication With Teachers',
+    courseCoordinatorTitle: 'Course Coordinator',
+    teacherTitle: 'Teacher',
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts'
   },
   extraInfo: {
     season: {
@@ -219,5 +223,13 @@ module.exports = {
     software: 'Software',
     teacher: 'Teacher',
     teacherAssistants: 'Teacher assistants'
+  },
+  courseHeaderLabels: {
+    adminLinkLabel: 'Administrate About course information',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  coursePresentationLabels: {
+    imageAltText: 'Inspiring image for course',
+    imageTitleText: ''
   }
 }

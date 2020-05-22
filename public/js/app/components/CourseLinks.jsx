@@ -1,47 +1,42 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-import i18n from '../../../../i18n'
 import { courseLinks } from '../util/links'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
-
-const CourseLinks = ({ language }) => (
-  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-    <h3>{language === 'sv' ? swedishTranslations.linkHeaderTitle : englishTranslations.linkHeaderTitle}</h3>
+const CourseLinks = ({ language, labels }) => (
+  <div className="info-box text-break">
+    <h4>{labels.linkHeaderTitle}</h4>
     <p>
       <a
-        title={englishTranslations.beforeAndDuringACourse}
+        id="link-before-and-during-course"
+        title={labels.beforeAndDuringACourse}
         href={courseLinks(language).beforeAndDuringACourse}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {language === 'en' ? englishTranslations.beforeAndDuringACourse : swedishTranslations.beforeAndDuringACourse}
+        {labels.beforeAndDuringACourse}
       </a>
     </p>
     <p>
       <a
-        title={englishTranslations.contactPersonsAndStudentCounselling}
+        id="link-contact-persons-and-student-counceling"
+        title={labels.contactPersonsAndStudentCounselling}
         href={courseLinks(language).contactPersonsAndStudentCounselling}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {language === 'en'
-          ? englishTranslations.contactPersonsAndStudentCounselling
-          : swedishTranslations.contactPersonsAndStudentCounselling}
+        {labels.contactPersonsAndStudentCounselling}
       </a>
     </p>
     <p>
       <a
-        title={englishTranslations.rightsAndResponsibilities}
+        id="link-rights-and-responsibilities"
+        title={labels.rightsAndResponsibilities}
         href={courseLinks(language).rightsAndResponsibilities}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {language === 'en'
-          ? englishTranslations.rightsAndResponsibilities
-          : swedishTranslations.rightsAndResponsibilities}
+        {labels.rightsAndResponsibilities}
       </a>
     </p>
   </div>

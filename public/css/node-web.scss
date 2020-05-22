@@ -5,7 +5,7 @@
 }
 
 .course-header-title {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .menu-memos {
@@ -24,6 +24,10 @@
   background-color: transparent;
 }
 
+.side-menu {
+  padding-right: 35px;
+}
+
 .sideMenuLink {
   color: #000000;
   &:hover {
@@ -37,7 +41,61 @@
 
 .course-header-admin-link {
   display: block;
-  line-height: 1.375;
-  margin-top: 16px;
+  margin-top: 4px;
   margin-bottom: 14px;
+}
+
+h4.secondTitle {
+  margin-top: 4px;
+}
+
+.content-center {
+  h2 {
+    margin-top: 32px !important; // Resets to KTH Style
+    margin-bottom: 0 !important; // According to sketch
+  }
+  .title-and-info {
+    h3 {
+      margin-top: 24px !important; // Resets to KTH Style
+      margin-bottom: 10px !important; // Resets to KTH Style
+    }
+  }
+}
+
+.info-box {
+  background-color: #f4f4f4;
+  padding: 20px;
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+  h4:first-child {
+    margin-top: 0;
+  }
+  p + h4 {
+    margin-top: 1.5rem;
+  }
+}
+
+.pdf-icon {
+  color: #000;
+  margin-left: 0.5rem;
+  overflow: auto;
+  vertical-align: baseline;
+}
+
+.syllabus-marker-icon {
+  height: 0.7rem;
+  margin-right: 0.5rem;
+  vertical-align: baseline;
+  width: 0.7rem;
+}
+
+sup {
+  .syllabus-marker-icon {
+    margin-left: 0.3rem;
+  }
+}
+
+h2.info {
+  margin-top: 0;
 }

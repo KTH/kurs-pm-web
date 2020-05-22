@@ -5,7 +5,8 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstr
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
-import { aboutCourseStr } from '../util/helpers'
+import { aboutCourseStr, concatMemoName } from '../util/helpers'
+import { EMPTY } from '../util/constants'
 
 import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
@@ -26,54 +27,97 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
   }
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
+  // TODO Refactor logic for visible sections
+  const sectionsWithContent = []
+  sections.forEach(({ id, content, extraHeaderTitle }) => {
+    content.forEach((contentId) => {
+      const { isRequired, type } = context[contentId]
+      let contentHtml = memoData[contentId]
+      let visibleInMemo = memoData.visibleInMemo[contentId]
+      if (typeof visibleInMemo === 'undefined') {
+        visibleInMemo = true
+      }
+
+      if (isRequired && type === 'mandatory' && !contentHtml) {
+        contentHtml = EMPTY[memoLanguageIndex]
+      } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
+        visibleInMemo = false
+      } else if (!contentHtml) {
+        visibleInMemo = false
+      }
+      if (visibleInMemo && !sectionsWithContent.includes(id)) {
+        sectionsWithContent.push(id)
+      }
+    })
+
+    if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
+      memoData[extraHeaderTitle].forEach((m) => {
+        if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
+          sectionsWithContent.push(id)
+        }
+      })
+    }
+  })
+
+  // TODO Refactor logic for visible sections
   return sections.map(({ id, content, extraHeaderTitle }) => {
-    const obsoleteData = !Array.isArray(memoData[extraHeaderTitle])
+    if (!sectionsWithContent.includes(id)) {
+      return (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {EMPTY[memoLanguageIndex]}
+        </span>
+      )
+    }
 
     return (
-      <span key={id}>
-        {obsoleteData && <Alert color="danger">{i18n.messages[memoLanguageIndex].messages.obsoleteData}</Alert>}
-        <h2 id={id} key={'header-' + id}>
-          {sectionsLabels[id]}
-        </h2>
-        {content.map((contentId) => {
-          const menuId = id + '-' + contentId
-          const { isRequired } = context[contentId]
-          const initialValue = memoData[contentId]
-          const visibleInMemo = isRequired ? true : !!initialValue
+      id !== 'contacts' && (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {content.map((contentId) => {
+            const menuId = id + '-' + contentId
+            const { isRequired } = context[contentId]
+            const initialValue = memoData[contentId]
+            const visibleInMemo = isRequired ? true : !!initialValue
 
-          return (
-            visibleInMemo && (
-              <Section
-                memoLangIndex={memoLanguageIndex}
-                contentId={contentId}
-                menuId={menuId}
-                key={contentId}
-                visibleInMemo={visibleInMemo}
-                html={initialValue}
-              />
-            )
-          )
-        })}
-        {extraHeaderTitle &&
-          Array.isArray(memoData[extraHeaderTitle]) &&
-          memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
             return (
-              <NewSectionEditor
-                contentId={extraHeaderTitle}
-                // eslint-disable-next-line react/no-array-index-key
-                key={uKey}
-                initialTitle={title}
-                initialValue={htmlContent}
-                visibleInMemo={visibleInMemo}
-                isEmptyNew={isEmptyNew}
-                uKey={uKey}
-                onEditorChange={() => {}}
-                onBlur={() => {}}
-                onRemove={() => {}}
-              />
+              visibleInMemo && (
+                <Section
+                  memoLangIndex={memoLanguageIndex}
+                  contentId={contentId}
+                  menuId={menuId}
+                  key={contentId}
+                  visibleInMemo={visibleInMemo}
+                  html={initialValue}
+                />
+              )
             )
           })}
-      </span>
+          {extraHeaderTitle &&
+            Array.isArray(memoData[extraHeaderTitle]) &&
+            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+              return (
+                <NewSectionEditor
+                  contentId={extraHeaderTitle}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={uKey}
+                  initialTitle={title}
+                  initialValue={htmlContent}
+                  visibleInMemo={visibleInMemo}
+                  isEmptyNew={isEmptyNew}
+                  uKey={uKey}
+                  onEditorChange={() => {}}
+                  onBlur={() => {}}
+                  onRemove={() => {}}
+                />
+              )
+            })}
+        </span>
+      )
     )
   })
 }
@@ -140,100 +184,114 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  courseCode = this.props.routerStore.courseCode ? this.props.routerStore.courseCode : ''
-
-  semester = this.props.routerStore.semester ? this.props.routerStore.semester : ''
-
-  language = this.props.routerStore.language ? this.props.routerStore.language : 'sv'
-
-  title = this.props.routerStore.title ? this.props.routerStore.title : ''
-
-  credits = this.props.routerStore.credits ? this.props.routerStore.credits : ''
-
-  creditUnitAbbr = this.props.routerStore.creditUnitAbbr ? this.props.routerStore.creditUnitAbbr : ''
-
-  department = this.props.routerStore.department ? this.props.routerStore.department : ''
-
-  examiners = this.props.routerStore.examiners ? this.props.routerStore.examiners : ''
-
-  imageFromAdmin = this.props.routerStore.imageFromAdmin ? this.props.routerStore.imageFromAdmin : ''
-
-  courseMainSubjects = this.props.routerStore.courseMainSubjects ? this.props.routerStore.courseMainSubjects : ''
-
-  introText = this.props.routerStore.sellingText ? this.props.routerStore.sellingText : ''
-
   componentDidMount() {
+    const { routerStore } = this.props
     const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = this.language === 'en' ? englishTranslations : swedishTranslations
-    siteNameElement.textContent = aboutCourseStr(translate, this.courseCode)
+    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
+    siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
   }
 
   render() {
     const { routerStore } = this.props
     const allSections = renderAllSections(routerStore)
-    const courseImage = resolveCourseImage(this.imageFromAdmin, this.courseMainSubjects, routerStore.memoLanguage)
+    const courseImage = resolveCourseImage(
+      routerStore.imageFromAdmin,
+      routerStore.courseMainSubjects,
+      routerStore.memoLanguage
+    )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
-    const { courseFactsLabels, courseMemoLinksLabels, extraInfo } = i18n.messages[routerStore.memoLanguageIndex]
+    const {
+      sideMenuLabels,
+      courseFactsLabels,
+      courseMemoLinksLabels,
+      extraInfo,
+      courseHeaderLabels,
+      coursePresentationLabels,
+      courseLinksLabels,
+      courseContactsLabels
+    } = i18n.messages[routerStore.memoLanguageIndex]
+
+    let courseMemoItems = routerStore.memoDatas.map((m) => {
+      const id = m.memoEndPoint
+      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoLanguageIndex)
+      return {
+        id,
+        label,
+        active: routerStore.activeMemoEndPoint(id),
+        url: `/kurs-pm/${routerStore.courseCode}/${id}`
+      }
+    })
+    // Duplicate id’s filtered out
+    courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
     return (
-      <Container className="kip-container">
-        <Row>{breadcrumbs(this.language, this.courseCode)}</Row>
+      // Class preview-container, or equivalent, not needed
+      <Container className="kip-container" fluid>
+        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3">
+          <Col lg="3" className="side-menu">
             <SideMenu
-              courseCode={this.courseCode}
-              courseMemoItems={routerStore.memoDatas.map((m) => {
-                const label = m.memoEndPoint
-                return {
-                  label,
-                  active: routerStore.activeMemoEndPoint(label),
-                  url: `/kurs-pm/${routerStore.courseCode}/${label}`
-                }
-              })}
+              courseCode={routerStore.courseCode}
+              courseMemoItems={courseMemoItems}
               backLink={sideMenuBackLink[routerStore.language]}
-              labels={
-                routerStore.language === 'en' ? englishTranslations.sideMenuLabels : swedishTranslations.sideMenuLabels
-              }
+              labels={sideMenuLabels}
             />
           </Col>
-          <Col>
+          <Col lg="9">
+            <CourseHeader
+              courseMemo={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguageIndex)}
+              courseCode={routerStore.courseCode}
+              title={routerStore.title}
+              credits={routerStore.credits}
+              creditUnitAbbr={routerStore.creditUnitAbbr}
+              labels={courseHeaderLabels}
+              language={routerStore.language}
+            />
             <Row>
-              <Col>
-                <CourseHeader
-                  courseMemo={routerStore.memoEndPoint}
-                  courseCode={this.courseCode}
-                  title={this.title}
-                  credits={this.credits}
-                  creditUnitAbbr={this.creditUnitAbbr}
-                  language={routerStore.language}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
+              <Col lg="8" className="content-center">
                 <CoursePresentation
-                  introText={this.introText}
                   courseImageUrl={courseImageUrl}
-                  semester={this.semester}
+                  introText={routerStore.sellingText}
+                  labels={coursePresentationLabels}
                 />
                 {allSections}
               </Col>
-              <Col lg="3">
-                <CourseFacts
-                  language={routerStore.memoLanguage}
-                  labels={courseFactsLabels}
-                  department={this.department}
-                  memoData={routerStore.memoData}
-                />
-                <CourseMemoLinks
-                  language={routerStore.memoLanguage}
-                  labels={courseMemoLinksLabels}
-                  extraInfo={extraInfo}
-                  memoData={routerStore.memoData}
-                  validFromTerm={routerStore.validFromTerm}
-                />
-                <CourseLinks language={routerStore.memoLanguage} />
-                <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
+              <Col lg="4" className="content-right">
+                <Row className="mb-4">
+                  <Col>
+                    <CourseFacts
+                      language={routerStore.memoLanguage}
+                      labels={courseFactsLabels}
+                      department={routerStore.department}
+                      memoData={routerStore.memoData}
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-4">
+                  <Col>
+                    <CourseMemoLinks
+                      language={routerStore.memoLanguageIndex}
+                      labels={courseMemoLinksLabels}
+                      extraInfo={extraInfo}
+                      memoData={routerStore.memoData}
+                      validFromTerm={routerStore.validFromTerm}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseLinks language={routerStore.memoLanguage} labels={courseLinksLabels} />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseContacts
+                      language={routerStore.memoLanguage}
+                      memoData={routerStore.memoData}
+                      labels={courseContactsLabels}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>

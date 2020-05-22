@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Om kursen',
     host_name: 'KTH',
 
+    memoLabel: 'Kurs-PM',
+
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
@@ -46,15 +48,6 @@ module.exports = {
       directory: 'Kurs- och programkatalogen',
       aboutCourse: 'Om kursen',
       aboutCourseMemos: 'Om kurs-PM'
-    },
-
-    sideMenuLabels: {
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen',
-      beforeChoosingCourse: 'Inför kursval',
-      courseMemo: 'Förbereda och gå kurs',
-      finishCourse: 'Slutföra ej avklarad kurs',
-      courseDevelopmentAndHistory: 'Kursens utveckling och historik'
     },
 
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
@@ -89,20 +82,22 @@ module.exports = {
 
     courseHeaderTitle: 'Kurs-PM',
     courseInformationTitle: 'Information',
-    courseContactsTitle: 'Kontakter',
-    communicationWithTeachersTitle: 'Kommunikation i kursen',
-    courseCoordinatorTitle: 'Kursansvarig',
-    teacherTitle: 'Lärare',
-    teacherAssistantsTitle: 'Lärarassistenter',
-    examinerTitle: 'Examinator',
-    otherContactsTitle: 'Övriga kontakter',
 
+    adminLinkLabel: 'Administrera Om kursen'
+  },
+  sideMenuLabels: {
+    directory: 'Kurs- och programkatalogen',
+    aboutCourse: 'Om kursen',
+    beforeChoosingCourse: 'Inför kursval',
+    courseMemo: 'Förbereda och gå kurs',
+    finishCourse: 'Slutföra ej avklarad kurs',
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
+  },
+  courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
-
-    adminLinkLabel: 'Administrera Om kursen'
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter'
   },
   courseFactsLabels: {
     offeredByTitle: 'Kursen ges av',
@@ -114,10 +109,19 @@ module.exports = {
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
     courseMemoPdf: 'Kurs-PM som pdf',
     syllabus: 'Kursplan',
-    syllabusInformation: '(s) information hämtas från',
+    syllabusInformation: 'information hämtas från',
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Kontakter',
+    communicationWithTeachersTitle: 'Kommunikation i kursen',
+    courseCoordinatorTitle: 'Kursansvarig',
+    teacherTitle: 'Lärare',
+    teacherAssistantsTitle: 'Lärarassistenter',
+    examinerTitle: 'Examinator',
+    otherContactsTitle: 'Övriga kontakter'
   },
   extraInfo: {
     season: {
@@ -194,5 +198,13 @@ module.exports = {
     software: 'Programvara',
     teacher: 'Lärare',
     teacherAssistants: 'Lärarassistenter'
+  },
+  courseHeaderLabels: {
+    adminLinkLabel: 'Administrera Om kursen',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  coursePresentationLabels: {
+    imageAltText: 'Inspirerande bild för kursen',
+    imageTitleText: ''
   }
 }
