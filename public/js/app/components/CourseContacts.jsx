@@ -1,104 +1,88 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-danger */
 import React from 'react'
-import i18n from '../../../../i18n'
-
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
 
 // Volontary information
-const communicationWithTeachers = (language, memoData) =>
+const communicationWithTeachers = (language, memoData, labels) =>
   !memoData.communicationDuringCourse || (
-    <div>
-      <h3>
-        {language === 'sv'
-          ? swedishTranslations.communicationWithTeachersTitle
-          : englishTranslations.communicationWithTeachersTitle}
-      </h3>
+    <>
+      <h4>{labels.communicationWithTeachersTitle}</h4>
       <div dangerouslySetInnerHTML={{ __html: memoData.communicationDuringCourse }} />
-    </div>
+    </>
   )
 
 // Mandatory information
-const courseCoordinator = (language, memoData) =>
+const courseCoordinator = (language, memoData, labels) =>
   memoData.courseCoordinator ? (
-    <div>
-      <h3>
-        {language === 'sv' ? swedishTranslations.courseCoordinatorTitle : englishTranslations.courseCoordinatorTitle}
-      </h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
-    </div>
+    <>
+      <h4>{labels.courseCoordinatorTitle}</h4>
+      <div id="links-course-coordinator" dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
+    </>
   ) : (
-    <div>
-      <h3>
-        {language === 'sv' ? swedishTranslations.courseCoordinatorTitle : englishTranslations.courseCoordinatorTitle}
-      </h3>
-      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
-    </div>
+    <>
+      <h4>{labels.courseCoordinatorTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
   )
 
 // Mandatory information
-const teacher = (language, memoData) =>
+const teacher = (language, memoData, labels) =>
   memoData.teacher ? (
-    <div>
-      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
-    </div>
+    <>
+      <h4>{labels.teacherTitle}</h4>
+      <div id="links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+    </>
   ) : (
-    <div>
-      <h3>{language === 'sv' ? swedishTranslations.teacherTitle : englishTranslations.teacherTitle}</h3>
-      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
-    </div>
+    <>
+      <h4>{labels.teacherTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
   )
 
 // Volontary information
-const teacherAssistants = (language, memoData) =>
+const teacherAssistants = (language, memoData, labels) =>
   !memoData.teacherAssistants || (
-    <div>
-      <h3>
-        {language === 'sv' ? swedishTranslations.teacherAssistantsTitle : englishTranslations.teacherAssistantsTitle}
-      </h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
-    </div>
+    <>
+      <h4>{labels.teacherAssistantsTitle}</h4>
+      <div id="links-teacher-assistants" dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+    </>
   )
 
 // Mandatory information
-const examiner = (language, memoData) =>
+const examiner = (language, memoData, labels) =>
   memoData.examiner ? (
-    <div>
-      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
-    </div>
+    <>
+      <h4>{labels.examinerTitle}</h4>
+      <div id="links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+    </>
   ) : (
-    <div>
-      <h3>{language === 'sv' ? swedishTranslations.examinerTitle : englishTranslations.examinerTitle}</h3>
-      <p>{language === 'sv' ? swedishTranslations.mandatoryFieldMissing : englishTranslations.mandatoryFieldMissing}</p>
-    </div>
+    <>
+      <h4>{labels.examinerTitle}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
   )
 
 // Volontary information
-const otherContacts = (language, memoData) =>
+const otherContacts = (language, memoData, labels) =>
   !memoData.otherContacts || (
-    <div>
-      <h3>{language === 'sv' ? swedishTranslations.otherContactsTitle : englishTranslations.otherContactsTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
-    </div>
+    <>
+      <h4>{labels.otherContactsTitle}</h4>
+      <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+    </>
   )
 
-const CourseContacts = ({ language, memoData = {} }) => (
-  <div>
-    <h2 style={{ marginTop: '0' }}>
-      {language === 'sv' ? swedishTranslations.courseContactsTitle : englishTranslations.courseContactsTitle}
-    </h2>
-    <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-      {communicationWithTeachers(language, memoData)}
-      {courseCoordinator(language, memoData)}
-      {teacher(language, memoData)}
-      {teacherAssistants(language, memoData)}
-      {examiner(language, memoData)}
-      {otherContacts(language, memoData)}
+const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
+  <>
+    <h2 className="info">{labels.courseContactsTitle}</h2>
+    <div className="info-box text-break">
+      {communicationWithTeachers(language, memoData, labels)}
+      {courseCoordinator(language, memoData, labels)}
+      {teacher(language, memoData, labels)}
+      {teacherAssistants(language, memoData, labels)}
+      {examiner(language, memoData, labels)}
+      {otherContacts(language, memoData, labels)}
     </div>
-  </div>
+  </>
 )
 
 export default CourseContacts

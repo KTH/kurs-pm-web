@@ -119,13 +119,6 @@ module.exports = {
 
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
-    courseContactsTitle: 'Contacts',
-    communicationWithTeachersTitle: 'Communication With Teachers',
-    courseCoordinatorTitle: 'Course Coordinator',
-    teacherTitle: 'Teacher',
-    teacherAssistantsTitle: 'Teacher Assistants',
-    examinerTitle: 'Examiner',
-    otherContactsTitle: 'Other Contacts',
 
     adminLinkLabel: 'Administrate About course information'
   },
@@ -150,6 +143,15 @@ module.exports = {
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Missing mandatory information'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Contacts',
+    communicationWithTeachersTitle: 'Communication With Teachers',
+    courseCoordinatorTitle: 'Course Coordinator',
+    teacherTitle: 'Teacher',
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts'
   },
   extraInfo: {
     season: {

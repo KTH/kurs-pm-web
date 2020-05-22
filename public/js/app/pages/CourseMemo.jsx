@@ -179,7 +179,8 @@ class CourseMemo extends Component {
       extraInfo,
       courseHeaderLabels,
       coursePresentationLabels,
-      courseLinksLabels
+      courseLinksLabels,
+      courseContactsLabels
     } = i18n.messages[routerStore.memoLanguageIndex]
 
     return (
@@ -252,7 +253,11 @@ class CourseMemo extends Component {
                 </Row>
                 <Row className="mt-4">
                   <Col>
-                    <CourseContacts language={routerStore.memoLanguage} memoData={routerStore.memoData} />
+                    <CourseContacts
+                      language={routerStore.memoLanguage}
+                      memoData={routerStore.memoData}
+                      labels={courseContactsLabels}
+                    />
                   </Col>
                 </Row>
               </Col>

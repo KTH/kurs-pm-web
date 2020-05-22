@@ -89,13 +89,6 @@ module.exports = {
 
     courseHeaderTitle: 'Kurs-PM',
     courseInformationTitle: 'Information',
-    courseContactsTitle: 'Kontakter',
-    communicationWithTeachersTitle: 'Kommunikation i kursen',
-    courseCoordinatorTitle: 'Kursansvarig',
-    teacherTitle: 'Lärare',
-    teacherAssistantsTitle: 'Lärarassistenter',
-    examinerTitle: 'Examinator',
-    otherContactsTitle: 'Övriga kontakter',
 
     adminLinkLabel: 'Administrera Om kursen'
   },
@@ -119,6 +112,15 @@ module.exports = {
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Kontakter',
+    communicationWithTeachersTitle: 'Kommunikation i kursen',
+    courseCoordinatorTitle: 'Kursansvarig',
+    teacherTitle: 'Lärare',
+    teacherAssistantsTitle: 'Lärarassistenter',
+    examinerTitle: 'Examinator',
+    otherContactsTitle: 'Övriga kontakter'
   },
   extraInfo: {
     season: {
