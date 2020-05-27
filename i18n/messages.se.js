@@ -89,6 +89,7 @@ module.exports = {
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen',
     beforeChoosingCourse: 'Inför kursval',
+    aboutCourseMemos: 'Om kurs-PM',
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopmentAndHistory: 'Kursens utveckling och historik'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutCourseLink } from '../util/links'
+import { aboutCourseLink, aboutCourseMemoLink } from '../util/links'
 
 const beforeChoosingCourse = (courseCode, labels) =>
   courseCode ? (
@@ -28,6 +28,11 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) =
       </p>
       <hr />
       <div className="menu-memos">
+        <p>
+          <a className="sideMenuLink" href={aboutCourseMemoLink(courseCode)}>
+            {labels.aboutCourseMemos}
+          </a>
+        </p>
         {courseMemoItems.map(({ label, url, active }) => {
           return active ? (
             <p key={label} className="active">
