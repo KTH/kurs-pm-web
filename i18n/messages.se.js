@@ -204,6 +204,16 @@ module.exports = {
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
+  aboutHeaderLabels: {
+    memoLabel: 'Kurs-PM',
+    adminLinkLabel: 'Administrera Om kursen',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  aboutMemoLabels: {
+    aboutMemosText: `Varje kursomgång för en kurs ska tillhandahålla ett kurs-pm senast vid kursstart. Ett kurs-pm är övergripande information om kurs och kursomgången som ska hjälpa studenten att planera kursens genomförande och examination. Det ska beskriva studentens rättigheter och skyldighter.
+    Nedan listas de kurs-pm som är publicerade denna termin, föregående och kommande.`,
+    currentRounds: 'Aktuella kursomgångar'
+  },
   coursePresentationLabels: {
     imageAltText: 'Inspirerande bild för kursen',
     imageTitleText: ''

@@ -65,6 +65,7 @@ class CourseMemo extends Component {
             <SideMenu
               courseCode=""
               courseMemoItems={[]}
+              aboutCourseMemo
               labels={translate.sideMenuLabels}
               backLink={sideMenuBackLink[routerStore.language]}
             />
