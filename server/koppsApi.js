@@ -29,8 +29,7 @@ const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 function _getValidFromTerm(publicSyllabusVersions, semester) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   const semesterSyllabus = publicSyllabusVersions.find((syllabus) => syllabus.validFromTerm.term <= Number(semester))
-  const { validFromTerm } = semesterSyllabus
-  return validFromTerm
+  return semesterSyllabus ? semesterSyllabus.validFromTerm : ''
 }
 
 async function getDetailedInformation(courseCode, semester, language) {

@@ -12,6 +12,7 @@ import RouterStore from './stores/RouterStore'
 
 // Pages
 import CourseMemo from './pages/CourseMemo'
+import AboutCourseMemo from './pages/AboutCourseMemo'
 import AboutCourseMemos from './pages/AboutCourseMemos'
 
 function appFactory() {
@@ -26,6 +27,7 @@ function appFactory() {
       <Switch>
         <Route exact path="/kurs-pm/" component={AboutCourseMemos} />
         <Route exact path="/kurs-pm/:courseCode" component={CourseMemo} />
+        <Route exact path="/kurs-pm/:courseCode/om-kurs-pm" component={AboutCourseMemo} />
         <Route exact path="/kurs-pm/:courseCode/:memoId" component={CourseMemo} />
       </Switch>
     </Provider>

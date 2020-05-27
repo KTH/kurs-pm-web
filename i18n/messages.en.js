@@ -119,6 +119,7 @@ module.exports = {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
     beforeChoosingCourse: 'Before choosing course',
+    aboutCourseMemos: 'About course memos',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopmentAndHistory: 'Course development and history'
@@ -227,6 +228,16 @@ module.exports = {
   courseHeaderLabels: {
     adminLinkLabel: 'Administrate About course information',
     linkOpensInNewTab: 'Link will open in new tab'
+  },
+  aboutHeaderLabels: {
+    memoLabel: 'Course memo',
+    adminLinkLabel: 'Administrate About course information',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  aboutMemoLabels: {
+    aboutMemosText: `Varje kursomgång för en kurs ska tillhandahålla ett kurs-pm senast vid kursstart. Ett kurs-pm är övergripande information om kurs och kursomgången som ska hjälpa studenten att planera kursens genomförande och examination. Det ska beskriva studentens rättigheter och skyldighter.
+    Nedan listas de kurs-pm som är publicerade denna termin, föregående och kommande.`,
+    currentRounds: 'Current course rounds'
   },
   coursePresentationLabels: {
     imageAltText: 'Inspiring image for course',

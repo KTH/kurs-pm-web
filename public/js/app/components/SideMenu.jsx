@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutCourseLink } from '../util/links'
+import { aboutCourseLink, aboutCourseMemoLink } from '../util/links'
 
 const beforeChoosingCourse = (courseCode, labels) =>
   courseCode ? (
@@ -9,7 +9,7 @@ const beforeChoosingCourse = (courseCode, labels) =>
     </p>
   ) : null
 
-const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) => {
+const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language }) => {
   return (
     <div>
       <p>
@@ -28,6 +28,15 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) =
       </p>
       <hr />
       <div className="menu-memos">
+        {aboutCourseMemo ? (
+          <p className="active">{labels.aboutCourseMemos}</p>
+        ) : (
+          <p>
+            <a className="sideMenuLink" href={aboutCourseMemoLink(courseCode)}>
+              {labels.aboutCourseMemos}
+            </a>
+          </p>
+        )}
         {courseMemoItems.map(({ label, url, active }) => {
           return active ? (
             <p key={label} className="active">
