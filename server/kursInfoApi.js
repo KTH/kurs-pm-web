@@ -13,7 +13,7 @@ async function getCourseInfo(courseCode) {
       const { sellingText, imageInfo } = res.body
       return { sellingText, imageInfo }
     }
-    return { sellingText: '', imageInfo: '' }
+    return { sellingText: {}, imageInfo: '' }
   } catch (err) {
     log.debug('getCourseInfo is not available', err)
     return err

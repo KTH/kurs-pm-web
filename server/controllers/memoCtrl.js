@@ -39,7 +39,7 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
-function resolveSellingText(sellingText, recruitmentText, lang) {
+function resolveSellingText(sellingText = {}, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
