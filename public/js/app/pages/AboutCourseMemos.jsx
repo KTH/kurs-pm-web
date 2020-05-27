@@ -55,7 +55,7 @@ class CourseMemo extends Component {
 
   render() {
     const { routerStore } = this.props
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
+    const translate = i18n.messages[routerStore.userLanguageIndex]
 
     return (
       <Container className="kip-container">

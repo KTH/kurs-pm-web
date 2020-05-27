@@ -13,6 +13,8 @@ const { getMemoDataById } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation } = require('../koppsApi')
 
+const ABOUT_URL = 'om-kurs-pm'
+
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
   const outp = {}
@@ -44,6 +46,10 @@ function resolveSellingText(sellingText, recruitmentText, lang) {
 }
 
 async function getContent(req, res, next) {
+  // TODO: Move to routing
+  if (req && req.params && req.params.memoId === ABOUT_URL) {
+    return getAbout(req, res, next)
+  }
   try {
     const context = {}
     const renderProps = _staticRender(context, req.url)
@@ -105,6 +111,38 @@ async function getContent(req, res, next) {
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
+    next(err)
+  }
+}
+
+async function getAbout(req, res, next) {
+  log.debug('Called getAbout')
+  try {
+    const context = {}
+    const renderProps = _staticRender(context, req.url)
+
+    const { routerStore } = renderProps.props.children.props
+
+    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
+    const responseLanguage = language.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
+    // TODO: Proper language constant
+    const shortDescription = responseLanguage === 'sv' ? 'Om kurs-PM' : 'About course memos'
+
+    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
+    const html = ReactDOMServer.renderToString(renderProps)
+
+    res.render('memo/index', {
+      html,
+      title: shortDescription,
+      initialState: JSON.stringify(hydrateStores(renderProps)),
+      responseLanguage,
+      description: shortDescription
+    })
+  } catch (err) {
+    log.error('Error in getAbout', { error: err })
     next(err)
   }
 }

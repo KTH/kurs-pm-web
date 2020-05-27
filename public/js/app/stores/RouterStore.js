@@ -68,6 +68,10 @@ class RouterStore {
     return this.memoLanguage === 'en' ? 0 : 1
   }
 
+  @computed get userLanguageIndex() {
+    return this.language === 'en' ? 0 : 1
+  }
+
   initializeStore(storeName) {
     const store = this
 
