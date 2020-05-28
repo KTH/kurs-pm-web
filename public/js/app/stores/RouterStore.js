@@ -35,6 +35,14 @@ class RouterStore {
     return memoData || {}
   }
 
+  activeMemoEndPoint(memoEndPoint) {
+    return this.memoEndPoint === memoEndPoint
+  }
+
+  noMemoData() {
+    return Object.keys(this.memoData).length === 0 && this.memoData.constructor === Object
+  }
+
   @computed get roundIds() {
     return this.memoData.ladokRoundIds || []
   }
@@ -99,10 +107,6 @@ class RouterStore {
         window.__initialState__ = 'Mobx store state initialized'
       }
     }
-  }
-
-  activeMemoEndPoint(memoEndPoint) {
-    return this.memoEndPoint === memoEndPoint
   }
 }
 

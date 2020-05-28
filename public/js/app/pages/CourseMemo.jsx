@@ -17,6 +17,7 @@ import CourseLinks from '../components/CourseLinks'
 import CourseMemoLinks from '../components/CourseMemoLinks'
 import Section from '../components/Section'
 import NewSectionEditor from '../components/NewSectionEditor'
+import { Redirect } from 'react-router'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -193,6 +194,9 @@ class CourseMemo extends Component {
 
   render() {
     const { routerStore } = this.props
+    if (routerStore.noMemoData()) {
+      return <Redirect to={`/kurs-pm/${routerStore.courseCode}/om-kurs-pm`} />
+    }
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(
       routerStore.imageFromAdmin,
