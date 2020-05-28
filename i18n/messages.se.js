@@ -210,8 +210,8 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   aboutMemoLabels: {
-    aboutMemosText: `Varje kursomgång för en kurs ska tillhandahålla ett kurs-pm senast vid kursstart. Ett kurs-pm är övergripande information om kurs och kursomgången som ska hjälpa studenten att planera kursens genomförande och examination. Det ska beskriva studentens rättigheter och skyldighter.
-    Nedan listas de kurs-pm som är publicerade denna termin, föregående och kommande.`,
+    aboutMemosText:
+      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. Nedan listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
     currentRounds: 'Aktuella kursomgångar'
   },
   coursePresentationLabels: {

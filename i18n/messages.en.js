@@ -235,8 +235,8 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutMemoLabels: {
-    aboutMemosText: `Varje kursomgång för en kurs ska tillhandahålla ett kurs-pm senast vid kursstart. Ett kurs-pm är övergripande information om kurs och kursomgången som ska hjälpa studenten att planera kursens genomförande och examination. Det ska beskriva studentens rättigheter och skyldighter.
-    Nedan listas de kurs-pm som är publicerade denna termin, föregående och kommande.`,
+    aboutMemosText:
+      'Each course offering should offer a course memo no later than at course start. A course memo is the detailed plan for taking the course and understand the examination. It contains information that helps the student to prepare for and plan for taking the course. A course memo also contains information about the student´s rights and obligations. Corse memos for this current semester, the previous semester and all future semesters are listed down below.',
     currentRounds: 'Current course rounds'
   },
   coursePresentationLabels: {
