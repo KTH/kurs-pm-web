@@ -233,7 +233,8 @@ const appRoute = AppRouter()
 
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:memoId', CourseMemo.getContent)
+appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
+appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)
 
 server.use('/', appRoute.getRouter())
 

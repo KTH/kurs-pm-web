@@ -52,19 +52,65 @@ async function getContent(req, res, next) {
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
-    const { courseCode, memoId: memoEndPoint } = req.params
-    routerStore.courseCode = courseCode
+    const { courseCode, semester, id } = req.params
 
-    const responseLanguage = language.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    let potentialMemoEndPoint
+    if (semester) {
+      if (id) {
+        // Potential memoEndPoint
+        potentialMemoEndPoint = `${courseCode}${semester}-${id}`
+      }
+    } else if (id) {
+      // Probably a memoEndPoint
+      potentialMemoEndPoint = id
+    }
+
+    routerStore.courseCode = courseCode
 
     const memoDatas = await getMemoDataById(courseCode)
     routerStore.memoDatas = memoDatas
-    if (memoEndPoint) {
+
+    // Potential memoEndPoint in URL
+    if (potentialMemoEndPoint) {
+      let memoEndPoint
+      // Do memoDatas contain memoEndPoint that equals potential memoEndPoint
+      const memoDataWithMemoEndPoint = memoDatas.find((m) => m.memoEndPoint === potentialMemoEndPoint)
+      if (memoDataWithMemoEndPoint) {
+        memoEndPoint = memoDataWithMemoEndPoint.memoEndPoint
+      }
+
+      // No match of potential memoEndPoint in memoDatas, search for rounds in memoDatas’ memoEndPoints
+      if (!memoEndPoint) {
+        const potentialMemoEndPointParts = potentialMemoEndPoint.split('-')
+        if (potentialMemoEndPointParts.length > 1) {
+          const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
+          const potentialCourseRounds = potentialMemoEndPointParts.slice(1)
+          const memoData = memoDatas.find((m) => {
+            const memoEndPointParts = m.memoEndPoint.split('-')
+            if (memoEndPointParts.length > 1) {
+              const courseCodeAndSemester = memoEndPointParts[0]
+              const courseRounds = memoEndPointParts.slice(1)
+              if (potentialCourseCodeAndSemester === courseCodeAndSemester) {
+                return potentialCourseRounds.length === 1 && courseRounds.includes(potentialCourseRounds[0])
+              }
+            }
+            return m.memoEndPoint === potentialMemoEndPoint
+          })
+          if (memoData) {
+            memoEndPoint = memoData.memoEndPoint
+          }
+        } else {
+          memoEndPoint = ''
+        }
+      }
+
       routerStore.memoEndPoint = memoEndPoint
+      // No potential memoEndPoint in URL, grab the first one in memoDatas if memoDatas exists
     } else {
       routerStore.memoEndPoint = memoDatas[0] ? memoDatas[0].memoEndPoint : ''
     }
+    const responseLanguage = language.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
 
     const {
       courseMainSubjects,
