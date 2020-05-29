@@ -4,7 +4,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { breadcrumbLinks, sideMenuBackLink } from '../util/links'
-import { aboutCourseStr, concatMemoName } from '../util/helpers'
+import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
@@ -76,8 +76,8 @@ class CourseMemo extends Component {
 
   render() {
     const { routerStore } = this.props
-    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels } = i18n.messages[
-      routerStore.memoLanguageIndex
+    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
+      routerStore.userLanguageIndex
     ]
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
@@ -85,6 +85,7 @@ class CourseMemo extends Component {
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoLanguageIndex)
       return {
         id,
+        semester: m.semester,
         label,
         active: routerStore.activeMemoEndPoint(id),
         url: `/kurs-pm/${routerStore.courseCode}/${id}`
@@ -93,9 +94,16 @@ class CourseMemo extends Component {
     // Duplicate id’s filtered out
     courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
+    const semesterCourseMemoItems = courseMemoItems.reduce((items, item) => {
+      const itemsMap = items
+      if (!itemsMap[item.semester]) itemsMap[item.semester] = []
+      itemsMap[item.semester].push(item)
+      return itemsMap
+    }, {})
+
     return (
       // Class preview-container, or equivalent, not needed
-      <Container className="kip-container" fluid>
+      <Container className="kip-container about-container" fluid>
         <Row>{breadcrumbs(routerStore.language)}</Row>
         <Row>
           <Col lg="3" className="side-menu">
@@ -119,7 +127,24 @@ class CourseMemo extends Component {
             {aboutMemoLabels.aboutMemosText}
             <Row>
               <Col lg="8" className="text-break">
-                <h2>{aboutMemoLabels.currentRounds}</h2>
+                <h2>{aboutMemoLabels.currentMemos}</h2>
+                <>
+                  {Object.keys(semesterCourseMemoItems).map((semester) => {
+                    const semesterItems = semesterCourseMemoItems[semester]
+                    return (
+                      <>
+                        <h3>{seasonStr(extraInfo, semester)}</h3>
+                        <ul>
+                          {semesterItems.map((i) => (
+                            <li>
+                              <a href={`/kurs-pm/${routerStore.courseCode}/${i.id}`}>{i.label}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )
+                  })}
+                </>
               </Col>
               <Col lg="4" className="content-right">
                 <h2>{courseContactsLabels.courseContactsTitle}</h2>

@@ -99,3 +99,19 @@ sup {
 h2.info {
   margin-top: 0;
 }
+
+.about-container {
+  ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    text-indent: 0;
+    padding-inline-start: 0;
+  }
+  a {
+    color: #000000;
+    &:hover {
+      color: #000000;
+    }
+  }
+}

@@ -212,7 +212,7 @@ module.exports = {
   aboutMemoLabels: {
     aboutMemosText:
       'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. Nedan listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
-    currentRounds: 'Aktuella kursomgångar'
+    currentMemos: 'Aktuella kurs-PM'
   },
   coursePresentationLabels: {
     imageAltText: 'Inspirerande bild för kursen',
