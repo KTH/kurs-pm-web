@@ -206,7 +206,7 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   aboutHeaderLabels: {
-    memoLabel: 'Kurs-PM',
+    memoLabel: 'Om kurs-PM',
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },

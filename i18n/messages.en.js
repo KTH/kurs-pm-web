@@ -231,7 +231,7 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutHeaderLabels: {
-    memoLabel: 'Course memo',
+    memoLabel: 'About course memo',
     adminLinkLabel: 'Administrate About course information',
     linkOpensInNewTab: 'Link will open in new tab'
   },
