@@ -216,17 +216,16 @@ class CourseMemo extends Component {
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
-      courseHeaderLabels,
       coursePresentationLabels,
       courseLinksLabels,
       courseContactsLabels
     } = i18n.messages[routerStore.memoLanguageIndex]
-    const { sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
+    const { courseHeaderLabels, sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
       const active = routerStore.activeMemoEndPoint(id)
-      const label = concatMemoName(m.semester, m.ladokRoundIds, active ? m.memoLanguage : routerStore.language)
+      const label = concatMemoName(m.semester, m.ladokRoundIds, active ? m.memoCommonLangAbbr : routerStore.language)
       return {
         id,
         label,
@@ -253,7 +252,7 @@ class CourseMemo extends Component {
           </Col>
           <Col lg="9">
             <CourseHeader
-              courseMemo={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguageIndex)}
+              courseMemo={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
               courseCode={routerStore.courseCode}
               title={routerStore.title}
               credits={routerStore.credits}
