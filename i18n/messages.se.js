@@ -102,7 +102,9 @@ module.exports = {
   },
   courseFactsLabels: {
     offeredByTitle: 'Kursen ges av',
-    languageOfInstructionTitle: 'Undervisningsspråk'
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    roundsTitle: 'Kursomgång',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   },
   courseMemoLinksLabels: {
     versionTitle: 'Version kurs-PM',
