@@ -205,7 +205,6 @@ class CourseMemo extends Component {
     )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
     const {
-      sideMenuLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
@@ -214,6 +213,7 @@ class CourseMemo extends Component {
       courseLinksLabels,
       courseContactsLabels
     } = i18n.messages[routerStore.memoLanguageIndex]
+    const { sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
@@ -240,6 +240,7 @@ class CourseMemo extends Component {
               courseMemoItems={courseMemoItems}
               backLink={sideMenuBackLink[routerStore.language]}
               labels={sideMenuLabels}
+              language={routerStore.language}
             />
           </Col>
           <Col lg="9">
