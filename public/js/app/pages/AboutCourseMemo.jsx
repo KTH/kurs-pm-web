@@ -132,16 +132,16 @@ class CourseMemo extends Component {
                   {Object.keys(semesterCourseMemoItems).map((semester) => {
                     const semesterItems = semesterCourseMemoItems[semester]
                     return (
-                      <>
+                      <React.Fragment key={semester}>
                         <h3>{seasonStr(extraInfo, semester)}</h3>
                         <ul>
                           {semesterItems.map((i) => (
-                            <li>
+                            <li key={i.label}>
                               <a href={`/kurs-pm/${routerStore.courseCode}/${i.id}`}>{i.label}</a>
                             </li>
                           ))}
                         </ul>
-                      </>
+                      </React.Fragment>
                     )
                   })}
                 </>
