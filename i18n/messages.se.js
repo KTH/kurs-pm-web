@@ -150,8 +150,7 @@ module.exports = {
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
       Välj Redigera för att lägga in innehåll.`,
-      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
-      pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
+      mandatory: 'Ingen information tillagd',
       mandatoryForSome: `Inget innehåll fanns att hämta. 
       Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
