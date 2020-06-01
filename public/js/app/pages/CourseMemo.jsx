@@ -217,11 +217,12 @@ class CourseMemo extends Component {
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
-      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoLanguageIndex)
+      const active = routerStore.activeMemoEndPoint(id)
+      const label = concatMemoName(m.semester, m.ladokRoundIds, active ? m.memoLanguage : routerStore.language)
       return {
         id,
         label,
-        active: routerStore.activeMemoEndPoint(id),
+        active,
         url: `/kurs-pm/${routerStore.courseCode}/${id}`
       }
     })
@@ -249,7 +250,7 @@ class CourseMemo extends Component {
               credits={routerStore.credits}
               creditUnitAbbr={routerStore.creditUnitAbbr}
               labels={courseHeaderLabels}
-              language={routerStore.language}
+              language={routerStore.memoLanguage}
             />
             <Row>
               <Col lg="8" className="text-break content-center">
