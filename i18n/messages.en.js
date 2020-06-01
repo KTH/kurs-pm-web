@@ -40,14 +40,14 @@ module.exports = {
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
-    aboutCourseMemos: 'About course memos',
+    aboutCourseMemos: 'About course memo',
 
     breadCrumbLabels: {
       university: 'KTH',
       student: 'Student at KTH',
       directory: 'Course and programme directory',
       aboutCourse: 'About course',
-      aboutCourseMemos: 'About course memos'
+      aboutCourseMemos: 'About course memo'
     },
 
     mandatoryFieldMissing: 'Missing mandatory information',
@@ -119,7 +119,7 @@ module.exports = {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
     beforeChoosingCourse: 'Before choosing course',
-    aboutCourseMemos: 'About course memos',
+    aboutCourseMemos: 'About course memo',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopmentAndHistory: 'Course development and history'
