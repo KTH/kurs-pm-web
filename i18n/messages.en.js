@@ -153,7 +153,8 @@ module.exports = {
     teacherTitle: 'Teacher',
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
-    otherContactsTitle: 'Other Contacts'
+    otherContactsTitle: 'Other Contacts',
+    infoContactName: 'Course Contact'
   },
   extraInfo: {
     season: {

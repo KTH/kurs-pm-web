@@ -8,6 +8,7 @@ import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
+import AboutCourseContacts from '../components/AboutCourseContacts'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -148,6 +149,12 @@ class CourseMemo extends Component {
               </Col>
               <Col lg="4" className="content-right">
                 <h2>{courseContactsLabels.courseContactsTitle}</h2>
+                <AboutCourseContacts
+                  languageIndex={routerStore.userLanguageIndex}
+                  infoContactName={routerStore.infoContactName}
+                  examiners={routerStore.examiners}
+                  labels={courseContactsLabels}
+                />
               </Col>
             </Row>
           </Col>

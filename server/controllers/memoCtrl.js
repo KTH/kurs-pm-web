@@ -119,6 +119,7 @@ async function getContent(req, res, next) {
       credits,
       creditUnitAbbr,
       department,
+      infoContactName,
       examiners,
       roundInfos,
       validFromTerm
@@ -128,6 +129,7 @@ async function getContent(req, res, next) {
     routerStore.credits = credits
     routerStore.creditUnitAbbr = creditUnitAbbr
     routerStore.department = department
+    routerStore.infoContactName = infoContactName
     routerStore.examiners = examiners
     routerStore.allRoundInfos = roundInfos
     routerStore.validFromTerm = validFromTerm

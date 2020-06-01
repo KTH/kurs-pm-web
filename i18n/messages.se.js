@@ -122,7 +122,8 @@ module.exports = {
     teacherTitle: 'Lärare',
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
-    otherContactsTitle: 'Övriga kontakter'
+    otherContactsTitle: 'Övriga kontakter',
+    infoContactName: 'Kontaktperson'
   },
   extraInfo: {
     season: {

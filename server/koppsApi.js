@@ -25,11 +25,27 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-// Logic from kurs-pm-data-admin-web
+// From kurs-pm-data-admin-web
 function _getValidFromTerm(publicSyllabusVersions, semester) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   const semesterSyllabus = publicSyllabusVersions.find((syllabus) => syllabus.validFromTerm.term <= Number(semester))
   return semesterSyllabus ? semesterSyllabus.validFromTerm : ''
+}
+
+// From kurs-pm-data-admin-web
+const createPersonHtml = (personList = []) => {
+  let personString = ''
+  personList.forEach((person) => {
+    if (person) {
+      personString += `<p class = "person">
+      <img src="https://www.kth.se/files/thumbnail/${person.username}" alt="Profile picture" width="31" height="31">
+      <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
+          ${person.givenName} ${person.lastName} 
+      </a> 
+    </p>  `
+    }
+  })
+  return personString
 }
 
 async function getDetailedInformation(courseCode, semester, language) {
@@ -47,7 +63,8 @@ async function getDetailedInformation(courseCode, semester, language) {
         credits: course && course.credits ? course.credits : '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
         department: course && course.department ? course.department : '',
-        examiners,
+        infoContactName: course && course.infoContactName ? course.infoContactName : '',
+        examiners: createPersonHtml(examiners),
         roundInfos: roundInfos || [],
         validFromTerm: _getValidFromTerm(publicSyllabusVersions, semester)
       }
