@@ -133,7 +133,7 @@ module.exports = {
   courseFactsLabels: {
     offeredByTitle: 'Offered By',
     languageOfInstructionTitle: 'Language Of Instruction',
-    roundsTitle: 'Rounds',
+    roundsTitle: 'Course offering',
     mandatoryFieldMissing: 'Missing mandatory information'
   },
   courseMemoLinksLabels: {
