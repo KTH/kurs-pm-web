@@ -208,7 +208,7 @@ module.exports = {
     extraHeaders3: 'Extra header 3',
     extraHeaders4: 'Extra header 4',
     extraHeaders5: 'Extra header 5',
-    gradingCriteria: 'Grading criteria',
+    gradingCriteria: 'Grading criteria/assessment criteria',
     gradingScale: 'Grading scale',
     infoForReregisteredStudents: 'Changes of the course before this course offering',
     learningActivities: 'Learning activities',
