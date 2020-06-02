@@ -145,7 +145,8 @@ module.exports = {
     syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: '– )',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
+    inDevelopment: 'In development'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',

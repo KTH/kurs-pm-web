@@ -3,7 +3,7 @@ import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../util/helpers'
-import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../util/links'
+import { linkToArchive, /* linkToMemoPdf, */ linkToSyllabus } from '../util/links'
 
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
@@ -41,11 +41,12 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels, courseCode, memoEndPoint) => (
+const pdfLink = (labels /* courseCode, memoEndPoint */) => (
   <>
     <h4>{labels.courseMemoPdf}</h4>
     <p>
-      <a
+      <i>{labels.inDevelopment}</i>
+      {/* <a
         id="pdf-link"
         title={memoEndPoint}
         href={linkToMemoPdf(courseCode, memoEndPoint)}
@@ -54,7 +55,7 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
       >
         {memoEndPoint}
         <FaRegFilePdf className="pdf-icon" />
-      </a>
+      </a> */}
     </p>
   </>
 )
