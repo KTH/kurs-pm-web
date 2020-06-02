@@ -49,7 +49,7 @@ const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labe
           )
         })}
       </div>
-      <p>{labels.finishCourse}</p>
+      {/* <p>{labels.finishCourse}</p> */}
       <p>{labels.courseDevelopmentAndHistory}</p>
     </div>
   )
