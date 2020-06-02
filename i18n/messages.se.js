@@ -183,7 +183,7 @@ module.exports = {
     extraHeaders3: 'Egen rubrik 3',
     extraHeaders4: 'Egen rubrik 4',
     extraHeaders5: 'Egen rubrik 5',
-    gradingCriteria: 'Målrelaterade betygskriterier',
+    gradingCriteria: 'Målrelaterade betygskriterier/bedömningskriterier',
     gradingScale: 'Betygsskala',
     infoForReregisteredStudents: 'Ändringar inför denna kursomgång',
     learningActivities: 'Läraktiviteter',
