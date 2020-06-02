@@ -83,7 +83,7 @@ class CourseMemo extends Component {
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
-      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoLanguageIndex)
+      const label = concatMemoName(m.semester, m.ladokRoundIds, routerStore.language)
       return {
         id,
         semester: m.semester,
