@@ -183,7 +183,8 @@ module.exports = {
       mandatoryForSome: 'No information was available to fetch because it is not intended for this course....',
       optional:
         'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
-    }
+    },
+    addedSubSection: '(Added for course offering)'
   },
   sectionsLabels: {
     contentAndOutcomes: 'Content and learning outcomes',
@@ -245,5 +246,8 @@ module.exports = {
   coursePresentationLabels: {
     imageAltText: 'Inspiring image for course',
     imageTitleText: ''
+  },
+  subHeaderLabel: {
+    fromSyllabus: 'fetched from syllabus'
   }
 }
