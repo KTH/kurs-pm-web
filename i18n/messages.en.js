@@ -179,7 +179,7 @@ module.exports = {
     notIncludedInMemoYet: 'Content is here. Choose "Include in memo" to show added content and header in memo...',
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
-      mandatory: 'No information added',
+      mandatory: 'No information inserted',
       mandatoryForSome: 'No information was available to fetch because it is not intended for this course....',
       optional:
         'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
