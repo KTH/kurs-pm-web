@@ -68,7 +68,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          {EMPTY[memoLanguageIndex]}
+          <p>{EMPTY[memoLanguageIndex]}</p>
         </span>
       )
     }
@@ -270,7 +270,7 @@ class CourseMemo extends Component {
                 {allSections}
               </Col>
               <Col lg="4" className="content-right">
-                <Row className="mb-4">
+                <Row className="mb-lg-4">
                   <Col>
                     <CourseFacts
                       language={routerStore.memoLanguage}
@@ -280,7 +280,7 @@ class CourseMemo extends Component {
                     />
                   </Col>
                 </Row>
-                <Row className="my-4">
+                <Row className="my-lg-4">
                   <Col>
                     <CourseMemoLinks
                       language={routerStore.memoLanguageIndex}
@@ -291,12 +291,12 @@ class CourseMemo extends Component {
                     />
                   </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-lg-4">
                   <Col>
                     <CourseLinks language={routerStore.memoLanguage} labels={courseLinksLabels} />
                   </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-lg-4">
                   <Col>
                     <CourseContacts
                       language={routerStore.memoLanguage}

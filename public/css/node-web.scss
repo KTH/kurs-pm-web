@@ -1,5 +1,3 @@
-// Scss code goes here!
-
 #kth-node {
   background: pink;
 }
@@ -50,9 +48,38 @@ h4.secondTitle {
 }
 
 .content-center {
+  p {
+    font-family: Georgia, 'Garamond Pro', Garamond, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.5625;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  li {
+    font-family: Georgia, 'Garamond Pro', Garamond, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.5625;
+    margin-top: 0;
+  }
+  @media (min-width: 768px) {
+    p,
+    li {
+      font-size: 1.125rem;
+    }
+  }
+  ul {
+    margin-bottom: 16px;
+  }
   h2 {
     margin-top: 32px !important; // Resets to KTH Style
     margin-bottom: 0 !important; // According to sketch
+  }
+  h2 + p {
+    margin-top: 24px;
   }
   .title-and-info {
     h3 {
@@ -74,6 +101,14 @@ h4.secondTitle {
   }
   p + h4 {
     margin-top: 1.5rem;
+  }
+}
+
+.content-right {
+  @media (max-width: 991.98px) {
+    .info-box {
+      margin: 20px 0;
+    }
   }
 }
 
