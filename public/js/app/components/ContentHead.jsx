@@ -5,10 +5,10 @@ import i18n from '../../../../i18n'
 export const ContentHead = ({ contentId, memoLangIndex, fromSyllabus }) => {
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
   const header = memoTitlesByMemoLang[contentId]
-  const { is: isFromSyllabus, subHeader } = fromSyllabus
+  const { is: isFromSyllabus } = fromSyllabus
   return header ? (
     <>
-      <h3 className={subHeader ? 'with-subheader' : ''}>
+      <h3>
         {memoTitlesByMemoLang[contentId]}
         {isFromSyllabus && (
           <sup>

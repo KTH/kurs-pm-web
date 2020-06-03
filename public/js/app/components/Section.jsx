@@ -12,7 +12,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex }) => {
     is: context[contentId].source === '(s)',
     subHeader: contentId === 'examination' || contentId === 'ethicalApproach'
   }
-  const isAddedSubSection = context[contentId].hasParentTitle
+  const isAddedSubSection = context[contentId].hasParentTitle && contentId !== 'permanentDisabilitySubSection'
   return (
     <span id={menuId} key={contentId}>
       {isAddedSubSection ? (
