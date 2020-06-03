@@ -81,16 +81,20 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           </h2>
           {content.map((contentId) => {
             const menuId = id + '-' + contentId
+
             const { isRequired, type } = context[contentId]
-            const initialValue = memoData[contentId]
-            let visibleInMemo
-            switch (type) {
-              case 'mandatoryForSome':
-                visibleInMemo = !!initialValue
-                break
-              default:
-                visibleInMemo = isRequired ? true : !!initialValue
-                break
+            let contentHtml = memoData[contentId]
+            let visibleInMemo = memoData.visibleInMemo[contentId]
+            if (typeof visibleInMemo === 'undefined') {
+              visibleInMemo = true
+            }
+
+            if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
+              contentHtml = EMPTY[memoLanguageIndex]
+            } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
+              visibleInMemo = false
+            } else if (!contentHtml) {
+              visibleInMemo = false
             }
 
             return (
@@ -101,7 +105,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
                   menuId={menuId}
                   key={contentId}
                   visibleInMemo={visibleInMemo}
-                  html={initialValue}
+                  html={contentHtml}
                 />
               )
             )
