@@ -134,9 +134,20 @@ h4.secondTitle {
   margin-bottom: 10px;
 }
 
-.sub-section-header {
-  padding-top: 1rem;
+p.sub-section-header {
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5;
+  padding-top: 0.8rem;
   margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  p.sub-section-header {
+    font-size: 1rem;
+  }
 }
 
 .syllabus-marker-icon-small {

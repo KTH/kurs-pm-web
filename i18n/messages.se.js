@@ -159,7 +159,7 @@ module.exports = {
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
       Du kan också välja att inte inkludera rubriken.`
     },
-    addedSubSection: '(Tillagt för kursomgång)'
+    insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'
   },
   sectionsLabels: {
     contentAndOutcomes: 'Innehåll och lärandemål',
@@ -221,8 +221,5 @@ module.exports = {
   coursePresentationLabels: {
     imageAltText: 'Inspirerande bild för kursen',
     imageTitleText: ''
-  },
-  subHeaderLabel: {
-    fromSyllabus: 'hämtat från kursplan'
   }
 }
