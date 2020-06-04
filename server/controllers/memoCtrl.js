@@ -149,6 +149,7 @@ async function getContent(req, res, next) {
       html,
       title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
+      instrumentationKey: server.appInsights.instrumentationKey,
       responseLanguage,
       description: shortDescription
     })

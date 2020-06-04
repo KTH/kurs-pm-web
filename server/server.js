@@ -8,13 +8,12 @@ const { getPaths } = require('kth-node-express-routing')
 
 if (config.appInsights && config.appInsights.instrumentationKey) {
   const appInsights = require('applicationinsights')
-
   appInsights
     .setup(config.appInsights.instrumentationKey)
-    .setAutoDependencyCorrelation(false)
+    .setAutoDependencyCorrelation(true)
     .setAutoCollectRequests(true)
     .setAutoCollectPerformance(true)
-    .setAutoCollectExceptions(false)
+    .setAutoCollectExceptions(true)
     .setAutoCollectDependencies(true)
     .setAutoCollectConsole(true)
     .start()

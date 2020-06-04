@@ -48,7 +48,7 @@ const ldapOptions = {
   searchtimeout: typeConversion(getEnv('LDAP_SEARCH_TIMEOUT', null))
 }
 
-Object.keys(ldapOptions).forEach(key => {
+Object.keys(ldapOptions).forEach((key) => {
   if (ldapOptions[key] === null) {
     delete ldapOptions[key]
   }
@@ -124,5 +124,10 @@ module.exports = {
       proxy: safeGet(() => getEnv('SESSION_TRUST_PROXY', true) === 'true')
     },
     redisOptions: unpackRedisConfig('REDIS_URI', devRedis)
+  },
+
+  // APPLICATION INSIGHTS IN AZURE
+  appInsights: {
+    instrumentationKey: getEnv('APPINSIGHTS_INSTRUMENTATIONKEY', '')
   }
 }
