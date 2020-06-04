@@ -52,7 +52,8 @@ async function getContent(req, res, next) {
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
-    const { courseCode, semester, id } = req.params
+    const { courseCode: rawCourseCode, semester, id } = req.params
+    const courseCode = rawCourseCode.toUpperCase()
 
     let potentialMemoEndPoint
     if (semester) {
