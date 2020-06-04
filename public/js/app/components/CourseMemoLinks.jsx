@@ -9,6 +9,7 @@ const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
   if (unixTime) {
     const locale = language === 'sv' ? 'sv-SE' : 'en-US'
+    console.log(language)
     return new Date(unixTime).toLocaleString(locale)
   }
   return null
@@ -86,7 +87,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
 
 const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, validFromTerm = '' }) => (
   <div className="info-box">
-    {version(memoData.memoLanguageIndex, labels, memoData.lastChangeDate)}
+    {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
     {syllabusLink(language, labels, extraInfo, memoData.courseCode, validFromTerm.term)}
