@@ -9,7 +9,6 @@ const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
   if (unixTime) {
     const locale = language === 'sv' ? 'sv-SE' : 'en-US'
-    console.log(language)
     return new Date(unixTime).toLocaleString(locale)
   }
   return null
