@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutCourseLink, aboutCourseMemoLink } from '../util/links'
+import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopmentAndHistory } from '../util/links'
 
 const beforeChoosingCourse = (courseCode, labels) =>
   courseCode ? (
@@ -50,7 +50,16 @@ const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labe
         })}
       </div>
       {/* <p>{labels.finishCourse}</p> */}
-      <p>{labels.courseDevelopmentAndHistory}</p>
+      <p>
+        <a
+          className="sideMenuLink"
+          id="course-development-history-link"
+          title={labels.courseDevelopmentAndHistory}
+          href={linkToCourseDevelopmentAndHistory(courseCode, language)}
+        >
+          {labels.courseDevelopmentAndHistory}
+        </a>
+      </p>
     </div>
   )
 }

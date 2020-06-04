@@ -43,6 +43,11 @@ function linkToArchive(courseCode, language) {
   return `/kursutveckling/${courseCode}${languageParameter}`
 }
 
+function linkToCourseDevelopmentAndHistory(courseCode, language) {
+  const languageParameter = language === 'en' ? '?l=en' : ''
+  return `/kursutveckling/${courseCode}${languageParameter}`
+}
+
 function linkToMemoPdf(courseCode, memoEndPoint) {
   return `/kurs-pm/${courseCode}/${memoEndPoint}/pdf`
 }
@@ -61,6 +66,7 @@ module.exports = {
   adminLink,
   linkToSchool,
   linkToArchive,
+  linkToCourseDevelopmentAndHistory,
   linkToMemoPdf,
   linkToSyllabus
 }
