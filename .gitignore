@@ -13,7 +13,6 @@ typings/*
 typings.json
 
 # Eclipse specific
-.jshintrc
 .project
 .settings/
 

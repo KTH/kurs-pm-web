@@ -1,7 +1,6 @@
 {
-  "//": "JSHint configuration - http://jshint.com/docs/options/",
   "name": "kurs-pm-web",
-  "version": "0.1.0",
+  "version": "0.8.0",
   "description": "Kurs-pm-data-web is a microservice with the public view of course memos. It uses React, MobX, and is based on KTH/node-web.",
   "main": "app.js",
   "private": true,
@@ -64,7 +63,6 @@
     "@babel/preset-env": "^7.10.0",
     "@babel/preset-react": "^7.10.0",
     "babel-eslint": "^10.1.0",
-    "browser-sync": "^2.26.7",
     "chai": "^4.2.0",
     "concurrently": "^5.1.0",
     "cross-env": "^7.0.2",
@@ -97,9 +95,6 @@
   },
   "engines": {
     "node": "12.14.1"
-  },
-  "jshintConfig": {
-    "maxerr": 5
   },
   "husky": {
     "hooks": {
