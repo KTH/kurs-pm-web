@@ -50,7 +50,7 @@ Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the t
 
 API
 
-```
+```sh
 LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
 LDAP_URI=ldaps://[name]@ref.ug.kth.se@ldap.ref.ug.kth.se
 LDAP_PASSWORD=[password]
