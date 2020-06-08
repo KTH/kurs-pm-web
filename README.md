@@ -127,6 +127,16 @@ APPINSIGHTS_INSTRUMENTATIONKEY=[key]
 REDIS_URI=[uri]
 ```
 
+### Monitor and Dashboards
+
+To monitor status during local development:
+
+- [localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor](http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor)
+
+To see branch information during local development:
+
+- [localhost:3000/kursinfoadmin/kurs-pm-data/\_about](http://localhost:3000/kursinfoadmin/kurs-pm-data/_about)
+
 ## Author
 
 👤 **KTH**
