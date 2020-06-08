@@ -44,11 +44,9 @@ Kurs-pm-web fetches data from:
 
 ### Secrets for Development
 
-Secrets during local development are stored in a `.env` file in the root of your project. This file should be in .gitignore. It needs to contain at least LDAP connection URI and password in order for authentication to work properly.
+Secrets during local development are stored in a `.env` file in the root of your project. This file should be in `.gitignore`. It needs to contain at least LDAP connection URI and password in order for authentication to work properly.
 
 Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
-
-API
 
 ```sh
 LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
