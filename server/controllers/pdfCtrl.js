@@ -14,7 +14,7 @@ async function getPdf(memoEndPoint) {
   const response = await axios({
     method: 'get',
     url,
-    headers: { api_key: getEnv('API_KEY', devDefaults('1234')) },
+    headers: { api_key: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')) },
     responseType: 'arraybuffer'
   })
     .then(function returnData(res) {
