@@ -3,7 +3,7 @@ import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../util/helpers'
-import { linkToArchive, /* linkToMemoPdf, */ linkToSyllabus } from '../util/links'
+import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../util/links'
 
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
@@ -41,21 +41,20 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels /* courseCode, memoEndPoint */) => (
+const pdfLink = (labels, memoEndPoint) => (
   <>
     <h4>{labels.courseMemoPdf}</h4>
     <p>
-      <i>{labels.inDevelopment}</i>
-      {/* <a
+      <a
         id="pdf-link"
         title={memoEndPoint}
-        href={linkToMemoPdf(courseCode, memoEndPoint)}
+        href={linkToMemoPdf(memoEndPoint)}
         target="_blank"
         rel="noopener noreferrer"
       >
         {memoEndPoint}
         <FaRegFilePdf className="pdf-icon" />
-      </a> */}
+      </a>
     </p>
   </>
 )
@@ -88,7 +87,7 @@ const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, validFrom
   <div className="info-box">
     {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
-    {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
+    {pdfLink(labels, memoData.memoEndPoint)}
     {syllabusLink(language, labels, extraInfo, memoData.courseCode, validFromTerm.term)}
   </div>
 )
