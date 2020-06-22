@@ -72,7 +72,7 @@ class CourseMemo extends Component {
     const { routerStore } = this.props
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
-    siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
+    if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
   }
 
   render() {
