@@ -162,7 +162,7 @@ module.exports = {
     insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'
   },
   sectionsLabels: {
-    contentAndOutcomes: 'Innehåll och lärandemål',
+    contentAndOutcomes: 'Innehåll och lärandemål',
     prep: 'Förbereda inför kursstart',
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare Information',
