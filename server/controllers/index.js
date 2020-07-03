@@ -7,6 +7,5 @@
 
 module.exports = {
   System: require('./systemCtrl'),
-  CourseMemo: require('./memoCtrl'),
-  PDF: require('./pdfCtrl')
+  CourseMemo: require('./memoCtrl')
 }

@@ -217,7 +217,8 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { System, CourseMemo, PDF } = require('./controllers')
+const { System, CourseMemo /* PDF */ } = require('./controllers')
+const { getPdfProxy } = require('./middleware/pdfProxy')
 
 // System routes
 const systemRoute = AppRouter()
@@ -231,7 +232,11 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/pdf/:id', PDF.getMemoByEndPoint)
+appRoute.get(
+  'courseMemo.getContent',
+  config.proxyPrefixPath.uri + '/pdf/:id',
+  getPdfProxy(config.nodeApi.kursPmDataApi, config.apiKey.kursPmDataApi)
+)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)
