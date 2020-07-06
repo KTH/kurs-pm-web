@@ -288,6 +288,11 @@ class CourseMemo extends Component {
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
                       memoData={routerStore.memoData}
+                      courseMemoName={concatMemoName(
+                        routerStore.semester,
+                        routerStore.roundIds,
+                        routerStore.memoLanguage
+                      )}
                     />
                   </Col>
                 </Row>

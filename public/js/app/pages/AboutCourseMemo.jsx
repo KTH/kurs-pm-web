@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { FaRegFilePdf } from 'react-icons/fa'
 
 import i18n from '../../../../i18n'
-import { breadcrumbLinks, sideMenuBackLink } from '../util/links'
+import { breadcrumbLinks, sideMenuBackLink, linkToMemoPdf } from '../util/links'
+
 import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
 
 import SideMenu from '../components/SideMenu'
@@ -138,7 +140,16 @@ class CourseMemo extends Component {
                         <ul>
                           {semesterItems.map((i) => (
                             <li key={i.label}>
-                              <a href={`/kurs-pm/${routerStore.courseCode}/${i.id}`}>{i.label}</a>
+                              <a
+                                id="pdf-link"
+                                title={i.label}
+                                href={linkToMemoPdf(i.id, i.label)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {i.label}
+                                <FaRegFilePdf className="pdf-icon" />
+                              </a>
                             </li>
                           ))}
                         </ul>

@@ -39,18 +39,18 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels, memoEndPoint) => (
+const pdfLink = (labels, memoEndPoint, courseMemoName) => (
   <>
     <h4>{labels.courseMemoPdf}</h4>
     <p>
       <a
         id="pdf-link"
-        title={memoEndPoint}
-        href={linkToMemoPdf(memoEndPoint)}
+        title={courseMemoName}
+        href={linkToMemoPdf(memoEndPoint, courseMemoName)}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {memoEndPoint}
+        {courseMemoName}
         <FaRegFilePdf className="pdf-icon" />
       </a>
     </p>
@@ -81,11 +81,11 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid = {
   )
 }
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {} }) => (
+const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName }) => (
   <div className="info-box">
     {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
-    {pdfLink(labels, memoData.memoEndPoint)}
+    {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}
     {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
   </div>
 )
