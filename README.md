@@ -137,6 +137,13 @@ To see branch information during local development:
 
 - [localhost:3000/kursinfoadmin/kurs-pm-data/\_about](http://localhost:3000/kursinfoadmin/kurs-pm-data/_about)
 
+## Nomenclature
+
+| Name             | Aliases           | Example                     | Notes                                              |
+| ---------------- | ----------------- | --------------------------- | -------------------------------------------------- |
+| Course Memo Name |  `courseMemoName` | ”Course memo Autumn 2020-1” | `courseMemoName` in database is not the same thing |
+| Course Memo Name |  `courseMemoName` | ”Course memo Autumn 2020-1” | `courseMemoName` in database is not the same thing |
+
 ## Author
 
 👤 **KTH**
