@@ -26,13 +26,6 @@ const koppsConfig = {
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
 // From kurs-pm-data-admin-web
-function _getValidFromTerm(publicSyllabusVersions, semester) {
-  // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
-  const semesterSyllabus = publicSyllabusVersions.find((syllabus) => syllabus.validFromTerm.term <= Number(semester))
-  return semesterSyllabus ? semesterSyllabus.validFromTerm : ''
-}
-
-// From kurs-pm-data-admin-web
 const createPersonHtml = (personList = []) => {
   let personString = ''
   personList.forEach((person) => {
@@ -53,7 +46,7 @@ async function getDetailedInformation(courseCode, semester, language) {
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const { mainSubjects, course, examiners, roundInfos, publicSyllabusVersions } = res.body
+    const { mainSubjects, course, examiners, roundInfos } = res.body
 
     if (res.body) {
       return {
@@ -62,11 +55,9 @@ async function getDetailedInformation(courseCode, semester, language) {
         title: course && course.title ? course.title : '',
         credits: course && course.credits ? course.credits : '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
-        department: course && course.department ? course.department : '',
         infoContactName: course && course.infoContactName ? course.infoContactName : '',
         examiners: createPersonHtml(examiners),
-        roundInfos: roundInfos || [],
-        validFromTerm: _getValidFromTerm(publicSyllabusVersions, semester)
+        roundInfos: roundInfos || []
       }
     }
 
@@ -76,10 +67,8 @@ async function getDetailedInformation(courseCode, semester, language) {
       title: '',
       credits: '',
       creditUnitAbbr: '',
-      department: '',
       examiners: [],
-      roundInfos: [],
-      validFromTerm: ''
+      roundInfos: []
     }
   } catch (err) {
     log.debug('Kopps is not available', err)

@@ -144,7 +144,7 @@ module.exports = {
     syllabus: 'Syllabus',
     syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
-    syllabusLinkEnd: '– )',
+    syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Missing mandatory information',
     inDevelopment: 'In development'
   },

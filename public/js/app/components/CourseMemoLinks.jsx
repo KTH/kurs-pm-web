@@ -1,8 +1,6 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
-import { seasonStr } from '../util/helpers'
 import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../util/links'
 
 const formatVersion = (language = 'sv', version) => {
@@ -59,8 +57,8 @@ const pdfLink = (labels, memoEndPoint) => (
   </>
 )
 
-const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) => {
-  const syllabusLinkLabel = `${labels.syllabusLinkStart}${seasonStr(extraInfo, validFromTerm)}${labels.syllabusLinkEnd}`
+const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid = {}) => {
+  const syllabusLinkLabel = `${labels.syllabusLinkStart}${syllabusValid.textFromTo}${labels.syllabusLinkEnd}`
   return (
     <>
       <h4>{labels.syllabus}</h4>
@@ -71,7 +69,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
         <a
           id="syllabus-link"
           title={syllabusLinkLabel}
-          href={linkToSyllabus(courseCode, validFromTerm, language)}
+          href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -83,12 +81,12 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
   )
 }
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, validFromTerm = '' }) => (
+const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {} }) => (
   <div className="info-box">
     {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.memoEndPoint)}
-    {syllabusLink(language, labels, extraInfo, memoData.courseCode, validFromTerm.term)}
+    {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
   </div>
 )
 

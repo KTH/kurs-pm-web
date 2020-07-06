@@ -1,38 +1,20 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 
 import { adminLink } from '../util/links'
 import { Row, Col } from 'reactstrap'
 
-const formatCredits = (credits, creditUnitAbbr, language) => {
-  const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
-  const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
-  return `${localeCredits} ${creditUnit}`
-}
-
-const CourseHeader = ({
-  courseMemo = '',
-  courseCode = '',
-  title = '',
-  credits = '',
-  creditUnitAbbr = '',
-  labels = {},
-  language = 'sv'
-}) => {
+const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, language }) => {
   const { adminLinkLabel } = labels
   return (
     <>
       <Row>
         <Col>
-          <h1 className="course-header-title">{courseMemo}</h1>
+          <h1 className="course-header-title">{courseMemoName}</h1>
         </Col>
       </Row>
       <Row className="pb-3">
         <Col className="text-left" xs="12" lg="6">
-          <h4 className="secondTitle">
-            {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </h4>
+          <h4 className="secondTitle">{courseTitle}</h4>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">
           <a

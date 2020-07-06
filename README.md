@@ -139,10 +139,11 @@ To see branch information during local development:
 
 ## Nomenclature
 
-| Name             | Aliases           | Example                     | Notes                                              |
-| ---------------- | ----------------- | --------------------------- | -------------------------------------------------- |
-| Course Memo Name |  `courseMemoName` | ”Course memo Autumn 2020-1” | `courseMemoName` in database is not the same thing |
-| Course Memo Name |  `courseMemoName` | ”Course memo Autumn 2020-1” | `courseMemoName` in database is not the same thing |
+| Name             | Aliases           | Example                                       | Notes                                              |
+| ---------------- | ----------------- | --------------------------------------------- | -------------------------------------------------- |
+| Course Memo Name |  `courseMemoName` | _Course memo Autumn 2020-1_                   | `courseMemoName` in database is not the same thing |
+| Course Title     |  `courseTitle`    | _SF1625 Calculus in One Variable 7.5 credits_ |                                                    |
+| Department Name  |  `departmentName` | _SCI/Matematik_                               |                                                    |
 
 ## Author
 

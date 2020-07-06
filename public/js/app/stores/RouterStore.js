@@ -22,13 +22,9 @@ class RouterStore {
 
   @observable creditUnitAbbr
 
-  @observable department
-
   @observable examiners
 
   @observable sellingText
-
-  @observable validFromTerm
 
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)

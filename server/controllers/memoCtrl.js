@@ -119,21 +119,17 @@ async function getContent(req, res, next) {
       title,
       credits,
       creditUnitAbbr,
-      department,
       infoContactName,
       examiners,
-      roundInfos,
-      validFromTerm
+      roundInfos
     } = await getDetailedInformation(courseCode, routerStore.semester, routerStore.memoLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
     routerStore.credits = credits
     routerStore.creditUnitAbbr = creditUnitAbbr
-    routerStore.department = department
     routerStore.infoContactName = infoContactName
     routerStore.examiners = examiners
     routerStore.allRoundInfos = roundInfos
-    routerStore.validFromTerm = validFromTerm
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)

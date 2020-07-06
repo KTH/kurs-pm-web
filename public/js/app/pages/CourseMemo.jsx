@@ -256,11 +256,9 @@ class CourseMemo extends Component {
           </Col>
           <Col lg="9">
             <CourseHeader
-              courseMemo={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
+              courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
+              courseTitle={routerStore.memoData.courseTitle}
               courseCode={routerStore.courseCode}
-              title={routerStore.title}
-              credits={routerStore.credits}
-              creditUnitAbbr={routerStore.creditUnitAbbr}
               labels={courseHeaderLabels}
               language={routerStore.memoLanguage}
             />
@@ -279,7 +277,6 @@ class CourseMemo extends Component {
                     <CourseFacts
                       language={routerStore.memoLanguage}
                       labels={courseFactsLabels}
-                      department={routerStore.department}
                       memoData={routerStore.memoData}
                     />
                   </Col>
@@ -291,7 +288,6 @@ class CourseMemo extends Component {
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
                       memoData={routerStore.memoData}
-                      validFromTerm={routerStore.validFromTerm}
                     />
                   </Col>
                 </Row>

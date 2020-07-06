@@ -114,7 +114,7 @@ module.exports = {
     syllabus: 'Kursplan',
     syllabusInformation: 'information hämtas från',
     syllabusLinkStart: 'Kursplan (',
-    syllabusLinkEnd: '– )',
+    syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     inDevelopment: 'Under utveckling'
   },

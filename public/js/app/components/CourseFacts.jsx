@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
 
 import { linkToSchool } from '../util/links'
@@ -18,19 +17,19 @@ const formatRounds = (rounds) => {
   )
 }
 
-const offeredBy = (language, labels, department) =>
-  department.name ? (
+const offeredBy = (language, labels, departmentName) =>
+  departmentName ? (
     <>
       <h4>{labels.offeredByTitle}</h4>
       <p>
         <a
           id="link-department-name"
-          title={department.name}
-          href={linkToSchool(department.name)}
+          title={departmentName}
+          href={linkToSchool(departmentName)}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {department.name}
+          {departmentName}
         </a>
       </p>
     </>
@@ -67,9 +66,9 @@ const rounds = (labels, memoName) =>
     </>
   )
 
-const CourseFacts = ({ language, labels, department = {}, memoData = {} }) => (
+const CourseFacts = ({ language, labels, memoData = {} }) => (
   <div className="info-box text-break">
-    {offeredBy(language, labels, department)}
+    {offeredBy(language, labels, memoData.departmentName)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {rounds(labels, memoData.memoName)}
   </div>
