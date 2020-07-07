@@ -49,12 +49,13 @@ function linkToCourseDevelopmentAndHistory(courseCode, language) {
 }
 
 function linkToMemoPdf(memoEndPoint, fileName) {
-  return `/kurs-pm/pdf/${memoEndPoint}?fileName=${fileName}`
+  return `/kurs-pm/memo/pdf/${memoEndPoint}?fileName=${fileName}`
 }
 
 function linkToSyllabus(courseCode, validFromTerm, language) {
-  const languageParameter = language === 'en' ? '?lang=en' : ''
-  return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
+  // const languageParameter = language === 'en' ? '?lang=en' : ''
+  // return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
+  return `/kurs-pm/syllabus/pdf/${courseCode}/${validFromTerm}/${language === 0 ? 'en' : 'sv'}`
 }
 
 module.exports = {
