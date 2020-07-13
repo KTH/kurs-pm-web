@@ -14,7 +14,7 @@ The course information project (KIP) is an initiative at KTH that was launched i
 
 A course memo is an actual plan for taking the course. A course memo help students to plan and prepare for all the learning activities during the course offering. A course memo contains information about the goals of the course, activities, preparations, detailed information about the examination, and contacts. It is particularly important for students just before the start of the course. A teacher, or a course coordinator, creates a course memo, and it must be published no later than by course the start.
 
-Kurs-pm-web is a microservice with the public view of course memos. It uses `React`, `MobX`, and is based on [github.com/KTH/node-web](https://github.com/KTH/node-web).
+Kurs-pm-web is a microservice with the public view of course memos. It uses [React](https://reactjs.org/), [MobX](https://mobx.js.org/), and is based on [node-web](https://github.com/KTH/node-web).
 
 ### API:s
 
@@ -26,16 +26,20 @@ Kurs-pm-web fetches data from:
 - Course information API
   - Dev (Stage): [api-r.referens.sys.kth.se/api/kursinfo](https://api-r.referens.sys.kth.se/api/kursinfo)
   - Prod (Active): [api.kth.se/api/kursinfo](https://api.kth.se/api/kursinfo)
+- API to store information about course syllabuses
+  - Dev (Stage): [api-r.referens.sys.kth.se/api/kursplan](https://api-r.referens.sys.kth.se/api/kursplan)
+  - Prod (Active): [api.kth.se/api/kursplan](https://api.kth.se/api/kursplan)
 - API för kurs- och programinformation
   - Dev (Stage): [api-r.referens.sys.kth.se/api/kopps/v2/](https://api-r.referens.sys.kth.se/api/kopps/v2/)
   - Prod (Active): [api.kth.se/api/kopps/v2/](https://api.kth.se/api/kopps/v2/)
 
 ### Related projects
 
-- [https://github.com/KTH/kurs-pm-data-admin-web](https://github.com/KTH/kurs-pm-data-admin-web)
-- [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
-- [https://github.com/KTH/kursinfo-api](https://github.com/KTH/kursinfo-api)
-- [https://github.com/KTH/node-web](https://github.com/KTH/node-web)
+- [kurs-pm-data-admin-web](https://github.com/KTH/kurs-pm-data-admin-web)
+- [kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
+- [kursinfo-api](https://github.com/KTH/kursinfo-api)
+- [kursplan-api](https://github.com/KTH/kursplan-api)
+- [node-web](https://github.com/KTH/node-web)
 
 ## Prerequisites
 
@@ -55,24 +59,36 @@ LDAP_PASSWORD=[password]
 
 # If KURS_PM_DATA_API_URI is omitted, http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000 will be used
 KURS_PM_DATA_API_URI=https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000
+# If KURS_PM_DATA_API_KEY is omitted, default key 1234 will be used
 KURS_PM_DATA_API_KEY=[key]
 
 # If KURS_INFO_API_URI is omitted, http://localhost:3002/api/kursinfo?defaultTimeout=10000 will be used
 KURS_INFO_API_URI=https://app-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000
+# If KURS_INFO_API_KEY is omitted, default key 1234 will be used
 KURS_INFO_API_KEY=[key]
 
+# If KURSPLAN_API_URI is omitted, http://localhost:3003/api/kursplan?defaultTimeout=10000 will be used
+KURSPLAN_API_URI=https://app-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000
+# If KURSPLAN_API_KEY is omitted, default key 5678 will be used
+KURSPLAN_API_KEY=[key]
+
 # If KOPPS_URI is omitted, https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000 will be used
+
+SESSION_SECRET=[secret]
+SESSION_KEY=[key]
 ```
 
 These settings are also available in the `env.in` file.
 
-## Install
+## For Development
+
+### Install
 
 ```sh
 npm install
 ```
 
-## Usage
+### Usage
 
 Start the service on [localhost:3000/kurs-pm/:courseCode](http://localhost:3000/kurs-pm/:courseCode).
 
@@ -85,6 +101,16 @@ npm run start-dev
 ```sh
 npm run test
 ```
+
+## Monitor and Dashboards
+
+To monitor status during local development:
+
+- [localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor](http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor)
+
+To see branch information during local development:
+
+- [localhost:3000/kursinfoadmin/kurs-pm-data/\_about](http://localhost:3000/kursinfoadmin/kurs-pm-data/_about)
 
 ## Use 🐳
 
@@ -126,16 +152,6 @@ SESSION_KEY=[key]
 APPINSIGHTS_INSTRUMENTATIONKEY=[key]
 REDIS_URI=[uri]
 ```
-
-### Monitor and Dashboards
-
-To monitor status during local development:
-
-- [localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor](http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor)
-
-To see branch information during local development:
-
-- [localhost:3000/kursinfoadmin/kurs-pm-data/\_about](http://localhost:3000/kursinfoadmin/kurs-pm-data/_about)
 
 ## Nomenclature
 
