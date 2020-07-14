@@ -4,7 +4,7 @@ import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import { FaRegFilePdf } from 'react-icons/fa'
 
 import i18n from '../../../../i18n'
-import { breadcrumbLinks, sideMenuBackLink, linkToMemoPdf } from '../util/links'
+import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemoPdf } from '../util/links'
 
 import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
 
@@ -143,7 +143,7 @@ class CourseMemo extends Component {
                               <a
                                 id="pdf-link"
                                 title={i.label}
-                                href={linkToMemoPdf(i.id, i.label)}
+                                href={linkToPublishedMemoPdf(i.id, i.label)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >

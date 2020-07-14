@@ -48,8 +48,8 @@ function linkToCourseDevelopmentAndHistory(courseCode, language) {
   return `/kursutveckling/${courseCode}${languageParameter}`
 }
 
-function linkToMemoPdf(memoEndPoint, documentName) {
-  return `/kurs-pm/memo/pdf/${memoEndPoint}?documentName=${documentName}`
+function linkToPublishedMemoPdf(memoEndPoint, documentName) {
+  return `/kurs-pm/memo/pdf/${memoEndPoint}?documentName=${documentName}&status=published`
 }
 
 function linkToSyllabus(courseCode, validFromTerm, language) {
@@ -70,6 +70,6 @@ module.exports = {
   linkToSchool,
   linkToArchive,
   linkToCourseDevelopmentAndHistory,
-  linkToMemoPdf,
+  linkToPublishedMemoPdf,
   linkToSyllabus
 }

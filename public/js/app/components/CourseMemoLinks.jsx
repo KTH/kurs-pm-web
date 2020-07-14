@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
-import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../util/links'
+import { linkToArchive, linkToPublishedMemoPdf, linkToSyllabus } from '../util/links'
 
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
@@ -46,7 +46,7 @@ const pdfLink = (labels, memoEndPoint, courseMemoName) => (
       <a
         id="pdf-link"
         title={courseMemoName}
-        href={linkToMemoPdf(memoEndPoint, courseMemoName)}
+        href={linkToPublishedMemoPdf(memoEndPoint, courseMemoName)}
         target="_blank"
         rel="noopener noreferrer"
       >
