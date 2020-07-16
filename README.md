@@ -165,5 +165,5 @@ REDIS_URI=[uri]
 
 👤 **KTH**
 
-- Website: https://kth.github.io/
+- Website: [kth.github.io/](https://kth.github.io/)
 - Github: [@KTH](https://github.com/KTH)
