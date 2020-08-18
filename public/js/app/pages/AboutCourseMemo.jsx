@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
-import { FaRegFilePdf } from 'react-icons/fa'
 
 import i18n from '../../../../i18n'
-import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemoPdf } from '../util/links'
+import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemo } from '../util/links'
 
 import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
 
@@ -140,15 +139,8 @@ class CourseMemo extends Component {
                         <ul>
                           {semesterItems.map((i) => (
                             <li key={i.label}>
-                              <a
-                                id="pdf-link"
-                                title={i.label}
-                                href={linkToPublishedMemoPdf(i.id, i.label)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
+                              <a id="pdf-link" title={i.label} href={linkToPublishedMemo(routerStore.courseCode, i.id)}>
                                 {i.label}
-                                <FaRegFilePdf className="pdf-icon" />
                               </a>
                             </li>
                           ))}
