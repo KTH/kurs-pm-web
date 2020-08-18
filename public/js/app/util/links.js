@@ -57,11 +57,11 @@ function linkToPublishedMemoPdf(memoEndPoint, documentName) {
 }
 
 function linkToSyllabus(courseCode, validFromTerm, language) {
-  // const languageParameter = language === 'en' ? '?lang=en' : ''
-  // return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
-  return `/kurs-pm/syllabus/pdf/${courseCode}/${validFromTerm}/${
-    language === 0 ? 'en' : 'sv'
-  }?documentName=${courseCode}-${validFromTerm}`
+  const languageParameter = language === 'en' ? '?lang=en' : ''
+  return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
+  // return `/kurs-pm/syllabus/pdf/${courseCode}/${validFromTerm}/${
+  //   language === 0 ? 'en' : 'sv'
+  // }?documentName=${courseCode}-${validFromTerm}`
 }
 
 module.exports = {
