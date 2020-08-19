@@ -57,26 +57,29 @@ const pdfLink = (labels, memoEndPoint, courseMemoName) => (
   </>
 )
 
-const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid = {}) => {
-  const syllabusLinkLabel = `${labels.syllabusLinkStart}${syllabusValid.textFromTo}${labels.syllabusLinkEnd}`
+const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) => {
   return (
     <>
       <h4>{labels.syllabus}</h4>
-      <p>
-        <FaAsterisk className="syllabus-marker-icon" />
-        {labels.syllabusInformation}
-        <br />
-        <a
-          id="syllabus-link"
-          title={syllabusLinkLabel}
-          href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {syllabusLinkLabel}
-          <FaRegFilePdf className="pdf-icon" />
-        </a>
-      </p>
+      {syllabusValid ? (
+        <p>
+          <FaAsterisk className="syllabus-marker-icon" />
+          {labels.syllabusInformation}
+          <br />
+          <a
+            id="syllabus-link"
+            title={`${labels.syllabusLinkStart}${syllabusValid.textFromTo}${labels.syllabusLinkEnd}`}
+            href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {`${labels.syllabusLinkStart}${syllabusValid.textFromTo}${labels.syllabusLinkEnd}`}
+            <FaRegFilePdf className="pdf-icon" />
+          </a>
+        </p>
+      ) : (
+        <p>{labels.mandatoryFieldMissing}</p>
+      )}
     </>
   )
 }
