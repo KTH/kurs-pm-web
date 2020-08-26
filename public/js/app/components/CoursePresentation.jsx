@@ -11,8 +11,7 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
         height="auto"
         width="150px"
         src={courseImageUrl}
-        alt={labels.imageAltText}
-        title={labels.imageTitleText}
+        alt=""
       />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
     </div>
