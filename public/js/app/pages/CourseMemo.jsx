@@ -245,7 +245,7 @@ class CourseMemo extends Component {
       <Container className="kip-container" fluid>
         <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3" className="side-menu">
+          <Col lg="3" className="side-menu" role="navigation">
             <SideMenu
               courseCode={routerStore.courseCode}
               courseMemoItems={courseMemoItems}
