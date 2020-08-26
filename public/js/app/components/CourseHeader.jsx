@@ -9,7 +9,9 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, languag
     <>
       <Row>
         <Col>
-          <h1 className="course-header-title">{courseMemoName}</h1>
+          <h1 id="memo-title" className="course-header-title">
+            {courseMemoName}
+          </h1>
         </Col>
       </Row>
       <Row className="pb-3">
