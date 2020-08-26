@@ -3,7 +3,7 @@ import React from 'react'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   return (
-    <section style={{ minHeight: '160px' }}>
+    <section style={{ minHeight: '160px' }} aria-label={labels.coursePresentation}>
       <img
         // >= lg : float left, x margins spacer * .5
         // < lg : x margins auto, display block

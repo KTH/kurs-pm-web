@@ -220,7 +220,6 @@ module.exports = {
     currentMemos: 'Aktuella kurs-PM'
   },
   coursePresentationLabels: {
-    imageAltText: 'Inspirerande bild för kursen',
-    imageTitleText: ''
+    coursePresentation: 'Presentation av kursen'
   }
 }

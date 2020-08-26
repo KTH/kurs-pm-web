@@ -245,7 +245,6 @@ module.exports = {
     currentMemos: 'Current course memos'
   },
   coursePresentationLabels: {
-    imageAltText: 'Inspiring image for course',
-    imageTitleText: ''
+    coursePresentation: 'Course presentation'
   }
 }
