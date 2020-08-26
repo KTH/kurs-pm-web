@@ -29,7 +29,7 @@ class NewSectionEditor extends Component {
     const { sourceInfo } = i18n.messages[this.userLangIndex]
 
     return (
-      <span className="Add--New--Title--And--Info">
+      <article className="Add--New--Title--And--Info">
         {!this.state.isOpen && !isEmptyNew && (
           <ExtraHeaderHead header={contentForTitle} contentId={contentId} memoLangIndex={this.memoLangIndex} />
         )}
@@ -53,7 +53,7 @@ class NewSectionEditor extends Component {
                 </p>
               </span>
             )))}
-      </span>
+      </article>
     )
   }
 }
