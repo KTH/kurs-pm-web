@@ -4,8 +4,8 @@ import React from 'react'
 import { courseLinks } from '../util/links'
 
 const CourseLinks = ({ language, labels }) => (
-  <aside className="info-box text-break">
-    <h4>{labels.linkHeaderTitle}</h4>
+  <aside className="info-box text-break" aria-labelledby="student-links">
+    <h4 id="student-links">{labels.linkHeaderTitle}</h4>
     <p>
       <a
         id="link-before-and-during-course"

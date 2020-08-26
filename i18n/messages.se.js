@@ -108,6 +108,7 @@ module.exports = {
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   },
   courseMemoLinksLabels: {
+    documents: 'Dokument',
     versionTitle: 'Version kurs-PM',
     latest: 'Senaste:',
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',

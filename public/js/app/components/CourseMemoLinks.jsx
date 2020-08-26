@@ -85,7 +85,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
 }
 
 const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName }) => (
-  <aside className="info-box">
+  <aside className="info-box" aria-label={labels.documents}>
     {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}

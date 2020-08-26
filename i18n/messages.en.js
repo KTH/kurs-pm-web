@@ -138,6 +138,7 @@ module.exports = {
     mandatoryFieldMissing: 'Missing mandatory information'
   },
   courseMemoLinksLabels: {
+    documents: 'Documents',
     versionTitle: 'Course memo version',
     latest: 'Latest:',
     courseMemoArchiveLabel: 'Course memo archive',
