@@ -230,12 +230,12 @@ module.exports = {
     teacherAssistants: 'Teacher assistants'
   },
   courseHeaderLabels: {
-    adminLinkLabel: 'Administrate About course information',
+    adminLinkLabel: 'Administrate About course',
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutHeaderLabels: {
     memoLabel: 'About course memo',
-    adminLinkLabel: 'Administrate About course information',
+    adminLinkLabel: 'Administrate About course',
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutMemoLabels: {
