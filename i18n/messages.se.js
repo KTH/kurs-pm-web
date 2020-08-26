@@ -30,7 +30,7 @@ module.exports = {
     field_label_post_example: 'Min datamodell(Svar från api anrop POST): ',
 
     lang_block_id: '1.272446',
-    locale_text: 'Kurs-PM på svenska',
+    locale_text: 'Denna sida på svenska',
 
     site_name: 'Om kursen',
     host_name: 'KTH',
@@ -215,7 +215,7 @@ module.exports = {
   },
   aboutMemoLabels: {
     aboutMemosText:
-      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. Nedan listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
+      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. På denna sida listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
     currentMemos: 'Aktuella kurs-PM'
   },
   coursePresentationLabels: {
