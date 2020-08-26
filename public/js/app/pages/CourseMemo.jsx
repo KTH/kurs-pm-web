@@ -64,18 +64,18 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
   return sections.map(({ id, content, extraHeaderTitle }) => {
     if (!sectionsWithContent.includes(id)) {
       return (
-        <span key={id}>
+        <section key={id}>
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
           <p>{EMPTY[memoLanguageIndex]}</p>
-        </span>
+        </section>
       )
     }
 
     return (
       id !== 'contacts' && (
-        <span key={id}>
+        <section key={id}>
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
@@ -129,7 +129,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
                 />
               )
             })}
-        </span>
+        </section>
       )
     )
   })
