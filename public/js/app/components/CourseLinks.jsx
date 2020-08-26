@@ -4,7 +4,7 @@ import React from 'react'
 import { courseLinks } from '../util/links'
 
 const CourseLinks = ({ language, labels }) => (
-  <div className="info-box text-break">
+  <aside className="info-box text-break">
     <h4>{labels.linkHeaderTitle}</h4>
     <p>
       <a
@@ -39,7 +39,7 @@ const CourseLinks = ({ language, labels }) => (
         {labels.rightsAndResponsibilities}
       </a>
     </p>
-  </div>
+  </aside>
 )
 
 export default CourseLinks
