@@ -85,12 +85,12 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
 }
 
 const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName }) => (
-  <div className="info-box">
+  <aside className="info-box">
     {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}
     {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
-  </div>
+  </aside>
 )
 
 export default CourseMemoLinks
