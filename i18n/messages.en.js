@@ -113,7 +113,7 @@ module.exports = {
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
 
-    adminLinkLabel: 'Administrate About course information'
+    adminLinkLabel: 'Administrate About course'
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
