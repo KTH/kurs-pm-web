@@ -72,7 +72,7 @@ const otherContacts = (language, memoData, labels) =>
   )
 
 const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
-  <>
+  <section>
     <h2 className="info">{labels.courseContactsTitle}</h2>
     <div className="info-box text-break">
       {communicationWithTeachers(language, memoData, labels)}
@@ -82,7 +82,7 @@ const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
       {examiner(language, memoData, labels)}
       {otherContacts(language, memoData, labels)}
     </div>
-  </>
+  </section>
 )
 
 export default CourseContacts
