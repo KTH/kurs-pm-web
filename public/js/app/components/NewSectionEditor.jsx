@@ -29,7 +29,7 @@ class NewSectionEditor extends Component {
     const { sourceInfo } = i18n.messages[this.userLangIndex]
 
     return (
-      <article className="Add--New--Title--And--Info">
+      <article className="Add--New--Title--And--Info" aria-labelledby={contentId}>
         {!this.state.isOpen && !isEmptyNew && (
           <ExtraHeaderHead header={contentForTitle} contentId={contentId} memoLangIndex={this.memoLangIndex} />
         )}

@@ -8,7 +8,7 @@ export const ContentHead = ({ contentId, memoLangIndex, fromSyllabus }) => {
   const { is: isFromSyllabus } = fromSyllabus
   return header ? (
     <>
-      <h3>
+      <h3 id={contentId}>
         {memoTitlesByMemoLang[contentId]}
         {isFromSyllabus && (
           <sup>
