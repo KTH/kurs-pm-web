@@ -30,7 +30,7 @@ module.exports = {
     field_label_post_example: 'My modelData(Response from api call POST): ',
 
     lang_block_id: '1.77273',
-    locale_text: 'Course Memo in English',
+    locale_text: 'This page in English',
 
     site_name: 'About course',
     host_name: 'KTH',
@@ -240,7 +240,7 @@ module.exports = {
   },
   aboutMemoLabels: {
     aboutMemosText:
-      'Each course offering should offer a course memo no later than at course start. A course memo is the detailed plan for taking the course and understand the examination. It contains information that helps the student to prepare for and plan for taking the course. A course memo also contains information about the student´s rights and obligations. Course memos for this current semester, the previous semester and all future semesters are listed down below.',
+      'Each course offering should offer a course memo no later than at course start. A course memo is the detailed plan for taking the course and understand the examination. It contains information that helps the student to prepare for and plan for taking the course. A course memo also contains information about the student´s rights and obligations. Course memos for this current semester, the previous semester and all future semesters are listed on this page.',
     currentMemos: 'Current course memos'
   },
   coursePresentationLabels: {
