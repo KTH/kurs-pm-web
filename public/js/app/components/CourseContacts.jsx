@@ -72,8 +72,10 @@ const otherContacts = (language, memoData, labels) =>
   )
 
 const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
-  <section>
-    <h2 className="info">{labels.courseContactsTitle}</h2>
+  <section aria-labelledby="memo-contacts">
+    <h2 id="memo-contacts" className="info">
+      {labels.courseContactsTitle}
+    </h2>
     <div className="info-box text-break">
       {communicationWithTeachers(language, memoData, labels)}
       {courseCoordinator(language, memoData, labels)}
