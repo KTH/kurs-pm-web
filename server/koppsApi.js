@@ -32,7 +32,7 @@ const createPersonHtml = (personList = []) => {
     if (person) {
       personString += `<p class = "person">
       <img src="https://www.kth.se/files/thumbnail/${person.username}" alt="Profile picture" width="31" height="31">
-      <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
+      <a href="/profile/${person.username}/" property="teach:teacher">
           ${person.givenName} ${person.lastName} 
       </a> 
     </p>  `

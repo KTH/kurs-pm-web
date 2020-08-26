@@ -27,13 +27,7 @@ const version = (language, labels, memoVersion) =>
 
 const archiveLink = (language, labels, courseCode) => (
   <p>
-    <a
-      id="archive-link"
-      title={labels.courseMemoArchiveLabel}
-      href={linkToArchive(courseCode, language)}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a id="archive-link" title={labels.courseMemoArchiveLabel} href={linkToArchive(courseCode, language)}>
       {labels.courseMemoArchiveLabel}
     </a>
   </p>

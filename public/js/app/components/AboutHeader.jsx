@@ -39,8 +39,6 @@ const AboutHeader = ({
             className="course-header-admin-link"
             title={adminLinkLabel}
             href={adminLink(courseCode, language)}
-            target="_blank"
-            rel="noopener noreferrer"
           >
             {adminLinkLabel}
           </a>

@@ -22,13 +22,7 @@ const offeredBy = (language, labels, departmentName) =>
     <>
       <h4>{labels.offeredByTitle}</h4>
       <p>
-        <a
-          id="link-department-name"
-          title={departmentName}
-          href={linkToSchool(departmentName)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a id="link-department-name" title={departmentName} href={linkToSchool(departmentName)}>
           {departmentName}
         </a>
       </p>
