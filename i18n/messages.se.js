@@ -101,6 +101,7 @@ module.exports = {
     rightsAndResponsibilities: 'Rättigheter och skyldigheter'
   },
   courseFactsLabels: {
+    roundFacts: 'Fakta om kursomgång',
     offeredByTitle: 'Kursen ges av',
     languageOfInstructionTitle: 'Undervisningsspråk',
     roundsTitle: 'Kursomgång',

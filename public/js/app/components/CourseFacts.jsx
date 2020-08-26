@@ -67,7 +67,7 @@ const rounds = (labels, memoName) =>
   )
 
 const CourseFacts = ({ language, labels, memoData = {} }) => (
-  <section className="info-box text-break">
+  <section className="info-box text-break" aria-label={labels.roundFacts}>
     {offeredBy(language, labels, memoData.departmentName)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {rounds(labels, memoData.memoName)}

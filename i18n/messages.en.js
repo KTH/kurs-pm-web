@@ -131,6 +131,7 @@ module.exports = {
     rightsAndResponsibilities: 'Rights and responsibilities'
   },
   courseFactsLabels: {
+    roundFacts: 'Round Facts',
     offeredByTitle: 'Offered By',
     languageOfInstructionTitle: 'Language Of Instruction',
     roundsTitle: 'Course offering',
