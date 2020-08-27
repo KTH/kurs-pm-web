@@ -61,7 +61,8 @@ function _final(err, req, res) {
         friendly: _getFriendlyErrorMessage(lang, statusCode),
         error: isProd ? {} : err,
         status: statusCode,
-        debug: 'debug' in req.query
+        debug: 'debug' in req.query,
+        lang
       })
     },
 
@@ -113,7 +114,7 @@ function _monitor(req, res) {
   const apiConfig = config.nodeApi
 
   // Check APIs
-  const subSystems = Object.keys(api).map(apiKey => {
+  const subSystems = Object.keys(api).map((apiKey) => {
     const apiHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-api')
     return apiHealthUtil.status(api[apiKey], {
       required: apiConfig[apiKey].required
@@ -137,24 +138,18 @@ function _monitor(req, res) {
   const systemStatus = systemHealthUtil.status(localSystems, subSystems)
 
   systemStatus
-    .then(status => {
+    .then((status) => {
       // Return the result either as JSON or text
       if (req.headers.accept === 'application/json') {
         const outp = systemHealthUtil.renderJSON(status)
         res.status(status.statusCode).json(outp)
       } else {
         const outp = systemHealthUtil.renderText(status)
-        res
-          .type('text')
-          .status(status.statusCode)
-          .send(outp)
+        res.type('text').status(status.statusCode).send(outp)
       }
     })
-    .catch(err => {
-      res
-        .type('text')
-        .status(500)
-        .send(err)
+    .catch((err) => {
+      res.type('text').status(500).send(err)
     })
 }
 

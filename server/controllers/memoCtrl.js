@@ -146,7 +146,7 @@ async function getContent(req, res, next) {
       title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
-      responseLanguage,
+      lang: responseLanguage,
       description: shortDescription
     })
   } catch (err) {
