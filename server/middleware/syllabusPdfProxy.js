@@ -3,7 +3,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 function pathRewrite(path) {
-  return path.replace('/kurs-pm/', '/api/kursplan/v1/')
+  return path.replace('/kurs-pm/syllabus/pdf/', '/api/kursplan/v1/syllabus/')
 }
 
 function setApiKey(key) {
