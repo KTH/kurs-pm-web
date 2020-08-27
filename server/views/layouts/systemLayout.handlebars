@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="robots" content="noindex">
-    <meta charset="utf-8">
-    <link rel="shortcut icon" id="favicon" href="/kurs-pm/static/icon/favicon">
-    <title>System page</title>
+<html lang={{lang}}>
 
-    {{#if debug}}
-      {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
-    {{/if}}
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  <link rel="shortcut icon" id="favicon" href="/kurs-pm/static/icon/favicon">
+  <title>System page</title>
 
-    {{{render 'head-scripts'}}}
-  </head>
-  <body>
-    {{{body}}}
-  </body>
+  {{#if debug}}
+    {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
+  {{/if}}
+
+  {{{render 'head-scripts'}}}
+</head>
+
+<body>
+  {{{body}}}
+</body>
+
 </html>
