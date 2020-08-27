@@ -136,38 +136,36 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
 }
 
 export const breadcrumbs = (language, courseCode) => (
-  <nav>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.university[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.university
-            : swedishTranslations.breadCrumbLabels.university}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.student[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.student
-            : swedishTranslations.breadCrumbLabels.student}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.directory[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.directory
-            : swedishTranslations.breadCrumbLabels.directory}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={aboutCourseLink(courseCode, language)}>
-          {language === 'en'
-            ? `${englishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`
-            : `${swedishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`}
-        </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
-  </nav>
+  <Breadcrumb>
+    <BreadcrumbItem>
+      <a href={breadcrumbLinks.university[language]}>
+        {language === 'en'
+          ? englishTranslations.breadCrumbLabels.university
+          : swedishTranslations.breadCrumbLabels.university}
+      </a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+      <a href={breadcrumbLinks.student[language]}>
+        {language === 'en'
+          ? englishTranslations.breadCrumbLabels.student
+          : swedishTranslations.breadCrumbLabels.student}
+      </a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+      <a href={breadcrumbLinks.directory[language]}>
+        {language === 'en'
+          ? englishTranslations.breadCrumbLabels.directory
+          : swedishTranslations.breadCrumbLabels.directory}
+      </a>
+    </BreadcrumbItem>
+    <BreadcrumbItem>
+      <a href={aboutCourseLink(courseCode, language)}>
+        {language === 'en'
+          ? `${englishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`
+          : `${swedishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`}
+      </a>
+    </BreadcrumbItem>
+  </Breadcrumb>
 )
 
 // Logic copied from kursinfo-web
