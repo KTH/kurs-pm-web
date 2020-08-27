@@ -6,7 +6,7 @@ import { Row, Col } from 'reactstrap'
 const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, language }) => {
   const { adminLinkLabel } = labels
   return (
-    <>
+    <header>
       <Row>
         <Col>
           <h1 id="memo-title" className="course-header-title">
@@ -16,7 +16,7 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, languag
       </Row>
       <Row className="pb-3">
         <Col className="text-left" xs="12" lg="6">
-          <h4 className="secondTitle">{courseTitle}</h4>
+          <p className="secondTitle">{courseTitle}</p>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">
           <a
@@ -29,7 +29,7 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, languag
           </a>
         </Col>
       </Row>
-    </>
+    </header>
   )
 }
 

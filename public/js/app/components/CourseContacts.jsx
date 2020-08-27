@@ -6,7 +6,7 @@ import React from 'react'
 const communicationWithTeachers = (language, memoData, labels) =>
   !memoData.communicationDuringCourse || (
     <>
-      <h4>{labels.communicationWithTeachersTitle}</h4>
+      <h3>{labels.communicationWithTeachersTitle}</h3>
       <div dangerouslySetInnerHTML={{ __html: memoData.communicationDuringCourse }} />
     </>
   )
@@ -15,12 +15,12 @@ const communicationWithTeachers = (language, memoData, labels) =>
 const courseCoordinator = (language, memoData, labels) =>
   memoData.courseCoordinator ? (
     <>
-      <h4>{labels.courseCoordinatorTitle}</h4>
+      <h3>{labels.courseCoordinatorTitle}</h3>
       <div id="links-course-coordinator" dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
     </>
   ) : (
     <>
-      <h4>{labels.courseCoordinatorTitle}</h4>
+      <h3>{labels.courseCoordinatorTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -29,12 +29,12 @@ const courseCoordinator = (language, memoData, labels) =>
 const teacher = (language, memoData, labels) =>
   memoData.teacher ? (
     <>
-      <h4>{labels.teacherTitle}</h4>
+      <h3>{labels.teacherTitle}</h3>
       <div id="links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
     </>
   ) : (
     <>
-      <h4>{labels.teacherTitle}</h4>
+      <h3>{labels.teacherTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -43,7 +43,7 @@ const teacher = (language, memoData, labels) =>
 const teacherAssistants = (language, memoData, labels) =>
   !memoData.teacherAssistants || (
     <>
-      <h4>{labels.teacherAssistantsTitle}</h4>
+      <h3>{labels.teacherAssistantsTitle}</h3>
       <div id="links-teacher-assistants" dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
     </>
   )
@@ -52,12 +52,12 @@ const teacherAssistants = (language, memoData, labels) =>
 const examiner = (language, memoData, labels) =>
   memoData.examiner ? (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3>{labels.examinerTitle}</h3>
       <div id="links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
     </>
   ) : (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3>{labels.examinerTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -66,7 +66,7 @@ const examiner = (language, memoData, labels) =>
 const otherContacts = (language, memoData, labels) =>
   !memoData.otherContacts || (
     <>
-      <h4>{labels.otherContactsTitle}</h4>
+      <h3>{labels.otherContactsTitle}</h3>
       <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
     </>
   )

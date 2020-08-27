@@ -5,7 +5,7 @@ import { courseLinks } from '../util/links'
 
 const CourseLinks = ({ language, labels }) => (
   <aside className="info-box text-break" aria-labelledby="student-links">
-    <h4 id="student-links">{labels.linkHeaderTitle}</h4>
+    <h2 id="student-links">{labels.linkHeaderTitle}</h2>
     <p>
       <a
         id="link-before-and-during-course"

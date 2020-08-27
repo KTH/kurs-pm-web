@@ -43,8 +43,14 @@
   margin-bottom: 14px;
 }
 
-h4.secondTitle {
+.secondTitle {
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.375;
   margin-top: 4px;
+  margin-bottom: 14px;
 }
 
 .content-center {
@@ -93,13 +99,20 @@ h4.secondTitle {
   background-color: #f4f4f4;
   margin-bottom: 30px;
   padding: 20px;
-  h4 {
+  h2,
+  h3 {
+    font-size: 1.25rem;
+  }
+  h2,
+  h3 {
     margin-bottom: 0.5rem;
   }
-  h4:first-child {
+  h2,
+  h3:first-child {
     margin-top: 0;
   }
-  p + h4 {
+  p + h2,
+  p + h3 {
     margin-top: 1.5rem;
   }
 }

@@ -15,12 +15,12 @@ const formatVersion = (language = 'sv', version) => {
 const version = (language, labels, memoVersion) =>
   memoVersion ? (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
     </>
   ) : (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -35,7 +35,7 @@ const archiveLink = (language, labels, courseCode) => (
 
 const pdfLink = (labels, memoEndPoint, courseMemoName) => (
   <>
-    <h4>{labels.courseMemoPdf}</h4>
+    <h3>{labels.courseMemoPdf}</h3>
     <p>
       <a
         id="pdf-link"
@@ -54,7 +54,7 @@ const pdfLink = (labels, memoEndPoint, courseMemoName) => (
 const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) => {
   return (
     <>
-      <h4>{labels.syllabus}</h4>
+      <h3>{labels.syllabus}</h3>
       {syllabusValid ? (
         <p>
           <FaAsterisk className="syllabus-marker-icon" />
@@ -79,11 +79,16 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
 }
 
 const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName }) => (
-  <aside className="info-box" aria-label={labels.documents}>
-    {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
-    {archiveLink(language, labels, memoData.courseCode)}
-    {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}
-    {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
+  <aside aria-labelledby="memo-documents">
+    <h2 id="memo-documents" className="d-none">
+      {labels.documents}
+    </h2>
+    <div className="info-box text-break">
+      {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
+      {archiveLink(language, labels, memoData.courseCode)}
+      {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}
+      {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
+    </div>
   </aside>
 )
 
