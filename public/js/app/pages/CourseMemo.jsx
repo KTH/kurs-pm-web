@@ -136,7 +136,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
 }
 
 export const breadcrumbs = (language, courseCode) => (
-  <Breadcrumb>
+  <Breadcrumb lang={language}>
     <BreadcrumbItem>
       <a href={breadcrumbLinks.university[language]}>
         {language === 'en'
@@ -252,7 +252,7 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
           </Col>
-          <Col lg="9" role="main" aria-labelledby="memo-title">
+          <Col lg="9" role="main" aria-labelledby="memo-title" lang={routerStore.memoLanguage}>
             <CourseHeader
               courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
               courseTitle={routerStore.memoData.courseTitle}

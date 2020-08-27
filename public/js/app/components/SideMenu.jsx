@@ -11,7 +11,7 @@ const beforeChoosingCourse = (courseCode, labels) =>
 
 const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language }) => {
   return (
-    <div role="navigation" aria-label="main">
+    <div role="navigation" aria-label="main" lang={language}>
       <p>
         &lsaquo;&nbsp;
         <a href={backLink}>{labels.directory}</a>
