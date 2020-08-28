@@ -3,7 +3,10 @@ import React from 'react'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   return (
-    <section style={{ minHeight: '160px' }} aria-label={labels.coursePresentation}>
+    <section style={{ minHeight: '160px' }} aria-labelledby="course-presentation">
+      <h2 id="course-presentation" className="sr-only">
+        {labels.coursePresentation}
+      </h2>
       <img
         // >= lg : float left, x margins spacer * .5
         // < lg : x margins auto, display block
@@ -13,7 +16,7 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
         src={courseImageUrl}
         alt=""
       />
-      <div dangerouslySetInnerHTML={{ __html: introText }} />
+      <article dangerouslySetInnerHTML={{ __html: introText }} aria-labelledby="course-presentation" />
     </section>
   )
 }

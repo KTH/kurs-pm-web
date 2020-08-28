@@ -11,7 +11,7 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, languag
         <Col>
           <h1 id="memo-title" className="course-header-title">
             {courseMemoName}
-            <span className="d-none">{courseTitle}</span>
+            <span className="sr-only">{courseTitle}</span>
           </h1>
         </Col>
       </Row>
