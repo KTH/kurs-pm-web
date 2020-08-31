@@ -3,7 +3,7 @@ import React from 'react'
 import { adminLink } from '../util/links'
 import { Row, Col } from 'reactstrap'
 
-const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels, language }) => {
+const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels = {}, language }) => {
   const { adminLinkLabel } = labels
   return (
     <>
