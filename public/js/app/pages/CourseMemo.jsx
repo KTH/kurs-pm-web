@@ -252,64 +252,66 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
           </Col>
-          <Col lg="9" role="main" aria-labelledby="memo-title" lang={routerStore.memoLanguage}>
-            <CourseHeader
-              courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
-              courseTitle={routerStore.memoData.courseTitle}
-              courseCode={routerStore.courseCode}
-              labels={courseHeaderLabels}
-              language={routerStore.memoLanguage}
-            />
-            <Row>
-              <Col lg="8" className="text-break content-center">
-                <CoursePresentation
-                  courseImageUrl={courseImageUrl}
-                  introText={routerStore.sellingText}
-                  labels={coursePresentationLabels}
-                />
-                {allSections}
-              </Col>
-              <Col lg="4" className="content-right">
-                <Row className="mb-lg-4">
-                  <Col>
-                    <CourseFacts
-                      language={routerStore.memoLanguage}
-                      labels={courseFactsLabels}
-                      memoData={routerStore.memoData}
-                    />
-                  </Col>
-                </Row>
-                <Row className="my-lg-4">
-                  <Col>
-                    <CourseMemoLinks
-                      language={routerStore.memoLanguageIndex}
-                      labels={courseMemoLinksLabels}
-                      extraInfo={extraInfo}
-                      memoData={routerStore.memoData}
-                      courseMemoName={concatMemoName(
-                        routerStore.semester,
-                        routerStore.roundIds,
-                        routerStore.memoLanguage
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <Row className="mt-lg-4">
-                  <Col>
-                    <CourseLinks language={routerStore.memoLanguage} labels={courseLinksLabels} />
-                  </Col>
-                </Row>
-                <Row className="mt-lg-4">
-                  <Col>
-                    <CourseContacts
-                      language={routerStore.memoLanguage}
-                      memoData={routerStore.memoData}
-                      labels={courseContactsLabels}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
+          <Col lg="9" lang={routerStore.memoLanguage}>
+            <main aria-labelledby="memo-title">
+              <CourseHeader
+                courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
+                courseTitle={routerStore.memoData.courseTitle}
+                courseCode={routerStore.courseCode}
+                labels={courseHeaderLabels}
+                language={routerStore.memoLanguage}
+              />
+              <Row>
+                <Col lg="8" className="text-break content-center">
+                  <CoursePresentation
+                    courseImageUrl={courseImageUrl}
+                    introText={routerStore.sellingText}
+                    labels={coursePresentationLabels}
+                  />
+                  {allSections}
+                </Col>
+                <Col lg="4" className="content-right">
+                  <Row className="mb-lg-4">
+                    <Col>
+                      <CourseFacts
+                        language={routerStore.memoLanguage}
+                        labels={courseFactsLabels}
+                        memoData={routerStore.memoData}
+                      />
+                    </Col>
+                  </Row>
+                  <Row className="my-lg-4">
+                    <Col>
+                      <CourseMemoLinks
+                        language={routerStore.memoLanguageIndex}
+                        labels={courseMemoLinksLabels}
+                        extraInfo={extraInfo}
+                        memoData={routerStore.memoData}
+                        courseMemoName={concatMemoName(
+                          routerStore.semester,
+                          routerStore.roundIds,
+                          routerStore.memoLanguage
+                        )}
+                      />
+                    </Col>
+                  </Row>
+                  <Row className="mt-lg-4">
+                    <Col>
+                      <CourseLinks language={routerStore.memoLanguage} labels={courseLinksLabels} />
+                    </Col>
+                  </Row>
+                  <Row className="mt-lg-4">
+                    <Col>
+                      <CourseContacts
+                        language={routerStore.memoLanguage}
+                        memoData={routerStore.memoData}
+                        labels={courseContactsLabels}
+                      />
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </main>
           </Col>
         </Row>
       </Container>
