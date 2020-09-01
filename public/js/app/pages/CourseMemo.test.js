@@ -6,11 +6,25 @@ import '@testing-library/jest-dom/extend-expect'
 import CourseMemo from './CourseMemo'
 
 describe('Component <CourseMemo>', () => {
-  xtest('renders a course memo', () => {
+  test('renders a course memo', () => {
     const routerStore = {
+      browserConfig: { imageStorageUri: 'localhost://' },
       noMemoData: () => false,
+      memoData: {
+        courseTitle: '',
+        visibleInMemo: {}
+      },
+      memoDatas: [
+        {
+          semester: '',
+          ladokRoundIds: [],
+          memoCommonLangAbbr: ''
+        }
+      ],
       memoLanguageIndex: 0,
-      browserConfig: { imageStorageUri: 'localhost://' }
+      userLanguageIndex: 0,
+      activeMemoEndPoint: (id) => false,
+      roundIds: []
     }
     render(
       <Provider routerStore={routerStore}>
