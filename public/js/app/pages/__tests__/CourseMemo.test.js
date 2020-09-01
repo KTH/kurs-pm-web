@@ -5,29 +5,30 @@ import '@testing-library/jest-dom/extend-expect'
 
 import CourseMemo from '../CourseMemo'
 
+const mockRouterStore = {
+  activeMemoEndPoint: (id) => false,
+  noMemoData: () => false,
+  browserConfig: { imageStorageUri: 'localhost://' },
+  memoData: {
+    courseTitle: '',
+    visibleInMemo: {}
+  },
+  memoDatas: [
+    {
+      semester: '',
+      ladokRoundIds: [],
+      memoCommonLangAbbr: ''
+    }
+  ],
+  memoLanguageIndex: 0,
+  userLanguageIndex: 0,
+  roundIds: []
+}
+
 describe('Component <CourseMemo>', () => {
   test('renders a course memo', () => {
-    const routerStore = {
-      browserConfig: { imageStorageUri: 'localhost://' },
-      noMemoData: () => false,
-      memoData: {
-        courseTitle: '',
-        visibleInMemo: {}
-      },
-      memoDatas: [
-        {
-          semester: '',
-          ladokRoundIds: [],
-          memoCommonLangAbbr: ''
-        }
-      ],
-      memoLanguageIndex: 0,
-      userLanguageIndex: 0,
-      activeMemoEndPoint: (id) => false,
-      roundIds: []
-    }
     render(
-      <Provider routerStore={routerStore}>
+      <Provider routerStore={mockRouterStore}>
         <CourseMemo />
       </Provider>
     )
