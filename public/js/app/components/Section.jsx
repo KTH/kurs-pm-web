@@ -6,7 +6,7 @@ import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
 
-const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex }) => {
+const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* en */ }) => {
   const { nothingFetched, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
   const fromSyllabus = {
     is: context[contentId].source === '(s)',
