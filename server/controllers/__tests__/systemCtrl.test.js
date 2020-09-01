@@ -1,8 +1,8 @@
-jest.mock('../configuration', () => ({ server: {} }))
-jest.mock('../api', () => {})
-jest.mock('../adldapClient', () => {})
+jest.mock('../../configuration', () => ({ server: {} }))
+jest.mock('../../api', () => {})
+jest.mock('../../adldapClient', () => {})
 
-const systemCtrl = require('./systemCtrl')
+const systemCtrl = require('../systemCtrl')
 
 describe('Not found', () => {
   test('Gets correct error code', (done) => {

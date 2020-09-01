@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import CourseHeader from './CourseHeader'
+import CourseHeader from '../CourseHeader'
 
 describe('Component <CourseHeader>', () => {
   test('renders a course header', () => {

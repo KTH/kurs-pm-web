@@ -3,7 +3,7 @@ import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import CourseMemo from './CourseMemo'
+import CourseMemo from '../CourseMemo'
 
 describe('Component <CourseMemo>', () => {
   test('renders a course memo', () => {
