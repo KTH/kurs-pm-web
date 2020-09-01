@@ -140,7 +140,8 @@ const context = {
     isRequired: false,
     source: '(r)'
   }, // Lärarassistenter
-  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
+  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Lärare
+  test: {}
 }
 
 const sections = [
