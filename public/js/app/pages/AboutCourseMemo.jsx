@@ -11,8 +11,8 @@ import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
 import AboutCourseContacts from '../components/AboutCourseContacts'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
+const englishTranslations = i18n.messages[0]
+const swedishTranslations = i18n.messages[1]
 
 export const breadcrumbs = (language) => (
   <nav>
@@ -54,14 +54,16 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map((subject) => englishTranslations.messages.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
-    courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
+    courseImage = swedishTranslations.messages.courseImage[mainSubjects.sort()[0]]
     // If no picture is available for first main subject, use default picture for language
     courseImage =
       courseImage ||
-      (language === 'en' ? englishTranslations.courseImage.default : swedishTranslations.courseImage.default)
+      (language === 'en'
+        ? englishTranslations.messages.courseImage.default
+        : swedishTranslations.messages.courseImage.default)
   }
   return courseImage
 }
@@ -72,7 +74,7 @@ class CourseMemo extends Component {
   componentDidMount() {
     const { routerStore } = this.props
     const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
+    const translate = routerStore.language === 'en' ? englishTranslations.messages : swedishTranslations.messages
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
   }
 

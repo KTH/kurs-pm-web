@@ -42,14 +42,6 @@ module.exports = {
     aboutCourse: 'Om kursen',
     aboutCourseMemos: 'Om kurs-PM',
 
-    breadCrumbLabels: {
-      university: 'KTH',
-      student: 'Student på KTH',
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen',
-      aboutCourseMemos: 'Om kurs-PM'
-    },
-
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 
     courseImage: {
@@ -84,6 +76,13 @@ module.exports = {
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administrera Om kursen'
+  },
+  breadCrumbLabels: {
+    university: 'KTH',
+    student: 'Student på KTH',
+    directory: 'Kurs- och programkatalogen',
+    aboutCourse: 'Om kursen',
+    aboutCourseMemos: 'Om kurs-PM'
   },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',

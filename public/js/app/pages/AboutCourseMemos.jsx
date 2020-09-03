@@ -7,8 +7,8 @@ import { breadcrumbLinks, sideMenuBackLink } from '../util/links'
 
 import SideMenu from '../components/SideMenu'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
+const englishTranslations = i18n.messages[0]
+const swedishTranslations = i18n.messages[1]
 
 export const breadcrumbs = (language) => (
   <nav>
@@ -49,7 +49,7 @@ class CourseMemo extends Component {
   componentDidMount() {
     const { routerStore } = this.props
     const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
+    const translate = routerStore.language === 'en' ? englishTranslations.messages : swedishTranslations.messages
     if (siteNameElement) siteNameElement.textContent = translate.aboutCourseMemos
   }
 

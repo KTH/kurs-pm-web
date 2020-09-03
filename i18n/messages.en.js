@@ -42,14 +42,6 @@ module.exports = {
     aboutCourse: 'About course',
     aboutCourseMemos: 'About course memo',
 
-    breadCrumbLabels: {
-      university: 'KTH',
-      student: 'Student at KTH',
-      directory: 'Course and programme directory',
-      aboutCourse: 'About course',
-      aboutCourseMemos: 'About course memo'
-    },
-
     mandatoryFieldMissing: 'Missing mandatory information',
 
     courseMainSubjects: {
@@ -114,6 +106,13 @@ module.exports = {
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administrate About course'
+  },
+  breadCrumbLabels: {
+    university: 'KTH',
+    student: 'Student at KTH',
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course',
+    aboutCourseMemos: 'About course memo'
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
