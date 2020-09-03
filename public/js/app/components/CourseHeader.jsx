@@ -11,13 +11,14 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels = {}, la
         <Col>
           <h1 id="memo-title" className="course-header-title">
             {courseMemoName}
-            <span className="sr-only">{courseTitle}</span>
           </h1>
         </Col>
       </Row>
       <Row className="pb-3">
         <Col className="text-left" xs="12" lg="6">
-          <p className="secondTitle">{courseTitle}</p>
+          <p id="memo-subtitle" className="secondTitle">
+            {courseTitle}
+          </p>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">
           <a

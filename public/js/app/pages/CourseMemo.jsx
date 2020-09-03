@@ -253,7 +253,7 @@ class CourseMemo extends Component {
             />
           </Col>
           <Col lg="9" lang={routerStore.memoLanguage}>
-            <main aria-labelledby="memo-title">
+            <main aria-labelledby="memo-title memo-subtitle">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
                 courseTitle={routerStore.memoData.courseTitle}
