@@ -37,7 +37,7 @@ const pdfLink = (labels, memoEndPoint, courseMemoName) => (
   <>
     <h3>{labels.courseMemoPdf}</h3>
     <p>
-      <a
+      {/* <a
         id="pdf-link"
         title={courseMemoName}
         href={linkToPublishedMemoPdf(memoEndPoint, courseMemoName)}
@@ -46,7 +46,8 @@ const pdfLink = (labels, memoEndPoint, courseMemoName) => (
       >
         {courseMemoName}
         <FaRegFilePdf className="pdf-icon" />
-      </a>
+      </a> */}
+      <i>{labels.inDevelopment}</i>
     </p>
   </>
 )
