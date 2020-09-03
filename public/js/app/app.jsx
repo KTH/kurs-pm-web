@@ -15,6 +15,8 @@ import CourseMemo from './pages/CourseMemo'
 import AboutCourseMemo from './pages/AboutCourseMemo'
 import AboutCourseMemos from './pages/AboutCourseMemos'
 
+import i18n from '../../../i18n'
+
 function appFactory() {
   const routerStore = new RouterStore()
 
@@ -26,10 +28,14 @@ function appFactory() {
     <Provider routerStore={routerStore}>
       <Switch>
         <Route exact path="/kurs-pm/" component={AboutCourseMemos} />
-        <Route exact path="/kurs-pm/:courseCode" component={CourseMemo} />
+        <Route exact path="/kurs-pm/:courseCode" render={(props) => <CourseMemo {...props} i18n={i18n} />} />
         <Route exact path="/kurs-pm/:courseCode/om-kurs-pm" component={AboutCourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode/:id" component={CourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode/:semester/:id" component={CourseMemo} />
+        <Route exact path="/kurs-pm/:courseCode/:id" render={(props) => <CourseMemo {...props} i18n={i18n} />} />
+        <Route
+          exact
+          path="/kurs-pm/:courseCode/:semester/:id"
+          render={(props) => <CourseMemo {...props} i18n={i18n} />}
+        />
       </Switch>
     </Provider>
   )

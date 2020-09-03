@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
 
-import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { breadcrumbLinks, aboutCourseLink, sideMenuBackLink } from '../util/links'
 import { aboutCourseStr, concatMemoName } from '../util/helpers'
@@ -19,14 +18,10 @@ import Section from '../components/Section'
 import NewSectionEditor from '../components/NewSectionEditor'
 import { Redirect } from 'react-router'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
-
-const renderAllSections = ({ memoData, memoLanguageIndex }) => {
+const renderAllSections = ({ memoData, memoLanguageIndex }, sectionsLabels, noPublishedMemo) => {
   if (!memoData || Object.keys(memoData).length === 0) {
-    return <Alert color="info">{i18n.messages[memoLanguageIndex].messages.noPublishedMemo}</Alert>
+    return <Alert color="info">{noPublishedMemo}</Alert>
   }
-  const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
   // TODO Refactor logic for visible sections
   const sectionsWithContent = []
@@ -135,41 +130,30 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
   })
 }
 
-export const breadcrumbs = (language, courseCode) => (
+const breadcrumbs = (language, courseCode, breadCrumbLabels) => (
   <Breadcrumb lang={language}>
     <BreadcrumbItem>
-      <a href={breadcrumbLinks.university[language]}>
-        {language === 'en'
-          ? englishTranslations.breadCrumbLabels.university
-          : swedishTranslations.breadCrumbLabels.university}
-      </a>
+      <a href={breadcrumbLinks.university[language]}>{breadCrumbLabels.university}</a>
     </BreadcrumbItem>
     <BreadcrumbItem>
-      <a href={breadcrumbLinks.student[language]}>
-        {language === 'en'
-          ? englishTranslations.breadCrumbLabels.student
-          : swedishTranslations.breadCrumbLabels.student}
-      </a>
+      <a href={breadcrumbLinks.student[language]}>{breadCrumbLabels.student}</a>
     </BreadcrumbItem>
     <BreadcrumbItem>
-      <a href={breadcrumbLinks.directory[language]}>
-        {language === 'en'
-          ? englishTranslations.breadCrumbLabels.directory
-          : swedishTranslations.breadCrumbLabels.directory}
-      </a>
+      <a href={breadcrumbLinks.directory[language]}>{breadCrumbLabels.directory}</a>
     </BreadcrumbItem>
     <BreadcrumbItem>
-      <a href={aboutCourseLink(courseCode, language)}>
-        {language === 'en'
-          ? `${englishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`
-          : `${swedishTranslations.breadCrumbLabels.aboutCourse} ${courseCode}`}
-      </a>
+      <a href={aboutCourseLink(courseCode, language)}>{`${breadCrumbLabels.aboutCourse} ${courseCode}`}</a>
     </BreadcrumbItem>
   </Breadcrumb>
 )
 
 // Logic copied from kursinfo-web
-export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
+export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language, i18n) => {
+  const langIndex = language === 'en' ? 0 : 1
+
+  const englishTranslations = i18n.messages[langIndex].messages
+  const swedishTranslations = i18n.messages[langIndex].messages
+
   let courseImage = ''
   // If course administrator has set own picture, use that
   if (imageFromAdmin && imageFromAdmin.length > 4) {
@@ -196,33 +180,45 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
 @observer
 class CourseMemo extends Component {
   componentDidMount() {
-    const { routerStore } = this.props
+    const { routerStore, i18n } = this.props
+    const englishTranslations = i18n.messages[0].messages
+    const swedishTranslations = i18n.messages[1].messages
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
   }
 
   render() {
-    const { routerStore } = this.props
+    const { routerStore, i18n } = this.props
+
     if (routerStore.noMemoData()) {
       return <Redirect to={`/kurs-pm/${routerStore.courseCode}/om-kurs-pm`} />
     }
-    const allSections = renderAllSections(routerStore)
-    const courseImage = resolveCourseImage(
-      routerStore.imageFromAdmin,
-      routerStore.courseMainSubjects,
-      routerStore.memoLanguage
-    )
-    const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
+
     const {
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
       coursePresentationLabels,
       courseLinksLabels,
-      courseContactsLabels
+      courseContactsLabels,
+      sectionsLabels
     } = i18n.messages[routerStore.memoLanguageIndex]
-    const { courseHeaderLabels, sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
+    const { courseHeaderLabels, sideMenuLabels, breadCrumbLabels } = i18n.messages[routerStore.userLanguageIndex]
+
+    const allSections = renderAllSections(
+      routerStore,
+      sectionsLabels,
+      i18n.messages[routerStore.memoLanguageIndex].messages.noPublishedMemo
+    )
+
+    const courseImage = resolveCourseImage(
+      routerStore.imageFromAdmin,
+      routerStore.courseMainSubjects,
+      routerStore.memoLanguage,
+      i18n
+    )
+    const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
@@ -241,7 +237,7 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container" fluid>
-        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
+        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode, breadCrumbLabels)}</Row>
         <Row>
           <Col lg="3" className="side-menu">
             <SideMenu
