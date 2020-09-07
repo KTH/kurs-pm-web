@@ -187,6 +187,7 @@ async function getNoContent(req, res, next) {
 }
 
 module.exports = {
+  resolveSellingText,
   getContent,
   getNoContent
 }
