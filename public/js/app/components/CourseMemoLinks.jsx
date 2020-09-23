@@ -2,7 +2,7 @@ import React from 'react'
 import { FaRegFilePdf, FaAsterisk, FaPrint } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 
-import { linkToArchive, linkToSyllabus, linkToPrintDialog } from '../util/links'
+import { linkToArchive, linkToSyllabus } from '../util/links'
 
 const printDialog = () => window.print()
 
@@ -36,7 +36,7 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const printDialogLink = (labels, courseMemoName) => (
+const printDialogLink = (labels) => (
   <>
     <h3>{labels.courseMemoPrint}</h3>
     <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
