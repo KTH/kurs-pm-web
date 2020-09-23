@@ -202,3 +202,23 @@ h2.info {
     padding-inline-start: 0;
   }
 }
+
+@media print {
+  nav[aria-label='breadcrumb'] {
+    display: none;
+  }
+  .side-menu {
+    display: none;
+  }
+  #admin-link {
+    display: none;
+  }
+  section[aria-labelledby='course-presentation'] {
+    img {
+      display: none !important;
+    }
+  }
+  .content-right {
+    display: none;
+  }
+}
