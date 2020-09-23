@@ -203,11 +203,22 @@ h2.info {
   }
 }
 
+.cover-page {
+  display: none;
+}
+
 @media print {
+  .cover-page {
+    display: block;
+    break-after: page;
+  }
   nav[aria-label='breadcrumb'] {
     display: none;
   }
   .side-menu {
+    display: none;
+  }
+  #memo-title {
     display: none;
   }
   #admin-link {

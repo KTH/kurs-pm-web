@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
+import { Redirect } from 'react-router'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
@@ -17,7 +18,7 @@ import CourseLinks from '../components/CourseLinks'
 import CourseMemoLinks from '../components/CourseMemoLinks'
 import Section from '../components/Section'
 import NewSectionEditor from '../components/NewSectionEditor'
-import { Redirect } from 'react-router'
+import CoverPage from '../components/print/CoverPage'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -241,6 +242,7 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container" fluid>
+        <CoverPage memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)} />
         <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
           <Col lg="3" className="side-menu">
