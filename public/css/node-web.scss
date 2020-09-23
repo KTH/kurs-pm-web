@@ -132,6 +132,20 @@
   vertical-align: baseline;
 }
 
+.print-link {
+  padding: 0;
+  text-align: left;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.print-icon {
+  color: #000;
+  margin-left: 0.3rem;
+  overflow: auto;
+  vertical-align: baseline;
+}
+
 .syllabus-marker-icon {
   height: 0.7rem;
   margin-right: 0.5rem;
