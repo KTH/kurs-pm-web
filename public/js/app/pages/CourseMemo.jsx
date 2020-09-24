@@ -216,6 +216,7 @@ class CourseMemo extends Component {
     )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
     const {
+      coverPageLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
@@ -242,7 +243,17 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container" fluid>
-        <CoverPage memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)} />
+        <CoverPage
+          labels={coverPageLabels}
+          language={routerStore.memoLanguageIndex}
+          courseTitle={routerStore.memoData.courseTitle}
+          memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
+          version={routerStore.memoData.version}
+          lastChangeDate={routerStore.memoData.lastChangeDate}
+          rounds={routerStore.memoData.memoName}
+          departmentName={routerStore.memoData.departmentName}
+          languageOfInstruction={routerStore.memoData.languageOfInstructions}
+        />
         <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
           <Col lg="3" className="side-menu">

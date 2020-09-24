@@ -130,6 +130,11 @@ module.exports = {
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
     rightsAndResponsibilities: 'Rights and responsibilities'
   },
+  coverPageLabels: {
+    roundsTitle: 'Course offering',
+    offeredByTitle: 'Offered By',
+    languageOfInstructionTitle: 'Language Of Instruction'
+  },
   courseFactsLabels: {
     roundFacts: 'Round Facts',
     offeredByTitle: 'Offered By',

@@ -100,6 +100,11 @@ module.exports = {
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
     rightsAndResponsibilities: 'Rättigheter och skyldigheter'
   },
+  coverPageLabels: {
+    roundsTitle: 'Kursomgång',
+    offeredByTitle: 'Kursen ges av',
+    languageOfInstructionTitle: 'Undervisningsspråk'
+  },
   courseFactsLabels: {
     roundFacts: 'Fakta om kursomgång',
     offeredByTitle: 'Kursen ges av',
