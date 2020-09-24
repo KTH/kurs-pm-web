@@ -11,19 +11,19 @@ const breadcrumbLinks = {
   university: { en: 'https://www.kth.se/en', sv: 'https://www.kth.se/' },
   student: { en: 'https://www.kth.se/en/student', sv: 'https://www.kth.se/student' },
   directory: {
-    en: 'https://www.kth.se/student/kurser/kurser-inom-program?l=en',
-    sv: 'https://www.kth.se/student/kurser/kurser-inom-program'
+    en: '/student/kurser/kurser-inom-program?l=en',
+    sv: '/student/kurser/kurser-inom-program'
   }
 }
 
 const sideMenuBackLink = {
-  en: 'https://www.kth.se/student/kurser/kurser-inom-program?l=en',
-  sv: 'https://www.kth.se/student/kurser/kurser-inom-program'
+  en: '/student/kurser/kurser-inom-program?l=en',
+  sv: '/student/kurser/kurser-inom-program'
 }
 
 function aboutCourseLink(courseCode, language) {
   const languageParameter = language === 'en' ? '?l=en' : ''
-  return `https://www.kth.se/student/kurser/kurs/${courseCode}${languageParameter}`
+  return `/student/kurser/kurs/${courseCode}${languageParameter}`
 }
 
 function aboutCourseMemoLink(courseCode) {
