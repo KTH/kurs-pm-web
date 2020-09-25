@@ -44,7 +44,7 @@ const CoverPage = ({
   departmentName,
   languageOfInstruction
 }) => (
-  <section className="cover-page">
+  <section className="cover-page d-none d-print-block">
     <h1>{courseTitle}</h1>
     <p className="memo-subtitle">{memoName}</p>
     <p>{formatVersion(version, language, lastChangeDate)}</p>

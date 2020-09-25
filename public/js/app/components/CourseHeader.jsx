@@ -7,14 +7,14 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels = {}, la
   const { adminLinkLabel } = labels
   return (
     <>
-      <Row>
+      <Row className="d-print-none">
         <Col>
           <h1 id="memo-title" className="course-header-title">
             {courseMemoName}
           </h1>
         </Col>
       </Row>
-      <Row className="pb-3">
+      <Row className="pb-3 d-print-none">
         <Col className="text-left" xs="12" lg="6">
           <p id="memo-subtitle" className="secondTitle">
             {courseTitle}

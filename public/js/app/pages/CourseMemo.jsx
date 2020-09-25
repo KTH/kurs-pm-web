@@ -254,9 +254,9 @@ class CourseMemo extends Component {
           departmentName={routerStore.memoData.departmentName}
           languageOfInstruction={routerStore.memoData.languageOfInstructions}
         />
-        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
+        <Row className="d-print-none">{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3" className="side-menu">
+          <Col lg="3" className="d-print-none side-menu">
             <SideMenu
               courseCode={routerStore.courseCode}
               courseMemoItems={courseMemoItems}
@@ -265,7 +265,7 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
           </Col>
-          <Col lg="9" lang={routerStore.memoLanguage}>
+          <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
             <main aria-labelledby="memo-title memo-subtitle">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
@@ -275,7 +275,7 @@ class CourseMemo extends Component {
                 language={routerStore.memoLanguage}
               />
               <Row>
-                <Col lg="8" className="text-break content-center">
+                <Col lg="8" className="text-break col-print-12 content-center">
                   <CoursePresentation
                     courseImageUrl={courseImageUrl}
                     introText={routerStore.sellingText}
@@ -283,7 +283,7 @@ class CourseMemo extends Component {
                   />
                   {allSections}
                 </Col>
-                <Col lg="4" className="content-right">
+                <Col lg="4" className="d-print-none content-right">
                   <Row className="mb-lg-4">
                     <Col>
                       <CourseFacts
