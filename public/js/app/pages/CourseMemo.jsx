@@ -19,6 +19,7 @@ import CourseMemoLinks from '../components/CourseMemoLinks'
 import Section from '../components/Section'
 import NewSectionEditor from '../components/NewSectionEditor'
 import CoverPage from '../components/print/CoverPage'
+import Contacts from '../components/print/Contacts'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -282,6 +283,11 @@ class CourseMemo extends Component {
                     labels={coursePresentationLabels}
                   />
                   {allSections}
+                  <Contacts
+                    language={routerStore.memoLanguage}
+                    memoData={routerStore.memoData}
+                    labels={courseContactsLabels}
+                  />
                 </Col>
                 <Col lg="4" className="d-print-none content-right">
                   <Row className="mb-lg-4">
