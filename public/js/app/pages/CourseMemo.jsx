@@ -245,7 +245,7 @@ class CourseMemo extends Component {
       <Container fluid>
         <CoverPage
           labels={coverPageLabels}
-          language={routerStore.memoLanguageIndex}
+          language={routerStore.memoLanguage}
           courseTitle={routerStore.memoData.courseTitle}
           memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
           version={routerStore.memoData.version}
