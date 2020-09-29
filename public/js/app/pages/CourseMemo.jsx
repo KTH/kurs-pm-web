@@ -247,12 +247,15 @@ class CourseMemo extends Component {
           labels={coverPageLabels}
           language={routerStore.memoLanguage}
           courseTitle={routerStore.memoData.courseTitle}
+          courseCode={routerStore.courseCode}
           memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
           version={routerStore.memoData.version}
           lastChangeDate={routerStore.memoData.lastChangeDate}
           rounds={routerStore.memoData.memoName}
           departmentName={routerStore.memoData.departmentName}
           languageOfInstruction={routerStore.memoData.languageOfInstructions}
+          syllabusValid={routerStore.memoData.syllabusValid}
+          url={routerStore.url}
         />
         <Row className="d-print-none">{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>

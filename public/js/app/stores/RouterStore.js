@@ -76,6 +76,13 @@ class RouterStore {
     return this.language === 'en' ? 0 : 1
   }
 
+  @computed get url() {
+    if (typeof window !== 'undefined') {
+      return window.location.href
+    }
+    return null
+  }
+
   initializeStore(storeName) {
     const store = this
 

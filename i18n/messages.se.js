@@ -103,7 +103,12 @@ module.exports = {
   coverPageLabels: {
     roundsTitle: 'Kursomgång',
     offeredByTitle: 'Kursen ges av',
-    languageOfInstructionTitle: 'Undervisningsspråk'
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    syllabusInformation: 'Information hämtas från',
+    syllabusLinkStart: 'Kursplan ',
+    syllabusLinkMiddle: '(',
+    syllabusLinkEnd: ')',
+    memoSource: 'Utskrift från sidan'
   },
   courseFactsLabels: {
     roundFacts: 'Fakta om kursomgång',

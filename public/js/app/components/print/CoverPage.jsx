@@ -1,4 +1,5 @@
 import React from 'react'
+import { linkToSyllabus } from '../../util/links'
 
 const { sv, en } = require('date-fns/locale')
 const { utcToZonedTime, format } = require('date-fns-tz')
@@ -33,6 +34,35 @@ const formatRounds = (rounds) => {
   )
 }
 
+const syllabusLabel = (labels, language, syllabusValid, courseCode) => {
+  if (!syllabusValid.textFromTo) {
+    return <>{`* ${syllabusInformation} N/A`}</>
+  }
+  const { syllabusInformation, syllabusLinkStart, syllabusLinkMiddle, syllabusLinkEnd } = labels
+  const syllabusLinkLabel = `${syllabusLinkStart} ${courseCode} ${syllabusLinkMiddle}${syllabusValid.textFromTo}${syllabusLinkEnd}`
+  const syllabusLink = (
+    <a className="pdf-post-link" href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}>
+      {syllabusLinkLabel}
+    </a>
+  )
+  return (
+    <>
+      {`* ${syllabusInformation} `}
+      {syllabusLink}
+    </>
+  )
+}
+
+const memoSourceLabel = (labels, url) => {
+  const memoLink = <a href={url}>{url}</a>
+  return (
+    <>
+      {`${labels.memoSource}: `}
+      {memoLink}
+    </>
+  )
+}
+
 const CoverPage = ({
   labels,
   language,
@@ -42,7 +72,10 @@ const CoverPage = ({
   lastChangeDate,
   rounds,
   departmentName,
-  languageOfInstruction
+  courseCode,
+  languageOfInstruction,
+  syllabusValid,
+  url
 }) => (
   <section className="cover-page d-none d-print-block">
     <h1>{courseTitle}</h1>
@@ -54,6 +87,10 @@ const CoverPage = ({
     <p>{languageOfInstruction}</p>
     <h2>{labels.offeredByTitle}</h2>
     <p>{departmentName}</p>
+    <section className="cover-page-links">
+      <p>{syllabusLabel(labels, language, syllabusValid, courseCode)}</p>
+      <p>{memoSourceLabel(labels, url)}</p>
+    </section>
   </section>
 )
 

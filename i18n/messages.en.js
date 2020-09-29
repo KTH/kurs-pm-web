@@ -133,7 +133,12 @@ module.exports = {
   coverPageLabels: {
     roundsTitle: 'Course offering',
     offeredByTitle: 'Offered By',
-    languageOfInstructionTitle: 'Language Of Instruction'
+    languageOfInstructionTitle: 'Language Of Instruction',
+    syllabusInformation: 'Fetched from',
+    syllabusLinkStart: 'Syllabus ',
+    syllabusLinkMiddle: '(',
+    syllabusLinkEnd: ')',
+    memoSource: 'Printed from page'
   },
   courseFactsLabels: {
     roundFacts: 'Round Facts',

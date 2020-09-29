@@ -233,6 +233,9 @@ h2.info {
     margin-right: 13mm;
     break-after: page;
   }
+  .cover-page-links {
+    margin-top: 82px; // h2: 28+40+14
+  }
   .container,
   .container-fluid,
   .header-container__top {
