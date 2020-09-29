@@ -55,6 +55,21 @@
   </div>
   {{> kthFooter }}
   {{{render 'scripts'}}}
+  <script type="text/javascript">
+    // Remove margin set by 'Personliga menyn' when media is print
+    (function () {
+      const mediaQuery = window.matchMedia('print')
+      function handleMediaPrint(e) {
+        if (e.matches) {
+          document.body.style = 'margin-top: 0 !important'
+        } else {
+          document.body.style = ''
+        }
+      }
+      mediaQuery.addListener(handleMediaPrint)
+      handleMediaPrint(mediaQuery)
+    })();
+  </script>
 </body>
 
 </html>
