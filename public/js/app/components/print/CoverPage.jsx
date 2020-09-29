@@ -74,7 +74,7 @@ const CoverPage = ({
   departmentName,
   courseCode,
   languageOfInstruction,
-  syllabusValid,
+  syllabusValid = {},
   url
 }) => (
   <section className="cover-page d-none d-print-block">
