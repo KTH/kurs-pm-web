@@ -242,8 +242,7 @@ class CourseMemo extends Component {
     courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
     return (
-      // Class preview-container, or equivalent, not needed
-      <Container className="kip-container" fluid>
+      <Container fluid>
         <CoverPage
           labels={coverPageLabels}
           language={routerStore.memoLanguageIndex}

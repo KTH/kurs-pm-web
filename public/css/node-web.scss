@@ -208,29 +208,16 @@ h2.info {
 }
 
 @media print {
-  @page {
-    size: A4 portrait;
+  body {
+    background-color: #fff !important;
   }
   h1 {
     font-size: 32pt;
     margin-bottom: 6pt;
   }
-  .container,
-  .container-fluid,
-  .header-container__top,
-  .kip-container {
-    max-width: none !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .col-print-12 {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+  .memo-subtitle {
+    font-size: 24pt;
+    font-weight: 600;
   }
   .mainLogo {
     margin: 0 !important;
@@ -244,14 +231,22 @@ h2.info {
     margin-top: 17mm;
     margin-left: 13mm;
     margin-right: 13mm;
-    // border-bottom: 1pt solid #1954a6;
     break-after: page;
   }
-  .memo-subtitle {
-    font-size: 24pt;
-    font-weight: 600;
+  .container,
+  .container-fluid,
+  .header-container__top {
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  #back-to-top {
-    display: none;
+  .col-print-12 {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
