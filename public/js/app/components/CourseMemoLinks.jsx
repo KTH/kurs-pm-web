@@ -41,7 +41,6 @@ const printDialogLink = (labels) => (
     <h3>{labels.courseMemoPrint}</h3>
     <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
       {labels.printDialog}
-      <FaPrint className="print-icon" />
     </Button>
   </>
 )

@@ -123,14 +123,14 @@ module.exports = {
     latest: 'Senaste:',
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
     courseMemoPdf: 'Kurs-PM som pdf',
-    courseMemoPrint: 'Skriv ut kurs-PM',
+    courseMemoPrint: 'Kurs-PM som PDF',
     syllabus: 'Kursplan',
     syllabusInformation: 'information hämtas från',
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     inDevelopment: 'Under utveckling',
-    printDialog: 'Utskriftsdialog'
+    printDialog: 'Spara eller skriv ut kurs-PM'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',
