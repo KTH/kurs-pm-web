@@ -87,10 +87,10 @@ const CoverPage = ({
     <p>{languageOfInstruction}</p>
     <h2>{labels.offeredByTitle}</h2>
     <p>{departmentName}</p>
-    <section className="cover-page-links">
-      <p>{syllabusLabel(labels, language, syllabusValid, courseCode)}</p>
-      <p>{memoSourceLabel(labels, url)}</p>
-    </section>
+    <ul className="link-list cover-page-links">
+      <li>{syllabusLabel(labels, language, syllabusValid, courseCode)}</li>
+      <li>{memoSourceLabel(labels, url)}</li>
+    </ul>
   </section>
 )
 
