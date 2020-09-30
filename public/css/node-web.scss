@@ -212,6 +212,9 @@ h2.info {
 }
 
 @media print {
+  body {
+    background-color: #fff !important;
+  }
   h1 {
     font-size: 32pt;
     margin-bottom: 6pt;
