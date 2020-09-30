@@ -1,7 +1,10 @@
 import React from 'react'
-import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
+import { FaRegFilePdf, FaAsterisk, FaPrint } from 'react-icons/fa'
+import { Button } from 'reactstrap'
 
-import { linkToArchive, linkToPublishedMemoPdf, linkToSyllabus } from '../util/links'
+import { linkToArchive, linkToSyllabus } from '../util/links'
+
+const printDialog = () => window.print()
 
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
@@ -33,22 +36,13 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels, memoEndPoint, courseMemoName) => (
+const printDialogLink = (labels) => (
   <>
-    <h3>{labels.courseMemoPdf}</h3>
-    <p>
-      {/* <a
-        id="pdf-link"
-        title={courseMemoName}
-        href={linkToPublishedMemoPdf(memoEndPoint, courseMemoName)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {courseMemoName}
-        <FaRegFilePdf className="pdf-icon" />
-      </a> */}
-      <i>{labels.inDevelopment}</i>
-    </p>
+    <h3>{labels.courseMemoPrint}</h3>
+    <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
+      {labels.printDialog}
+      <FaPrint className="pdf-icon" />
+    </Button>
   </>
 )
 
@@ -87,7 +81,7 @@ const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMem
     <div className="info-box text-break">
       {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
       {archiveLink(language, labels, memoData.courseCode)}
-      {pdfLink(labels, memoData.memoEndPoint, courseMemoName)}
+      {printDialogLink(labels, courseMemoName)}
       {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
     </div>
   </aside>

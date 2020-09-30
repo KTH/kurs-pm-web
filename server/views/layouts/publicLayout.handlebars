@@ -13,8 +13,8 @@
     <link href="{{canonicalUrl}}" rel="canonical">
   {{/if}}
 
-  {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'screen'}}
-  {{prefixStyle '/static/app.css' 'styles' 'screen'}}
+  {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'all'}}
+  {{prefixStyle '/static/app.css' 'styles' 'all'}}
 
   {{{render 'styles'}}}
 
@@ -55,6 +55,21 @@
   </div>
   {{> kthFooter }}
   {{{render 'scripts'}}}
+  <script type="text/javascript">
+    // @page in CSS causes style override issues
+    (function () {
+      var m = window.matchMedia('print')
+      function h(e) {
+        if (e.matches) {
+          document.body.style = 'margin-top: 0 !important;'
+        } else {
+          document.body.style = ''
+        }
+      }
+      m.addListener(h)
+      h(m)
+    })();
+  </script>
 </body>
 
 </html>

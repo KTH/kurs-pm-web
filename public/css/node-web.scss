@@ -53,6 +53,10 @@
   margin-bottom: 14px;
 }
 
+section[aria-labelledby='course-presentation'] {
+  min-height: 160px;
+}
+
 .content-center {
   p {
     font-family: Georgia, 'Garamond Pro', Garamond, 'Times New Roman', Times, serif;
@@ -132,6 +136,20 @@
   vertical-align: baseline;
 }
 
+.print-link {
+  padding: 0;
+  text-align: left;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.print-icon {
+  color: #000;
+  margin-left: 0.3rem;
+  overflow: auto;
+  vertical-align: baseline;
+}
+
 .syllabus-marker-icon {
   height: 0.7rem;
   margin-right: 0.5rem;
@@ -186,5 +204,61 @@ h2.info {
     padding-left: 0;
     text-indent: 0;
     padding-inline-start: 0;
+  }
+}
+
+@page {
+  margin: 13mm;
+}
+
+@media print {
+  body {
+    background-color: #fff !important;
+  }
+  h1 {
+    font-size: 32pt;
+    margin-bottom: 6pt;
+  }
+  .memo-subtitle {
+    font-size: 24pt;
+    font-weight: 600;
+  }
+  .mainLogo {
+    margin: 0 !important;
+    padding: 0 !important;
+    img {
+      width: 26mm !important;
+      height: auto !important;
+    }
+  }
+  .cover-page {
+    margin-top: 17mm;
+    margin-left: 13mm;
+    margin-right: 13mm;
+    break-after: page;
+  }
+  .cover-page-links {
+    margin-top: 82px; // h2: 28+40+14
+  }
+  .container,
+  .container-fluid,
+  .header-container__top {
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .col-print-12 {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .person {
+    img {
+      display: none;
+    }
   }
 }

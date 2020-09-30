@@ -3,7 +3,7 @@ import React from 'react'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   return (
-    <section style={{ minHeight: '160px' }} aria-labelledby="course-presentation">
+    <section className="d-print-none" aria-labelledby="course-presentation">
       <h2 id="course-presentation" className="sr-only">
         {labels.coursePresentation}
       </h2>

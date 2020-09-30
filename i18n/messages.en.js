@@ -130,6 +130,16 @@ module.exports = {
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
     rightsAndResponsibilities: 'Rights and responsibilities'
   },
+  coverPageLabels: {
+    roundsTitle: 'Course offering',
+    offeredByTitle: 'Offered By',
+    languageOfInstructionTitle: 'Language Of Instruction',
+    syllabusInformation: 'Fetched from',
+    syllabusLinkStart: 'Syllabus ',
+    syllabusLinkMiddle: '(',
+    syllabusLinkEnd: ')',
+    memoSource: 'Printed from page'
+  },
   courseFactsLabels: {
     roundFacts: 'Round Facts',
     offeredByTitle: 'Offered By',
@@ -143,12 +153,14 @@ module.exports = {
     latest: 'Latest:',
     courseMemoArchiveLabel: 'Course memo archive',
     courseMemoPdf: 'Course memo pdf',
+    courseMemoPrint: 'Print or save',
     syllabus: 'Syllabus',
     syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Missing mandatory information',
-    inDevelopment: 'In development'
+    inDevelopment: 'In development',
+    printDialog: 'Print or save course memo'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',

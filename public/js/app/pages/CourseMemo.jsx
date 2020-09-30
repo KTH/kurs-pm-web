@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem, Alert } from 'reactstrap'
+import { Redirect } from 'react-router'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
@@ -17,7 +18,8 @@ import CourseLinks from '../components/CourseLinks'
 import CourseMemoLinks from '../components/CourseMemoLinks'
 import Section from '../components/Section'
 import NewSectionEditor from '../components/NewSectionEditor'
-import { Redirect } from 'react-router'
+import CoverPage from '../components/print/CoverPage'
+import Contacts from '../components/print/Contacts'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -215,6 +217,7 @@ class CourseMemo extends Component {
     )
     const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
     const {
+      coverPageLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
@@ -239,11 +242,24 @@ class CourseMemo extends Component {
     courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
     return (
-      // Class preview-container, or equivalent, not needed
-      <Container className="kip-container" fluid>
-        <Row>{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
+      <Container fluid>
+        <CoverPage
+          labels={coverPageLabels}
+          language={routerStore.memoLanguage}
+          courseTitle={routerStore.memoData.courseTitle}
+          courseCode={routerStore.courseCode}
+          memoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
+          version={routerStore.memoData.version}
+          lastChangeDate={routerStore.memoData.lastChangeDate}
+          rounds={routerStore.memoData.memoName}
+          departmentName={routerStore.memoData.departmentName}
+          languageOfInstruction={routerStore.memoData.languageOfInstructions}
+          syllabusValid={routerStore.memoData.syllabusValid}
+          url={routerStore.url}
+        />
+        <Row className="d-print-none">{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3" className="side-menu">
+          <Col lg="3" className="d-print-none side-menu">
             <SideMenu
               courseCode={routerStore.courseCode}
               courseMemoItems={courseMemoItems}
@@ -252,7 +268,7 @@ class CourseMemo extends Component {
               language={routerStore.language}
             />
           </Col>
-          <Col lg="9" lang={routerStore.memoLanguage}>
+          <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
             <main aria-labelledby="memo-title memo-subtitle">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
@@ -262,15 +278,20 @@ class CourseMemo extends Component {
                 language={routerStore.memoLanguage}
               />
               <Row>
-                <Col lg="8" className="text-break content-center">
+                <Col lg="8" className="text-break col-print-12 content-center">
                   <CoursePresentation
                     courseImageUrl={courseImageUrl}
                     introText={routerStore.sellingText}
                     labels={coursePresentationLabels}
                   />
                   {allSections}
+                  <Contacts
+                    language={routerStore.memoLanguage}
+                    memoData={routerStore.memoData}
+                    labels={courseContactsLabels}
+                  />
                 </Col>
-                <Col lg="4" className="content-right">
+                <Col lg="4" className="d-print-none content-right">
                   <Row className="mb-lg-4">
                     <Col>
                       <CourseFacts

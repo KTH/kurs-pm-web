@@ -100,6 +100,16 @@ module.exports = {
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
     rightsAndResponsibilities: 'Rättigheter och skyldigheter'
   },
+  coverPageLabels: {
+    roundsTitle: 'Kursomgång',
+    offeredByTitle: 'Kursen ges av',
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    syllabusInformation: 'Information hämtas från',
+    syllabusLinkStart: 'Kursplan ',
+    syllabusLinkMiddle: '(',
+    syllabusLinkEnd: ')',
+    memoSource: 'Utskrift från sidan'
+  },
   courseFactsLabels: {
     roundFacts: 'Fakta om kursomgång',
     offeredByTitle: 'Kursen ges av',
@@ -113,12 +123,14 @@ module.exports = {
     latest: 'Senaste:',
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
     courseMemoPdf: 'Kurs-PM som pdf',
+    courseMemoPrint: 'Skriv ut eller spara',
     syllabus: 'Kursplan',
     syllabusInformation: 'information hämtas från',
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
-    inDevelopment: 'Under utveckling'
+    inDevelopment: 'Under utveckling',
+    printDialog: 'Skriv ut eller spara kurs-PM'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',
