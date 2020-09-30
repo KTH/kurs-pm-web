@@ -56,6 +56,7 @@
   {{> kthFooter }}
   {{{render 'scripts'}}}
   <script type="text/javascript">
+    // @page in CSS causes style override issues
     (function () {
       var m = window.matchMedia('print')
       function h(e) {

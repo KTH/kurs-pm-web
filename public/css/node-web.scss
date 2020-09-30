@@ -207,10 +207,11 @@ h2.info {
   }
 }
 
+@page {
+  margin: 13mm;
+}
+
 @media print {
-  body {
-    background-color: #fff !important;
-  }
   h1 {
     font-size: 32pt;
     margin-bottom: 6pt;
