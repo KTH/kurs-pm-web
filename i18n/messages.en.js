@@ -153,14 +153,14 @@ module.exports = {
     latest: 'Latest:',
     courseMemoArchiveLabel: 'Course memo archive',
     courseMemoPdf: 'Course memo pdf',
-    courseMemoPrint: 'Course memo as PDF',
+    courseMemoPrint: 'Print course memo',
     syllabus: 'Syllabus',
     syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Missing mandatory information',
     inDevelopment: 'In development',
-    printDialog: 'Save or print course memo'
+    printDialog: 'Print course memo'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
