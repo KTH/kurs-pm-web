@@ -9,7 +9,7 @@ const language = require('kth-node-web-common/lib/language')
 const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
-const { getMemoDataById } = require('../kursPmDataApi')
+const { getMemoDataById, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation } = require('../koppsApi')
 
@@ -186,7 +186,23 @@ async function getNoContent(req, res, next) {
   }
 }
 
+async function getAllMemosPdfAndWeb(req, res, next) {
+  const { courseCode: rawCourseCode } = req.params
+  const courseCode = rawCourseCode.toUpperCase()
+  try {
+    log.debug('trying to fetch all memos as web or as pdf with course code: ' + courseCode)
+
+    const apiResponse = await getMiniMemosPdfAndWeb(courseCode)
+    log.debug('getAllMemosPdfAndWeb response: ', apiResponse)
+    return res.json(apiResponse)
+  } catch (error) {
+    log.error('Exception from getAllMemosPdfAndWeb ', { error })
+    next(error)
+  }
+}
+
 module.exports = {
+  getAllMemosPdfAndWeb,
   getContent,
   getNoContent
 }
