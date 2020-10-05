@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 
 import i18n from '../../../../i18n'
+import axios from 'axios'
+
 import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemo } from '../util/links'
 
 import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
@@ -66,14 +68,42 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
+const getWebAndPdfMemos = async (courseCode) => {
+  const URL_KURS_PM_INTERNAL_API = `/kurs-pm/to-kurs-pm-api/${courseCode}`
+  try {
+    const result = await axios.get(URL_KURS_PM_INTERNAL_API)
+
+    if (result) {
+      if (result.status >= 400) {
+        return 'ERROR-getWebAndPdfMemos-' + result.status
+      }
+    }
+    console.log('result.datalalal', result.data)
+    return result.data
+  } catch (error) {
+    if (error.response) {
+      throw new Error('getWebAndPdfMemos ' + error.message)
+    }
+    throw error
+  }
+}
+
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  componentDidMount() {
-    const { routerStore } = this.props
+  state = {
+    webAndPdfMiniMemos: {}
+  }
+
+  async componentDidMount() {
+    const { courseCode, language } = this.props.routerStore
     const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
-    if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
+    const translate = language === 'en' ? englishTranslations : swedishTranslations
+    if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, courseCode)
+    const webAndPdMemos = await getWebAndPdfMemos(courseCode)
+    if (webAndPdMemos) {
+      this.setState({ webAndPdfMiniMemos: webAndPdMemos })
+    }
   }
 
   render() {
@@ -81,8 +111,7 @@ class CourseMemo extends Component {
     const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
       routerStore.userLanguageIndex
     ]
-
-    let courseMemoItems = routerStore.memoDatas.map((m) => {
+    let menuMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       return {
@@ -94,14 +123,7 @@ class CourseMemo extends Component {
       }
     })
     // Duplicate id’s filtered out
-    courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
-
-    const semesterCourseMemoItems = courseMemoItems.reduce((items, item) => {
-      const itemsMap = items
-      if (!itemsMap[item.semester]) itemsMap[item.semester] = []
-      itemsMap[item.semester].push(item)
-      return itemsMap
-    }, {})
+    menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
     return (
       // Class preview-container, or equivalent, not needed
@@ -111,7 +133,7 @@ class CourseMemo extends Component {
           <Col lg="3" className="side-menu">
             <SideMenu
               courseCode={routerStore.courseCode}
-              courseMemoItems={courseMemoItems}
+              courseMemoItems={menuMemoItems}
               aboutCourseMemo
               backLink={sideMenuBackLink[routerStore.language]}
               labels={sideMenuLabels}
@@ -131,19 +153,37 @@ class CourseMemo extends Component {
               <Col lg="8" className="text-break">
                 <h2>{aboutMemoLabels.currentMemos}</h2>
                 <>
-                  {Object.keys(semesterCourseMemoItems).map((semester) => {
-                    const semesterItems = semesterCourseMemoItems[semester]
+                  {Object.keys(this.state.webAndPdfMiniMemos).map((semester) => {
+                    const semesterItems = this.state.webAndPdfMiniMemos[semester]
                     return (
                       <React.Fragment key={semester}>
                         <h3>{seasonStr(extraInfo, semester)}</h3>
                         <ul>
-                          {semesterItems.map((i) => (
-                            <li key={i.label}>
-                              <a id="pdf-link" title={i.label} href={linkToPublishedMemo(routerStore.courseCode, i.id)}>
-                                {i.label}
-                              </a>
-                            </li>
-                          ))}
+                          {semesterItems.map(
+                            ({
+                              courseMemoFileName: pdfFileName,
+                              isPdf,
+                              ladokRoundIds,
+                              memoCommonLangAbbr,
+                              memoEndPoint,
+                              semester
+                            }) => (
+                              <li key={memoEndPoint || pdfFileName}>
+                                {(isPdf && (
+                                  <a
+                                    className="pdf-link"
+                                    href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
+                                  >
+                                    {concatMemoName(semester, ladokRoundIds, routerStore.language)}
+                                  </a>
+                                )) || (
+                                  <a href={linkToPublishedMemo(routerStore.courseCode, memoEndPoint)}>
+                                    {concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr)}
+                                  </a>
+                                )}
+                              </li>
+                            )
+                          )}
                         </ul>
                       </React.Fragment>
                     )
