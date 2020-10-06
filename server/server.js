@@ -230,8 +230,11 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
+appRoute.get(
+  'courseMemo.getAboutMemoContent',
+  config.proxyPrefixPath.uri + '/to-kurs-pm-api/:courseCode',
+  CourseMemo.getAllMemosPdfAndWeb
+)
 appRoute.get(
   'CourseMemoPdf.getPdfProxy',
   config.proxyPrefixPath.uri + '/memo/pdf/:id',
@@ -245,6 +248,8 @@ appRoute.get(
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)
+
+appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
 
 server.use('/', appRoute.getRouter())
 
