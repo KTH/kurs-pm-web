@@ -178,7 +178,7 @@ class CourseMemo extends Component {
                                   </a>
                                 )) || (
                                   <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
-                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
+                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, memoCommonLangAbbr)}
                                   </a>
                                 )}
                               </li>
