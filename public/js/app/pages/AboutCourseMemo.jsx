@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemo } from '../util/links'
 
-import { aboutCourseStr, concatMemoName, seasonStr } from '../util/helpers'
+import { aboutCourseStr, concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
@@ -78,7 +78,6 @@ const getWebAndPdfMemos = async (courseCode) => {
         return 'ERROR-getWebAndPdfMemos-' + result.status
       }
     }
-    console.log('result.datalalal', result.data)
     return result.data
   } catch (error) {
     if (error.response) {
@@ -108,8 +107,9 @@ class CourseMemo extends Component {
 
   render() {
     const { routerStore } = this.props
+    const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
     const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
-      routerStore.userLanguageIndex
+      userLanguageIndex
     ]
     let menuMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
@@ -119,7 +119,7 @@ class CourseMemo extends Component {
         semester: m.semester,
         label,
         active: routerStore.activeMemoEndPoint(id),
-        url: `/kurs-pm/${routerStore.courseCode}/${id}`
+        url: `/kurs-pm/${courseCode}/${id}`
       }
     })
     // Duplicate id’s filtered out
@@ -128,25 +128,25 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container about-container" fluid>
-        <Row>{breadcrumbs(routerStore.language)}</Row>
+        <Row>{breadcrumbs(userLangAbbr)}</Row>
         <Row>
           <Col lg="3" className="side-menu">
             <SideMenu
-              courseCode={routerStore.courseCode}
+              courseCode={courseCode}
               courseMemoItems={menuMemoItems}
               aboutCourseMemo
-              backLink={sideMenuBackLink[routerStore.language]}
+              backLink={sideMenuBackLink[userLangAbbr]}
               labels={sideMenuLabels}
             />
           </Col>
           <Col lg="9">
             <AboutHeader
-              courseCode={routerStore.courseCode}
+              courseCode={courseCode}
               title={routerStore.title}
               credits={routerStore.credits}
               creditUnitAbbr={routerStore.creditUnitAbbr}
               labels={aboutHeaderLabels}
-              language={routerStore.language}
+              language={userLangAbbr}
             />
             {aboutMemoLabels.aboutMemosText}
             <Row>
@@ -174,11 +174,11 @@ class CourseMemo extends Component {
                                     className="pdf-link"
                                     href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
                                   >
-                                    {concatMemoName(semester, ladokRoundIds, routerStore.language)}
+                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
                                   </a>
                                 )) || (
-                                  <a href={linkToPublishedMemo(routerStore.courseCode, memoEndPoint)}>
-                                    {concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr)}
+                                  <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
+                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
                                   </a>
                                 )}
                               </li>
@@ -193,7 +193,7 @@ class CourseMemo extends Component {
               <Col lg="4" className="content-right">
                 <h2>{courseContactsLabels.courseContactsTitle}</h2>
                 <AboutCourseContacts
-                  languageIndex={routerStore.userLanguageIndex}
+                  languageIndex={userLanguageIndex}
                   infoContactName={routerStore.infoContactName}
                   examiners={routerStore.examiners}
                   labels={courseContactsLabels}

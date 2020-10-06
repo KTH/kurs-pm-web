@@ -10,3 +10,11 @@ export const concatMemoName = (semester, ladokRoundIds, langAbbr = 'sv') => {
   const { memoLabel } = i18n.messages[langIndex].messages
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${ladokRoundIds.join('-')}`
 }
+
+export const memoNameWithCourseCode = (courseCode, semester, ladokRoundIds, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  const { memoLabel } = i18n.messages[langIndex].messages
+  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${ladokRoundIds.join(
+    '-'
+  )}`
+}
