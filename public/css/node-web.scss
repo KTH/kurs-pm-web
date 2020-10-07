@@ -1,3 +1,7 @@
+$grey: #65656c;
+$lightGrey: #f6f6f6;
+$white: #fff;
+
 %long-text-font-style {
   font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
   font-size: 1rem;
@@ -9,6 +13,80 @@
 
 %short-text-font-style {
   font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5;
+}
+
+%table-style {
+  width: 100%;
+  text-align: left;
+  p,
+  ul,
+  li,
+  ol,
+  h1,
+  h2,
+  h3,
+  h4,
+  span,
+  div {
+    @extend %short-text-font-style;
+  }
+
+  thead {
+    tr {
+      th {
+        color: $white;
+        background-color: $grey;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        border-top: 0;
+        padding: 0.75rem;
+        h4 {
+          color: $white;
+        }
+        &:first-of-type {
+          border-top: 0;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      th {
+        color: $white;
+        background-color: $grey;
+        font-weight: 500;
+        border-right: 1px solid $white;
+
+        &[scope='row'] {
+          vertical-align: middle;
+          border-top: 1px solid $white;
+          border-right: 0;
+        }
+      }
+
+      &:first-child {
+        th {
+          border-top: 1px solid $white;
+        }
+      }
+
+      td {
+        padding: 0.75rem;
+        background-color: $lightGrey;
+        border-top: 1px solid $white;
+      }
+    }
+  }
+
+  th {
+    border-top: 0;
+  }
 }
 
 #kth-node {
@@ -101,6 +179,9 @@ section[aria-labelledby='course-presentation'] {
   h2 + p {
     margin-top: 24px;
   }
+  table {
+    @extend %table-style;
+  }
 }
 
 .info-box {
@@ -181,11 +262,7 @@ section[aria-labelledby='course-presentation'] {
 }
 
 p.sub-section-header {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5;
+  @extend %short-text-font-style;
   padding-top: 0.8rem;
   margin-bottom: 0;
 }
