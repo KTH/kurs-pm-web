@@ -21,30 +21,24 @@ const AboutHeader = ({
 }) => {
   const { adminLinkLabel } = labels
   return (
-    <>
-      <Row>
-        <Col>
-          <h1 className="course-header-title">{labels.memoLabel}</h1>
-        </Col>
-      </Row>
-      <Row className="pb-3">
-        <Col className="text-left" xs="12" lg="6">
-          <h4 className="secondTitle">
+    <Row>
+      <header className="pageTitle col">
+        <span id="page-course-title" role="heading" aria-level="1">
+          <span className="t1">{labels.memoLabel}</span>
+          <span className="t4">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </h4>
-        </Col>
-        <Col className="text-lg-right" xs="12" lg="6">
-          <a
-            id="admin-link"
-            className="course-header-admin-link"
-            title={adminLinkLabel}
-            href={adminLink(courseCode, language)}
-          >
-            {adminLinkLabel}
-          </a>
-        </Col>
-      </Row>
-    </>
+          </span>
+        </span>
+        <a
+          title={adminLinkLabel}
+          className="right-link"
+          href={adminLink(courseCode, language)}
+          style={{ fontSize: '1rem' }}
+        >
+          {adminLinkLabel}
+        </a>
+      </header>
+    </Row>
   )
 }
 
