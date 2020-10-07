@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 
 import AboutCourseMemo from '../AboutCourseMemo'
-// import { getWebAndPdfMemos } from '../AboutCourseMemo'
 
 const mockMixKursPmDataApi = (courseCode) => ({
   20192: [
@@ -66,6 +65,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
         }
       ],
       // memoLanguageIndex: 0,
+      language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: (id) => false,
       roundIds: [],
@@ -117,7 +117,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders text about empty fields (Kontaktperson, Examinator) ', () => {
+  test('renders text about empty fields (Kontaktperson) ', () => {
     const noInfo = getAllByText('Ingen information tillagd')
     expect(noInfo.length).toBe(1)
   })
@@ -151,7 +151,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Kursens utveckling och historik', (done) => {
+  test('renders menu link Administrera Om kursen', (done) => {
     const menuItem = getByText('Administrera Om kursen')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursinfoadmin/kurser/kurs/KIP2720?l=sv')
@@ -181,8 +181,12 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(9)
+    expect(links.length).toBe(13)
     const expectedlinks = [
+      'KTH',
+      'Student på KTH',
+      'Kurs- och programkatalogen',
+      'Kurs- och programkatalogen',
       'Inför kursval',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
