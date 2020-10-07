@@ -33,59 +33,63 @@ $white: #fff;
   span,
   div {
     @extend %short-text-font-style;
+    margin-bottom: 0 !important;
   }
 
-  thead {
-    tr {
-      th {
+  tr {
+    th {
+      color: $white !important;
+      background-color: $grey !important;
+      font-weight: 500;
+      border-right: 1px solid $white;
+      border-bottom: 1px solid $white;
+      border-top: 0;
+      padding: 0.75rem;
+      h4 {
         color: $white;
-        background-color: $grey;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
+      }
+      &:first-of-type {
         border-top: 0;
-        padding: 0.75rem;
-        h4 {
-          color: $white;
-        }
-        &:first-of-type {
-          border-top: 0;
-        }
+      }
+      &[scope='row'] {
+        vertical-align: middle;
+        border-top: 1px solid $white;
+        border-right: 0;
       }
     }
-  }
 
-  tbody {
-    tr {
+    &:first-child {
       th {
-        color: $white;
-        background-color: $grey;
-        font-weight: 500;
-        border-right: 1px solid $white;
-
-        &[scope='row'] {
-          vertical-align: middle;
-          border-top: 1px solid $white;
-          border-right: 0;
-        }
-      }
-
-      &:first-child {
-        th {
-          border-top: 1px solid $white;
-        }
-      }
-
-      td {
-        padding: 0.75rem;
-        background-color: $lightGrey;
         border-top: 1px solid $white;
       }
+    }
+
+    td {
+      padding: 0.75rem;
+      background-color: $lightGrey;
+      border-top: 1px solid $white;
     }
   }
 
   th {
     border-top: 0;
+  }
+
+  //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
+  tbody:first-child {
+    tr:first-of-type > td {
+      color: $white;
+      background-color: $grey !important;
+      font-weight: 500;
+      border-right: 1px solid $white;
+      border-bottom: 1px solid $white;
+      border-top: 0;
+      padding: 0.75rem;
+      p {
+        color: $white;
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
