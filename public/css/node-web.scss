@@ -1,9 +1,18 @@
-#kth-node {
-  background: pink;
+%long-text-font-style {
+  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5625;
+  margin-top: 0;
 }
 
-.course-header-title {
-  margin-bottom: 0;
+%short-text-font-style {
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+}
+
+#kth-node {
+  background: pink;
 }
 
 .menu-memos {
@@ -64,47 +73,17 @@
   }
 }
 
-.course-header-title {
-  margin-bottom: 0;
-}
-
-.course-header-admin-link {
-  display: block;
-  margin-top: 4px;
-  margin-bottom: 14px;
-}
-
-.secondTitle {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #000;
-  line-height: 1.375;
-  margin-top: 4px;
-  margin-bottom: 14px;
-}
-
 section[aria-labelledby='course-presentation'] {
   min-height: 160px;
 }
 
 .content-center {
   p {
-    font-family: Georgia, 'Garamond Pro', Garamond, 'Times New Roman', Times, serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #000;
-    line-height: 1.5625;
-    margin-top: 0;
+    @extend %long-text-font-style;
     margin-bottom: 16px;
   }
   li {
-    font-family: Georgia, 'Garamond Pro', Garamond, 'Times New Roman', Times, serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #000;
-    line-height: 1.5625;
-    margin-top: 0;
+    @extend %long-text-font-style;
   }
   @media (min-width: 768px) {
     p,
@@ -121,12 +100,6 @@ section[aria-labelledby='course-presentation'] {
   }
   h2 + p {
     margin-top: 24px;
-  }
-  .title-and-info {
-    h3 {
-      margin-top: 24px !important; // Resets to KTH Style
-      margin-bottom: 10px !important; // Resets to KTH Style
-    }
   }
 }
 
