@@ -194,6 +194,18 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
+const determineContentFlexibility = () => {
+  const lastColLastElem = document.getElementById('last-element-which-determines-styles')
+  if (lastColLastElem) {
+    const lastElBottomPx = lastColLastElem.getBoundingClientRect().bottom
+    const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('article')
+    allCenterSections.forEach((section) => {
+      const topOfSection = section.getBoundingClientRect().top
+      if (topOfSection > lastElBottomPx + 10) section.classList.add('flexible-section-style')
+    })
+  }
+}
+
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
@@ -203,13 +215,7 @@ class CourseMemo extends Component {
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
     //Decide which content can have wider content (exempel tables, to make them more readable)
-    const contactBottomPx = document.getElementById('last-element-which-determines-styles').getBoundingClientRect()
-      .bottom
-    const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('article')
-    allCenterSections.forEach((section) => {
-      const topOfSection = section.getBoundingClientRect().top
-      if (topOfSection > contactBottomPx + 10) section.classList.add('flexible-section-style')
-    })
+    determineContentFlexibility()
   }
 
   render() {
