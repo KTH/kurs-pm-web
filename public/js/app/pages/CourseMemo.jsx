@@ -313,16 +313,6 @@ class CourseMemo extends Component {
                         labels={courseFactsLabels}
                         memoData={routerStore.memoData}
                       />
-                      <CourseFacts
-                        language={routerStore.memoLanguage}
-                        labels={courseFactsLabels}
-                        memoData={routerStore.memoData}
-                      />
-                      <CourseFacts
-                        language={routerStore.memoLanguage}
-                        labels={courseFactsLabels}
-                        memoData={routerStore.memoData}
-                      />
                     </Col>
                   </Row>
                   <Row className="my-lg-4">
