@@ -202,6 +202,14 @@ class CourseMemo extends Component {
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
+    //Decide which content can have wider content (exempel tables, to make them more readable)
+    const contactBottomPx = document.getElementById('last-element-which-determines-styles').getBoundingClientRect()
+      .bottom
+    const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('article')
+    allCenterSections.forEach((section) => {
+      const topOfSection = section.getBoundingClientRect().top
+      if (topOfSection > contactBottomPx + 10) section.classList.add('flexible-section-style')
+    })
   }
 
   render() {
@@ -278,7 +286,7 @@ class CourseMemo extends Component {
                 language={routerStore.memoLanguage}
               />
               <Row>
-                <Col lg="8" className="text-break col-print-12 content-center">
+                <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
                   <CoursePresentation
                     courseImageUrl={courseImageUrl}
                     introText={routerStore.sellingText}
@@ -324,6 +332,7 @@ class CourseMemo extends Component {
                   <Row className="mt-lg-4">
                     <Col>
                       <CourseContacts
+                        id="last-element-which-determines-styles"
                         language={routerStore.memoLanguage}
                         memoData={routerStore.memoData}
                         labels={courseContactsLabels}

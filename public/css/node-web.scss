@@ -20,81 +20,89 @@ $white: #fff;
 }
 
 %table-style {
-  width: 100%;
-  @media (min-width: 1000px) {
-    width: 120%;
+  .flexible-section-style {
+    table {
+      @media (min-width: 1000px) {
+        width: 150%;
+        table-layout: fixed;
+      }
+      @media print {
+        // must be here, to make it more specific and stronger rule
+        width: 100%;
+      }
+    }
   }
-  @media print {
-    // must be here, to make it more specific and stronger rule
+
+  table {
     width: 100%;
-  }
 
-  text-align: left;
-  p,
-  ul,
-  li,
-  ol,
-  h1,
-  h2,
-  h3,
-  h4,
-  span,
-  div {
-    @extend %short-text-font-style;
-    margin-bottom: 0 !important;
-  }
-
-  tr {
-    th {
-      color: $white !important;
-      background-color: $grey !important;
-      font-weight: 500;
-      border-right: 1px solid $white;
-      border-bottom: 1px solid $white;
-      border-top: 0;
-      padding: 0.375rem;
-      h4 {
-        color: $white;
-      }
-      &:first-of-type {
-        border-top: 0;
-      }
-      &[scope='row'] {
-        vertical-align: middle;
-        border-top: 1px solid $white;
-        border-right: 0;
-      }
+    text-align: left;
+    p,
+    ul,
+    li,
+    ol,
+    h1,
+    h2,
+    h3,
+    h4,
+    span,
+    div {
+      @extend %short-text-font-style;
+      margin-bottom: 0 !important;
     }
 
-    &:first-child {
+    tr {
       th {
+        color: $white !important;
+        background-color: $grey !important;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        border-top: 0;
+        padding: 0.375rem;
+        h4 {
+          color: $white;
+        }
+        &:first-of-type {
+          border-top: 0;
+        }
+        &[scope='row'] {
+          vertical-align: middle;
+          border-top: 1px solid $white;
+          border-right: 0;
+        }
+      }
+
+      &:first-child {
+        th {
+          border-top: 1px solid $white;
+        }
+      }
+
+      td {
+        padding: 0.375rem;
+        background-color: $lightGrey;
         border-top: 1px solid $white;
       }
     }
 
-    td {
-      padding: 0.375rem;
-      background-color: $lightGrey;
-      border-top: 1px solid $white;
-    }
-  }
-
-  th {
-    border-top: 0;
-  }
-
-  //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
-  tbody:first-child {
-    tr:first-of-type > td {
-      color: $white;
-      background-color: $grey !important;
-      font-weight: 500;
-      border-right: 1px solid $white;
-      border-bottom: 1px solid $white;
+    th {
       border-top: 0;
-      p {
+    }
+
+    //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
+    tbody:first-child {
+      tr:first-of-type > td {
         color: $white;
-        margin-bottom: 0;
+        background-color: $grey !important;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        border-top: 0;
+        p {
+          color: $white;
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -190,9 +198,7 @@ section[aria-labelledby='course-presentation'] {
   h2 + p {
     margin-top: 24px;
   }
-  table {
-    @extend %table-style;
-  }
+  @extend %table-style;
 }
 
 .info-box {

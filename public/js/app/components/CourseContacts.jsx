@@ -71,8 +71,8 @@ const otherContacts = (language, memoData, labels) =>
     </>
   )
 
-const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
-  <section aria-labelledby="memo-contacts">
+const CourseContacts = ({ id = null, language, memoData = {}, labels = {} }) => (
+  <section id={id} aria-labelledby="memo-contacts">
     <h2 id="memo-contacts" className="info">
       {labels.courseContactsTitle}
     </h2>
