@@ -329,10 +329,9 @@ class CourseMemo extends Component {
                       <CourseLinks language={routerStore.memoLanguage} labels={courseLinksLabels} />
                     </Col>
                   </Row>
-                  <Row className="mt-lg-4">
+                  <Row id="row-for-the-last-element-which-determines-styles" className="mt-lg-4">
                     <Col>
                       <CourseContacts
-                        id="last-element-which-determines-styles"
                         language={routerStore.memoLanguage}
                         memoData={routerStore.memoData}
                         labels={courseContactsLabels}
