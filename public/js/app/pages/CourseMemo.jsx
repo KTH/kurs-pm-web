@@ -201,7 +201,7 @@ const determineContentFlexibility = () => {
     const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('article')
     allCenterSections.forEach((section) => {
       const topOfSection = section.getBoundingClientRect().top
-      if (topOfSection > lastElBottomPx + 10) section.classList.add('flexible-section-style')
+      if (topOfSection > lastElBottomPx) section.classList.add('flexible-section-style')
     })
   }
 }
@@ -313,6 +313,16 @@ class CourseMemo extends Component {
                         labels={courseFactsLabels}
                         memoData={routerStore.memoData}
                       />
+                      <CourseFacts
+                        language={routerStore.memoLanguage}
+                        labels={courseFactsLabels}
+                        memoData={routerStore.memoData}
+                      />
+                      <CourseFacts
+                        language={routerStore.memoLanguage}
+                        labels={courseFactsLabels}
+                        memoData={routerStore.memoData}
+                      />
                     </Col>
                   </Row>
                   <Row className="my-lg-4">
@@ -338,6 +348,7 @@ class CourseMemo extends Component {
                   <Row id="row-for-the-last-element-which-determines-styles" className="mt-lg-4">
                     <Col>
                       <CourseContacts
+                        styleId="last-element-which-determines-styles"
                         language={routerStore.memoLanguage}
                         memoData={routerStore.memoData}
                         labels={courseContactsLabels}
