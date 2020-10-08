@@ -23,7 +23,7 @@ $white: #fff;
   .flexible-section-style {
     table {
       @media (min-width: 1000px) {
-        width: 150%;
+        width: 150% !important;
         table-layout: fixed;
       }
       @media print {
@@ -34,7 +34,7 @@ $white: #fff;
   }
 
   table {
-    width: 100%;
+    width: 100% !important;
 
     text-align: left;
     p,
@@ -59,7 +59,7 @@ $white: #fff;
         border-right: 1px solid $white;
         border-bottom: 1px solid $white;
         border-top: 0;
-        padding: 0.375rem;
+        padding: 0.75rem;
         h4 {
           color: $white;
         }
@@ -80,7 +80,7 @@ $white: #fff;
       }
 
       td {
-        padding: 0.375rem;
+        padding: 0.75rem;
         background-color: $lightGrey;
         border-top: 1px solid $white;
       }
