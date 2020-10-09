@@ -238,7 +238,7 @@ module.exports = {
     preparations: 'Specific preparations',
     prerequisites: 'Recommended prerequisites',
     reportingResults: 'Reporting of exam results',
-    scheduleDetails: 'Schedule details',
+    scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teacher',
     teacherAssistants: 'Teacher assistants'
