@@ -47,13 +47,15 @@ async function getDetailedInformation(courseCode, semester, language) {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { mainSubjects, course, examiners, roundInfos } = res.body
+    const isCreditNotStandard =
+      course.credits && course.credits.toString().indexOf('.') < 0 && course.credits.toString().indexOf(',') < 0
 
     if (res.body) {
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
         title: course && course.title ? course.title : '',
-        credits: course && course.credits ? course.credits : '',
+        credits: isCreditNotStandard ? course.credits + '.0' : course.credits || '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
         infoContactName: course && course.infoContactName ? course.infoContactName : '',
         examiners: createPersonHtml(examiners),
