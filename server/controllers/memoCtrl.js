@@ -68,7 +68,7 @@ async function getContent(req, res, next) {
 
     routerStore.courseCode = courseCode
 
-    const memoDatas = await getMemoDataById(courseCode)
+    const memoDatas = await getMemoDataById(courseCode, 'published')
     routerStore.memoDatas = memoDatas
 
     // Potential memoEndPoint in URL
@@ -155,6 +155,68 @@ async function getContent(req, res, next) {
   }
 }
 
+async function getOldContent(req, res, next) {
+  try {
+    const context = {}
+    const renderProps = _staticRender(context, req.url)
+
+    const { routerStore } = renderProps.props.children.props
+
+    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
+    const { courseCode: rawCourseCode, memoEndPoint, version } = req.params
+    const courseCode = rawCourseCode.toUpperCase()
+
+    routerStore.courseCode = courseCode
+    routerStore.memoEndPoint = memoEndPoint
+
+    const memoDatas = await getMemoDataById(courseCode, 'old', version)
+    routerStore.memoDatas = memoDatas
+
+    const responseLanguage = language.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
+    const {
+      courseMainSubjects,
+      recruitmentText,
+      title,
+      credits,
+      creditUnitAbbr,
+      infoContactName,
+      examiners,
+      roundInfos
+    } = await getDetailedInformation(courseCode, routerStore.semester, routerStore.memoLanguage)
+    routerStore.courseMainSubjects = courseMainSubjects
+    routerStore.title = title
+    routerStore.credits = credits
+    routerStore.creditUnitAbbr = creditUnitAbbr
+    routerStore.infoContactName = infoContactName
+    routerStore.examiners = examiners
+    routerStore.allRoundInfos = roundInfos
+
+    const { sellingText, imageInfo } = await getCourseInfo(courseCode)
+    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)
+    routerStore.imageFromAdmin = imageInfo
+
+    // TODO: Proper language constant
+    const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+
+    const html = ReactDOMServer.renderToString(renderProps)
+
+    res.render('memo/index', {
+      html,
+      title: shortDescription,
+      initialState: JSON.stringify(hydrateStores(renderProps)),
+      instrumentationKey: server.appInsights.instrumentationKey,
+      lang: responseLanguage,
+      description: shortDescription
+    })
+  } catch (err) {
+    log.error('Error in getContent', { error: err })
+    next(err)
+  }
+}
+
 async function getNoContent(req, res, next) {
   try {
     const context = {}
@@ -194,7 +256,7 @@ async function getAllMemosPdfAndWeb(req, res, next) {
 
     const apiResponse = await getMiniMemosPdfAndWeb(courseCode)
     log.debug('getAllMemosPdfAndWeb response: ', apiResponse)
-    return res.json(apiResponse)
+    res.json(apiResponse)
   } catch (error) {
     log.error('Exception from getAllMemosPdfAndWeb ', { error })
     next(error)
@@ -204,5 +266,6 @@ async function getAllMemosPdfAndWeb(req, res, next) {
 module.exports = {
   getAllMemosPdfAndWeb,
   getContent,
+  getOldContent,
   getNoContent
 }

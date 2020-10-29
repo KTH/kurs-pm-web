@@ -26,6 +26,7 @@ function appFactory() {
     <Provider routerStore={routerStore}>
       <Switch>
         <Route exact path="/kurs-pm/" component={AboutCourseMemos} />
+        <Route exact path="/kurs-pm/old/:courseCode/:memoEndPoint/:version" component={CourseMemo} />
         <Route exact path="/kurs-pm/:courseCode" component={CourseMemo} />
         <Route exact path="/kurs-pm/:courseCode/om-kurs-pm" component={AboutCourseMemo} />
         <Route exact path="/kurs-pm/:courseCode/:id" component={CourseMemo} />

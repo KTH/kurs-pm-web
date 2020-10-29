@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopmentAndHistory } from '../util/links'
+import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopmentAndHistory, linkToArchive } from '../util/links'
 
 const beforeChoosingCourse = (courseCode, labels) =>
   courseCode ? (
@@ -9,8 +9,16 @@ const beforeChoosingCourse = (courseCode, labels) =>
     </p>
   ) : null
 
-const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language }) => {
-  return (
+const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language, oldMemo }) =>
+  oldMemo ? (
+    <div role="navigation" aria-label="main" lang={language}>
+      <p>
+        <a className="back" href={linkToArchive(courseCode, language)}>
+          {labels.archive}
+        </a>
+      </p>
+    </div>
+  ) : (
     <div role="navigation" aria-label="main" lang={language}>
       <p>
         &lsaquo;&nbsp;
@@ -62,6 +70,5 @@ const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labe
       </p>
     </div>
   )
-}
 
 export default SideMenu

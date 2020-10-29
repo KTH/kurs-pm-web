@@ -51,6 +51,10 @@ class RouterStore {
     return this.memoData.semester
   }
 
+  @computed get oldMemo() {
+    return this.memoData.status === 'old'
+  }
+
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
     this.browserConfig = config
     this.paths = paths
@@ -76,6 +80,7 @@ class RouterStore {
     return this.language === 'en' ? 0 : 1
   }
 
+  // eslint-disable-next-line class-methods-use-this
   @computed get url() {
     if (typeof window !== 'undefined') {
       return window.location.href

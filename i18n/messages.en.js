@@ -122,7 +122,8 @@ module.exports = {
     aboutCourseMemos: 'About course memo',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
-    courseDevelopmentAndHistory: 'Course development and history'
+    courseDevelopmentAndHistory: 'Course development and history',
+    archive: 'Archive'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
@@ -160,7 +161,8 @@ module.exports = {
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Missing mandatory information',
     inDevelopment: 'In development',
-    printDialog: 'Print or save course memo'
+    printDialog: 'Print or save course memo',
+    version: 'Ver'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',

@@ -245,6 +245,11 @@ appRoute.get(
   config.proxyPrefixPath.uri + '/syllabus/pdf/:courseCode/:semester/:language',
   SyllabusPdf.getPdfProxy(config.nodeApi.kursplanApi, config.apiKey.kursplanApi)
 )
+appRoute.get(
+  'courseMemo.getOldContent',
+  config.proxyPrefixPath.uri + '/old/:courseCode/:memoEndPoint/:version',
+  CourseMemo.getOldContent
+)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
 appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)

@@ -92,7 +92,8 @@ module.exports = {
     aboutCourseMemos: 'Om kurs-PM',
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
-    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik',
+    archive: 'Arkiv'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',
@@ -130,7 +131,8 @@ module.exports = {
     syllabusLinkEnd: ')',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     inDevelopment: 'Under utveckling',
-    printDialog: 'Skriv ut eller spara kurs-PM'
+    printDialog: 'Skriv ut eller spara kurs-PM',
+    version: 'Ver'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',
