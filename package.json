@@ -13,7 +13,7 @@
   "scripts": {
     "vendor": "parcel build  ./public/js/vendor.js",
     "test": "jest",
-    "test-watch": "jest --watch",
+    "test:watch": "jest --watch",
     "docker": "npm install --development && npm run build && npm prune --production",
     "build": "NODE_ENV=production rm -rf dist && parcel build ./public/js/app/app.jsx && npm run vendor --preserve-comments",
     "build-dev": "cross-env NODE_ENV=development rm -rf dist && parcel build ./public/js/vendor.js --public-url /kurs-pm/static && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",
