@@ -137,10 +137,17 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Course development and history', (done) => {
-    const menuItem = getByText('Course development and history')
+  test('renders menu link Course development', (done) => {
+    const menuItem = getByText('Course development')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720')
+    done()
+  })
+
+  test('renders menu link Archive', (done) => {
+    const menuItem = getByText('Archive')
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv')
     done()
   })
 
@@ -174,7 +181,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(12)
+    expect(links.length).toBe(13)
     const expectedlinks = [
       'KTH',
       'Student at KTH',
@@ -183,7 +190,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Before choosing course',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
-      'Course development and history',
+      'Course development',
+      'Archive',
       'Administrate About course',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',

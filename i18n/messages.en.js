@@ -122,7 +122,7 @@ module.exports = {
     aboutCourseMemos: 'About course memo',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
-    courseDevelopmentAndHistory: 'Course development and history',
+    courseDevelopment: 'Course development',
     archive: 'Archive'
   },
   courseLinksLabels: {

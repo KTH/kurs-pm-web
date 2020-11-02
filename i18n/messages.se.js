@@ -92,7 +92,7 @@ module.exports = {
     aboutCourseMemos: 'Om kurs-PM',
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
-    courseDevelopmentAndHistory: 'Kursens utveckling och historik',
+    courseDevelopment: 'Kursens utveckling',
     archive: 'Arkiv'
   },
   courseLinksLabels: {
