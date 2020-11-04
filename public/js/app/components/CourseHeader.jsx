@@ -10,32 +10,29 @@ const CourseHeader = ({
   labels = {},
   language,
   oldMemo,
-  latestMemoLabel = '',
-  latestMemoUrl = ''
+  latestMemoLabel,
+  latestMemoUrl
 }) => {
-  const { adminLinkLabel, notLatestMemo, show, latestVersionLabel } = labels
+  const { adminLinkLabel, notLatestMemo, show, latestVersionLabel, mandatoryFieldMissing } = labels
   return (
     <Row>
-      <header className="pageTitle col">
-        <span role="heading" aria-level="1">
-          <span className="t1" id="memo-title">
-            {courseMemoName}
-          </span>
-          <span className="t4" id="memo-subtitle">
-            {courseTitle}
-          </span>
-        </span>
-        <a
-          title={adminLinkLabel}
-          className="right-link"
-          href={adminLink(courseCode, language)}
-          style={{ fontSize: '1rem' }}
-        >
-          {adminLinkLabel}
-        </a>
+      <header className="col memo-header">
+        <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading">
+          {courseMemoName}
+        </h1>
+        <div id="page-sub-heading-wrapper">
+          <p id="page-sub-heading" aria-hidden="true">
+            {courseTitle || mandatoryFieldMissing}
+          </p>
+          <p id="page-sub-heading-admin-link" className="d-print-none">
+            <a title={adminLinkLabel} href={adminLink(courseCode, language)}>
+              {adminLinkLabel}
+            </a>
+          </p>
+        </div>
       </header>
       {oldMemo && (
-        <div className="row-like-padding">
+        <div className="col-like">
           <Alert color="info">
             {`${notLatestMemo} ${show} `}
             {latestMemoUrl ? <a href={latestMemoUrl}>{latestMemoLabel}</a> : null}

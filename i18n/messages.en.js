@@ -250,7 +250,8 @@ module.exports = {
     notLatestMemo: 'The displayed memo is not the latest version.',
     show: 'Show',
     latestVersionLabel: '(latest version)',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
+    mandatoryFieldMissing: 'Missing mandatory information'
   },
   aboutHeaderLabels: {
     memoLabel: 'About course memo',

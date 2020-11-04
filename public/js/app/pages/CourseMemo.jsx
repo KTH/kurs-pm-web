@@ -284,7 +284,7 @@ class CourseMemo extends Component {
             />
           </Col>
           <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
-            <main aria-labelledby="memo-title memo-subtitle">
+            <main aria-labelledby="page-heading page-sub-heading">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
                 courseTitle={routerStore.memoData.courseTitle}

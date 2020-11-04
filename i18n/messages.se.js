@@ -225,7 +225,8 @@ module.exports = {
     notLatestMemo: 'Detta är inte senaste versionen av kurs-PM.',
     show: 'Visa',
     latestVersionLabel: '(senaste versionen)',
-    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   },
   aboutHeaderLabels: {
     memoLabel: 'Om kurs-PM',
