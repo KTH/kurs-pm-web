@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopmentAndHistory } from '../util/links'
+import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopment, linkToArchive } from '../util/links'
 
 const beforeChoosingCourse = (courseCode, labels) =>
   courseCode ? (
@@ -9,8 +9,16 @@ const beforeChoosingCourse = (courseCode, labels) =>
     </p>
   ) : null
 
-const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language }) => {
-  return (
+const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language, oldMemo }) =>
+  oldMemo ? (
+    <div role="navigation" aria-label="main" lang={language}>
+      <p>
+        <a className="back" href={linkToArchive(courseCode, language)}>
+          {labels.archive}
+        </a>
+      </p>
+    </div>
+  ) : (
     <div role="navigation" aria-label="main" lang={language}>
       <p>
         &lsaquo;&nbsp;
@@ -53,15 +61,24 @@ const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labe
       <p>
         <a
           className="sideMenuLink"
-          id="course-development-history-link"
-          title={labels.courseDevelopmentAndHistory}
-          href={linkToCourseDevelopmentAndHistory(courseCode, language)}
+          id="course-development-link"
+          title={labels.courseDevelopment}
+          href={linkToCourseDevelopment(courseCode, language)}
         >
-          {labels.courseDevelopmentAndHistory}
+          {labels.courseDevelopment}
+        </a>
+      </p>
+      <p>
+        <a
+          className="sideMenuLink"
+          id="course-archive-link"
+          title={labels.archive}
+          href={linkToArchive(courseCode, language)}
+        >
+          {labels.archive}
         </a>
       </p>
     </div>
   )
-}
 
 export default SideMenu

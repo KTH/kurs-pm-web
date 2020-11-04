@@ -6,8 +6,8 @@ import { linkToArchive, linkToSyllabus } from '../util/links'
 
 const printDialog = () => window.print()
 
-const formatVersion = (language = 'sv', version) => {
-  const unixTime = Date.parse(version)
+const formatVersion = (language = 'sv', lastChangeDate) => {
+  const unixTime = Date.parse(lastChangeDate)
   if (unixTime) {
     const locale = language === 'sv' ? 'sv-SE' : 'en-US'
     return new Date(unixTime).toLocaleString(locale)
@@ -15,11 +15,11 @@ const formatVersion = (language = 'sv', version) => {
   return null
 }
 
-const version = (language, labels, memoVersion) =>
-  memoVersion ? (
+const version = (language, labels, lastChangeDate, ver, oldMemo) =>
+  lastChangeDate ? (
     <>
       <h3>{labels.versionTitle}</h3>
-      <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
+      <p>{`${oldMemo ? `${labels.version} ${ver} – ` : labels.latest} ${formatVersion(language, lastChangeDate)}`}</p>
     </>
   ) : (
     <>
@@ -73,14 +73,14 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
   )
 }
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName }) => (
+const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName, oldMemo }) => (
   <aside aria-labelledby="memo-documents">
     <h2 id="memo-documents" className="d-none">
       {labels.documents}
     </h2>
     <div className="info-box text-break">
-      {version(memoData.memoLanguage, labels, memoData.lastChangeDate)}
-      {archiveLink(language, labels, memoData.courseCode)}
+      {version(memoData.memoLanguage, labels, memoData.lastChangeDate, memoData.version, oldMemo)}
+      {!oldMemo && archiveLink(language, labels, memoData.courseCode)}
       {printDialogLink(labels, courseMemoName)}
       {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
     </div>

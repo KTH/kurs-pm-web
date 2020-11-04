@@ -214,7 +214,7 @@ class CourseMemo extends Component {
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
-    //Decide which content can have wider content (exempel tables, to make them more readable)
+    // Decide which content can have wider content (exempel tables, to make them more readable)
     determineContentFlexibility()
   }
 
@@ -280,6 +280,7 @@ class CourseMemo extends Component {
               backLink={sideMenuBackLink[routerStore.language]}
               labels={sideMenuLabels}
               language={routerStore.language}
+              oldMemo={routerStore.oldMemo}
             />
           </Col>
           <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
@@ -290,6 +291,9 @@ class CourseMemo extends Component {
                 courseCode={routerStore.courseCode}
                 labels={courseHeaderLabels}
                 language={routerStore.memoLanguage}
+                oldMemo={routerStore.oldMemo}
+                latestMemoLabel={routerStore.latestMemoLabel}
+                latestMemoUrl={routerStore.latestMemoUrl}
               />
               <Row>
                 <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
@@ -327,6 +331,7 @@ class CourseMemo extends Component {
                           routerStore.roundIds,
                           routerStore.memoLanguage
                         )}
+                        oldMemo={routerStore.oldMemo}
                       />
                     </Col>
                   </Row>
