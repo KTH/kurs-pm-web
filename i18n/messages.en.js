@@ -247,6 +247,9 @@ module.exports = {
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrate About course',
+    notLatestMemo: 'The displayed memo is not the latest version.',
+    show: 'Show',
+    latestVersionLabel: '(latest version)',
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutHeaderLabels: {

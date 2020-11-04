@@ -291,6 +291,9 @@ class CourseMemo extends Component {
                 courseCode={routerStore.courseCode}
                 labels={courseHeaderLabels}
                 language={routerStore.memoLanguage}
+                oldMemo={routerStore.oldMemo}
+                latestMemoLabel={routerStore.latestMemoLabel}
+                latestMemoUrl={routerStore.latestMemoUrl}
               />
               <Row>
                 <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">

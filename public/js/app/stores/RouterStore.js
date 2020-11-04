@@ -26,6 +26,8 @@ class RouterStore {
 
   @observable sellingText
 
+  @observable latestMemoLabel
+
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}
@@ -84,6 +86,23 @@ class RouterStore {
   @computed get url() {
     if (typeof window !== 'undefined') {
       return window.location.href
+    }
+    return null
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  @computed get latestMemoUrl() {
+    if (typeof window !== 'undefined') {
+      return (
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        '/kurs-pm/' +
+        this.courseCode +
+        '/' +
+        this.memoEndPoint +
+        window.location.search
+      )
     }
     return null
   }

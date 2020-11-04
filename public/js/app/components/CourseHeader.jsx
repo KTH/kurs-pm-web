@@ -1,10 +1,19 @@
 import React from 'react'
 
 import { adminLink } from '../util/links'
-import { Row, Col } from 'reactstrap'
+import { Row, Alert } from 'reactstrap'
 
-const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels = {}, language }) => {
-  const { adminLinkLabel } = labels
+const CourseHeader = ({
+  courseMemoName,
+  courseTitle,
+  courseCode,
+  labels = {},
+  language,
+  oldMemo,
+  latestMemoLabel = '',
+  latestMemoUrl = ''
+}) => {
+  const { adminLinkLabel, notLatestMemo, show, latestVersionLabel } = labels
   return (
     <Row>
       <header className="pageTitle col">
@@ -25,6 +34,15 @@ const CourseHeader = ({ courseMemoName, courseTitle, courseCode, labels = {}, la
           {adminLinkLabel}
         </a>
       </header>
+      {oldMemo && (
+        <div className="row-like-padding">
+          <Alert color="info">
+            {`${notLatestMemo} ${show} `}
+            {latestMemoUrl ? <a href={latestMemoUrl}>{latestMemoLabel}</a> : null}
+            {` ${latestVersionLabel}.`}
+          </Alert>
+        </div>
+      )}
     </Row>
   )
 }

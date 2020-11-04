@@ -4,7 +4,10 @@ const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 
 const log = require('kth-node-log')
-const language = require('kth-node-web-common/lib/language')
+const languageLib = require('kth-node-web-common/lib/language')
+
+const { sv, en } = require('date-fns/locale')
+const { utcToZonedTime, format } = require('date-fns-tz')
 
 const apis = require('../api')
 const serverPaths = require('../server').getPaths()
@@ -12,6 +15,22 @@ const { browser, server } = require('../configuration')
 const { getMemoDataById, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation } = require('../koppsApi')
+
+const locales = { sv, en }
+
+function formatVersionDate(language = 'sv', version) {
+  const unixTime = Date.parse(version)
+  if (unixTime) {
+    const timeZone = 'Europe/Berlin'
+    const zonedDate = utcToZonedTime(new Date(unixTime), timeZone)
+    return format(zonedDate, 'Ppp', { locale: locales[language] })
+  }
+  return null
+}
+
+function formatVersion(version, language, lastChangeDate) {
+  return `Ver ${version} – ${formatVersionDate(language, lastChangeDate)}`
+}
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -41,6 +60,16 @@ function _staticRender(context, location) {
 
 function resolveSellingText(sellingText = {}, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
+}
+
+function resolveLatestMemoLabel(language, latestMemoDatas) {
+  const latestMemoData = latestMemoDatas[latestMemoDatas.length - 1]
+  if (latestMemoDatas.length > 1) {
+    log.warn(
+      `Inconsistent data: kursPmDataApi responded with more than one memo with status published for memoEndPoint ${latestMemoData.memoEndPoint}`
+    )
+  }
+  return formatVersion(latestMemoData.version, language, latestMemoData.lastChangeDate)
 }
 
 async function getContent(req, res, next) {
@@ -110,7 +139,7 @@ async function getContent(req, res, next) {
     } else {
       routerStore.memoEndPoint = memoDatas[0] ? memoDatas[0].memoEndPoint : ''
     }
-    const responseLanguage = language.getLanguage(res) || 'sv'
+    const responseLanguage = languageLib.getLanguage(res) || 'sv'
     routerStore.language = responseLanguage
 
     const {
@@ -170,11 +199,14 @@ async function getOldContent(req, res, next) {
     routerStore.courseCode = courseCode
     routerStore.memoEndPoint = memoEndPoint
 
+    const responseLanguage = languageLib.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
     const memoDatas = await getMemoDataById(courseCode, 'old', version)
     routerStore.memoDatas = memoDatas
 
-    const responseLanguage = language.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    const latestMemoDatas = await getMemoDataById(courseCode, 'published')
+    routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, latestMemoDatas)
 
     const {
       courseMainSubjects,
@@ -226,7 +258,7 @@ async function getNoContent(req, res, next) {
 
     routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
-    const responseLanguage = language.getLanguage(res) || 'sv'
+    const responseLanguage = languageLib.getLanguage(res) || 'sv'
     routerStore.language = responseLanguage
 
     // TODO: Proper language constant
