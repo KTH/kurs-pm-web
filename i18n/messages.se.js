@@ -93,7 +93,8 @@ module.exports = {
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopment: 'Kursens utveckling',
-    archive: 'Arkiv'
+    archive: 'Arkiv',
+    subMenuAriaLabel: 'Undermeny'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',

@@ -188,12 +188,13 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(14)
+    expect(links.length).toBe(15)
     const expectedlinks = [
       'KTH',
       'Student på KTH',
       'Kurs- och programkatalogen',
       'Kurs- och programkatalogen',
+      'Om kursen KIP2720',
       'Inför kursval',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',

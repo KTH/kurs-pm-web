@@ -2,8 +2,8 @@
   "parser": "babel-eslint",
   "env": {
     "node": true,
-    "browser": true,
-    "jest/globals": true
+    "browser": true
+    // "jest/globals": true
   },
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier", "jest"],

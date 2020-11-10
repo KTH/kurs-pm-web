@@ -133,21 +133,21 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   test('renders menu link Before choosing course', (done) => {
     const menuItem = getByText('Before choosing course')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720')
+    expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720?l=en')
     done()
   })
 
   test('renders menu link Course development', (done) => {
     const menuItem = getByText('Course development')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720')
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720?l=en')
     done()
   })
 
   test('renders menu link Archive', (done) => {
     const menuItem = getByText('Archive')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv')
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     done()
   })
 
@@ -181,12 +181,13 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(13)
+    expect(links.length).toBe(14)
     const expectedlinks = [
       'KTH',
       'Student at KTH',
       'Course and programme directory',
       'Course and programme directory',
+      'About course KIP2720',
       'Before choosing course',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',

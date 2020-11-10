@@ -123,7 +123,8 @@ module.exports = {
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
-    archive: 'Archive'
+    archive: 'Archive',
+    subMenuAriaLabel: 'Sub menu'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',

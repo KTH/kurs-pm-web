@@ -1,84 +1,68 @@
 import React from 'react'
 
-import { aboutCourseLink, aboutCourseMemoLink, linkToCourseDevelopment, linkToArchive } from '../util/links'
+import {
+  aboutCourseLink,
+  aboutCourseMemoLink,
+  linkToCourseDevelopment,
+  linkToArchive,
+  sideMenuBackLink
+} from '../util/links'
 
-const beforeChoosingCourse = (courseCode, labels) =>
-  courseCode ? (
-    <p>
-      <b>{`${labels.aboutCourse} ${courseCode}`}</b>
-    </p>
-  ) : null
-
-const SideMenu = ({ courseCode, courseMemoItems, aboutCourseMemo, backLink, labels, language, oldMemo }) =>
-  oldMemo ? (
-    <div role="navigation" aria-label="main" lang={language}>
-      <p>
-        <a className="back" href={linkToArchive(courseCode, language)}>
-          {labels.archive}
-        </a>
-      </p>
-    </div>
-  ) : (
-    <div role="navigation" aria-label="main" lang={language}>
-      <p>
-        &lsaquo;&nbsp;
-        <a href={backLink}>{labels.directory}</a>
-      </p>
-      {beforeChoosingCourse(courseCode, labels)}
-      <hr />
-      <p>
-        <a className="sideMenuLink" href={aboutCourseLink(courseCode, language)}>
-          {labels.beforeChoosingCourse}
-        </a>
-      </p>
-      <p>
-        <b>{labels.courseMemo}</b>
-      </p>
-      <hr />
-      <div className="menu-memos">
-        {aboutCourseMemo ? (
-          <p className="active">{labels.aboutCourseMemos}</p>
-        ) : (
-          <p>
-            <a className="sideMenuLink" href={aboutCourseMemoLink(courseCode)}>
-              {labels.aboutCourseMemos}
+const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems }) => {
+  return (
+    <nav
+      id="mainMenu"
+      aria-label={labels.subMenuAriaLabel}
+      className="col col-lg-3 navbar navbar-expand-lg navbar-light d-print-none"
+    >
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="nav">
+          <li className="parentLink">
+            <a href={sideMenuBackLink[language]}>{labels.directory}</a>
+          </li>
+        </ul>
+        <ul className="nav nav-list expandable">
+          <li className="nav-item ancestor">
+            <a aria-current="page" className="nav-link active" href={aboutCourseLink(courseCode, language)}>
+              {courseCode ? `${labels.aboutCourse} ${courseCode}` : labels.aboutCourseMemos}
             </a>
-          </p>
-        )}
-        {courseMemoItems.map(({ label, url, active }) => {
-          return active ? (
-            <p key={label} className="active">
-              {label}
-            </p>
-          ) : (
-            <p key={label}>
-              <a href={url}>{label}</a>
-            </p>
-          )
-        })}
+          </li>
+          <li className="nav-item leaf">
+            <a className="nav-link" href={aboutCourseLink(courseCode, language)}>
+              {labels.beforeChoosingCourse}
+            </a>
+          </li>
+          <li className="nav-item node selected expanded">
+            <a className="nav-link">{labels.courseMemo}</a>
+            <ul className="nav nav-list">
+              <li className={`nav-item leaf ${aboutCourseMemo ? 'selected' : ''}`}>
+                <a href={aboutCourseMemo ? null : aboutCourseMemoLink(courseCode)} className="nav-link">
+                  {labels.aboutCourseMemos}
+                </a>
+              </li>
+              {courseMemoItems.map(({ label, url, active }) => (
+                <li key={label} className={`nav-item leaf ${active ? 'selected' : ''}`}>
+                  <a href={active ? null : url} className="nav-link">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li className="nav-item leaf">
+            <a className="nav-link" href={linkToCourseDevelopment(courseCode, language)}>
+              {labels.courseDevelopment}
+            </a>
+          </li>
+          <li className="nav-item leaf">
+            <a className="nav-link" href={linkToArchive(courseCode, language)}>
+              {labels.archive}
+            </a>
+          </li>
+        </ul>
       </div>
-      {/* <p>{labels.finishCourse}</p> */}
-      <p>
-        <a
-          className="sideMenuLink"
-          id="course-development-link"
-          title={labels.courseDevelopment}
-          href={linkToCourseDevelopment(courseCode, language)}
-        >
-          {labels.courseDevelopment}
-        </a>
-      </p>
-      <p>
-        <a
-          className="sideMenuLink"
-          id="course-archive-link"
-          title={labels.archive}
-          href={linkToArchive(courseCode, language)}
-        >
-          {labels.archive}
-        </a>
-      </p>
-    </div>
+    </nav>
   )
+}
 
 export default SideMenu
