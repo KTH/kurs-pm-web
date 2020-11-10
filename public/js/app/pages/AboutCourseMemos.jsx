@@ -58,24 +58,25 @@ class CourseMemo extends Component {
     const translate = i18n.messages[routerStore.userLanguageIndex]
 
     return (
-      <Container className="kip-container">
-        <Row>{breadcrumbs(routerStore.language, '')}</Row>
+      <Container fluid>
+        <Row className="d-print-none">{breadcrumbs(routerStore.language, '')}</Row>
         <Row>
-          <Col lg="3">
-            <SideMenu
-              courseCode=""
-              courseMemoItems={[]}
-              aboutCourseMemo
-              labels={translate.sideMenuLabels}
-              backLink={sideMenuBackLink[routerStore.language]}
-            />
-          </Col>
-          <Col>
-            <Row>
-              <Col>
-                <h1 className="course-header-title">{translate.aboutCourseMemos}</h1>
-              </Col>
-            </Row>
+          <SideMenu
+            courseCode=""
+            courseMemoItems={[]}
+            aboutCourseMemo
+            backLink={sideMenuBackLink[routerStore.language]}
+            labels={translate.sideMenuLabels}
+            language={routerStore.language}
+          />
+          <Col className="col-print-12" lang={routerStore.memoLanguage}>
+            <main>
+              <Row>
+                <Col>
+                  <h1 className="course-header-title">{translate.messages.aboutCourseMemos}</h1>
+                </Col>
+              </Row>
+            </main>
           </Col>
         </Row>
       </Container>

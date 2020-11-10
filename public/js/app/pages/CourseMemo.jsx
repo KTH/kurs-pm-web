@@ -273,17 +273,15 @@ class CourseMemo extends Component {
         />
         <Row className="d-print-none">{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3" className="d-print-none side-menu">
-            <SideMenu
-              courseCode={routerStore.courseCode}
-              courseMemoItems={courseMemoItems}
-              backLink={sideMenuBackLink[routerStore.language]}
-              labels={sideMenuLabels}
-              language={routerStore.language}
-              oldMemo={routerStore.oldMemo}
-            />
-          </Col>
-          <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
+          <SideMenu
+            courseCode={routerStore.courseCode}
+            courseMemoItems={courseMemoItems}
+            backLink={sideMenuBackLink[routerStore.language]}
+            labels={sideMenuLabels}
+            language={routerStore.language}
+            oldMemo={routerStore.oldMemo}
+          />
+          <Col className="col-print-12" lang={routerStore.memoLanguage}>
             <main aria-labelledby="page-heading page-sub-heading">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}

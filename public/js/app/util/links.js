@@ -22,6 +22,7 @@ const sideMenuBackLink = {
 }
 
 function aboutCourseLink(courseCode, language) {
+  if (!courseCode) return ''
   const languageParameter = language === 'en' ? '?l=en' : ''
   return `/student/kurser/kurs/${courseCode}${languageParameter}`
 }
