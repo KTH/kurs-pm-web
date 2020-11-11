@@ -5,7 +5,8 @@ import '@testing-library/jest-dom/extend-expect'
 import AboutCourseContacts from '../AboutCourseContacts'
 
 describe('Component <AboutCourseContacts>', () => {
-  test('renders a course contacts info box', () => {
+  test('renders a course contacts info box', (done) => {
     render(<AboutCourseContacts />)
+    done()
   })
 })

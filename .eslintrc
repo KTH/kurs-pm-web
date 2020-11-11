@@ -2,8 +2,8 @@
   "parser": "babel-eslint",
   "env": {
     "node": true,
-    "browser": true
-    // "jest/globals": true
+    "browser": true,
+    "jest/globals": true
   },
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier", "jest"],
@@ -19,6 +19,7 @@
     "array-callback-return": "off",
     "react/no-access-state-in-setstate": "off",
     "react/destructuring-assignment": [1, "always", { "ignoreClassFields": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".test.js", ".jsx"] }],
     "sort-imports": [
       "error",
       {

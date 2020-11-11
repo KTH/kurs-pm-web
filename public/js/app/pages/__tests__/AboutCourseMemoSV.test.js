@@ -186,7 +186,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders all links and check its number and labels', () => {
+  test('renders all links and check its number and labels', (done) => {
     const links = getAllByRole('link')
     expect(links.length).toBe(15)
     const expectedlinks = [
@@ -207,5 +207,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kip TestTeacher'
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
+    done()
   })
 })
