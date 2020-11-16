@@ -186,6 +186,9 @@ $white: #fff;
   .nav-link.active {
     color: black;
   }
+  .nav-item.leaf.selected {
+    letter-spacing: -0.01rem;
+  }
 }
 
 section[aria-labelledby='course-presentation'] {
