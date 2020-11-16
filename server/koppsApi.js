@@ -41,7 +41,7 @@ const createPersonHtml = (personList = []) => {
   return personString
 }
 
-async function getDetailedInformation(courseCode, semester, language) {
+async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {

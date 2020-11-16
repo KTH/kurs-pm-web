@@ -5,9 +5,9 @@ class RouterStore {
 
   @observable language = 'sv'
 
-  @observable allRoundInfos = []
+  @observable rawMemoDatas = []
 
-  @observable memoDatas = []
+  @observable filteredMemoDatas = []
 
   // This is really the current memo id
   @observable memoEndPoint = ''
@@ -28,6 +28,13 @@ class RouterStore {
 
   @observable latestMemoLabel
 
+  @computed get memoDatas() {
+    if (this.filteredMemoDatas.length) {
+      return this.filteredMemoDatas
+    }
+    return this.rawMemoDatas || []
+  }
+
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}
@@ -43,10 +50,6 @@ class RouterStore {
 
   @computed get roundIds() {
     return this.memoData.ladokRoundIds || []
-  }
-
-  @computed get roundInfos() {
-    return this.allRoundInfos.filter((r) => r.round && this.roundIds.includes(r.round.ladokRoundId))
   }
 
   @computed get semester() {
