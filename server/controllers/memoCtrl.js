@@ -152,7 +152,7 @@ function filterMemoDatas(memoDatas, roundInfos) {
     }
 
     // Course offering in memo has end year later or equal to previous year
-    const offering = offerings.find((o) => m.ladokRoundIds.includes(o.ladokRoundId) || m.semester === o.semester)
+    const offering = offerings.find((o) => m.ladokRoundIds.includes(o.ladokRoundId) && m.semester === o.semester)
     if (offering && offering.endYear >= startSelectionYear) {
       return true
     }
