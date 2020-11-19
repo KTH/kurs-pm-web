@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 
 import {
@@ -8,8 +9,22 @@ import {
   sideMenuBackLink
 } from '../util/links'
 
-const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems }) => {
-  return (
+const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems, oldMemo }) =>
+  oldMemo ? (
+    <nav
+      id="mainMenu"
+      aria-label={labels.subMenuAriaLabel}
+      className="col col-lg-3 navbar navbar-expand-lg navbar-light d-print-none"
+    >
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="nav">
+          <li className="parentLink">
+            <a href={linkToArchive(courseCode, language)}>{labels.archive}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  ) : (
     <nav
       id="mainMenu"
       aria-label={labels.subMenuAriaLabel}
@@ -63,6 +78,5 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
       </div>
     </nav>
   )
-}
 
 export default SideMenu
