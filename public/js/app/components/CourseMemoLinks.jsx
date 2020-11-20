@@ -6,11 +6,12 @@ import { linkToArchive, linkToSyllabus } from '../util/links'
 
 const printDialog = () => window.print()
 
-const formatVersion = (language = 'sv', lastChangeDate) => {
+const formatVersion = (languageIndex = 1, lastChangeDate) => {
+  console.log('formatVersion languageIndex', languageIndex)
+  const locale = ['en-US', 'sv-SE']
   const unixTime = Date.parse(lastChangeDate)
   if (unixTime) {
-    const locale = language === 'sv' ? 'sv-SE' : 'en-US'
-    return new Date(unixTime).toLocaleString(locale)
+    return new Date(unixTime).toLocaleString(locale[languageIndex])
   }
   return null
 }
@@ -79,7 +80,7 @@ const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMem
       {labels.documents}
     </h2>
     <div className="info-box text-break">
-      {version(memoData.memoLanguage, labels, memoData.lastChangeDate, memoData.version, archivedMemo)}
+      {version(language, labels, memoData.lastChangeDate, memoData.version, archivedMemo)}
       {!archivedMemo && archiveLink(language, labels, memoData.courseCode)}
       {printDialogLink(labels, courseMemoName)}
       {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
