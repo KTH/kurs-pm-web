@@ -1,7 +1,7 @@
 # Welcome to kurs-pm-web 👋
 
-![Version](https://img.shields.io/badge/version-0.8.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-12.14.1-blue.svg)
+![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000)
+![Prerequisite](https://img.shields.io/badge/node-14.15.1-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -43,8 +43,7 @@ Kurs-pm-web fetches data from:
 
 ## Prerequisites
 
-- Node.js 12.14.1
-- Ansible Vault
+- Node.js 14.15.1
 
 ### Secrets for Development
 

@@ -96,7 +96,7 @@
     "printWidth": 120
   },
   "engines": {
-    "node": "12.14.1"
+    "node": "14.0.0"
   },
   "husky": {
     "hooks": {
