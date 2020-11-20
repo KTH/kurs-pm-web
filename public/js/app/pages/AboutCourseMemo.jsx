@@ -114,14 +114,15 @@ class CourseMemo extends Component {
     ]
 
     let menuMemoItems = routerStore.memoDatas.map((m) => {
-      const id = m.memoEndPoint
+      const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       return {
         id,
         semester: m.semester,
         label,
         active: routerStore.activeMemoEndPoint(id),
-        url: `/kurs-pm/${courseCode}/${id}`
+        url: `/kurs-pm/${courseCode}/${id}`,
+        outdated
       }
     })
     // Duplicate id’s filtered out
