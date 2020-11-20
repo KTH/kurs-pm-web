@@ -9,8 +9,10 @@ import {
   sideMenuBackLink
 } from '../util/links'
 
-const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems, oldMemo }) =>
-  oldMemo ? (
+const removedOutdated = (courseMemoItem) => !courseMemoItem.outdated
+
+const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems, archivedMemo }) =>
+  archivedMemo ? (
     <nav
       id="mainMenu"
       aria-label={labels.subMenuAriaLabel}
@@ -55,7 +57,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
                   {labels.aboutCourseMemos}
                 </a>
               </li>
-              {courseMemoItems.map(({ label, url, active }) => (
+              {courseMemoItems.filter(removedOutdated).map(({ label, url, active }) => (
                 <li key={label} className={`nav-item leaf ${active ? 'selected' : ''}`}>
                   <a href={active ? null : url} className="nav-link">
                     {label}

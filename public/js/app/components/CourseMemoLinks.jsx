@@ -15,11 +15,11 @@ const formatVersion = (language = 'sv', lastChangeDate) => {
   return null
 }
 
-const version = (language, labels, lastChangeDate, ver, oldMemo) =>
+const version = (language, labels, lastChangeDate, ver, archived) =>
   lastChangeDate ? (
     <>
       <h3>{labels.versionTitle}</h3>
-      <p>{`${oldMemo ? `${labels.version} ${ver} – ` : labels.latest} ${formatVersion(language, lastChangeDate)}`}</p>
+      <p>{`${archived ? `${labels.version} ${ver} – ` : labels.latest} ${formatVersion(language, lastChangeDate)}`}</p>
     </>
   ) : (
     <>
@@ -73,14 +73,14 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
   )
 }
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName, oldMemo }) => (
+const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName, archivedMemo }) => (
   <aside aria-labelledby="memo-documents">
     <h2 id="memo-documents" className="d-none">
       {labels.documents}
     </h2>
     <div className="info-box text-break">
-      {version(memoData.memoLanguage, labels, memoData.lastChangeDate, memoData.version, oldMemo)}
-      {!oldMemo && archiveLink(language, labels, memoData.courseCode)}
+      {version(memoData.memoLanguage, labels, memoData.lastChangeDate, memoData.version, archivedMemo)}
+      {!archivedMemo && archiveLink(language, labels, memoData.courseCode)}
       {printDialogLink(labels, courseMemoName)}
       {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
     </div>

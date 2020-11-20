@@ -224,8 +224,10 @@ module.exports = {
   courseHeaderLabels: {
     adminLinkLabel: 'Administrera Om kursen',
     notLatestMemo: 'Detta är inte senaste versionen av kurs-PM.',
+    laterMemos: 'Du hittar kurs-PM för nyare kursomgångar på sidan',
     show: 'Visa',
     latestVersionLabel: '(senaste versionen)',
+    aboutCourseMemo: 'Om kurs-PM',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   },

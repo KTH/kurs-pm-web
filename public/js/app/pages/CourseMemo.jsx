@@ -242,14 +242,15 @@ class CourseMemo extends Component {
     const { courseHeaderLabels, sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
-      const id = m.memoEndPoint
+      const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       const active = routerStore.activeMemoEndPoint(id)
       return {
         id,
         label,
         active,
-        url: `/kurs-pm/${routerStore.courseCode}/${id}`
+        url: `/kurs-pm/${routerStore.courseCode}/${id}`,
+        outdated
       }
     })
     // Duplicate id’s filtered out
@@ -279,7 +280,7 @@ class CourseMemo extends Component {
             backLink={sideMenuBackLink[routerStore.language]}
             labels={sideMenuLabels}
             language={routerStore.language}
-            oldMemo={routerStore.oldMemo}
+            archivedMemo={routerStore.archivedMemo}
           />
           <Col className="col-print-12" lang={routerStore.memoLanguage}>
             <main aria-labelledby="page-heading page-sub-heading">
@@ -290,6 +291,7 @@ class CourseMemo extends Component {
                 labels={courseHeaderLabels}
                 language={routerStore.memoLanguage}
                 oldMemo={routerStore.oldMemo}
+                outdatedMemo={routerStore.outdatedMemo}
                 latestMemoLabel={routerStore.latestMemoLabel}
                 latestMemoUrl={routerStore.latestMemoUrl}
               />
@@ -329,7 +331,7 @@ class CourseMemo extends Component {
                           routerStore.roundIds,
                           routerStore.memoLanguage
                         )}
-                        oldMemo={routerStore.oldMemo}
+                        archivedMemo={routerStore.archivedMemo}
                       />
                     </Col>
                   </Row>

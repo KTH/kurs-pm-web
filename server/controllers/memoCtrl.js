@@ -125,11 +125,31 @@ function resolveLatestMemoLabel(language, latestMemoDatas) {
   return formatVersion(latestMemoData.version, language, latestMemoData.lastChangeDate)
 }
 
-function filterMemoDatas(memoDatas, roundInfos) {
+// TODO: Invert logic
+function outdatedMemoData(offerings, startSelectionYear, memoData) {
+  // Course memo semester is in current or previous year
+  const memoYear = Math.floor(memoData.semester / 10)
+  if (memoYear >= startSelectionYear) {
+    return false
+  }
+
+  // Course offering in memo has end year later or equal to previous year
+  const offering = offerings.find(
+    (o) => memoData.ladokRoundIds.includes(o.ladokRoundId) && memoData.semester === o.semester
+  )
+  if (offering && offering.endYear >= startSelectionYear) {
+    return false
+  }
+
+  // Course memo does not meet the criteria
+  return true
+}
+
+function markOutdatedMemoDatas(memoDatas, roundInfos) {
   const currentYear = new Date().getFullYear()
   const startSelectionYear = currentYear - 1
 
-  const offerings = roundInfos.map((r) => {
+  const offerings = roundInfos.filter((r) => {
     return r.round &&
       r.round.ladokRoundId &&
       r.round.startTerm &&
@@ -144,23 +164,11 @@ function filterMemoDatas(memoDatas, roundInfos) {
         }
       : {}
   })
-  const filteredMemoDatas = memoDatas.filter((m) => {
-    // Course memo semester is in current or previous year
-    const memoYear = Math.floor(m.semester / 10)
-    if (memoYear >= startSelectionYear) {
-      return true
-    }
-
-    // Course offering in memo has end year later or equal to previous year
-    const offering = offerings.find((o) => m.ladokRoundIds.includes(o.ladokRoundId) && m.semester === o.semester)
-    if (offering && offering.endYear >= startSelectionYear) {
-      return true
-    }
-
-    // Course memo does not meet the criteria
-    return false
-  })
-  return filteredMemoDatas
+  const markedOutDatedMemoDatas = memoDatas.map((m) => ({
+    ...m,
+    ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) }
+  }))
+  return markedOutDatedMemoDatas
 }
 
 async function getContent(req, res, next) {
@@ -177,7 +185,6 @@ async function getContent(req, res, next) {
     routerStore.courseCode = courseCode
 
     const memoDatas = await getMemoDataById(courseCode, 'published')
-    routerStore.rawMemoDatas = memoDatas
 
     const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
     routerStore.memoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, memoDatas)
@@ -202,7 +209,7 @@ async function getContent(req, res, next) {
     routerStore.infoContactName = infoContactName
     routerStore.examiners = examiners
 
-    routerStore.filteredMemoDatas = filterMemoDatas(memoDatas, roundInfos)
+    routerStore.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)
@@ -247,7 +254,7 @@ async function getOldContent(req, res, next) {
     routerStore.language = responseLanguage
 
     const memoDatas = await getMemoDataById(courseCode, 'old', version)
-    routerStore.rawMemoDatas = memoDatas
+    routerStore.memoDatas = memoDatas
 
     const latestMemoDatas = await getMemoDataById(courseCode, 'published')
     routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, latestMemoDatas)

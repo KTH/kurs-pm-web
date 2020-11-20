@@ -5,9 +5,7 @@ class RouterStore {
 
   @observable language = 'sv'
 
-  @observable rawMemoDatas = []
-
-  @observable filteredMemoDatas = []
+  @observable memoDatas = []
 
   // This is really the current memo id
   @observable memoEndPoint = ''
@@ -27,13 +25,6 @@ class RouterStore {
   @observable sellingText
 
   @observable latestMemoLabel
-
-  @computed get memoDatas() {
-    if (this.filteredMemoDatas.length) {
-      return this.filteredMemoDatas
-    }
-    return this.rawMemoDatas || []
-  }
 
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
@@ -58,6 +49,14 @@ class RouterStore {
 
   @computed get oldMemo() {
     return this.memoData.status === 'old'
+  }
+
+  @computed get outdatedMemo() {
+    return this.memoData.outdated
+  }
+
+  @computed get archivedMemo() {
+    return this.oldMemo || this.outdatedMemo
   }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
