@@ -23,7 +23,7 @@ describe('Component <CourseMemo>', () => {
       ],
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: []
     }
     render(

@@ -101,9 +101,7 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
   requireRole('isAdmin', 'isEditor')
 */
 
-function requireRole() {
-  const roles = Array.prototype.slice.call(arguments)
-
+function requireRole(...roles) {
   return function _hasNoneOfAcceptedRoles(req, res, next) {
     const ldapUser = req.session.authUser || {}
 

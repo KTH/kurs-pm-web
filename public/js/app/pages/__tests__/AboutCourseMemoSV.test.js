@@ -1,12 +1,12 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { hydrate, render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 
 import AboutCourseMemo from '../AboutCourseMemo'
 
-const mockMixKursPmDataApi = (courseCode) => ({
+const mockMixKursPmDataApi = () => ({
   20192: [
     {
       courseCode: 'KIP2720',
@@ -38,7 +38,7 @@ const mockMixKursPmDataApi = (courseCode) => ({
   ]
 })
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
+const { getAllByRole, getAllByText, getByText } = screen
 
 describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pdf- and web-based', () => {
   beforeEach(() => {
@@ -67,7 +67,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       // memoLanguageIndex: 0,
       language: 'sv',
       userLanguageIndex: 1,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: [],
       examiners:
         '<p class = "person">\n      <img ' +
