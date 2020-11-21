@@ -5,7 +5,7 @@
     "browser": true,
     "jest/globals": true
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": ["@kth/eslint-config-kth", "prettier"],
   "plugins": ["prettier", "jest"],
   "rules": {
     "import/newline-after-import": ["error", { "count": 1 }],
