@@ -10,7 +10,7 @@ const formatRounds = (rounds) => {
     <>
       {splitRounds.map((round, thisIndex) => (
         <span key={round}>
-          {`${round}${thisIndex === lastIndex ? '' : '),'}`}
+          {`${round}${thisIndex === lastIndex ? '' : ')'}`}
           <br />
         </span>
       ))}
