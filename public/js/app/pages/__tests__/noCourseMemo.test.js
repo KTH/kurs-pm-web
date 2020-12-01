@@ -1,12 +1,10 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 
 import CourseMemo from '../CourseMemo'
-
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
 describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMemo> because no memo exists for some round, f.e., semester 20192, ladokRoundIds 2', () => {
   beforeEach(() => {
@@ -32,7 +30,7 @@ describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMem
         }
       ],
       userLanguageIndex: 1,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: []
     }
     render(

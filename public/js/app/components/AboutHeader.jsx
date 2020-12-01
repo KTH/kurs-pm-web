@@ -3,7 +3,7 @@
 import React from 'react'
 
 import { adminLink } from '../util/links'
-import { Row, Col } from 'reactstrap'
+import { Row } from 'reactstrap'
 
 const formatCredits = (credits, creditUnitAbbr, language) => {
   const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
@@ -22,21 +22,20 @@ const AboutHeader = ({
   const { adminLinkLabel } = labels
   return (
     <Row>
-      <header className="pageTitle col">
-        <span id="page-course-title" role="heading" aria-level="1">
-          <span className="t1">{labels.memoLabel}</span>
-          <span className="t4">
+      <header className="col memo-header">
+        <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading">
+          {labels.memoLabel}
+        </h1>
+        <div id="page-sub-heading-wrapper">
+          <p id="page-sub-heading" aria-hidden="true">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </span>
-        </span>
-        <a
-          title={adminLinkLabel}
-          className="right-link"
-          href={adminLink(courseCode, language)}
-          style={{ fontSize: '1rem' }}
-        >
-          {adminLinkLabel}
-        </a>
+          </p>
+          <p id="page-sub-heading-admin-link" className="d-print-none">
+            <a title={adminLinkLabel} href={adminLink(courseCode, language)}>
+              {adminLinkLabel}
+            </a>
+          </p>
+        </div>
       </header>
     </Row>
   )

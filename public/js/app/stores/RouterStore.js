@@ -5,8 +5,6 @@ class RouterStore {
 
   @observable language = 'sv'
 
-  @observable allRoundInfos = []
-
   @observable memoDatas = []
 
   // This is really the current memo id
@@ -26,6 +24,8 @@ class RouterStore {
 
   @observable sellingText
 
+  @observable latestMemoLabel
+
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}
@@ -43,12 +43,20 @@ class RouterStore {
     return this.memoData.ladokRoundIds || []
   }
 
-  @computed get roundInfos() {
-    return this.allRoundInfos.filter((r) => r.round && this.roundIds.includes(r.round.ladokRoundId))
-  }
-
   @computed get semester() {
     return this.memoData.semester
+  }
+
+  @computed get oldMemo() {
+    return this.memoData.status === 'old'
+  }
+
+  @computed get outdatedMemo() {
+    return this.memoData.outdated
+  }
+
+  @computed get archivedMemo() {
+    return this.oldMemo || this.outdatedMemo
   }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
@@ -76,9 +84,27 @@ class RouterStore {
     return this.language === 'en' ? 0 : 1
   }
 
+  // eslint-disable-next-line class-methods-use-this
   @computed get url() {
     if (typeof window !== 'undefined') {
       return window.location.href
+    }
+    return null
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  @computed get latestMemoUrl() {
+    if (typeof window !== 'undefined') {
+      return (
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        '/kurs-pm/' +
+        this.courseCode +
+        '/' +
+        this.memoEndPoint +
+        window.location.search
+      )
     }
     return null
   }

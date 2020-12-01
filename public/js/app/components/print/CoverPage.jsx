@@ -17,7 +17,7 @@ const formatVersionDate = (language = 'sv', version) => {
 }
 
 const formatVersion = (version, language, lastChangeDate) =>
-  `Version ${version} — ${formatVersionDate(language, lastChangeDate)}`
+  `Version ${version} – ${formatVersionDate(language, lastChangeDate)}`
 
 const formatRounds = (rounds) => {
   // Split rounds with look behind, so only comma after end parentheses matches

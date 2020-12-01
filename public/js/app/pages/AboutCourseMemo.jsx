@@ -114,14 +114,15 @@ class CourseMemo extends Component {
     ]
 
     let menuMemoItems = routerStore.memoDatas.map((m) => {
-      const id = m.memoEndPoint
+      const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       return {
         id,
         semester: m.semester,
         label,
         active: routerStore.activeMemoEndPoint(id),
-        url: `/kurs-pm/${courseCode}/${id}`
+        url: `/kurs-pm/${courseCode}/${id}`,
+        outdated
       }
     })
     // Duplicate id’s filtered out
@@ -130,76 +131,77 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container about-container" fluid>
-        <Row>{breadcrumbs(userLangAbbr)}</Row>
+        <Row className="d-print-none">{breadcrumbs(userLangAbbr)}</Row>
         <Row>
-          <Col lg="3" className="side-menu">
-            <SideMenu
-              courseCode={courseCode}
-              courseMemoItems={menuMemoItems}
-              aboutCourseMemo
-              backLink={sideMenuBackLink[userLangAbbr]}
-              labels={sideMenuLabels}
-            />
-          </Col>
-          <Col lg="9">
-            <AboutHeader
-              courseCode={courseCode}
-              title={routerStore.title}
-              credits={routerStore.credits}
-              creditUnitAbbr={routerStore.creditUnitAbbr}
-              labels={aboutHeaderLabels}
-              language={userLangAbbr}
-            />
-            {aboutMemoLabels.aboutMemosText}
-            <Row>
-              <Col lg="8" className="text-break">
-                <h2>{aboutMemoLabels.currentMemos}</h2>
-                {Object.keys(this.state.webAndPdfMiniMemos).map((semester) => {
-                  const semesterItems = this.state.webAndPdfMiniMemos[semester]
-                  return (
-                    <React.Fragment key={semester}>
-                      <h3>{seasonStr(extraInfo, semester)}</h3>
-                      <ul>
-                        {semesterItems.map(
-                          ({
-                            courseMemoFileName: pdfFileName,
-                            isPdf,
-                            ladokRoundIds,
-                            memoCommonLangAbbr,
-                            memoEndPoint,
-                            semester
-                          }) => (
-                            <li key={memoEndPoint || pdfFileName}>
-                              {(isPdf && (
-                                <a
-                                  className="pdf-link"
-                                  href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
-                                >
-                                  {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
-                                </a>
-                              )) || (
-                                <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
-                                  {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, memoCommonLangAbbr)}
-                                </a>
-                              )}
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </React.Fragment>
-                  )
-                })}
-              </Col>
-              <Col lg="4" className="content-right">
-                <h2>{courseContactsLabels.courseContactsTitle}</h2>
-                <AboutCourseContacts
-                  languageIndex={userLanguageIndex}
-                  infoContactName={routerStore.infoContactName}
-                  examiners={routerStore.examiners}
-                  labels={courseContactsLabels}
-                />
-              </Col>
-            </Row>
+          <SideMenu
+            courseCode={courseCode}
+            courseMemoItems={menuMemoItems}
+            aboutCourseMemo
+            backLink={sideMenuBackLink[userLangAbbr]}
+            labels={sideMenuLabels}
+            language={userLangAbbr}
+          />
+          <Col className="col-print-12" lang={routerStore.memoLanguage}>
+            <main aria-labelledby="page-heading page-sub-heading">
+              <AboutHeader
+                courseCode={courseCode}
+                title={routerStore.title}
+                credits={routerStore.credits}
+                creditUnitAbbr={routerStore.creditUnitAbbr}
+                labels={aboutHeaderLabels}
+                language={userLangAbbr}
+              />
+              {aboutMemoLabels.aboutMemosText}
+              <Row>
+                <Col lg="8" className="text-break">
+                  <h2>{aboutMemoLabels.currentMemos}</h2>
+                  {Object.keys(this.state.webAndPdfMiniMemos).map((semester) => {
+                    const semesterItems = this.state.webAndPdfMiniMemos[semester]
+                    return (
+                      <React.Fragment key={semester}>
+                        <h3>{seasonStr(extraInfo, semester)}</h3>
+                        <ul>
+                          {semesterItems.map(
+                            ({
+                              courseMemoFileName: pdfFileName,
+                              isPdf,
+                              ladokRoundIds,
+                              memoCommonLangAbbr,
+                              memoEndPoint,
+                              semester
+                            }) => (
+                              <li key={memoEndPoint || pdfFileName}>
+                                {(isPdf && (
+                                  <a
+                                    className="pdf-link"
+                                    href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
+                                  >
+                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
+                                  </a>
+                                )) || (
+                                  <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
+                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, memoCommonLangAbbr)}
+                                  </a>
+                                )}
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </React.Fragment>
+                    )
+                  })}
+                </Col>
+                <Col lg="4" className="content-right">
+                  <h2>{courseContactsLabels.courseContactsTitle}</h2>
+                  <AboutCourseContacts
+                    languageIndex={userLanguageIndex}
+                    infoContactName={routerStore.infoContactName}
+                    examiners={routerStore.examiners}
+                    labels={courseContactsLabels}
+                  />
+                </Col>
+              </Row>
+            </main>
           </Col>
         </Row>
       </Container>

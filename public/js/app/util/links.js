@@ -22,6 +22,7 @@ const sideMenuBackLink = {
 }
 
 function aboutCourseLink(courseCode, language) {
+  if (!courseCode) return ''
   const languageParameter = language === 'en' ? '?l=en' : ''
   return `/student/kurser/kurs/${courseCode}${languageParameter}`
 }
@@ -40,10 +41,10 @@ function linkToSchool(name) {
 
 function linkToArchive(courseCode, language) {
   const languageParameter = language === 'en' ? '?l=en' : ''
-  return `/kursutveckling/${courseCode}${languageParameter}`
+  return `/kursutveckling/${courseCode ? courseCode + '/arkiv' : ''}${languageParameter}`
 }
 
-function linkToCourseDevelopmentAndHistory(courseCode, language) {
+function linkToCourseDevelopment(courseCode, language) {
   const languageParameter = language === 'en' ? '?l=en' : ''
   return `/kursutveckling/${courseCode}${languageParameter}`
 }
@@ -73,7 +74,7 @@ module.exports = {
   adminLink,
   linkToSchool,
   linkToArchive,
-  linkToCourseDevelopmentAndHistory,
+  linkToCourseDevelopment,
   linkToPublishedMemo,
   linkToPublishedMemoPdf,
   linkToSyllabus

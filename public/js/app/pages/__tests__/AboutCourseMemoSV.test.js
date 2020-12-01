@@ -1,12 +1,12 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { hydrate, render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 
 import AboutCourseMemo from '../AboutCourseMemo'
 
-const mockMixKursPmDataApi = (courseCode) => ({
+const mockMixKursPmDataApi = () => ({
   20192: [
     {
       courseCode: 'KIP2720',
@@ -38,7 +38,7 @@ const mockMixKursPmDataApi = (courseCode) => ({
   ]
 })
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
+const { getAllByRole, getAllByText, getByText } = screen
 
 describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pdf- and web-based', () => {
   beforeEach(() => {
@@ -67,7 +67,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       // memoLanguageIndex: 0,
       language: 'sv',
       userLanguageIndex: 1,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: [],
       examiners:
         '<p class = "person">\n      <img ' +
@@ -144,10 +144,17 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Kursens utveckling och historik', (done) => {
-    const menuItem = getByText('Kursens utveckling och historik')
+  test('renders menu link Kursens utveckling', (done) => {
+    const menuItem = getByText('Kursens utveckling')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720')
+    done()
+  })
+
+  test('renders menu link Arkiv', (done) => {
+    const menuItem = getByText('Arkiv')
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv')
     done()
   })
 
@@ -179,18 +186,20 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders all links and check its number and labels', () => {
+  test('renders all links and check its number and labels', (done) => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(13)
+    expect(links.length).toBe(15)
     const expectedlinks = [
       'KTH',
       'Student på KTH',
       'Kurs- och programkatalogen',
       'Kurs- och programkatalogen',
+      'Om kursen KIP2720',
       'Inför kursval',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
-      'Kursens utveckling och historik',
+      'Kursens utveckling',
+      'Arkiv',
       'Administrera Om kursen',
       'Kurs-PM KIP2720 HT 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
@@ -198,5 +207,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kip TestTeacher'
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
+    done()
   })
 })

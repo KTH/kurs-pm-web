@@ -1,12 +1,12 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 import CourseMemo from '../CourseMemo'
 
 describe('Component <CourseMemo>', () => {
-  test('renders a course memo', () => {
+  test('renders a course memo', (done) => {
     const routerStore = {
       browserConfig: { imageStorageUri: 'localhost://' },
       noMemoData: () => false,
@@ -23,7 +23,7 @@ describe('Component <CourseMemo>', () => {
       ],
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: []
     }
     render(
@@ -31,5 +31,6 @@ describe('Component <CourseMemo>', () => {
         <CourseMemo />
       </Provider>
     )
+    done()
   })
 })

@@ -1,11 +1,12 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 import AboutCourseContacts from '../AboutCourseContacts'
 
 describe('Component <AboutCourseContacts>', () => {
-  test('renders a course contacts info box', () => {
+  test('renders a course contacts info box', (done) => {
     render(<AboutCourseContacts />)
+    done()
   })
 })

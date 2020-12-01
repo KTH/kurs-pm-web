@@ -214,7 +214,7 @@ class CourseMemo extends Component {
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
-    //Decide which content can have wider content (exempel tables, to make them more readable)
+    // Decide which content can have wider content (exempel tables, to make them more readable)
     determineContentFlexibility()
   }
 
@@ -242,14 +242,15 @@ class CourseMemo extends Component {
     const { courseHeaderLabels, sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
 
     let courseMemoItems = routerStore.memoDatas.map((m) => {
-      const id = m.memoEndPoint
+      const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       const active = routerStore.activeMemoEndPoint(id)
       return {
         id,
         label,
         active,
-        url: `/kurs-pm/${routerStore.courseCode}/${id}`
+        url: `/kurs-pm/${routerStore.courseCode}/${id}`,
+        outdated
       }
     })
     // Duplicate id’s filtered out
@@ -273,23 +274,26 @@ class CourseMemo extends Component {
         />
         <Row className="d-print-none">{breadcrumbs(routerStore.language, routerStore.courseCode)}</Row>
         <Row>
-          <Col lg="3" className="d-print-none side-menu">
-            <SideMenu
-              courseCode={routerStore.courseCode}
-              courseMemoItems={courseMemoItems}
-              backLink={sideMenuBackLink[routerStore.language]}
-              labels={sideMenuLabels}
-              language={routerStore.language}
-            />
-          </Col>
-          <Col lg="9" className="col-print-12" lang={routerStore.memoLanguage}>
-            <main aria-labelledby="memo-title memo-subtitle">
+          <SideMenu
+            courseCode={routerStore.courseCode}
+            courseMemoItems={courseMemoItems}
+            backLink={sideMenuBackLink[routerStore.language]}
+            labels={sideMenuLabels}
+            language={routerStore.language}
+            archivedMemo={routerStore.archivedMemo}
+          />
+          <Col className="col-print-12" lang={routerStore.memoLanguage}>
+            <main aria-labelledby="page-heading page-sub-heading">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
                 courseTitle={routerStore.memoData.courseTitle}
                 courseCode={routerStore.courseCode}
                 labels={courseHeaderLabels}
                 language={routerStore.memoLanguage}
+                oldMemo={routerStore.oldMemo}
+                outdatedMemo={routerStore.outdatedMemo}
+                latestMemoLabel={routerStore.latestMemoLabel}
+                latestMemoUrl={routerStore.latestMemoUrl}
               />
               <Row>
                 <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
@@ -327,6 +331,7 @@ class CourseMemo extends Component {
                           routerStore.roundIds,
                           routerStore.memoLanguage
                         )}
+                        archivedMemo={routerStore.archivedMemo}
                       />
                     </Col>
                   </Row>

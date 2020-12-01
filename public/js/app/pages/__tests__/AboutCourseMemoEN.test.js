@@ -1,13 +1,13 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { hydrate, render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 
 import AboutCourseMemo from '../AboutCourseMemo'
 // import { getWebAndPdfMemos } from '../AboutCourseMemo'
 
-const mockMixKursPmDataApi = (courseCode) => ({
+const mockMixKursPmDataApi = () => ({
   20192: [
     {
       courseCode: 'KIP2720',
@@ -39,7 +39,7 @@ const mockMixKursPmDataApi = (courseCode) => ({
   ]
 })
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
+const { getAllByRole, getAllByText, getByText } = screen
 
 describe('User language: English. Component <AboutCourseMemo> show all memos: pdf- and web-based', () => {
   beforeEach(() => {
@@ -67,7 +67,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       ],
       language: 'en',
       userLanguageIndex: 0,
-      activeMemoEndPoint: (id) => false,
+      activeMemoEndPoint: () => false,
       roundIds: []
     }
     render(
@@ -133,14 +133,21 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   test('renders menu link Before choosing course', (done) => {
     const menuItem = getByText('Before choosing course')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720')
+    expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720?l=en')
     done()
   })
 
-  test('renders menu link Course development and history', (done) => {
-    const menuItem = getByText('Course development and history')
+  test('renders menu link Course development', (done) => {
+    const menuItem = getByText('Course development')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720')
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720?l=en')
+    done()
+  })
+
+  test('renders menu link Archive', (done) => {
+    const menuItem = getByText('Archive')
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     done()
   })
 
@@ -172,23 +179,26 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders all links and check its number and labels', () => {
+  test('renders all links and check its number and labels', (done) => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(12)
+    expect(links.length).toBe(14)
     const expectedlinks = [
       'KTH',
       'Student at KTH',
       'Course and programme directory',
       'Course and programme directory',
+      'About course KIP2720',
       'Before choosing course',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
-      'Course development and history',
+      'Course development',
+      'Archive',
       'Administrate About course',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
       'Course memo KIP2720 Autumn 2020-1'
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
+    done()
   })
 })
