@@ -47,15 +47,11 @@ Kurs-pm-web fetches data from:
 
 ### Secrets for Development
 
-Secrets during local development are stored in a `.env` file in the root of your project. This file should be in `.gitignore`. It needs to contain at least LDAP connection URI and password in order for authentication to work properly.
+Secrets during local development are stored in a `.env` file in the root of your project. This file should be in `.gitignore`.
 
 Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
 
 ```sh
-LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
-LDAP_URI=ldaps://[name]@ref.ug.kth.se@ldap.ref.ug.kth.se
-LDAP_PASSWORD=[password]
-
 # If KURS_PM_DATA_API_URI is omitted, http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000 will be used
 KURS_PM_DATA_API_URI=https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000
 # If KURS_PM_DATA_API_KEY is omitted, default key 1234 will be used
@@ -134,10 +130,6 @@ ansible-vault edit secrets.env
 Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
 
 ```sh
-LDAP_BASE=OU=UG,DC=ref,DC=ug,DC=kth,DC=se
-LDAP_URI=ldaps://[name]@ref.ug.kth.se@ldap.ref.ug.kth.se
-LDAP_PASSWORD=[password]
-
 KURS_PM_DATA_API_URI=https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000
 KURS_PM_DATA_API_KEY=[key]
 

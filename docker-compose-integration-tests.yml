@@ -15,9 +15,9 @@ services:
       - SESSION_SECRET=1234
       - SESSION_KEY=kurs-pm-data-web.pid
       - LOGGING_ACCESS_LOG=true
-      - LDAP_BASE
-      - LDAP_URI
-      - LDAP_PASSWORD
+      # - LDAP_BASE
+      # - LDAP_URI
+      # - LDAP_PASSWORD
       - KURS_PM_DATA_API_URI
       - KURS_PM_DATA_API_KEY
       - KURS_INFO_API_URI
@@ -25,7 +25,7 @@ services:
       - KURSPLAN_API_KEY
       - KURSPLAN_API_URI
       - REDIS_URI
-      - CAS_SSO_URI=https://login-r.referens.sys.kth.se
+      # - CAS_SSO_URI=https://login-r.referens.sys.kth.se
       - APPINSIGHTS_INSTRUMENTATIONKEY
 
     ports:
