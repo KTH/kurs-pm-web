@@ -14,7 +14,6 @@ const {
   unpackNodeApiConfig,
   unpackKOPPSConfig
 } = require('kth-node-configuration')
-const { typeConversion } = require('kth-node-configuration/lib/utils')
 const { safeGet } = require('safe-utils')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
@@ -46,11 +45,6 @@ module.exports = {
     kursPmDataApi: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')),
     kursInfoApi: getEnv('KURS_INFO_API_KEY', devDefaults('1234')),
     kursplanApi: getEnv('KURSPLAN_API_KEY', devDefaults('5678'))
-  },
-
-  // Authentication
-  auth: {
-    adminGroup: 'app.node.admin'
   },
 
   // Service API's
