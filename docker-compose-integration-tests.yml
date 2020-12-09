@@ -2,42 +2,64 @@ version: '3.7'
 
 services:
   #############################################
+  # Start the mock api
+  # Start http://mock-api:3000/
+  #############################################
+  mock-api:
+    # Build mock api image
+    build: ./test/mock-api
+
+    ports:
+      - 3000
+
+  #############################################
+  # Start redis
+  # Start http:/redis:6379/
+  #############################################
+  redis:
+    image: redis:6.0.9
+    ports:
+      - 6379
+
+  #############################################
   # Start http://web:3000/
   #############################################
   web:
-    # if not --build and kurs-pm-web already exists in
+    # If not --build and kurs-pm-web already exists in
     # your local computers registry 'image' is used.
     image: $LOCAL_IMAGE_ID
 
     environment:
+      - SESSION_USE_REDIS=false
       - SERVICE_PUBLISH=/kurs-pm
       - SERVER_PORT=3000
       - SESSION_SECRET=1234
       - SESSION_KEY=kurs-pm-data-web.pid
       - LOGGING_ACCESS_LOG=true
-      # - LDAP_BASE
-      # - LDAP_URI
-      # - LDAP_PASSWORD
-      - KURS_PM_DATA_API_URI
-      - KURS_PM_DATA_API_KEY
-      - KURS_INFO_API_URI
-      - KURS_INFO_API_KEY
-      - KURSPLAN_API_KEY
-      - KURSPLAN_API_URI
-      - REDIS_URI
-      # - CAS_SSO_URI=https://login-r.referens.sys.kth.se
+      - KURS_PM_DATA_API_URI=http://mock-api:3000/kurs-pm
+      - KURS_PM_DATA_API_KEY=secretpassword
+      - KURS_INFO_API_URI=http://mock-api:3000/kursinfo
+      - KURS_INFO_API_KEY=secretpassword
+      - KURSPLAN_API_URI=http://mock-api:3000/kursplan
+      - KURSPLAN_API_KEY=secretpassword
+      - REDIS_URI=redis://redis:6379
       - APPINSIGHTS_INSTRUMENTATIONKEY
 
     ports:
-      - 3000:3000
+      - 3000
+
+    depends_on:
+      - mock-api
+      - redis
 
   #############################################
   # Start the client running tests
   # agains http://web:3000/
   #############################################
-  integration-tests:
+  integration:
     # Build client image and run tests
     # from inside that.
     build: ./test/integration
+
     depends_on:
       - web

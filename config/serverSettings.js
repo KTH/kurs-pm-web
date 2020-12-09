@@ -14,7 +14,6 @@ const {
   unpackNodeApiConfig,
   unpackKOPPSConfig
 } = require('kth-node-configuration')
-const { typeConversion } = require('kth-node-configuration/lib/utils')
 const { safeGet } = require('safe-utils')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
@@ -34,7 +33,6 @@ module.exports = {
   hostUrl: getEnv('SERVER_HOST_URL', devUrl),
   useSsl: safeGet(() => getEnv('SERVER_SSL', devSsl + '').toLowerCase() === 'true'),
   port: getEnv('SERVER_PORT', devPort),
-  browsersyncPort: getEnv('BROWSER_SYNC_PORT', devPort + 10),
   ssl: {
     // In development we don't have SSL feature enabled
     pfx: getEnv('SERVER_CERT_FILE', ''),
@@ -46,11 +44,6 @@ module.exports = {
     kursPmDataApi: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')),
     kursInfoApi: getEnv('KURS_INFO_API_KEY', devDefaults('1234')),
     kursplanApi: getEnv('KURSPLAN_API_KEY', devDefaults('5678'))
-  },
-
-  // Authentication
-  auth: {
-    adminGroup: 'app.node.admin'
   },
 
   // Service API's
