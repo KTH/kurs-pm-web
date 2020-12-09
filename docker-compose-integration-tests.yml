@@ -1,34 +1,18 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  #############################################
-  # Start the mock api
-  # Start http://mock-api:3000/
-  #############################################
   mock-api:
-    # Build mock api image
     build: ./test/mock-api
-
     ports:
       - 3000
 
-  #############################################
-  # Start redis
-  # Start http:/redis:6379/
-  #############################################
   redis:
     image: redis:6.0.9
     ports:
       - 6379
 
-  #############################################
-  # Start http://web:3000/
-  #############################################
   web:
-    # If not --build and kurs-pm-web already exists in
-    # your local computers registry 'image' is used.
     image: $LOCAL_IMAGE_ID
-
     environment:
       - SESSION_USE_REDIS=false
       - SERVICE_PUBLISH=/kurs-pm
@@ -43,23 +27,13 @@ services:
       - KURSPLAN_API_URI=http://mock-api:3000/kursplan
       - KURSPLAN_API_KEY=secretpassword
       - REDIS_URI=redis://redis:6379
-      - APPINSIGHTS_INSTRUMENTATIONKEY
-
     ports:
       - 3000
-
     depends_on:
       - mock-api
       - redis
 
-  #############################################
-  # Start the client running tests
-  # agains http://web:3000/
-  #############################################
   integration:
-    # Build client image and run tests
-    # from inside that.
     build: ./test/integration
-
     depends_on:
       - web
