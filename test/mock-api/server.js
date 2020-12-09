@@ -5,7 +5,7 @@ const config = require('./config')
 
 const app = express()
 config.paths.forEach((path) => {
-  app.get(path.uri, (req, res) => {
+  app.get(path.url, (req, res) => {
     res.send(path.response)
   })
 })
