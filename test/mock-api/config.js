@@ -5,26 +5,47 @@ module.exports = {
   },
   paths: [
     {
-      url: '/kurs-pm/_checkAPIkey',
-      response: 'Response from kurs-pm checkAPIkey'
+      method: 'get',
+      url: '/kurs-pm/_monitor',
+      response: 'Response from kurs-pm _monitor'
     },
     {
+      method: 'get',
+      url: '/kurs-pm/_checkAPIkey',
+      response: 'Response from kurs-pm _checkAPIkey'
+    },
+    {
+      method: 'get',
       url: '/kurs-pm/_paths',
       response: { api: [] }
     },
     {
-      url: '/kursinfo/_checkAPIkey',
-      response: 'Response from kursinfo checkAPIkey'
+      method: 'get',
+      url: '/kursinfo/_monitor',
+      response: 'Response from kursinfo _monitor'
     },
     {
+      method: 'get',
+      url: '/kursinfo/_checkAPIkey',
+      response: 'Response from kursinfo _checkAPIkey'
+    },
+    {
+      method: 'get',
       url: '/kursinfo/_paths',
       response: { api: [] }
     },
     {
-      url: '/kursplan/_checkAPIkey',
-      response: 'Response from kursplan checkAPIkey'
+      method: 'get',
+      url: '/kursplan/_monitor',
+      response: 'Response from kursplan _monitor'
     },
     {
+      method: 'get',
+      url: '/kursplan/_checkAPIkey',
+      response: 'Response from kursplan _checkAPIkey'
+    },
+    {
+      method: 'get',
       url: '/kursplan/_paths',
       response: { api: [] }
     }
