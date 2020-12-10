@@ -3,9 +3,10 @@
   "env": {
     "node": true,
     "browser": true,
-    "jest/globals": true
+    "jest/globals": true,
+    "cypress/globals": true
   },
-  "extends": ["@kth/eslint-config-kth", "prettier"],
+  "extends": ["@kth/eslint-config-kth", "prettier", "plugin:cypress/recommended"],
   "plugins": ["prettier", "jest"],
   "rules": {
     "import/newline-after-import": ["error", { "count": 1 }],
