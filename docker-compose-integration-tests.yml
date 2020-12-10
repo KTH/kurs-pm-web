@@ -33,7 +33,9 @@ services:
       - mock-api
       - redis
 
-  integration:
-    build: ./test/integration
+  e2e:
+    build: ./test/e2e
+    environment:
+      - CYPRESS_baseUrl=http://web:3000/kurs-pm/
     depends_on:
       - web
