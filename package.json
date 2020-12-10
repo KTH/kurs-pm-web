@@ -13,8 +13,8 @@
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
     "vendor": "parcel build  ./public/js/vendor.js",
-    "test": "jest --forceExit",
-    "test:watch": "jest --watch",
+    "test": "jest --forceExit --testPathIgnorePatterns=test/e2e",
+    "test:watch": "jest --watch --testPathIgnorePatterns=test/e2e",
     "test:mockapi": "docker-compose -f test/mock-api/docker-compose.yml up --build --force-recreate",
     "test-unit-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-unit-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
     "test-integration-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-integration-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
