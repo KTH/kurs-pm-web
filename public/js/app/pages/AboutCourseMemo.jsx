@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
+import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
 
 import i18n from '../../../../i18n'
 import axios from 'axios'
 
-import { breadcrumbLinks, sideMenuBackLink, linkToPublishedMemo } from '../util/links'
+import { sideMenuBackLink, linkToPublishedMemo } from '../util/links'
 
 import { aboutCourseStr, concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
@@ -16,33 +18,14 @@ import AboutCourseContacts from '../components/AboutCourseContacts'
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
-export const breadcrumbs = (language) => (
-  <nav>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.university[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.university
-            : swedishTranslations.breadCrumbLabels.university}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.student[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.student
-            : swedishTranslations.breadCrumbLabels.student}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.directory[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.directory
-            : swedishTranslations.breadCrumbLabels.directory}
-        </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
-  </nav>
-)
+function renderBreadcrumbsIntoKthHeader(courseCode, language) {
+  const breadcrumbContainer = document.getElementById('breadcrumbs-header')
+  if (breadcrumbContainer)
+    ReactDOM.render(
+      <Breadcrumbs include="aboutCourse" courseCode={courseCode} language={language} />,
+      breadcrumbContainer
+    )
+}
 
 // Logic copied from kursinfo-web
 export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
@@ -104,6 +87,8 @@ class CourseMemo extends Component {
     if (webAndPdMemos) {
       this.setState({ webAndPdfMiniMemos: webAndPdMemos })
     }
+
+    renderBreadcrumbsIntoKthHeader(courseCode, language)
   }
 
   render() {
@@ -131,7 +116,6 @@ class CourseMemo extends Component {
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container about-container" fluid>
-        <Row className="d-print-none">{breadcrumbs(userLangAbbr)}</Row>
         <Row>
           <SideMenu
             courseCode={courseCode}

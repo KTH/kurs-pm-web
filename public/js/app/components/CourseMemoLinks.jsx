@@ -7,7 +7,6 @@ import { linkToArchive, linkToSyllabus } from '../util/links'
 const printDialog = () => window.print()
 
 const formatVersion = (languageIndex = 1, lastChangeDate) => {
-  console.log('formatVersion languageIndex', languageIndex)
   const locale = ['en-US', 'sv-SE']
   const unixTime = Date.parse(lastChangeDate)
   if (unixTime) {
