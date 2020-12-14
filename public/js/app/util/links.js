@@ -7,15 +7,6 @@ function courseLinks(language) {
   }
 }
 
-const breadcrumbLinks = {
-  university: { en: 'https://www.kth.se/en', sv: 'https://www.kth.se/' },
-  student: { en: 'https://www.kth.se/en/student', sv: 'https://www.kth.se/student' },
-  directory: {
-    en: '/student/kurser/kurser-inom-program?l=en',
-    sv: '/student/kurser/kurser-inom-program'
-  }
-}
-
 const sideMenuBackLink = {
   en: '/student/kurser/kurser-inom-program?l=en',
   sv: '/student/kurser/kurser-inom-program'
@@ -67,7 +58,6 @@ function linkToSyllabus(courseCode, validFromTerm, language) {
 
 module.exports = {
   courseLinks,
-  breadcrumbLinks,
   sideMenuBackLink,
   aboutCourseLink,
   aboutCourseMemoLink,
