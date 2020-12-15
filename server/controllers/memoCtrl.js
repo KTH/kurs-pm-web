@@ -329,7 +329,7 @@ async function getNoContent(req, res, next) {
         siteUrl: ''
       },
       initialState: JSON.stringify(hydrateStores(renderProps)),
-      responseLanguage,
+      lang: responseLanguage,
       description: shortDescription
     })
   } catch (err) {
