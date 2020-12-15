@@ -25,7 +25,7 @@ COPY ["i18n", "i18n"]
 COPY ["package.json", "package.json"]
 COPY [".babelrc", ".babelrc"]
 # Config for jest tester
-COPY [".babel.config.js", ".babel.config.js"]
+COPY ["babel.config.js", "babel.config.js"]
 COPY ["jest.config.js", "jest.config.js"]
 
 RUN npm run docker
