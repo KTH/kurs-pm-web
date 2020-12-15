@@ -1,47 +1,27 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
+import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
 
 import i18n from '../../../../i18n'
-import { breadcrumbLinks, sideMenuBackLink } from '../util/links'
+import { sideMenuBackLink } from '../util/links'
 
 import SideMenu from '../components/SideMenu'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
-export const breadcrumbs = (language) => (
-  <nav>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.university[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.university
-            : swedishTranslations.breadCrumbLabels.university}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.student[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.student
-            : swedishTranslations.breadCrumbLabels.student}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href={breadcrumbLinks.directory[language]}>
-          {language === 'en'
-            ? englishTranslations.breadCrumbLabels.directory
-            : swedishTranslations.breadCrumbLabels.directory}
-        </a>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        {language === 'en'
-          ? `${englishTranslations.breadCrumbLabels.aboutCourseMemos}`
-          : `${swedishTranslations.breadCrumbLabels.aboutCourseMemos}`}
-      </BreadcrumbItem>
-    </Breadcrumb>
-  </nav>
-)
+function renderBreadcrumbsIntoKthHeader(courseCode, language) {
+  const breadcrumbContainer = document.getElementById('breadcrumbs-header')
+
+  if (breadcrumbContainer)
+    ReactDOM.render(
+      <Breadcrumbs include="directory" courseCode={courseCode} language={language} />,
+      breadcrumbContainer
+    )
+}
 
 @inject(['routerStore'])
 @observer
@@ -51,6 +31,7 @@ class CourseMemo extends Component {
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = translate.aboutCourseMemos
+    renderBreadcrumbsIntoKthHeader(routerStore.courseCode, routerStore.language)
   }
 
   render() {
@@ -59,7 +40,6 @@ class CourseMemo extends Component {
 
     return (
       <Container fluid>
-        <Row className="d-print-none">{breadcrumbs(routerStore.language, '')}</Row>
         <Row>
           <SideMenu
             courseCode=""

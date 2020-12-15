@@ -35,20 +35,18 @@ module.exports = {
     site_name: 'Om kursen',
     host_name: 'KTH',
 
+    button_mobile_menu_label: 'Öppna/stäng mobilmenyn',
+    mobile_menu_aria_label: 'Mobilemeny',
+
+    skip_to_main_content: 'Hoppa till huvudinnehållet',
+    back_to_top_label: 'Till sidans topp',
+
     memoLabel: 'Kurs-PM',
 
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
     aboutCourseMemos: 'Om kurs-PM',
-
-    breadCrumbLabels: {
-      university: 'KTH',
-      student: 'Student på KTH',
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen',
-      aboutCourseMemos: 'Om kurs-PM'
-    },
 
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 

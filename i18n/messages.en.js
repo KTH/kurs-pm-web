@@ -35,20 +35,18 @@ module.exports = {
     site_name: 'About course',
     host_name: 'KTH',
 
+    button_mobile_menu_label: 'Open/close the mobile menu',
+    mobile_menu_aria_label: 'Mobile menu',
+
+    skip_to_main_content: 'Skip to main content',
+    back_to_top_label: 'To page top',
+
     memoLabel: 'Course memo',
 
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
     aboutCourseMemos: 'About course memo',
-
-    breadCrumbLabels: {
-      university: 'KTH',
-      student: 'Student at KTH',
-      directory: 'Course and programme directory',
-      aboutCourse: 'About course',
-      aboutCourseMemos: 'About course memo'
-    },
 
     mandatoryFieldMissing: 'Missing mandatory information',
 

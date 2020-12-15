@@ -15,6 +15,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
   archivedMemo ? (
     <nav
       id="mainMenu"
+      lang={language}
       aria-label={labels.subMenuAriaLabel}
       className="col col-lg-3 navbar navbar-expand-lg navbar-light d-print-none"
     >
@@ -31,6 +32,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
       id="mainMenu"
       aria-label={labels.subMenuAriaLabel}
       className="col col-lg-3 navbar navbar-expand-lg navbar-light d-print-none"
+      lang={language}
     >
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="nav">
@@ -53,13 +55,16 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
             <a className="nav-link">{labels.courseMemo}</a>
             <ul className="nav nav-list">
               <li className={`nav-item leaf ${aboutCourseMemo ? 'selected' : ''}`}>
-                <a href={aboutCourseMemo ? null : aboutCourseMemoLink(courseCode)} className="nav-link">
+                <a
+                  href={aboutCourseMemo ? null : aboutCourseMemoLink(courseCode)}
+                  className="nav-link aboutMemos memosLink"
+                >
                   {labels.aboutCourseMemos}
                 </a>
               </li>
               {courseMemoItems.filter(removedOutdated).map(({ label, url, active }) => (
                 <li key={label} className={`nav-item leaf ${active ? 'selected' : ''}`}>
-                  <a href={active ? null : url} className="nav-link">
+                  <a href={active ? null : url} className="nav-link memosLink">
                     {label}
                   </a>
                 </li>

@@ -223,7 +223,10 @@ async function getContent(req, res, next) {
 
     res.render('memo/index', {
       html,
-      title: shortDescription,
+      aboutCourse: {
+        siteName: shortDescription,
+        siteUrl: '/student/kurser/kurs/' + courseCode
+      },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
@@ -285,8 +288,11 @@ async function getOldContent(req, res, next) {
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('memo/index', {
+      aboutCourse: {
+        siteName: shortDescription,
+        siteUrl: '/student/kurser/kurs/' + courseCode
+      },
       html,
-      title: shortDescription,
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
@@ -318,7 +324,10 @@ async function getNoContent(req, res, next) {
 
     res.render('memo/index', {
       html,
-      title: shortDescription,
+      aboutCourse: {
+        siteName: shortDescription,
+        siteUrl: ''
+      },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       responseLanguage,
       description: shortDescription
