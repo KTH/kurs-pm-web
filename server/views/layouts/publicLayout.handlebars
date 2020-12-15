@@ -51,6 +51,12 @@
 </head>
 
 <body>
+  {{#if lang}}
+  <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
+  {{else}}
+  <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' 'en'}}</a>
+  {{/if}}
+
   {{> kthHeader }}
   <div class="container main">
     <div class="row">
