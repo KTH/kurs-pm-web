@@ -1,5 +1,9 @@
 <!-- add "scroll-to-top" button when scrolled down -->
 <!--indexOff: all-->
-<div id="back-to-top" role="link"></div>
+{{#if lang}}
+<div id="back-to-top" role="link" aria-label="{{i18n 'back_to_top_label' lang}}"></div>
+{{else}}
+<div id="back-to-top" role="link" aria-label="{{i18n 'back_to_top_label' 'en'}}"></div>
+{{/if}}
 <footer class="container">{{{blocks.footer}}}</footer>
 <!--indexOn: all-->
