@@ -145,7 +145,7 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   return true
 }
 
-function markOutdatedMemoDatas(memoDatas, roundInfos) {
+function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   const currentYear = new Date().getFullYear()
   const startSelectionYear = currentYear - 1
 
@@ -354,6 +354,7 @@ async function getAllMemosPdfAndWeb(req, res, next) {
 }
 
 module.exports = {
+  markOutdatedMemoDatas,
   getAllMemosPdfAndWeb,
   getContent,
   getOldContent,
