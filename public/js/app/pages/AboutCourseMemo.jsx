@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
+import { Link } from '@kth/kth-reactstrap/dist/components/akt'
 
 import i18n from '../../../../i18n'
 import axios from 'axios'
@@ -73,17 +74,21 @@ const getWebAndPdfMemos = async (courseCode) => {
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
-  state = {
-    webAndPdfMiniMemos: {}
+  constructor(props) {
+    super(props)
+    this.state = {
+      webAndPdfMiniMemos: {}
+    }
   }
 
   async componentDidMount() {
-    const { courseCode, language } = this.props.routerStore
+    const { routerStore, mockKursPmDataApi } = this.props
+    const { courseCode, language } = routerStore
     const siteNameElement = document.querySelector('.block.siteName a')
     const translate = language === 'en' ? englishTranslations : swedishTranslations
     if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, courseCode)
-    const isThisTest = !!this.props.mockKursPmDataApi
-    const webAndPdMemos = isThisTest ? this.props.mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
+    const isThisTest = !!mockKursPmDataApi
+    const webAndPdMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
     if (webAndPdMemos) {
       this.setState({ webAndPdfMiniMemos: webAndPdMemos })
     }
@@ -92,6 +97,7 @@ class CourseMemo extends Component {
   }
 
   render() {
+    const { webAndPdfMiniMemos } = this.state
     const { routerStore } = this.props
     const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
     const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
@@ -139,8 +145,8 @@ class CourseMemo extends Component {
               <Row>
                 <Col lg="8" className="text-break">
                   <h2>{aboutMemoLabels.currentMemos}</h2>
-                  {Object.keys(this.state.webAndPdfMiniMemos).map((semester) => {
-                    const semesterItems = this.state.webAndPdfMiniMemos[semester]
+                  {Object.keys(webAndPdfMiniMemos).map((semester) => {
+                    const semesterItems = webAndPdfMiniMemos[semester]
                     return (
                       <React.Fragment key={semester}>
                         <h3>{seasonStr(extraInfo, semester)}</h3>
@@ -152,19 +158,25 @@ class CourseMemo extends Component {
                               ladokRoundIds,
                               memoCommonLangAbbr,
                               memoEndPoint,
-                              semester
+                              semester: itemSemester
                             }) => (
                               <li key={memoEndPoint || pdfFileName}>
                                 {(isPdf && (
-                                  <a
-                                    className="pdf-link"
+                                  <Link
+                                    // eslint-disable-next-line react/jsx-curly-brace-presence
+                                    type={'pdf-link'}
                                     href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
                                   >
-                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, userLangAbbr)}
-                                  </a>
+                                    {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
+                                  </Link>
                                 )) || (
                                   <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
-                                    {memoNameWithCourseCode(courseCode, semester, ladokRoundIds, memoCommonLangAbbr)}
+                                    {memoNameWithCourseCode(
+                                      courseCode,
+                                      itemSemester,
+                                      ladokRoundIds,
+                                      memoCommonLangAbbr
+                                    )}
                                   </a>
                                 )}
                               </li>
