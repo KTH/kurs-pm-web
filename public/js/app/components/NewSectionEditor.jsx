@@ -22,17 +22,13 @@ class NewSectionEditor extends Component {
   memoLangIndex = this.props.routerStore.memoLanguageIndex
 
   render() {
-    const { contentId } = this.props // menuId, visibleInMemo
-
     const { contentForEditor, contentForTitle, isEmptyNew, visibleInMemo } = this.state
 
     const { sourceInfo } = i18n.messages[this.userLangIndex]
 
     return (
-      <article className="Add--New--Title--And--Info" aria-labelledby={contentId}>
-        {!this.state.isOpen && !isEmptyNew && (
-          <ExtraHeaderHead header={contentForTitle} contentId={contentId} memoLangIndex={this.memoLangIndex} />
-        )}
+      <article className="Add--New--Title--And--Info" aria-label={contentForTitle}>
+        {!this.state.isOpen && !isEmptyNew && <ExtraHeaderHead header={contentForTitle} />}
 
         {!this.state.isOpen &&
           !isEmptyNew &&
