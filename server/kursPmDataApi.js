@@ -3,6 +3,16 @@
 const log = require('kth-node-log')
 const api = require('./api')
 
+function sortBySemesterAndName(firstElement, secondElement) {
+  if (firstElement.semester < secondElement.semester) {
+    return -1
+  }
+  if (firstElement.semester > secondElement.semester) {
+    return 1
+  }
+  return firstElement.ladokRoundIds.join('').localeCompare(secondElement.ladokRoundIds.join(''))
+}
+
 async function getMemoDataById(courseCode, type, version) {
   const { client, paths } = api.kursPmDataApi
   const uri = client.resolve(paths.getAllMemosByCourseCodeAndType.uri, { courseCode, type })
@@ -13,6 +23,7 @@ async function getMemoDataById(courseCode, type, version) {
     if (version) {
       return memoDatas.filter((memoData) => memoData.version === version || memoData.version === parseInt(version, 10))
     }
+    memoDatas.sort(sortBySemesterAndName)
     return memoDatas
   } catch (err) {
     log.debug('getMemoDataById is not available', err)
@@ -34,6 +45,7 @@ async function getMiniMemosPdfAndWeb(courseCode) {
 }
 
 module.exports = {
+  sortBySemesterAndName,
   getMemoDataById,
   getMiniMemosPdfAndWeb
 }

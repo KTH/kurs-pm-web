@@ -64,7 +64,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
               </li>
               {courseMemoItems.filter(removedOutdated).map(({ label, url, active }) => (
                 <li key={label} className={`nav-item leaf ${active ? 'selected' : ''}`}>
-                  <a href={active ? null : url} className="nav-link memosLink">
+                  <a href={active ? null : url} className="nav-link memosLink" aria-label={label}>
                     {label}
                   </a>
                 </li>
