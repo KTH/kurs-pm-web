@@ -262,7 +262,7 @@ class CourseMemo extends Component {
             archivedMemo={routerStore.archivedMemo}
           />
           <Col className="col-print-12" lang={routerStore.memoLanguage}>
-            <main aria-labelledby="page-heading page-sub-heading">
+            <main id="mainContent">
               <CourseHeader
                 courseMemoName={concatMemoName(routerStore.semester, routerStore.roundIds, routerStore.memoLanguage)}
                 courseTitle={routerStore.memoData.courseTitle}
