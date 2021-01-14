@@ -107,8 +107,8 @@ function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
     }
     return memoEndPoint
   }
-  // No potential memoEndPoint in URL, use the last one in memoDatas, if memoDatas exists
-  return memoDatas[memoDatas.length - 1] ? memoDatas[memoDatas.length - 1].memoEndPoint : ''
+  // No potential memoEndPoint in URL, use the first one in memoDatas, if memoDatas exists
+  return memoDatas[0] ? memoDatas[0].memoEndPoint : ''
 }
 
 function resolveSellingText(sellingText = {}, recruitmentText, lang) {

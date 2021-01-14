@@ -38,7 +38,7 @@ describe('Component <CourseMemo>', () => {
 })
 
 describe('Page CourseMemo', () => {
-  test('renders a sorted side menu', (done) => {
+  test('renders a side menu', (done) => {
     const spring181 = { memoEndPoint: '181', semester: '20181', ladokRoundIds: [1], memoCommonLangAbbr: 'en' }
     const spring1823 = { memoEndPoint: '1823', semester: '20181', ladokRoundIds: [2, 3], memoCommonLangAbbr: 'en' }
     const spring184 = { memoEndPoint: '184', semester: '20181', ladokRoundIds: [4], memoCommonLangAbbr: 'en' }
@@ -59,13 +59,11 @@ describe('Page CourseMemo', () => {
       courseCode: 'TEST'
     }
 
-    const { debug } = render(
+    render(
       <Provider routerStore={routerStore}>
         <CourseMemo />
       </Provider>
     )
-
-    debug()
 
     const links = getAllByRole('link', { name: /Course memo.*\d*-\d*/i })
     expect(links.length).toEqual(5)

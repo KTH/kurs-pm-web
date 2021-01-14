@@ -4,10 +4,10 @@ const log = require('kth-node-log')
 const api = require('./api')
 
 function sortBySemesterAndName(firstElement, secondElement) {
-  if (firstElement.semester < secondElement.semester) {
+  if (firstElement.semester > secondElement.semester) {
     return -1
   }
-  if (firstElement.semester > secondElement.semester) {
+  if (firstElement.semester < secondElement.semester) {
     return 1
   }
   return firstElement.ladokRoundIds.join('').localeCompare(secondElement.ladokRoundIds.join(''))

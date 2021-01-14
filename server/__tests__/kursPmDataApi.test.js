@@ -34,7 +34,7 @@ describe('Sort memoDatas', () => {
     const fall19 = { semester: '20192' }
     const memoDatas = [spring19, spring18, fall19]
     memoDatas.sort(sortBySemesterAndName)
-    expect(memoDatas).toEqual([spring18, spring19, fall19])
+    expect(memoDatas).toEqual([fall19, spring19, spring18])
     done()
   })
   test('by ladok round id', (done) => {
@@ -46,7 +46,7 @@ describe('Sort memoDatas', () => {
     const fall190 = { semester: '20192', ladokRoundIds: [] }
     const memoDatas = [spring1823, spring1924, spring181, spring184, fall190, spring193]
     memoDatas.sort(sortBySemesterAndName)
-    expect(memoDatas).toEqual([spring181, spring1823, spring184, spring1924, spring193, fall190])
+    expect(memoDatas).toEqual([fall190, spring1924, spring193, spring181, spring1823, spring184])
     done()
   })
 })
