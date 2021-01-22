@@ -92,14 +92,18 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   test('renders h2 ', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     expect(allH2Headers.length).toBe(2)
-    const expectedh2ds = ['Current course memos', 'Contacts']
+    const expectedh2ds = ['Published course memos', 'Contacts']
     expectedh2ds.map((h2, index) => expect(allH2Headers[index]).toHaveTextContent(h2))
   })
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(2)
-    const expectedh3ds = ['Autumn 2019', 'Autumn 2020']
+    expect(allH3Headers.length).toBe(3)
+    const expectedh3ds = [
+      'Course offerings starting Autumn 2019',
+      'Course offerings starting Autumn 2020',
+      'Previous course offerings'
+    ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
@@ -145,9 +149,11 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   })
 
   test('renders menu link Archive', (done) => {
-    const menuItem = getByText('Archive')
-    expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
+    const menuItems = getAllByText('Archive')
+    expect(menuItems.length).toBe(2)
+    menuItems.forEach((menuItem) => {
+      expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
+    })
     done()
   })
 
@@ -181,7 +187,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', (done) => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(11)
+    expect(links.length).toBe(12)
     const expectedlinks = [
       'Course and programme directory',
       'About course KIP2720',
@@ -193,7 +199,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Administrate About course',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
-      'Course memo KIP2720 Autumn 2020-1'
+      'Course memo KIP2720 Autumn 2020-1',
+      'Archive'
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
     done()

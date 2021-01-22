@@ -7,7 +7,7 @@ import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 
-import { sideMenuBackLink, linkToPublishedMemo } from '../util/links'
+import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
 
 import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
@@ -162,7 +162,7 @@ class AboutCourseMemo extends Component {
                     const semesterItems = webAndPdfMiniMemos[semester]
                     return (
                       <React.Fragment key={semester}>
-                        <h3>{seasonStr(extraInfo, semester)}</h3>
+                        <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         <ul>
                           {semesterItems.map(
                             ({
@@ -198,6 +198,12 @@ class AboutCourseMemo extends Component {
                       </React.Fragment>
                     )
                   })}
+                  <h3>{aboutMemoLabels.previousOfferings}</h3>
+                  <ul>
+                    <li>
+                      <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
+                    </li>
+                  </ul>
                 </Col>
                 <Col lg="4" className="content-right">
                   <h2>{courseContactsLabels.courseContactsTitle}</h2>
