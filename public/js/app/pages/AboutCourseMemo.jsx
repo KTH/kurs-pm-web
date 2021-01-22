@@ -9,11 +9,12 @@ import axios from 'axios'
 
 import { sideMenuBackLink, linkToPublishedMemo } from '../util/links'
 
-import { aboutCourseStr, concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
+import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
 import AboutCourseContacts from '../components/AboutCourseContacts'
+import AboutAlert from '../components/AboutAlert'
 
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
@@ -83,20 +84,19 @@ class AboutCourseMemo extends Component {
   async componentDidMount() {
     const { routerStore, mockKursPmDataApi } = this.props
     const { courseCode, language } = routerStore
-    const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = language === 'en' ? englishTranslations : swedishTranslations
-    if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, courseCode)
+    // const siteNameElement = document.querySelector('.block.siteName a')
+    // const translate = language === 'en' ? englishTranslations : swedishTranslations
+    // if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, courseCode)
     const isThisTest = !!mockKursPmDataApi
     const webAndPdMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
     if (webAndPdMemos) {
       this.setState({ webAndPdfMiniMemos: webAndPdMemos })
     }
-
     renderBreadcrumbsIntoKthHeader(courseCode, language)
   }
 
   render() {
-    const { routerStore } = this.props
+    const { routerStore, location } = this.props
     const { webAndPdfMiniMemos } = this.state
     const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
     const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
@@ -140,7 +140,21 @@ class AboutCourseMemo extends Component {
                 labels={aboutHeaderLabels}
                 language={userLangAbbr}
               />
-              {aboutMemoLabels.aboutMemosText}
+              <Row>
+                <Col>{aboutMemoLabels.aboutMemosText}</Col>
+              </Row>
+              {location.state && location.state.noMemoData && (
+                <Row>
+                  <Col>
+                    <AboutAlert
+                      courseCode={routerStore.courseCode}
+                      semester={location.state.semester}
+                      roundId={location.state.roundId}
+                      language={userLangAbbr}
+                    />
+                  </Col>
+                </Row>
+              )}
               <Row>
                 <Col lg="8" className="text-break">
                   <h2>{aboutMemoLabels.currentMemos}</h2>

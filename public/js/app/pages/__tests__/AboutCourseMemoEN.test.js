@@ -73,7 +73,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     render(
       <StaticRouter>
         <Provider routerStore={routerStore}>
-          <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} />
+          <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} location={{}} />
         </Provider>
       </StaticRouter>
     )

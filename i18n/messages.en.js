@@ -260,9 +260,15 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab'
   },
   aboutMemoLabels: {
+    notPublished: 'hasn’t been published',
     aboutMemosText:
       'Each course offering should offer a course memo no later than at course start. A course memo is the detailed plan for taking the course and understand the examination. It contains information that helps the student to prepare for and plan for taking the course. A course memo also contains information about the student´s rights and obligations. Course memos for this current semester, the previous semester and all future semesters are listed on this page.',
-    currentMemos: 'Current course memos'
+    currentMemos: 'Current course memos',
+    shouldBePublished:
+      'Course memo should be published when the course starts. If you are taking a course and didn’t find your memo here, please contact the Course Contact listed on this page.',
+    courseInfo: 'Course information for',
+    onPage: 'is available on',
+    syllabusLink: 'Before choosing course (syllabus)'
   },
   coursePresentationLabels: {
     coursePresentation: 'Course presentation'

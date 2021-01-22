@@ -235,9 +235,15 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   aboutMemoLabels: {
+    notPublished: 'är inte publicerad',
     aboutMemosText:
       'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. På denna sida listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
-    currentMemos: 'Aktuella kurs-PM'
+    currentMemos: 'Aktuella kurs-PM',
+    shouldBePublished:
+      'Kurs-PM ska vara publicerad vid kursstart. Går du en kurs nu men hittar inte ditt kurs-PM här, hör av dig till kursens kontaktperson som finns listad på denna sida.',
+    courseInfo: 'Viss information om kurs',
+    onPage: 'hittar du på sidan',
+    syllabusLink: 'Inför kursval (kursplan)'
   },
   coursePresentationLabels: {
     coursePresentation: 'Presentation av kursen'

@@ -36,7 +36,7 @@ describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMem
     render(
       <StaticRouter>
         <Provider routerStore={routerStore}>
-          <CourseMemo />
+          <CourseMemo location={{ pathname: '' }} />
         </Provider>
       </StaticRouter>
     )

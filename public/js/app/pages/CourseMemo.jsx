@@ -185,6 +185,24 @@ const determineContentFlexibility = () => {
   }
 }
 
+const redirectToAbout = (routerStore, location) => {
+  const { pathname } = location
+  const fromPersonalMenu = `/kurs-pm/${routerStore.courseCode}/\\d*/\\d*`
+  if (pathname.match(fromPersonalMenu)) {
+    const semesterAndRoundId = pathname.replace(`/kurs-pm/${routerStore.courseCode}/`, '')
+    const [semester, roundId] = semesterAndRoundId.split('/')
+    return (
+      <Redirect
+        to={{
+          pathname: `/kurs-pm/${routerStore.courseCode}/om-kurs-pm`,
+          state: { noMemoData: true, semester, roundId }
+        }}
+      />
+    )
+  }
+  return <Redirect to={`/kurs-pm/${routerStore.courseCode}/om-kurs-pm`} />
+}
+
 @inject(['routerStore'])
 @observer
 class CourseMemo extends Component {
@@ -199,9 +217,9 @@ class CourseMemo extends Component {
   }
 
   render() {
-    const { routerStore } = this.props
+    const { routerStore, location } = this.props
     if (routerStore.noMemoData()) {
-      return <Redirect to={`/kurs-pm/${routerStore.courseCode}/om-kurs-pm`} />
+      return redirectToAbout(routerStore, location)
     }
     const allSections = renderAllSections(routerStore)
     const courseImage = resolveCourseImage(
