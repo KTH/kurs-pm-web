@@ -188,17 +188,36 @@ const determineContentFlexibility = () => {
 const redirectToAbout = (routerStore, location) => {
   const { pathname } = location
   const fromPersonalMenu = `/kurs-pm/${routerStore.courseCode}/\\d*/\\d*`
+  const withMemoEndPoint = `/kurs-pm/${routerStore.courseCode}/\\w*\\d*-\\d*`
   if (pathname.match(fromPersonalMenu)) {
     const semesterAndRoundId = pathname.replace(`/kurs-pm/${routerStore.courseCode}/`, '')
     const [semester, roundId] = semesterAndRoundId.split('/')
+    const roundIds = [roundId]
     return (
       <Redirect
         to={{
           pathname: `/kurs-pm/${routerStore.courseCode}/om-kurs-pm`,
-          state: { noMemoData: true, semester, roundId }
+          state: { noMemoData: true, semester, roundIds }
         }}
       />
     )
+  }
+  if (pathname.match(withMemoEndPoint)) {
+    const potentialMemoEndPoint = pathname.replace(`/kurs-pm/${routerStore.courseCode}/`, '')
+    const potentialMemoEndPointParts = potentialMemoEndPoint.split('-')
+    if (potentialMemoEndPointParts.length > 1) {
+      const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
+      const semester = potentialCourseCodeAndSemester.replace(routerStore.courseCode, '')
+      const roundIds = potentialMemoEndPointParts.slice(1)
+      return (
+        <Redirect
+          to={{
+            pathname: `/kurs-pm/${routerStore.courseCode}/om-kurs-pm`,
+            state: { noMemoData: true, semester: semester || '', roundIds: roundIds || [] }
+          }}
+        />
+      )
+    }
   }
   return <Redirect to={`/kurs-pm/${routerStore.courseCode}/om-kurs-pm`} />
 }

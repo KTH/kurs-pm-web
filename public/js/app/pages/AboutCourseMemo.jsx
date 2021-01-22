@@ -149,7 +149,7 @@ class AboutCourseMemo extends Component {
                     <AboutAlert
                       courseCode={routerStore.courseCode}
                       semester={location.state.semester}
-                      roundId={location.state.roundId}
+                      roundIds={location.state.roundIds}
                       language={userLangAbbr}
                     />
                   </Col>
