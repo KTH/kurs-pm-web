@@ -9,7 +9,7 @@ import { Redirect } from 'react-router'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { sideMenuBackLink } from '../util/links'
-import { aboutCourseStr, concatMemoName } from '../util/helpers'
+import { concatMemoName } from '../util/helpers'
 import { EMPTY } from '../util/constants'
 
 import CoursePresentation from '../components/CoursePresentation'
@@ -209,9 +209,6 @@ class CourseMemo extends Component {
   componentDidMount() {
     const { routerStore } = this.props
     renderBreadcrumbsIntoKthHeader(routerStore.courseCode, routerStore.language)
-    const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
-    if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, routerStore.courseCode)
     // Decide which content can have wider content (exempel tables, to make them more readable)
     determineContentFlexibility()
   }
