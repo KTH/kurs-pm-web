@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
-import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
+import { Breadcrumbs, InfoModalButton } from '@kth/kth-kip-style-react-components'
 
 import i18n from '../../../../i18n'
 import axios from 'axios'
@@ -154,7 +154,17 @@ class AboutCourseMemo extends Component {
               )}
               <Row>
                 <Col lg="8" className="text-break">
-                  <h2>{aboutMemoLabels.currentMemos}</h2>
+                  <span className="about-memo-header">
+                    <h2>{aboutMemoLabels.currentMemos}</h2>
+                    <InfoModalButton
+                      modalId="current-memos-title"
+                      modalLabels={{
+                        header: aboutMemoLabels.currentMemos,
+                        body: aboutMemoLabels.currentMemosInfo,
+                        btnClose: aboutMemoLabels.btnClose
+                      }}
+                    />
+                  </span>
                   {Object.keys(webAndPdfMiniMemos).map((semester) => {
                     const semesterItems = webAndPdfMiniMemos[semester]
                     return (
