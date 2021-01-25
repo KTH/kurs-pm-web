@@ -115,6 +115,17 @@ class AboutCourseMemo extends Component {
     // Duplicate id’s filtered out
     menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
 
+    // First visible semester
+    const firstVisibleSemester = menuMemoItems
+      .filter((m) => !m.outdated)
+      .reduce((firstSemester, menuItem) => {
+        const menuItemSemester = Number.parseInt(menuItem.semester, 10)
+        if (menuItemSemester < firstSemester) {
+          return menuItemSemester
+        }
+        return firstSemester
+      }, 21001)
+
     return (
       // Class preview-container, or equivalent, not needed
       <Container className="kip-container about-container" fluid>
@@ -166,6 +177,9 @@ class AboutCourseMemo extends Component {
                     />
                   </span>
                   {Object.keys(webAndPdfMiniMemos).map((semester) => {
+                    if (Number.parseInt(semester, 10) < firstVisibleSemester) {
+                      return null
+                    }
                     const semesterItems = webAndPdfMiniMemos[semester]
                     return (
                       <React.Fragment key={semester}>

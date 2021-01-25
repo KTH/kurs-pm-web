@@ -56,13 +56,15 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
           ladokRoundIds: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
-          memoCommonLangAbbr: 'en'
+          memoCommonLangAbbr: 'en',
+          outdated: false
         },
         {
           ladokRoundIds: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
-          memoCommonLangAbbr: 'en'
+          memoCommonLangAbbr: 'en',
+          outdated: false
         }
       ],
       language: 'en',
