@@ -84,9 +84,6 @@ class AboutCourseMemo extends Component {
   async componentDidMount() {
     const { routerStore, mockKursPmDataApi } = this.props
     const { courseCode, language } = routerStore
-    // const siteNameElement = document.querySelector('.block.siteName a')
-    // const translate = language === 'en' ? englishTranslations : swedishTranslations
-    // if (siteNameElement) siteNameElement.textContent = aboutCourseStr(translate, courseCode)
     const isThisTest = !!mockKursPmDataApi
     const webAndPdMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
     if (webAndPdMemos) {
