@@ -94,7 +94,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   test('renders and check all H1 headers on the place and correct', (done) => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent('Om kurs-PM')
+    expect(allH1Headers[0]).toHaveTextContent('Kurs-PM')
     done()
   })
 
@@ -109,8 +109,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(3)
     const expectedh3ds = [
-      'Kursomgångar som startar HT 2019',
       'Kursomgångar som startar HT 2020',
+      'Kursomgångar som startar HT 2019',
       'Ej pågående kursomgångar'
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
@@ -206,9 +206,9 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kursens utveckling',
       'Arkiv',
       'Administrera Om kursen',
+      'Course memo KIP2720 Autumn 2020-1',
       'Kurs-PM KIP2720 HT 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
-      'Course memo KIP2720 Autumn 2020-1',
       'Arkiv',
       'Kip TestTeacher'
     ]

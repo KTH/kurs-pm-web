@@ -87,7 +87,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   test('renders and check all H1 headers on the place and correct', (done) => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent('About course memo')
+    expect(allH1Headers[0]).toHaveTextContent('Course memo')
     done()
   })
 
@@ -102,8 +102,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(3)
     const expectedh3ds = [
-      'Course offerings starting Autumn 2019',
       'Course offerings starting Autumn 2020',
+      'Course offerings starting Autumn 2019',
       'Previous course offerings'
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
@@ -199,9 +199,9 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Course development',
       'Archive',
       'Administrate About course',
+      'Course memo KIP2720 Autumn 2020-1',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
-      'Course memo KIP2720 Autumn 2020-1',
       'Archive'
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
