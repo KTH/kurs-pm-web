@@ -263,10 +263,10 @@ module.exports = {
     notPublished: 'hasn’t been published',
     aboutMemosText1:
       'Each course offering must provide a course memo no later than at the start of the course. The course memo is the course offering’s detailed plan. A course memo helps the student to prepare and plan for the completion and examination of the course. It must describe the student’s rights and obligations.',
-    aboutMemosText2: 'Below is a list of published course memos for the current course rounds.',
+    aboutMemosText2: 'Below is a list of published course memos for the current course offerings.',
     currentMemos: 'Published course memos',
     currentMemosInfo:
-      '<p>Here you will find published course memos for current course offerings. The course memo is listed under the semester when the course offering started. In the Archive, you will also find published course memos for previous course rounds.</p><p>If you are unsure which memo belongs to your course round, check it on the course memo page. An easier way to reach your course memo is via the course memo link in the ”Personal menu” under ”Courses.”</p><p>If you are taking a course now but cannot find your course memo here, contact the course contact person listed on this page.',
+      '<p>Here you will find published course memos for current course offerings. The course memo is listed under the semester when the course offering started. In the Archive, you will also find published course memos for previous course offerings.</p><p>If you are unsure which memo belongs to your course round, check it on the course memo page. An easier way to reach your course memo is via the course memo link in the ”Personal menu” under ”Courses.”</p><p>If you are taking a course now but cannot find your course memo here, contact the course contact person listed on this page.',
     btnClose: 'Close',
     shouldBePublished:
       'Course memo should be published when the course starts. If you are taking a course and didn’t find your memo here, please contact the Course Contact listed on this page.',
