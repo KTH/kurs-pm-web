@@ -46,7 +46,7 @@ module.exports = {
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
-    aboutCourseMemos: 'About course memo',
+    aboutCourseMemos: 'Course memo',
 
     mandatoryFieldMissing: 'Missing mandatory information',
 
@@ -117,7 +117,7 @@ module.exports = {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
     beforeChoosingCourse: 'Before choosing course',
-    aboutCourseMemos: 'About course memo',
+    aboutCourseMemos: 'Course memo',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
@@ -250,12 +250,12 @@ module.exports = {
     laterMemos: 'Recent memos are listed on',
     show: 'Show',
     latestVersionLabel: '(latest version)',
-    aboutCourseMemo: 'About course memo',
+    aboutCourseMemo: 'Course memo',
     linkOpensInNewTab: 'Link will open in new tab',
     mandatoryFieldMissing: 'Missing mandatory information'
   },
   aboutHeaderLabels: {
-    memoLabel: 'About course memo',
+    memoLabel: 'Course memo',
     adminLinkLabel: 'Administrate About course',
     linkOpensInNewTab: 'Link will open in new tab'
   },

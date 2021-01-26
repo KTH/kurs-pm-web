@@ -46,7 +46,7 @@ module.exports = {
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
-    aboutCourseMemos: 'Om kurs-PM',
+    aboutCourseMemos: 'Kurs-PM',
 
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 
@@ -87,7 +87,7 @@ module.exports = {
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen',
     beforeChoosingCourse: 'Inför kursval',
-    aboutCourseMemos: 'Om kurs-PM',
+    aboutCourseMemos: 'Kurs-PM',
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopment: 'Kursens utveckling',
@@ -225,12 +225,12 @@ module.exports = {
     laterMemos: 'Du hittar kurs-PM för nyare kursomgångar på sidan',
     show: 'Visa',
     latestVersionLabel: '(senaste versionen)',
-    aboutCourseMemo: 'Om kurs-PM',
+    aboutCourseMemo: 'Kurs-PM',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   },
   aboutHeaderLabels: {
-    memoLabel: 'Om kurs-PM',
+    memoLabel: 'Kurs-PM',
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },

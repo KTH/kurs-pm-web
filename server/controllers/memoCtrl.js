@@ -317,7 +317,7 @@ async function getNoContent(req, res, next) {
     routerStore.language = responseLanguage
 
     // TODO: Proper language constant
-    const shortDescription = responseLanguage === 'sv' ? 'Om kurs-PM' : 'About course memo'
+    const shortDescription = responseLanguage === 'sv' ? 'Kurs-PM' : 'Course memo'
 
     // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
     const html = ReactDOMServer.renderToString(renderProps)
