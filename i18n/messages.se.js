@@ -236,8 +236,9 @@ module.exports = {
   },
   aboutMemoLabels: {
     notPublished: 'är inte publicerad',
-    aboutMemosText:
-      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter. På denna sida listas de kurs-PM som är publicerade denna termin, föregående och kommande.',
+    aboutMemosText1:
+      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter.',
+    aboutMemosText2: 'Nedan listas publicerade kurs-pm för de kursomgångar som pågår nu.',
     currentMemos: 'Publicerade kurs-PM',
     currentMemosInfo:
       '<p>Här hittar du publicerade kurs-pm för de kursomgångar som pågår nu. Kurs-PM listas under den termin då kursomgången startade. I Arkivet hittar du även publicerade kurs-PM för tidigare kursomgångar.</p><p>Om du är osäker på vilket kurs-PM som tillhör din kursomgång så kontrollera det på kurs-PM-sidan. Ett enklare sätt att nå ditt kurs-PM är via kurs-PM-länken i “Personliga menyn” under “Kurser”.</p><p>Går du en kurs nu men hittar inte ditt kurs-PM här, hör av dig till kursens kontaktperson som finns listad på denna sida.</p>',

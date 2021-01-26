@@ -261,8 +261,9 @@ module.exports = {
   },
   aboutMemoLabels: {
     notPublished: 'hasn’t been published',
-    aboutMemosText:
-      'Each course offering should offer a course memo no later than at course start. A course memo is the detailed plan for taking the course and understand the examination. It contains information that helps the student to prepare for and plan for taking the course. A course memo also contains information about the student´s rights and obligations. Course memos for this current semester, the previous semester and all future semesters are listed on this page.',
+    aboutMemosText1:
+      'Each course offering must provide a course memo no later than at the start of the course. The course memo is the course offering’s detailed plan. A course memo helps the student to prepare and plan for the completion and examination of the course. It must describe the student’s rights and obligations.',
+    aboutMemosText2: 'Below is a list of published course memos for the current course rounds.',
     currentMemos: 'Published course memos',
     currentMemosInfo:
       '<p>Here you will find published course memos for current course offerings. The course memo is listed under the semester when the course offering started. In the Archive, you will also find published course memos for previous course rounds.</p><p>If you are unsure which memo belongs to your course round, check it on the course memo page. An easier way to reach your course memo is via the course memo link in the ”Personal menu” under ”Courses.”</p><p>If you are taking a course now but cannot find your course memo here, contact the course contact person listed on this page.',

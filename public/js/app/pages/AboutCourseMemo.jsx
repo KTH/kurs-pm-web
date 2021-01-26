@@ -149,7 +149,10 @@ class AboutCourseMemo extends Component {
                 language={userLangAbbr}
               />
               <Row>
-                <Col>{aboutMemoLabels.aboutMemosText}</Col>
+                <Col>
+                  <p>{aboutMemoLabels.aboutMemosText1}</p>
+                  <p>{aboutMemoLabels.aboutMemosText2}</p>
+                </Col>
               </Row>
               {location.state && location.state.noMemoData && (
                 <Row>
