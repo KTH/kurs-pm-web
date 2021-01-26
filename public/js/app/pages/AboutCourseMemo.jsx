@@ -179,49 +179,51 @@ class AboutCourseMemo extends Component {
                       }}
                     />
                   </span>
-                  {Object.keys(webAndPdfMiniMemos).map((semester) => {
-                    if (Number.parseInt(semester, 10) < firstVisibleSemester) {
-                      return null
-                    }
-                    const semesterItems = webAndPdfMiniMemos[semester]
-                    return (
-                      <React.Fragment key={semester}>
-                        <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                        <ul>
-                          {semesterItems.map(
-                            ({
-                              courseMemoFileName: pdfFileName,
-                              isPdf,
-                              ladokRoundIds,
-                              memoCommonLangAbbr,
-                              memoEndPoint,
-                              semester: itemSemester
-                            }) => (
-                              <li key={memoEndPoint || pdfFileName}>
-                                {(isPdf && (
-                                  <a
-                                    className="pdf-link"
-                                    href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
-                                  >
-                                    {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
-                                  </a>
-                                )) || (
-                                  <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
-                                    {memoNameWithCourseCode(
-                                      courseCode,
-                                      itemSemester,
-                                      ladokRoundIds,
-                                      memoCommonLangAbbr
-                                    )}
-                                  </a>
-                                )}
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </React.Fragment>
-                    )
-                  })}
+                  {Object.keys(webAndPdfMiniMemos)
+                    .reverse()
+                    .map((semester) => {
+                      if (Number.parseInt(semester, 10) < firstVisibleSemester) {
+                        return null
+                      }
+                      const semesterItems = webAndPdfMiniMemos[semester]
+                      return (
+                        <React.Fragment key={semester}>
+                          <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
+                          <ul>
+                            {semesterItems.map(
+                              ({
+                                courseMemoFileName: pdfFileName,
+                                isPdf,
+                                ladokRoundIds,
+                                memoCommonLangAbbr,
+                                memoEndPoint,
+                                semester: itemSemester
+                              }) => (
+                                <li key={memoEndPoint || pdfFileName}>
+                                  {(isPdf && (
+                                    <a
+                                      className="pdf-link"
+                                      href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
+                                    >
+                                      {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
+                                    </a>
+                                  )) || (
+                                    <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
+                                      {memoNameWithCourseCode(
+                                        courseCode,
+                                        itemSemester,
+                                        ladokRoundIds,
+                                        memoCommonLangAbbr
+                                      )}
+                                    </a>
+                                  )}
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        </React.Fragment>
+                      )
+                    })}
                   <h3>{aboutMemoLabels.previousOfferings}</h3>
                   <ul>
                     <li>
