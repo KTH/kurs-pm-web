@@ -139,7 +139,7 @@ class AboutCourseMemo extends Component {
             language={userLangAbbr}
           />
           <Col className="col-print-12" lang={routerStore.memoLanguage}>
-            <main aria-labelledby="page-heading page-sub-heading">
+            <main id="mainContent">
               <AboutHeader
                 courseCode={courseCode}
                 title={routerStore.title}
