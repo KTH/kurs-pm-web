@@ -100,20 +100,13 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(3)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
       'Previous course offerings'
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
-  })
-
-  test('renders h4 ', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(2)
-    const expectedh4ds = ['Course Contact', 'Examiner']
-    expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
   test('renders text about empty fields (Course Contact, Examiner) ', () => {

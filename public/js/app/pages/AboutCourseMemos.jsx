@@ -28,9 +28,6 @@ function renderBreadcrumbsIntoKthHeader(courseCode, language) {
 class CourseMemo extends Component {
   componentDidMount() {
     const { routerStore } = this.props
-    const siteNameElement = document.querySelector('.block.siteName a')
-    const translate = routerStore.language === 'en' ? englishTranslations : swedishTranslations
-    if (siteNameElement) siteNameElement.textContent = translate.aboutCourseMemos
     renderBreadcrumbsIntoKthHeader(routerStore.courseCode, routerStore.language)
   }
 

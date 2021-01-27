@@ -107,20 +107,13 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(3)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
       'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
       'Ej pågående kursomgångar'
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
-  })
-
-  test('renders h4 ', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(2)
-    const expectedh4ds = ['Kontaktperson', 'Examinator']
-    expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
   test('renders text about empty fields (Kontaktperson) ', () => {

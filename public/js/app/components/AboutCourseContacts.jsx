@@ -8,12 +8,12 @@ import { EMPTY } from '../util/constants'
 const infoContact = (languageIndex, infoContactName, labels) =>
   infoContactName ? (
     <>
-      <h4>{labels.infoContactName}</h4>
+      <h3 className="t4">{labels.infoContactName}</h3>
       <div id="links-info-contact-name" dangerouslySetInnerHTML={{ __html: infoContactName }} />
     </>
   ) : (
     <>
-      <h4>{labels.infoContactName}</h4>
+      <h3 className="t4">{labels.infoContactName}</h3>
       <p>{EMPTY[languageIndex]}</p>
     </>
   )
@@ -22,12 +22,12 @@ const infoContact = (languageIndex, infoContactName, labels) =>
 const examinerContacts = (languageIndex, examiners, labels) =>
   examiners ? (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3 className="t4">{labels.examinerTitle}</h3>
       <div id="links-examiner" dangerouslySetInnerHTML={{ __html: examiners }} />
     </>
   ) : (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3 className="t4">{labels.examinerTitle}</h3>
       <p>{EMPTY[languageIndex]}</p>
     </>
   )
