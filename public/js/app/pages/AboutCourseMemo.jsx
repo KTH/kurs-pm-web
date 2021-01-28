@@ -178,7 +178,8 @@ class AboutCourseMemo extends Component {
                         modalLabels={{
                           header: aboutMemoLabels.currentMemos,
                           body: aboutMemoLabels.currentMemosInfo,
-                          btnClose: aboutMemoLabels.btnClose
+                          btnClose: aboutMemoLabels.btnClose,
+                          ariaLabel: aboutMemoLabels.ariaLabel
                         }}
                       />
                     </span>

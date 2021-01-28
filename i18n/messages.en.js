@@ -268,6 +268,7 @@ module.exports = {
     currentMemosInfo:
       '<p>Here you will find published course memos for current course offerings. The course memo is listed under the semester when the course offering started. In the Archive, you will also find published course memos for previous course offerings.</p><p>If you are unsure which memo belongs to your course offering, check it on the course memo page. An easier way to reach your course memo is via the course memo link in the ”Personal menu” under ”Courses.”</p><p>If you are taking a course now but cannot find your course memo here, contact the course contact person listed on this page.',
     btnClose: 'Close',
+    ariaLabel: 'Information about published course memos',
     shouldBePublished:
       'Course memo should be published when the course starts. If you are taking a course and didn’t find your memo here, please contact the Course Contact listed on this page.',
     courseInfo: 'Course information for',
