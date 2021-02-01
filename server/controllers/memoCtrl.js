@@ -72,6 +72,10 @@ function resolvePotentialMemoEndPoint(courseCode, semester, id) {
 }
 
 function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
+  if (!Array.isArray(memoDatas)) {
+    log.error('resolveMemoEndPoint received non-Array memoDatas argument', memoDatas)
+    return ''
+  }
   // Potential memoEndPoint in URL
   if (potentialMemoEndPoint) {
     let memoEndPoint
@@ -146,6 +150,10 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
 }
 
 function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
+  if (!Array.isArray(memoDatas)) {
+    log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
+    return []
+  }
   const currentYear = new Date().getFullYear()
   const startSelectionYear = currentYear - 1
 
