@@ -5,7 +5,7 @@ import { StaticRouter } from 'react-router'
 import { Provider } from 'mobx-react'
 
 // Sass
-import '../../css/node-web.scss'
+import '../../css/kurs-pm-web.scss'
 
 // Store
 import RouterStore from './stores/RouterStore'
