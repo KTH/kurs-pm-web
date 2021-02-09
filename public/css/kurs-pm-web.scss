@@ -201,7 +201,21 @@ $icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 }
 
 section[aria-labelledby='course-presentation'] {
-  min-height: 160px;
+  min-height: 150px;
+}
+
+#course-presentation-image {
+  height: 112.5px;
+  margin: 8px 30px 19px 0;
+}
+
+@media (max-width: 575.98px) {
+  #course-presentation-image {
+    height: auto;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 0 23px 0;
+  }
 }
 
 .content-center {
