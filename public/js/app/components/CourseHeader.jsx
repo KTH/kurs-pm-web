@@ -33,7 +33,7 @@ const CourseHeader = ({
           <p id="page-sub-heading" aria-hidden="true">
             {courseTitle || mandatoryFieldMissing}
           </p>
-          <p id="page-sub-heading-admin-link" className="d-print-none d-none d-lg-inline">
+          <p id="page-sub-heading-admin-link" className="d-print-none">
             <a title={adminLinkLabel} href={adminLink(courseCode, language)}>
               {adminLinkLabel}
             </a>
