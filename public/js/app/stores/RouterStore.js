@@ -66,12 +66,6 @@ class RouterStore {
     this.profileBaseUrl = profileBaseUrl
   }
 
-  @action SSRsetCookieHeader(cookieHeader) {
-    if (typeof window === 'undefined') {
-      this.cookieHeader = cookieHeader || ''
-    }
-  }
-
   @computed get memoLanguage() {
     return this.memoData.memoCommonLangAbbr || this.language
   }
