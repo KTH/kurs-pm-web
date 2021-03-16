@@ -157,21 +157,21 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   const currentYear = new Date().getFullYear()
   const startSelectionYear = currentYear - 1
 
-  const offerings = roundInfos.filter((r) => {
-    return r.round &&
-      r.round.ladokRoundId &&
-      r.round.startTerm &&
-      r.round.startTerm.term &&
-      r.round.endWeek &&
-      r.round.endWeek.year &&
-      r.round.endWeek.year >= startSelectionYear
+  const offerings = roundInfos.filter((r) =>
+    r.round &&
+    r.round.ladokRoundId &&
+    r.round.startTerm &&
+    r.round.startTerm.term &&
+    r.round.endWeek &&
+    r.round.endWeek.year &&
+    r.round.endWeek.year >= startSelectionYear
       ? {
           ladokRoundId: r.round.ladokRoundId,
           semester: r.round.startTerm.term,
           endYear: r.round.endWeek.year
         }
       : {}
-  })
+  )
   const markedOutDatedMemoDatas = memoDatas.map((m) => ({
     ...m,
     ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) }
