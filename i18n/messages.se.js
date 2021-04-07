@@ -150,30 +150,7 @@ module.exports = {
     }
   },
   sourceInfo: {
-    addNewTitle: 'Ange rubrik',
-    fetched: 'Hämtats',
-    '(c)': 'från kursgemensam information',
-    '(r)': 'från kurstillfällesinformation',
-    '(s)': 'från kursplan (s)',
-    mandatory: 'Obligatorisk rubrik',
-    mandatoryAndEditable: 'Obligatorisk rubrik',
-    mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
-    includeInMemo: 'Inkludera rubrik',
-    noInfoYet:
-      'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
-    // includera rubrik
-    notIncludedInMemoYet: 'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-PM',
-    // includera avsnitt
-    notIncludedInMemoYetOfAddition: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-PM',
-    nothingFetched: {
-      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
-      Välj Redigera för att lägga in innehåll.`,
-      mandatory: 'Ingen information tillagd',
-      mandatoryForSome: `Inget innehåll fanns att hämta. 
-      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
-      optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
-      Du kan också välja att inte inkludera rubriken.`
-    },
+    noInfoYet: 'Ingen information tillagd.',
     insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'
   },
   sectionsLabels: {

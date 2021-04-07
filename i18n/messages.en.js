@@ -179,26 +179,8 @@ module.exports = {
       2: 'Autumn '
     }
   },
-
   sourceInfo: {
-    addNewTitle: 'Name new section',
-    fetched: 'Fetched', // IF NOT EDITABLE
-    '(c)': 'from common course information',
-    '(r)': 'from course round information',
-    '(s)': 'from course syllabus (s)',
-    mandatory: 'Mandatory information',
-    mandatoryAndEditable: 'Mandatory information',
-    mandatoryForSome: 'Mandatory information for some courses?',
-    includeInMemo: 'Include header...*?', // RUBRIK/ADDITION
-    noInfoYet: 'No information is added. Press "Edit" to add information....',
-    notIncludedInMemoYet: 'Content is here. Choose "Include in memo" to show added content and header in memo...',
-    nothingFetched: {
-      mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
-      mandatory: 'No information inserted',
-      mandatoryForSome: 'No information was available to fetch because it is not intended for this course....',
-      optional:
-        'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
-    },
+    noInfoYet: 'No information inserted',
     insertedSubSection: '(Section below is not part of the syllabus)'
   },
   sectionsLabels: {
