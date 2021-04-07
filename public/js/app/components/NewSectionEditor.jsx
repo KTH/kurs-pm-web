@@ -41,11 +41,10 @@ class NewSectionEditor extends Component {
             />
           )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
+            (contentForEditor !== '' && (
               <span>
                 <p>
-                  {/* <i>{type === 'optionalEditable' ? sourceInfo.notIncludedInMemoYet : sourceInfo.notIncludedInMemoYetOfAddition}</i> */}
-                  <i>{sourceInfo.notIncludedInMemoYet}</i>
+                  <i>{sourceInfo.noInfoYet}</i>
                 </p>
               </span>
             )))}

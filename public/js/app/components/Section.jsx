@@ -7,7 +7,7 @@ import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
 
 const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* en */ }) => {
-  const { nothingFetched, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
+  const { noInfoYet, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
   const fromSyllabus = {
     is: context[contentId].source === '(s)',
     subHeader: contentId === 'examination' || contentId === 'ethicalApproach'
@@ -23,7 +23,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* 
       <span
         style={visibleInMemo ? {} : { display: 'none' }}
         dangerouslySetInnerHTML={{
-          __html: html || `<p><i>${nothingFetched[context[contentId].type]}</i></p>`
+          __html: html || `<p><i>${noInfoYet}</i></p>`
         }}
       />
     </article>

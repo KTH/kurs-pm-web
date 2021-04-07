@@ -14,7 +14,9 @@ const infoContact = (languageIndex, infoContactName, labels) =>
   ) : (
     <>
       <h3 className="t4">{labels.infoContactName}</h3>
-      <p>{EMPTY[languageIndex]}</p>
+      <p>
+        <i>{EMPTY[languageIndex]}</i>
+      </p>
     </>
   )
 
@@ -28,7 +30,9 @@ const examinerContacts = (languageIndex, examiners, labels) =>
   ) : (
     <>
       <h3 className="t4">{labels.examinerTitle}</h3>
-      <p>{EMPTY[languageIndex]}</p>
+      <p>
+        <i>{EMPTY[languageIndex]}</i>
+      </p>
     </>
   )
 
