@@ -312,6 +312,58 @@ async function getOldContent(req, res, next) {
   }
 }
 
+async function getAboutContent(req, res, next) {
+  try {
+    const context = {}
+    const renderProps = _staticRender(context, req.url)
+
+    const { routerStore } = renderProps.props.children.props
+
+    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+
+    const { courseCode: rawCourseCode } = req.params
+    const courseCode = rawCourseCode.toUpperCase()
+    routerStore.courseCode = courseCode
+
+    const memoDatas = await getMemoDataById(courseCode, 'published')
+
+    const responseLanguage = languageLib.getLanguage(res) || 'sv'
+    routerStore.language = responseLanguage
+
+    const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
+      courseCode,
+      routerStore.memoLanguage
+    )
+    routerStore.title = title
+    routerStore.credits = credits
+    routerStore.creditUnitAbbr = creditUnitAbbr
+    routerStore.infoContactName = infoContactName
+    routerStore.examiners = examiners
+
+    routerStore.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
+
+    // TODO: Proper language constant
+    const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+
+    const html = ReactDOMServer.renderToString(renderProps)
+
+    res.render('memo/index', {
+      html,
+      aboutCourse: {
+        siteName: shortDescription,
+        siteUrl: '/student/kurser/kurs/' + courseCode
+      },
+      initialState: JSON.stringify(hydrateStores(renderProps)),
+      instrumentationKey: server.appInsights.instrumentationKey,
+      lang: responseLanguage,
+      description: shortDescription
+    })
+  } catch (err) {
+    log.error('Error in getContent', { error: err })
+    next(err)
+  }
+}
+
 async function getNoContent(req, res, next) {
   try {
     const context = {}
@@ -366,5 +418,6 @@ module.exports = {
   getAllMemosPdfAndWeb,
   getContent,
   getOldContent,
-  getNoContent
+  getNoContent,
+  getAboutContent
 }

@@ -26,6 +26,8 @@ class RouterStore {
 
   @observable latestMemoLabel
 
+  @observable infoContactName
+
   @computed get memoData() {
     const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}

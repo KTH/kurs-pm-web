@@ -107,7 +107,7 @@ class AboutCourseMemo extends Component {
         id,
         semester: m.semester,
         label,
-        active: routerStore.activeMemoEndPoint(id),
+        active: false,
         url: `/kurs-pm/${courseCode}/${id}`,
         outdated
       }
@@ -138,7 +138,7 @@ class AboutCourseMemo extends Component {
             labels={sideMenuLabels}
             language={userLangAbbr}
           />
-          <Col className="col-print-12" lang={routerStore.memoLanguage}>
+          <Col className="col-print-12">
             <main id="mainContent">
               <AboutHeader
                 courseCode={courseCode}

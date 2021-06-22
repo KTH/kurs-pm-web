@@ -190,7 +190,7 @@ server.use('/', systemRoute.getRouter())
 // App routes
 const appRoute = AppRouter()
 appRoute.get(
-  'courseMemo.getAboutMemoContent',
+  'public.getAboutMemoContent',
   config.proxyPrefixPath.uri + '/to-kurs-pm-api/:courseCode',
   CourseMemo.getAllMemosPdfAndWeb
 )
@@ -205,15 +205,23 @@ appRoute.get(
   SyllabusPdf.getPdfProxy(config.nodeApi.kursplanApi, config.apiKey.kursplanApi)
 )
 appRoute.get(
-  'courseMemo.getOldContent',
+  'public.getOldContent',
   config.proxyPrefixPath.uri + '/old/:courseCode/:memoEndPoint/:version',
   CourseMemo.getOldContent
 )
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode', CourseMemo.getContent)
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)
+appRoute.get('redirect.getAboutCourseMemo', config.proxyPrefixPath.uri + '/:courseCode', (req, res) => {
+  const { courseCode } = req.params
+  res.redirect(301, `${config.proxyPrefixPath.uri}/${courseCode}/om-kurs-pm`)
+})
+appRoute.get(
+  'public.getAboutCourseMemo',
+  config.proxyPrefixPath.uri + '/:courseCode/om-kurs-pm',
+  CourseMemo.getAboutContent
+)
+appRoute.get('public.getContent', config.proxyPrefixPath.uri + '/:courseCode/:id', CourseMemo.getContent)
+appRoute.get('public.getContent', config.proxyPrefixPath.uri + '/:courseCode/:semester/:id', CourseMemo.getContent)
 
-appRoute.get('courseMemo.getContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
+appRoute.get('public.getNoContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
 
 server.use('/', appRoute.getRouter())
 
