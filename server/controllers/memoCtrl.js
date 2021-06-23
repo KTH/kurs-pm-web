@@ -193,6 +193,9 @@ async function getContent(req, res, next) {
     routerStore.courseCode = courseCode
 
     const memoDatas = await getMemoDataById(courseCode, 'published')
+    // Set temporary memoDatas to be able to resolve language
+    // TODO: Try to rework this unsound solution
+    routerStore.memoDatas = memoDatas
 
     const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
     routerStore.memoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, memoDatas)
@@ -217,6 +220,7 @@ async function getContent(req, res, next) {
     routerStore.infoContactName = infoContactName
     routerStore.examiners = examiners
 
+    // MemoDatas are set again.
     routerStore.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
@@ -270,15 +274,8 @@ async function getOldContent(req, res, next) {
     const latestMemoDatas = await getMemoDataById(courseCode, 'published')
     routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, latestMemoDatas)
 
-    const {
-      courseMainSubjects,
-      recruitmentText,
-      title,
-      credits,
-      creditUnitAbbr,
-      infoContactName,
-      examiners
-    } = await getDetailedInformation(courseCode, routerStore.memoLanguage)
+    const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
+      await getDetailedInformation(courseCode, routerStore.memoLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
     routerStore.credits = credits
