@@ -21,7 +21,7 @@ const courseInformation = (aboutMemoLabels, courseCode, language) => (
   <p>
     {`${aboutMemoLabels.courseInfo} ${courseCode} ${aboutMemoLabels.onPage} `}
     {beforeChoosingCourseLink(courseCode, aboutMemoLabels, language)}
-    {'.'}
+    {'\u002E'}
   </p>
 )
 

@@ -75,13 +75,13 @@ module.exports = {
       'Teknik och management': 'Picture_by_MainFieldOfStudy_22_Technology_Management.jpg',
       Teknik: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
       'Teknik och lärande': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
-      default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
+      default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg',
     },
 
     courseHeaderTitle: 'Kurs-PM',
     courseInformationTitle: 'Information',
 
-    adminLinkLabel: 'Administrera Om kursen'
+    adminLinkLabel: 'Administrera Om kursen',
   },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',
@@ -92,13 +92,13 @@ module.exports = {
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopment: 'Kursens utveckling',
     archive: 'Arkiv',
-    subMenuAriaLabel: 'Undermeny'
+    subMenuAriaLabel: 'Undermeny',
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    rightsAndResponsibilities: 'Rättigheter och skyldigheter'
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
   },
   coverPageLabels: {
     roundsTitle: 'Kursomgång',
@@ -108,14 +108,14 @@ module.exports = {
     syllabusLinkStart: 'Kursplan ',
     syllabusLinkMiddle: '(',
     syllabusLinkEnd: ')',
-    memoSource: 'Utskrift från sidan'
+    memoSource: 'Utskrift från sidan',
   },
   courseFactsLabels: {
     roundFacts: 'Fakta om kursomgång',
     offeredByTitle: 'Kursen ges av',
     languageOfInstructionTitle: 'Undervisningsspråk',
     roundsTitle: 'Kursomgång',
-    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
   },
   courseMemoLinksLabels: {
     documents: 'Dokument',
@@ -131,7 +131,7 @@ module.exports = {
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     inDevelopment: 'Under utveckling',
     printDialog: 'Skriv ut eller spara kurs-PM',
-    version: 'Ver'
+    version: 'Ver',
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',
@@ -141,24 +141,24 @@ module.exports = {
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
-    infoContactName: 'Kontaktperson'
+    infoContactName: 'Kontaktperson',
   },
   extraInfo: {
     season: {
       1: 'VT ',
-      2: 'HT '
-    }
+      2: 'HT ',
+    },
   },
   sourceInfo: {
     noInfoYet: 'Ingen information tillagd.',
-    insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'
+    insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)',
   },
   sectionsLabels: {
     contentAndOutcomes: 'Innehåll och lärandemål',
     prep: 'Förbereda inför kursstart',
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare Information',
-    contacts: 'Kontakter'
+    contacts: 'Kontakter',
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Övriga föreskrifter',
@@ -194,7 +194,7 @@ module.exports = {
     scheduleDetails: 'Detaljplanering',
     software: 'Programvara',
     teacher: 'Lärare',
-    teacherAssistants: 'Lärarassistenter'
+    teacherAssistants: 'Lärarassistenter',
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrera Om kursen',
@@ -204,12 +204,12 @@ module.exports = {
     latestVersionLabel: '(senaste versionen)',
     aboutCourseMemo: 'Kurs-PM',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
-    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
   },
   aboutHeaderLabels: {
     memoLabel: 'Kurs-PM',
     adminLinkLabel: 'Administrera Om kursen',
-    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
   },
   aboutMemoLabels: {
     notPublished: 'är inte publicerad',
@@ -227,9 +227,9 @@ module.exports = {
     onPage: 'hittar du på sidan',
     syllabusLink: 'Inför kursval (kursplan)',
     currentOfferings: 'Kursomgångar som startar',
-    previousOfferings: 'Ej pågående kursomgångar'
+    previousOfferings: 'Ej pågående kursomgångar',
   },
   coursePresentationLabels: {
-    coursePresentation: 'Presentation av kursen'
-  }
+    coursePresentation: 'Presentation av kursen',
+  },
 }

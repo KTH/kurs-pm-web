@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { adminLink, aboutCourseMemoLink } from '../util/links'
 import { Row, Alert } from 'reactstrap'
+import { adminLink, aboutCourseMemoLink } from '../util/links'
 
 const CourseHeader = ({
   courseMemoName,
@@ -12,7 +12,7 @@ const CourseHeader = ({
   oldMemo,
   outdatedMemo,
   latestMemoLabel,
-  latestMemoUrl
+  latestMemoUrl,
 }) => {
   const {
     adminLinkLabel,
@@ -21,7 +21,7 @@ const CourseHeader = ({
     show,
     latestVersionLabel,
     aboutCourseMemo,
-    mandatoryFieldMissing
+    mandatoryFieldMissing,
   } = labels
   return (
     <Row>
@@ -53,8 +53,8 @@ const CourseHeader = ({
         <div className="col-like">
           <Alert color="info">
             {`${laterMemos} `}
-            {<a href={aboutCourseMemoLink(courseCode)}>{aboutCourseMemo}</a>}
-            {'.'}
+            <a href={aboutCourseMemoLink(courseCode)}>{aboutCourseMemo}</a>
+            {'\u002E'}
           </Alert>
         </div>
       )}

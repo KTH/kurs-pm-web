@@ -2,8 +2,8 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-import { adminLink } from '../util/links'
 import { Row } from 'reactstrap'
+import { adminLink } from '../util/links'
 
 const formatCredits = (credits, creditUnitAbbr, language) => {
   const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
@@ -17,7 +17,7 @@ const AboutHeader = ({
   credits = '',
   creditUnitAbbr = '',
   labels = {},
-  language = 'sv'
+  language = 'sv',
 }) => {
   const { adminLinkLabel } = labels
   return (

@@ -19,7 +19,7 @@ const formatVersionDate = (language = 'sv', version) => {
 const formatVersion = (version, language, lastChangeDate) =>
   `Version ${version} – ${formatVersionDate(language, lastChangeDate)}`
 
-const formatRounds = (rounds) => {
+const formatRounds = rounds => {
   // Split rounds with comma after end parentheses and then add '),' in display
   const splitRounds = rounds.split('),')
   const lastIndex = splitRounds.length - 1
@@ -36,10 +36,10 @@ const formatRounds = (rounds) => {
 }
 
 const syllabusLabel = (labels, language, syllabusValid, courseCode) => {
+  const { syllabusInformation, syllabusLinkStart, syllabusLinkMiddle, syllabusLinkEnd } = labels
   if (!syllabusValid.textFromTo) {
     return <>{`* ${syllabusInformation} N/A`}</>
   }
-  const { syllabusInformation, syllabusLinkStart, syllabusLinkMiddle, syllabusLinkEnd } = labels
   const syllabusLinkLabel = `${syllabusLinkStart} ${courseCode} ${syllabusLinkMiddle}${syllabusValid.textFromTo}${syllabusLinkEnd}`
   const syllabusLink = (
     <a className="pdf-post-link" href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}>
@@ -76,7 +76,7 @@ const CoverPage = ({
   courseCode,
   languageOfInstruction,
   syllabusValid = {},
-  url
+  url,
 }) => (
   <section className="cover-page d-none d-print-block">
     <h1>{courseTitle}</h1>

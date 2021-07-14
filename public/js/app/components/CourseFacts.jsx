@@ -2,7 +2,7 @@ import React from 'react'
 
 import { linkToSchool } from '../util/links'
 
-const formatRounds = (rounds) => {
+const formatRounds = rounds => {
   // Split rounds with comma after end parentheses and then add '),' in display
   const splitRounds = rounds.split('),')
   const lastIndex = splitRounds.length - 1

@@ -21,5 +21,5 @@ async function getCourseInfo(courseCode) {
 }
 
 module.exports = {
-  getCourseInfo
+  getCourseInfo,
 }

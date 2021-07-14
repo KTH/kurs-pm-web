@@ -37,7 +37,7 @@ function hydrateStores(renderProps) {
   const outp = {}
   const { props } = renderProps.props.children
 
-  Object.keys(props).map((key) => {
+  Object.keys(props).forEach(key => {
     if (typeof props[key].initializeStore === 'function') {
       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
     }
@@ -80,7 +80,7 @@ function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
   if (potentialMemoEndPoint) {
     let memoEndPoint
     // Do memoDatas contain memoEndPoint that equals potential memoEndPoint
-    const memoDataWithMemoEndPoint = memoDatas.find((m) => m.memoEndPoint === potentialMemoEndPoint)
+    const memoDataWithMemoEndPoint = memoDatas.find(m => m.memoEndPoint === potentialMemoEndPoint)
     if (memoDataWithMemoEndPoint) {
       memoEndPoint = memoDataWithMemoEndPoint.memoEndPoint
     }
@@ -91,7 +91,7 @@ function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
       if (potentialMemoEndPointParts.length > 1) {
         const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
         const potentialCourseRounds = potentialMemoEndPointParts.slice(1)
-        const memoData = memoDatas.find((m) => {
+        const memoData = memoDatas.find(m => {
           const memoEndPointParts = m.memoEndPoint.split('-')
           if (memoEndPointParts.length > 1) {
             const courseCodeAndSemester = memoEndPointParts[0]
@@ -139,7 +139,7 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
 
   // Course offering in memo has end year later or equal to previous year
   const offering = offerings.find(
-    (o) => memoData.ladokRoundIds.includes(o.ladokRoundId) && memoData.semester === o.semester
+    o => memoData.ladokRoundIds.includes(o.ladokRoundId) && memoData.semester === o.semester
   )
   if (offering && offering.endYear >= startSelectionYear) {
     return false
@@ -157,7 +157,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   const currentYear = new Date().getFullYear()
   const startSelectionYear = currentYear - 1
 
-  const offerings = roundInfos.filter((r) =>
+  const offerings = roundInfos.filter(r =>
     r.round &&
     r.round.ladokRoundId &&
     r.round.startTerm &&
@@ -168,13 +168,13 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
       ? {
           ladokRoundId: r.round.ladokRoundId,
           semester: r.round.startTerm.term,
-          endYear: r.round.endWeek.year
+          endYear: r.round.endWeek.year,
         }
       : {}
   )
-  const markedOutDatedMemoDatas = memoDatas.map((m) => ({
+  const markedOutDatedMemoDatas = memoDatas.map(m => ({
     ...m,
-    ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) }
+    ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) },
   }))
   return markedOutDatedMemoDatas
 }
@@ -211,7 +211,7 @@ async function getContent(req, res, next) {
       creditUnitAbbr,
       infoContactName,
       examiners,
-      roundInfos
+      roundInfos,
     } = await getDetailedInformation(courseCode, routerStore.memoLanguage)
     routerStore.courseMainSubjects = courseMainSubjects
     routerStore.title = title
@@ -237,12 +237,12 @@ async function getContent(req, res, next) {
       html,
       aboutCourse: {
         siteName: shortDescription,
-        siteUrl: '/student/kurser/kurs/' + courseCode
+        siteUrl: '/student/kurser/kurs/' + courseCode,
       },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
-      description: shortDescription
+      description: shortDescription,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -295,13 +295,13 @@ async function getOldContent(req, res, next) {
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
-        siteUrl: '/student/kurser/kurs/' + courseCode
+        siteUrl: '/student/kurser/kurs/' + courseCode,
       },
       html,
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
-      description: shortDescription
+      description: shortDescription,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -348,12 +348,12 @@ async function getAboutContent(req, res, next) {
       html,
       aboutCourse: {
         siteName: shortDescription,
-        siteUrl: '/student/kurser/kurs/' + courseCode
+        siteUrl: '/student/kurser/kurs/' + courseCode,
       },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
-      description: shortDescription
+      description: shortDescription,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -383,11 +383,11 @@ async function getNoContent(req, res, next) {
       html,
       aboutCourse: {
         siteName: shortDescription,
-        siteUrl: ''
+        siteUrl: '',
       },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       lang: responseLanguage,
-      description: shortDescription
+      description: shortDescription,
     })
   } catch (err) {
     log.error('Error in getNoContent', { error: err })
@@ -416,5 +416,5 @@ module.exports = {
   getContent,
   getOldContent,
   getNoContent,
-  getAboutContent
+  getAboutContent,
 }

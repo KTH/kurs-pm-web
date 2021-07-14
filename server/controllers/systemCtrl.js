@@ -4,16 +4,16 @@
  * System controller for functions such as /about and /monitor
  */
 const log = require('kth-node-log')
-const version = require('../../config/version')
-const config = require('../configuration').server
-const packageFile = require('../../package.json')
+const registry = require('component-registry').globalRegistry
+const { IHealthCheck } = require('kth-node-monitor').interfaces
 const { getPaths } = require('kth-node-express-routing')
 const language = require('kth-node-web-common/lib/language')
 const os = require('os')
+const version = require('../../config/version')
+const config = require('../configuration').server
+const packageFile = require('../../package.json')
 const i18n = require('../../i18n')
 const api = require('../api')
-const registry = require('component-registry').globalRegistry
-const { IHealthCheck } = require('kth-node-monitor').interfaces
 
 /**
  * Get request on not found (404)
@@ -61,7 +61,7 @@ function _final(err, req, res) {
         error: isProd ? {} : err,
         status: statusCode,
         debug: 'debug' in req.query,
-        lang
+        lang,
       })
     },
 
@@ -69,7 +69,7 @@ function _final(err, req, res) {
       res.status(statusCode).json({
         message: err.message,
         friendly: _getFriendlyErrorMessage(lang, statusCode),
-        error: isProd ? undefined : err.stack
+        error: isProd ? undefined : err.stack,
       })
     },
 
@@ -78,7 +78,7 @@ function _final(err, req, res) {
         .status(statusCode)
         .type('text')
         .send(isProd ? err.message : err.stack)
-    }
+    },
   })
 }
 
@@ -102,7 +102,7 @@ function _about(req, res) {
     dockerVersion: JSON.stringify(version.dockerVersion),
     language: language.getLanguage(res),
     hostname: os.hostname(),
-    env: require('../server').get('env')
+    env: require('../server').get('env'),
   })
 }
 
@@ -113,10 +113,10 @@ function _monitor(req, res) {
   const apiConfig = config.nodeApi
 
   // Check APIs
-  const subSystems = Object.keys(api).map((apiKey) => {
+  const subSystems = Object.keys(api).map(apiKey => {
     const apiHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-api')
     return apiHealthUtil.status(api[apiKey], {
-      required: apiConfig[apiKey].required
+      required: apiConfig[apiKey].required,
     })
   })
 
@@ -134,7 +134,7 @@ function _monitor(req, res) {
   const systemStatus = systemHealthUtil.status(localSystems, subSystems)
 
   systemStatus
-    .then((status) => {
+    .then(status => {
       // Return the result either as JSON or text
       if (req.headers.accept === 'application/json') {
         const outp = systemHealthUtil.renderJSON(status)
@@ -144,7 +144,7 @@ function _monitor(req, res) {
         res.type('text').status(status.statusCode).send(outp)
       }
     })
-    .catch((err) => {
+    .catch(err => {
       res.type('text').status(500).send(err)
     })
 }
@@ -154,7 +154,7 @@ function _monitor(req, res) {
  */
 function _robotsTxt(req, res) {
   res.type('text').render('system/robots', {
-    layout: null
+    layout: null,
   })
 }
 
@@ -177,5 +177,5 @@ module.exports = {
   robotsTxt: _robotsTxt,
   paths: _paths,
   notFound: _notFound,
-  final: _final
+  final: _final,
 }

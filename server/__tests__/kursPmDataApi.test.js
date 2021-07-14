@@ -3,32 +3,32 @@ jest.mock('../configuration', () => ({
     nodeApi: {},
     logging: {
       log: {
-        level: 'debug'
-      }
+        level: 'debug',
+      },
     },
     proxyPrefixPath: {
-      uri: 'kurs-pm'
+      uri: 'kurs-pm',
     },
     session: { sessionOptions: { secret: '' }, key: 'kurs-pm' },
     sessionSecret: '1234',
     blockApi: { blockUrl: 'http://localhost' },
     cache: {
       cortinaBlock: {
-        redis: 'http://localhost'
-      }
-    }
-  }
+        redis: 'http://localhost',
+      },
+    },
+  },
 }))
 
 const { sortBySemesterAndName } = require('../kursPmDataApi')
 
 describe('Sort memoDatas', () => {
-  test('with empty list', (done) => {
+  test('with empty list', done => {
     const memoDatas = []
     memoDatas.sort(sortBySemesterAndName)
     done()
   })
-  test('by semester', (done) => {
+  test('by semester', done => {
     const spring18 = { semester: '20181' }
     const spring19 = { semester: '20191' }
     const fall19 = { semester: '20192' }
@@ -37,7 +37,7 @@ describe('Sort memoDatas', () => {
     expect(memoDatas).toEqual([fall19, spring19, spring18])
     done()
   })
-  test('by ladok round id', (done) => {
+  test('by ladok round id', done => {
     const spring181 = { semester: '20181', ladokRoundIds: [1] }
     const spring1823 = { semester: '20181', ladokRoundIds: [2, 3] }
     const spring184 = { semester: '20181', ladokRoundIds: [4] }

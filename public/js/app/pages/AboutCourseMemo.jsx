@@ -4,8 +4,8 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, InfoModalButton } from '@kth/kth-kip-style-react-components'
 
-import i18n from '../../../../i18n'
 import axios from 'axios'
+import i18n from '../../../../i18n'
 
 import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
 
@@ -36,11 +36,11 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    let mainSubjects = courseMainSubjects.split(',').map((s) => s.trim())
+    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
     courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
@@ -52,7 +52,7 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
-const getWebAndPdfMemos = async (courseCode) => {
+const getWebAndPdfMemos = async courseCode => {
   const URL_KURS_PM_INTERNAL_API = `/kurs-pm/to-kurs-pm-api/${courseCode}`
   try {
     const result = await axios.get(URL_KURS_PM_INTERNAL_API)
@@ -77,7 +77,7 @@ class AboutCourseMemo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      webAndPdfMiniMemos: {}
+      webAndPdfMiniMemos: {},
     }
   }
 
@@ -96,11 +96,10 @@ class AboutCourseMemo extends Component {
     const { routerStore, location } = this.props
     const { webAndPdfMiniMemos } = this.state
     const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
-    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
-      userLanguageIndex
-    ]
+    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
+      i18n.messages[userLanguageIndex]
 
-    let menuMemoItems = routerStore.memoDatas.map((m) => {
+    let menuMemoItems = routerStore.memoDatas.map(m => {
       const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       return {
@@ -109,15 +108,15 @@ class AboutCourseMemo extends Component {
         label,
         active: false,
         url: `/kurs-pm/${courseCode}/${id}`,
-        outdated
+        outdated,
       }
     })
     // Duplicate id’s filtered out
-    menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
+    menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
 
     // First visible semester
     const firstVisibleSemester = menuMemoItems
-      .filter((m) => !m.outdated)
+      .filter(m => !m.outdated)
       .reduce((firstSemester, menuItem) => {
         const menuItemSemester = Number.parseInt(menuItem.semester, 10)
         if (menuItemSemester < firstSemester) {
@@ -179,13 +178,13 @@ class AboutCourseMemo extends Component {
                           header: aboutMemoLabels.currentMemos,
                           body: aboutMemoLabels.currentMemosInfo,
                           btnClose: aboutMemoLabels.btnClose,
-                          ariaLabel: aboutMemoLabels.ariaLabel
+                          ariaLabel: aboutMemoLabels.ariaLabel,
                         }}
                       />
                     </span>
                     {Object.keys(webAndPdfMiniMemos)
                       .reverse()
-                      .map((semester) => {
+                      .map(semester => {
                         if (Number.parseInt(semester, 10) < firstVisibleSemester) {
                           return null
                         }
@@ -201,7 +200,7 @@ class AboutCourseMemo extends Component {
                                   ladokRoundIds,
                                   memoCommonLangAbbr,
                                   memoEndPoint,
-                                  semester: itemSemester
+                                  semester: itemSemester,
                                 }) => (
                                   <li key={memoEndPoint || pdfFileName}>
                                     {(isPdf && (

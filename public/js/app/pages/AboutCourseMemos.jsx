@@ -10,9 +10,6 @@ import { sideMenuBackLink } from '../util/links'
 
 import SideMenu from '../components/SideMenu'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
-
 function renderBreadcrumbsIntoKthHeader(courseCode, language) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
 

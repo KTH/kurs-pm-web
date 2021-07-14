@@ -14,7 +14,7 @@ class NewSectionEditor extends Component {
     contentForEditor: this.props.initialValue || '', // this.props.routerStore???
     contentForTitle: this.props.initialTitle || '', // Default value needed
     visibleInMemo: this.props.visibleInMemo,
-    isEmptyNew: this.props.isEmptyNew || false
+    isEmptyNew: this.props.isEmptyNew || false,
   }
 
   userLangIndex = this.props.routerStore.language === 'sv' ? 1 : 0
@@ -36,7 +36,7 @@ class NewSectionEditor extends Component {
           ((visibleInMemo && (
             <span
               dangerouslySetInnerHTML={{
-                __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${sourceInfo.noInfoYet}</i></p>`
+                __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${sourceInfo.noInfoYet}</i></p>`,
               }}
             />
           )) ||

@@ -1,9 +1,9 @@
 'use strict'
 
 const log = require('kth-node-log')
-const config = require('./configuration').server
 const redis = require('kth-node-redis')
 const connections = require('kth-node-api-call').Connections
+const config = require('./configuration').server
 
 const koppsOpts = {
   log,
@@ -13,14 +13,14 @@ const koppsOpts = {
   timeout: 5000,
   defaultTimeout: config.koppsApi.defaultTimeout,
   retryOnESOCKETTIMEDOUT: true,
-  useApiKey: false // skip key
+  useApiKey: false, // skip key
 }
 
 config.koppsApi.doNotCallPathsEndpoint = true // skip checking _paths, because Kopps doesnt have it
 config.koppsApi.connected = true
 
 const koppsConfig = {
-  koppsApi: config.koppsApi
+  koppsApi: config.koppsApi,
 }
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
@@ -28,7 +28,7 @@ const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 // From kurs-pm-data-admin-web
 const createPersonHtml = (personList = []) => {
   let personString = ''
-  personList.forEach((person) => {
+  personList.forEach(person => {
     if (person) {
       personString += `<p class = "person">
       <img src="https://www.kth.se/files/thumbnail/${person.username}" alt="Profile picture" width="31" height="31">
@@ -58,7 +58,7 @@ async function getDetailedInformation(courseCode, language) {
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
         infoContactName: course && course.infoContactName ? course.infoContactName : '',
         examiners: createPersonHtml(examiners),
-        roundInfos: roundInfos || []
+        roundInfos: roundInfos || [],
       }
     }
 
@@ -78,7 +78,7 @@ async function getDetailedInformation(courseCode, language) {
       credits: '',
       creditUnitAbbr: '',
       examiners: [],
-      roundInfos: []
+      roundInfos: [],
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
@@ -88,5 +88,5 @@ async function getDetailedInformation(courseCode, language) {
 
 module.exports = {
   koppsApi: api,
-  getDetailedInformation
+  getDetailedInformation,
 }

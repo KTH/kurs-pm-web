@@ -6,7 +6,7 @@ const express = require('express')
 const config = require('./config')
 
 const app = express()
-config.paths.forEach((path) => {
+config.paths.forEach(path => {
   console.log('Added path', path.url)
   app[path.method](path.url, (req, res) => {
     console.log('Responded on path', path.url)

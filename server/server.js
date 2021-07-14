@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 const server = require('kth-node-server')
 
 // Now read the server config etc.
@@ -38,7 +39,7 @@ const logConfiguration = {
   level: config.logging.log.level,
   console: config.logging.console,
   stdout: config.logging.stdout,
-  src: config.logging.src
+  src: config.logging.src,
 }
 
 log.init(logConfiguration)
@@ -58,7 +59,7 @@ server.engine(
   exphbs({
     defaultLayout: 'publicLayout',
     layoutsDir: server.settings.layouts,
-    partialsDir: server.settings.partials
+    partialsDir: server.settings.partials,
   })
 )
 server.set('view engine', 'handlebars')
@@ -155,7 +156,7 @@ server.use(
     blockUrl: config.blockApi.blockUrl,
     proxyPrefixPath: config.proxyPrefixPath.uri,
     hostUrl: config.hostUrl,
-    redisConfig: config.cache.cortinaBlock.redis
+    redisConfig: config.cache.cortinaBlock.redis,
   })
 )
 
@@ -168,7 +169,7 @@ const excludeExpression = new RegExp(excludePath)
 server.use(
   excludeExpression,
   require('kth-node-web-common/lib/web/crawlerRedirect')({
-    hostUrl: config.hostUrl
+    hostUrl: config.hostUrl,
   })
 )
 

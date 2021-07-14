@@ -24,11 +24,11 @@ function getPdfProxy(config, key) {
     changeOrigin: true,
     pathRewrite,
     onProxyReq: setApiKey(key),
-    logProvider
+    logProvider,
   }
   return createProxyMiddleware(options)
 }
 
 module.exports = {
-  getPdfProxy
+  getPdfProxy,
 }

@@ -9,7 +9,7 @@ import i18n from '../../../../../i18n'
 const { courseLinksLabels } = i18n.messages[0]
 
 describe('Component <CourseLinks>', () => {
-  test('renders a links aside', (done) => {
+  test('renders a links aside', done => {
     render(<CourseLinks labels={courseLinksLabels} />)
     done()
   })

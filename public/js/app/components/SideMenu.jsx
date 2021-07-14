@@ -6,10 +6,10 @@ import {
   aboutCourseMemoLink,
   linkToCourseDevelopment,
   linkToArchive,
-  sideMenuBackLink
+  sideMenuBackLink,
 } from '../util/links'
 
-const removedOutdated = (courseMemoItem) => !courseMemoItem.outdated
+const removedOutdated = courseMemoItem => !courseMemoItem.outdated
 
 const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems, archivedMemo }) =>
   archivedMemo ? (

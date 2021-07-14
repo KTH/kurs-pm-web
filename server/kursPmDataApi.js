@@ -21,7 +21,7 @@ async function getMemoDataById(courseCode, type, version) {
     const res = await client.getAsync({ uri })
     const memoDatas = res.body
     if (version) {
-      return memoDatas.filter((memoData) => memoData.version === version || memoData.version === parseInt(version, 10))
+      return memoDatas.filter(memoData => memoData.version === version || memoData.version === parseInt(version, 10))
     }
     memoDatas.sort(sortBySemesterAndName)
     return memoDatas
@@ -47,5 +47,5 @@ async function getMiniMemosPdfAndWeb(courseCode) {
 module.exports = {
   sortBySemesterAndName,
   getMemoDataById,
-  getMiniMemosPdfAndWeb
+  getMiniMemosPdfAndWeb,
 }

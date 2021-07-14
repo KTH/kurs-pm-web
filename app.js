@@ -2,9 +2,9 @@
 
 require('dotenv').config()
 
+const log = require('kth-node-log')
 const config = require('./server/configuration').server
 const server = require('./server/server')
-const log = require('kth-node-log')
 
 const packageFile = require('./package.json')
 
@@ -28,5 +28,5 @@ module.exports = server.start({
   ca: config.ssl.ca,
   cert: config.ssl.cert,
   port: config.port,
-  logger: log
+  logger: log,
 })

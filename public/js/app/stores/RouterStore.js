@@ -29,7 +29,7 @@ class RouterStore {
   @observable infoContactName
 
   @computed get memoData() {
-    const memoData = this.memoDatas.find((m) => m.memoEndPoint === this.memoEndPoint)
+    const memoData = this.memoDatas.find(m => m.memoEndPoint === this.memoEndPoint)
     return memoData || {}
   }
 
@@ -122,7 +122,7 @@ class RouterStore {
 
       const tmp = JSON.parse(decodeURIComponent(window.__initialState__[storeName]))
 
-      Object.keys(tmp).map((key) => {
+      Object.keys(tmp).forEach(key => {
         store[key] = tmp[key]
         delete tmp[key]
       })

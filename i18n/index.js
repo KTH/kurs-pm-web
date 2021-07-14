@@ -1,4 +1,5 @@
 'use strict'
+
 /**
  * Extension of the i18n module that depends on the server configuration
  * and is therefore not consumable by the server.

@@ -36,7 +36,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
   // TODO Refactor logic for visible sections
   const sectionsWithContent = []
   sections.forEach(({ id, content, extraHeaderTitle }) => {
-    content.forEach((contentId) => {
+    content.forEach(contentId => {
       const { isRequired, type } = context[contentId]
       let contentHtml = memoData[contentId]
       let visibleInMemo = memoData.visibleInMemo[contentId]
@@ -57,7 +57,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
     })
 
     if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
-      memoData[extraHeaderTitle].forEach((m) => {
+      memoData[extraHeaderTitle].forEach(m => {
         if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
           sectionsWithContent.push(id)
         }
@@ -86,7 +86,7 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          {content.map((contentId) => {
+          {content.map(contentId => {
             const menuId = id + '-' + contentId
 
             const { isRequired, type } = context[contentId]
@@ -119,23 +119,21 @@ const renderAllSections = ({ memoData, memoLanguageIndex }) => {
           })}
           {extraHeaderTitle &&
             Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
-              return (
-                <NewSectionEditor
-                  contentId={extraHeaderTitle}
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={uKey}
-                  initialTitle={title}
-                  initialValue={htmlContent}
-                  visibleInMemo={visibleInMemo}
-                  isEmptyNew={isEmptyNew}
-                  uKey={uKey}
-                  onEditorChange={() => {}}
-                  onBlur={() => {}}
-                  onRemove={() => {}}
-                />
-              )
-            })}
+            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
+              <NewSectionEditor
+                contentId={extraHeaderTitle}
+                // eslint-disable-next-line react/no-array-index-key
+                key={uKey}
+                initialTitle={title}
+                initialValue={htmlContent}
+                visibleInMemo={visibleInMemo}
+                isEmptyNew={isEmptyNew}
+                uKey={uKey}
+                onEditorChange={() => {}}
+                onBlur={() => {}}
+                onRemove={() => {}}
+              />
+            ))}
         </section>
       )
     )
@@ -159,11 +157,11 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    let mainSubjects = courseMainSubjects.split(',').map((s) => s.trim())
+    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
     courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
@@ -180,7 +178,7 @@ const determineContentFlexibility = () => {
   if (lastColLastElem) {
     const lastElBottomPx = lastColLastElem.getBoundingClientRect().bottom
     const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('article')
-    allCenterSections.forEach((section) => {
+    allCenterSections.forEach(section => {
       const topOfSection = section.getBoundingClientRect().top
       if (topOfSection > lastElBottomPx) section.classList.add('flexible-section-style')
     })
@@ -199,7 +197,7 @@ const redirectToAbout = (routerStore, location) => {
       <Redirect
         to={{
           pathname: `/kurs-pm/${routerStore.courseCode}/om-kurs-pm`,
-          state: { noMemoData: true, semester, roundIds }
+          state: { noMemoData: true, semester, roundIds },
         }}
       />
     )
@@ -215,7 +213,7 @@ const redirectToAbout = (routerStore, location) => {
         <Redirect
           to={{
             pathname: `/kurs-pm/${routerStore.courseCode}/om-kurs-pm`,
-            state: { noMemoData: true, semester: semester || '', roundIds: roundIds || [] }
+            state: { noMemoData: true, semester: semester || '', roundIds: roundIds || [] },
           }}
         />
       )
@@ -253,11 +251,11 @@ class CourseMemo extends Component {
       extraInfo,
       coursePresentationLabels,
       courseLinksLabels,
-      courseContactsLabels
+      courseContactsLabels,
     } = i18n.messages[routerStore.memoLanguageIndex]
     const { courseHeaderLabels, sideMenuLabels } = i18n.messages[routerStore.userLanguageIndex]
 
-    let courseMemoItems = routerStore.memoDatas.map((m) => {
+    let courseMemoItems = routerStore.memoDatas.map(m => {
       const { outdated, memoEndPoint: id } = m
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       const active = routerStore.activeMemoEndPoint(id)
@@ -266,11 +264,11 @@ class CourseMemo extends Component {
         label,
         active,
         url: `/kurs-pm/${routerStore.courseCode}/${id}`,
-        outdated
+        outdated,
       }
     })
     // Duplicate id’s filtered out
-    courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex((t) => t.id === item.id))
+    courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
 
     return (
       <Container fluid>

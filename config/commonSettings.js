@@ -16,8 +16,8 @@ const devMemoStorageUri = 'https://kursinfostoragestage.blob.core.windows.net/me
 module.exports = {
   // The proxy prefix path if the application is proxied. E.g /places
   proxyPrefixPath: {
-    uri: getEnv('SERVICE_PUBLISH', devPrefixPath)
+    uri: getEnv('SERVICE_PUBLISH', devPrefixPath),
   },
   imageStorageUri: getEnv('IMAGE_STORAGE_URI', devImageStorageUri),
-  memoStorageUri: getEnv('MEMO_STORAGE_URI', devMemoStorageUri)
+  memoStorageUri: getEnv('MEMO_STORAGE_URI', devMemoStorageUri),
 }

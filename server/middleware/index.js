@@ -2,5 +2,5 @@
 
 module.exports = {
   CourseMemoPdf: require('./memoPdfProxy'),
-  SyllabusPdf: require('./syllabusPdfProxy')
+  SyllabusPdf: require('./syllabusPdfProxy'),
 }

@@ -10,7 +10,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* 
   const { noInfoYet, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
   const fromSyllabus = {
     is: context[contentId].source === '(s)',
-    subHeader: contentId === 'examination' || contentId === 'ethicalApproach'
+    subHeader: contentId === 'examination' || contentId === 'ethicalApproach',
   }
   const isAddedSubSection = context[contentId].hasParentTitle && contentId !== 'permanentDisabilitySubSection'
   return (
@@ -23,7 +23,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* 
       <span
         style={visibleInMemo ? {} : { display: 'none' }}
         dangerouslySetInnerHTML={{
-          __html: html || `<p><i>${noInfoYet}</i></p>`
+          __html: html || `<p><i>${noInfoYet}</i></p>`,
         }}
       />
     </article>

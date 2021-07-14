@@ -14,37 +14,37 @@ const mockCourseMemoItems = [
     label: '1',
     active: false,
     url: 'https://test.com',
-    outdated: false
+    outdated: false,
   },
   {
     id: '2',
     label: '2',
     active: true,
     url: 'https://test.com',
-    outdated: false
+    outdated: false,
   },
   {
     id: '3',
     label: '3',
     active: false,
     url: 'https://test.com',
-    outdated: true
+    outdated: true,
   },
   {
     id: '4',
     label: '4',
     active: false,
     url: 'https://test.com',
-    outdated: false
-  }
+    outdated: false,
+  },
 ]
 
 describe('Component <SideMenu>', () => {
-  test('renders', (done) => {
+  test('renders', done => {
     render(<SideMenu labels={sideMenuLabels} courseMemoItems={[]} />)
     done()
   })
-  test('renders memos', (done) => {
+  test('renders memos', done => {
     const { getAllByRole } = render(<SideMenu labels={sideMenuLabels} courseMemoItems={mockCourseMemoItems} />)
     const listItems = getAllByRole('listitem')
     expect(listItems).toHaveLength(10)

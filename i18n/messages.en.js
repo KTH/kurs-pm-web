@@ -76,7 +76,7 @@ module.exports = {
       Technology: 'Teknik',
       'Engineering and Management': 'Teknik och management',
       'Technology and Learning': 'Teknik och lärande',
-      default: 'default'
+      default: 'default',
     },
 
     courseImage: {
@@ -105,13 +105,13 @@ module.exports = {
       Technology: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
       'Engineering and Management': 'Picture_by_MainFieldOfStudy_24_Engineering_Management.jpg',
       'Technology and Learning': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
-      default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
+      default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg',
     },
 
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
 
-    adminLinkLabel: 'Administrate About course'
+    adminLinkLabel: 'Administrate About course',
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
@@ -122,13 +122,13 @@ module.exports = {
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
     archive: 'Archive',
-    subMenuAriaLabel: 'Sub menu'
+    subMenuAriaLabel: 'Sub menu',
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    rightsAndResponsibilities: 'Rights and responsibilities'
+    rightsAndResponsibilities: 'Rights and responsibilities',
   },
   coverPageLabels: {
     roundsTitle: 'Course offering',
@@ -138,14 +138,14 @@ module.exports = {
     syllabusLinkStart: 'Syllabus ',
     syllabusLinkMiddle: '(',
     syllabusLinkEnd: ')',
-    memoSource: 'Printed from page'
+    memoSource: 'Printed from page',
   },
   courseFactsLabels: {
     roundFacts: 'Round Facts',
     offeredByTitle: 'Offered By',
     languageOfInstructionTitle: 'Language Of Instruction',
     roundsTitle: 'Course offering',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
   },
   courseMemoLinksLabels: {
     documents: 'Documents',
@@ -161,7 +161,7 @@ module.exports = {
     mandatoryFieldMissing: 'Missing mandatory information',
     inDevelopment: 'In development',
     printDialog: 'Print or save course memo',
-    version: 'Ver'
+    version: 'Ver',
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
@@ -171,24 +171,24 @@ module.exports = {
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
-    infoContactName: 'Course Contact'
+    infoContactName: 'Course Contact',
   },
   extraInfo: {
     season: {
       1: 'Spring ',
-      2: 'Autumn '
-    }
+      2: 'Autumn ',
+    },
   },
   sourceInfo: {
     noInfoYet: 'No information inserted',
-    insertedSubSection: '(Section below is not part of the syllabus)'
+    insertedSubSection: '(Section below is not part of the syllabus)',
   },
   sectionsLabels: {
     contentAndOutcomes: 'Content and learning outcomes',
     prep: 'Preparations before course start',
     reqToFinal: 'Examination and completion',
     extra: 'Further information',
-    contacts: 'Contact'
+    contacts: 'Contact',
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Additional regulations',
@@ -224,7 +224,7 @@ module.exports = {
     scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teacher',
-    teacherAssistants: 'Teacher assistants'
+    teacherAssistants: 'Teacher assistants',
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrate About course',
@@ -234,12 +234,12 @@ module.exports = {
     latestVersionLabel: '(latest version)',
     aboutCourseMemo: 'Course memo',
     linkOpensInNewTab: 'Link will open in new tab',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
   },
   aboutHeaderLabels: {
     memoLabel: 'Course memo',
     adminLinkLabel: 'Administrate About course',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
   },
   aboutMemoLabels: {
     notPublished: 'hasn’t been published',
@@ -257,9 +257,9 @@ module.exports = {
     onPage: 'is available on',
     syllabusLink: 'Before choosing course (syllabus)',
     currentOfferings: 'Course offerings starting',
-    previousOfferings: 'Previous course offerings'
+    previousOfferings: 'Previous course offerings',
   },
   coursePresentationLabels: {
-    coursePresentation: 'Course presentation'
-  }
+    coursePresentation: 'Course presentation',
+  },
 }

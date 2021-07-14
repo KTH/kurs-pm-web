@@ -3,13 +3,13 @@ function courseLinks(language) {
   return {
     beforeAndDuringACourse: `https://www.kth.se/${languagePath}student/kurs/infor-och-under-en-kurs`,
     contactPersonsAndStudentCounselling: `https://www.kth.se/${languagePath}student/studievagledning-kontakt`,
-    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`
+    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`,
   }
 }
 
 const sideMenuBackLink = {
   en: '/student/kurser/kurser-inom-program?l=en',
-  sv: '/student/kurser/kurser-inom-program'
+  sv: '/student/kurser/kurser-inom-program',
 }
 
 function aboutCourseLink(courseCode, language) {
@@ -67,5 +67,5 @@ module.exports = {
   linkToCourseDevelopment,
   linkToPublishedMemo,
   linkToPublishedMemoPdf,
-  linkToSyllabus
+  linkToSyllabus,
 }

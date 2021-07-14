@@ -8,25 +8,25 @@ import CourseMemo from '../CourseMemo'
 const { getAllByRole } = screen
 
 describe('Component <CourseMemo>', () => {
-  test('renders a course memo', (done) => {
+  test('renders a course memo', done => {
     const routerStore = {
       browserConfig: { imageStorageUri: 'localhost://' },
       noMemoData: () => false,
       memoData: {
         courseTitle: '',
-        visibleInMemo: {}
+        visibleInMemo: {},
       },
       memoDatas: [
         {
           semester: '',
           ladokRoundIds: [],
-          memoCommonLangAbbr: ''
-        }
+          memoCommonLangAbbr: '',
+        },
       ],
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
       activeMemoEndPoint: () => false,
-      roundIds: []
+      roundIds: [],
     }
     render(
       <Provider routerStore={routerStore}>
@@ -38,7 +38,7 @@ describe('Component <CourseMemo>', () => {
 })
 
 describe('Page CourseMemo', () => {
-  test('renders a side menu', (done) => {
+  test('renders a side menu', done => {
     const spring181 = { memoEndPoint: '181', semester: '20181', ladokRoundIds: [1], memoCommonLangAbbr: 'en' }
     const spring1823 = { memoEndPoint: '1823', semester: '20181', ladokRoundIds: [2, 3], memoCommonLangAbbr: 'en' }
     const spring184 = { memoEndPoint: '184', semester: '20181', ladokRoundIds: [4], memoCommonLangAbbr: 'en' }
@@ -54,9 +54,9 @@ describe('Page CourseMemo', () => {
       memoDatas,
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
-      activeMemoEndPoint: (id) => id === '181',
+      activeMemoEndPoint: id => id === '181',
       roundIds: [],
-      courseCode: 'TEST'
+      courseCode: 'TEST',
     }
 
     render(

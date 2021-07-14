@@ -100,11 +100,11 @@
     "node-forge": "0.10.0"
   },
   "prettier": {
-    "trailingComma": "none",
-    "tabWidth": 2,
+    "arrowParens": "avoid",
+    "printWidth": 120,
     "semi": false,
     "singleQuote": true,
-    "printWidth": 120
+    "trailingComma": "es5"
   },
   "engines": {
     "node": "14.0.0"

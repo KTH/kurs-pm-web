@@ -14,7 +14,7 @@ const mockMixKursPmDataApi = () => ({
       courseMemoFileName: 'memo-KIP272020192-14341833da79.pdf',
       ladokRoundIds: ['2'],
       semester: '20192',
-      isPdf: true
+      isPdf: true,
     },
     {
       courseCode: 'KIP2720',
@@ -23,8 +23,8 @@ const mockMixKursPmDataApi = () => ({
       memoEndPoint: 'KIP272020192-1',
       memoCommonLangAbbr: 'en',
       memoName: 'Autumn 2019-1 (Start date 26/08/2019, English)',
-      isPdf: false
-    }
+      isPdf: false,
+    },
   ],
   20202: [
     {
@@ -34,9 +34,9 @@ const mockMixKursPmDataApi = () => ({
       memoEndPoint: 'KIP272020202-1',
       memoCommonLangAbbr: 'en',
       memoName: 'Autumn 2020-1 (Start date 24/08/2020, English)',
-      isPdf: false
-    }
-  ]
+      isPdf: false,
+    },
+  ],
 })
 
 const { getAllByRole, getAllByText, getByText } = screen
@@ -49,7 +49,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       noMemoData: () => true,
       memoData: {
         courseTitle: 'KIP2720 Projektstyrning 7,5 hp',
-        visibleInMemo: {}
+        visibleInMemo: {},
       },
       memoDatas: [
         {
@@ -57,20 +57,20 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
-          outdated: false
+          outdated: false,
         },
         {
           ladokRoundIds: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
-          outdated: false
-        }
+          outdated: false,
+        },
       ],
       language: 'en',
       userLanguageIndex: 0,
       activeMemoEndPoint: () => false,
-      roundIds: []
+      roundIds: [],
     }
     render(
       <StaticRouter>
@@ -80,11 +80,11 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       </StaticRouter>
     )
   })
-  test('renders a course memo About page with a list of memos', (done) => {
+  test('renders a course memo About page with a list of memos', done => {
     done()
   })
 
-  test('renders and check all H1 headers on the place and correct', (done) => {
+  test('renders and check all H1 headers on the place and correct', done => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Course memo')
@@ -104,7 +104,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     const expectedh3ds = [
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
-      'Previous course offerings'
+      'Previous course offerings',
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
@@ -114,7 +114,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     expect(noInfo.length).toBe(2)
   })
 
-  test('renders menu link of web-based memo as expected', (done) => {
+  test('renders menu link of web-based memo as expected', done => {
     const menuItem = getByText('Course memo Autumn 2019-1')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
@@ -122,65 +122,65 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link of web-based memo as expected', (done) => {
+  test('renders menu link of web-based memo as expected', done => {
     const menuItem = getByText('Course memo Autumn 2020-1')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
     done()
   })
 
-  test('renders menu link Before choosing course', (done) => {
+  test('renders menu link Before choosing course', done => {
     const menuItem = getByText('Before choosing course')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720?l=en')
     done()
   })
 
-  test('renders menu link Course development', (done) => {
+  test('renders menu link Course development', done => {
     const menuItem = getByText('Course development')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720?l=en')
     done()
   })
 
-  test('renders menu link Archive', (done) => {
+  test('renders menu link Archive', done => {
     const menuItems = getAllByText('Archive')
     expect(menuItems.length).toBe(2)
-    menuItems.forEach((menuItem) => {
+    menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     })
     done()
   })
 
-  test('renders menu link Administrate About course', (done) => {
+  test('renders menu link Administrate About course', done => {
     const menuItem = getByText('Administrate About course')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursinfoadmin/kurser/kurs/KIP2720?l=en')
     done()
   })
 
-  test('renders "about memo" list, check pdf-based link as expected, user language', (done) => {
+  test('renders "about memo" list, check pdf-based link as expected, user language', done => {
     const listItem = getByText('Course memo KIP2720 Autumn 2019-2')
     expect(listItem).toBeInTheDocument()
     expect(listItem.href).toBe('http://localhost/kursinfostorage/memo-KIP272020192-14341833da79.pdf')
     done()
   })
 
-  test('renders "about memo" list, check web-based link as expected,  memo language', (done) => {
+  test('renders "about memo" list, check web-based link as expected,  memo language', done => {
     const listItem = getByText('Course memo KIP2720 Autumn 2019-1')
     expect(listItem).toBeInTheDocument()
     expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
     done()
   })
 
-  test('renders "about memo" list, check web-based link as expected, memo language', (done) => {
+  test('renders "about memo" list, check web-based link as expected, memo language', done => {
     const listItem = getByText('Course memo KIP2720 Autumn 2020-1')
     expect(listItem).toBeInTheDocument()
     expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
     done()
   })
 
-  test('renders all links and check its number and labels', (done) => {
+  test('renders all links and check its number and labels', done => {
     const links = getAllByRole('link')
     expect(links.length).toBe(12)
     const expectedlinks = [
@@ -195,7 +195,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Course memo KIP2720 Autumn 2020-1',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
-      'Archive'
+      'Archive',
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
     done()
