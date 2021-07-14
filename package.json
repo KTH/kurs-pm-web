@@ -13,7 +13,6 @@
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
     "prepare": "husky install",
-    "vendor": "parcel build  ./public/js/vendor.js",
     "cy:open": "cypress open -C test/e2e/cypress.env.json",
     "cy:run": "cypress run -C test/e2e/cypress.env.json",
     "cy:run:chrome": "cypress run -C test/e2e/cypress.env.json --browser chrome",
@@ -25,8 +24,8 @@
     "test-unit-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-unit-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
     "test-integration-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-integration-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
     "docker": "npm install --development && npm run build && npm prune --production",
-    "build": "NODE_ENV=production rm -rf dist && parcel build ./public/js/app/app.jsx && npm run vendor --preserve-comments",
-    "build-dev": "cross-env NODE_ENV=development rm -rf dist && parcel build ./public/js/vendor.js --public-url /kurs-pm/static && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",
+    "build": "NODE_ENV=production rm -rf dist && parcel build ./public/js/app/app.jsx --public-url /kurs-pm/static",
+    "build-dev": "cross-env NODE_ENV=development rm -rf dist && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",
     "start": "NODE_ENV=production node app.js",
     "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\""
   },
