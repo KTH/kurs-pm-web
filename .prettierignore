@@ -1,0 +1,5 @@
+# Ignore Handlebars templates
+# 
+# Especially partials seem to cause problems,
+#   e.g. [error] server/views/layouts/publicLayout.handlebars: SyntaxError: Handlebars partials are not supported
+server/views/**/*.handlebars
