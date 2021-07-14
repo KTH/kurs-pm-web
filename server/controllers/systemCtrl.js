@@ -153,7 +153,9 @@ function _monitor(req, res) {
  * Robots.txt page
  */
 function _robotsTxt(req, res) {
-  res.type('text').render('system/robots')
+  res.type('text').render('system/robots', {
+    layout: null
+  })
 }
 
 /* GET /_paths
