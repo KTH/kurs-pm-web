@@ -186,12 +186,6 @@ $icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
   }
 }
 
-li.selected {
-  span.memosLink {
-    padding: 7px 0;
-  }
-}
-
 #mobileMenu.navbar.navbar-expand-lg.navbar-light {
   #mobileMenuContent.navbar-collapse.collapse.show ul.menu.navbar-nav.mr-auto {
     & > li.nav-item.node.selected.expanded {
@@ -201,9 +195,6 @@ li.selected {
       border-top: 1px solid #d4d4d4;
     }
     a.memosLink {
-      padding-left: 10px;
-    }
-    span.memosLink {
       padding-left: 10px;
     }
   }
@@ -357,11 +348,6 @@ sup {
 
 h2.info {
   margin-top: 0;
-}
-
-span.nav-link {
-  padding: 7px 15px 7px 0;
-  color: #000;
 }
 
 .about-container {

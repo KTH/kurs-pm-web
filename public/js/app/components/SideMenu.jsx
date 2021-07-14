@@ -52,7 +52,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
             </a>
           </li>
           <li className="nav-item node selected expanded">
-            <span className="nav-link">{labels.courseMemo}</span>
+            <a className="nav-link">{labels.courseMemo}</a>
             <ul className="nav nav-list">
               <li className={`nav-item leaf ${aboutCourseMemo ? 'selected' : ''}`}>
                 <a
@@ -62,21 +62,13 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
                   {labels.aboutCourseMemos}
                 </a>
               </li>
-              {courseMemoItems.filter(removedOutdated).map(({ label, url, active }) =>
-                active ? (
-                  <li key={label} className="nav-item leaf selected">
-                    <span className="nav-link memosLink" aria-label={label}>
-                      {label}
-                    </span>
-                  </li>
-                ) : (
-                  <li key={label} className="nav-item leaf">
-                    <a href={active ? null : url} className="nav-link memosLink" aria-label={label}>
-                      {label}
-                    </a>
-                  </li>
-                )
-              )}
+              {courseMemoItems.filter(removedOutdated).map(({ label, url, active }) => (
+                <li key={label} className={`nav-item leaf ${active ? 'selected' : ''}`}>
+                  <a href={active ? null : url} className="nav-link memosLink" aria-label={label}>
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </li>
           <li className="nav-item leaf">
