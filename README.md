@@ -1,6 +1,6 @@
 # Welcome to kurs-pm-web 👋
 
-![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Prerequisite](https://img.shields.io/badge/node-14.15.1-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
@@ -43,7 +43,7 @@ Kurs-pm-web fetches data from:
 
 ## Prerequisites
 
-- Node.js 14.15.1
+- Node.js 14.17.0
 
 ### Secrets for Development
 
@@ -96,6 +96,14 @@ npm run start-dev
 ```sh
 npm run test
 ```
+
+### Performance Tests
+
+```sh
+npm run test-performance-in-docker
+```
+
+Performance tests are run with [Artillery](https://artillery.io/). All api:s are mocked, so only the performance of `kurs-pm-web` is tested.
 
 ## Monitor and Dashboards
 

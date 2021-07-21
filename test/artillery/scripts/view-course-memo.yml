@@ -1,0 +1,11 @@
+config:
+  target: 'http://web:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+scenarios:
+  - name: 'View course memo'
+    flow:
+      - get:
+          url: '/kurs-pm/SF1624/SF162420192-9'

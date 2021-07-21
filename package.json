@@ -1,6 +1,6 @@
 {
   "name": "kurs-pm-web",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "description": "Kurs-pm-data-web is a microservice with the public view of course memos. It uses React, MobX, and is based on KTH/node-web.",
   "main": "app.js",
   "private": true,
@@ -23,6 +23,7 @@
     "test:mockapi": "docker-compose -f test/mock-api/docker-compose.yml up --build --force-recreate",
     "test-unit-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-unit-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
     "test-integration-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-integration-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
+    "test-performance-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-performance-tests.yml up --build --abort-on-container-exit --remove-orphans",
     "docker": "npm install --development && npm run build && npm prune --production",
     "build": "NODE_ENV=production rm -rf dist && parcel build ./public/js/app/app.jsx --public-url /kurs-pm/static",
     "build-dev": "cross-env NODE_ENV=development rm -rf dist && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",

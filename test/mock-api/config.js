@@ -1,3 +1,10 @@
+const {
+  getAllMemosByCourseCodeAndType: getAllMemosByCourseCodeAndTypeResponse,
+  detailedInformation: detailedInformationResponse,
+  getSellingTextByCourseCode: getSellingTextByCourseCodeResponse,
+  imageBlobStorage: imageBlobStorageResponse,
+} = require('./responses')
+
 module.exports = {
   host: {
     address: '0.0.0.0',
@@ -17,7 +24,12 @@ module.exports = {
     {
       method: 'get',
       url: '/kurs-pm/_paths',
-      response: { api: [] },
+      response: { api: { getAllMemosByCourseCodeAndType: { uri: '/kurs-pm/getAllMemosByCourseCodeAndType' } } },
+    },
+    {
+      method: 'get',
+      url: '/kurs-pm/getAllMemosByCourseCodeAndType',
+      response: getAllMemosByCourseCodeAndTypeResponse,
     },
     {
       method: 'get',
@@ -32,7 +44,12 @@ module.exports = {
     {
       method: 'get',
       url: '/kursinfo/_paths',
-      response: { api: [] },
+      response: { api: { getSellingTextByCourseCode: { uri: '/kursinfo/getSellingTextByCourseCode' } } },
+    },
+    {
+      method: 'get',
+      url: '/kursinfo/getSellingTextByCourseCode',
+      response: getSellingTextByCourseCodeResponse,
     },
     {
       method: 'get',
@@ -48,6 +65,21 @@ module.exports = {
       method: 'get',
       url: '/kursplan/_paths',
       response: { api: [] },
+    },
+    {
+      method: 'get',
+      url: '/kopps/course/*/detailedinformation',
+      response: detailedInformationResponse,
+    },
+    {
+      method: 'get',
+      url: '/cm/*',
+      response: '',
+    },
+    {
+      method: 'get',
+      url: '/images/*',
+      response: imageBlobStorageResponse,
     },
   ],
 }
