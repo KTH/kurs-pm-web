@@ -1,7 +1,7 @@
 # Welcome to kurs-pm-web 👋
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-14.15.1-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-14.17.0-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
