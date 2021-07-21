@@ -66,7 +66,7 @@ module.exports = {
       level: getEnv('LOGGING_LEVEL', 'debug'),
     },
     accessLog: {
-      useAccessLog: getEnv('LOGGING_ACCESS_LOG', true),
+      useAccessLog: String(getEnv('LOGGING_ACCESS_LOG', true)).toLowerCase() === 'true',
     },
   },
   clientLogging: {
