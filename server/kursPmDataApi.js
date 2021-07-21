@@ -27,7 +27,7 @@ async function getMemoDataById(courseCode, type, version) {
     return memoDatas
   } catch (err) {
     log.debug('getMemoDataById is not available', err)
-    return err
+    return []
   }
 }
 
