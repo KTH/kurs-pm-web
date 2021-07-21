@@ -52,7 +52,8 @@ module.exports = {
     kursplanApi: unpackNodeApiConfig('KURSPLAN_API_URI', devKursplanApi),
   },
 
-  koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
+  // koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
+  koppsApi: unpackNodeApiConfig('KOPPS_URI', devKoppsApi),
 
   // Cortina
   blockApi: {
