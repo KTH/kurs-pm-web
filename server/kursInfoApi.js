@@ -15,8 +15,8 @@ async function getCourseInfo(courseCode) {
     }
     return { sellingText: {}, imageInfo: '' }
   } catch (err) {
-    log.debug('getCourseInfo is not available', err)
-    return err
+    log.error('getCourseInfo is not available', err)
+    return { sellingText: {}, imageInfo: '' }
   }
 }
 
