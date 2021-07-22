@@ -81,8 +81,16 @@ async function getDetailedInformation(courseCode, language) {
       roundInfos: [],
     }
   } catch (err) {
-    log.debug('Kopps is not available', err)
-    return err
+    log.error('Kopps is not available', err)
+    return {
+      courseMainSubjects: '',
+      recruitmentText: '',
+      title: '',
+      credits: '',
+      creditUnitAbbr: '',
+      examiners: [],
+      roundInfos: [],
+    }
   }
 }
 
