@@ -3,7 +3,7 @@ const fs = require('fs')
 module.exports = {
   getAllMemosByCourseCodeAndType: [
     {
-      _id: '5e7debad61b61604a4699b0d',
+      _id: '1',
       ladokRoundIds: ['9'],
       lastChangeDate: 'Fri Mar 27 2020 12:04:37 GMT+0000 (Coordinated Universal Time)',
       semester: '20192',
@@ -47,13 +47,13 @@ module.exports = {
       possibilityToAddition: '',
       prerequisites: '',
       examiner:
-        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/tillman" alt="Profile picture" width="31" height="31">\n      <a href="/profile/tillman/" target="_blank" property="teach:teacher">\n          Katarina Tillman \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/jocke" alt="Profile picture" width="31" height="31">\n      <a href="/profile/jocke/" target="_blank" property="teach:teacher">\n          Joakim Petersson \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/madjidi" alt="Profile picture" width="31" height="31">\n      <a href="/profile/madjidi/" target="_blank" property="teach:teacher">\n          Payam Madjidi \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/elenara" alt="Profile picture" width="31" height="31">\n      <a href="/profile/elenara/" target="_blank" property="teach:teacher">\n          Elena Rakhimova \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/ssttest" alt="Profile picture" width="31" height="31">\n      <a href="/profile/ssttest/" target="_blank" property="teach:teacher">\n          Stefan test TEST Sundkvist \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/murk" alt="Profile picture" width="31" height="31">\n      <a href="/profile/murk/" target="_blank" property="teach:teacher">\n          Murk Gopi Chand \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/jeskla" alt="Profile picture" width="31" height="31">\n      <a href="/profile/jeskla/" target="_blank" property="teach:teacher">\n          Jessica Klarström \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/savela" alt="Profile picture" width="31" height="31">\n      <a href="/profile/savela/" target="_blank" property="teach:teacher">\n          Maria Savela \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/bsin" alt="Profile picture" width="31" height="31">\n      <a href="/profile/bsin/" target="_blank" property="teach:teacher">\n          Bahadur Singh \n      </a> \n    </p>',
+        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/xyz" alt="Profile picture" width="31" height="31">\n      <a href="/profile/xyz/" target="_blank" property="teach:teacher">\n          Xyz Xyz \n      </a> \n    </p>',
       courseCoordinator:
-        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/asahu" alt="Profile picture" width="31" height="31">\n      <a href="/profile/asahu/" target="_blank" property="teach:teacher">\n          Åsa Lindström \n      </a> \n    </p>  <p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/jeskla" alt="Profile picture" width="31" height="31">\n      <a href="/profile/jeskla/" target="_blank" property="teach:teacher">\n          Jessica Klarström \n      </a> \n    </p>',
+        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/xyz" alt="Profile picture" width="31" height="31">\n      <a href="/profile/xyz/" target="_blank" property="teach:teacher">\n          Xyz Xyz \n      </a> \n    </p>',
       otherContacts: '<p>&Ouml;vriga kontakter</p>',
       teacherAssistants: '',
       teacher:
-        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/sst" alt="Profile picture" width="31" height="31">\n      <a href="/profile/sst/" target="_blank" property="teach:teacher">\n          Stefan Sundkvist \n      </a> \n    </p>',
+        '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/xyz" alt="Profile picture" width="31" height="31">\n      <a href="/profile/xyz/" target="_blank" property="teach:teacher">\n          Xyz Xyz \n      </a> \n    </p>',
       courseCode: 'SF1624',
       memoName: 'CMATD1 m.fl. (Startdatum 2019-10-28, Svenska)',
       memoEndPoint: 'SF162420192-9',
@@ -91,53 +91,11 @@ module.exports = {
     },
     examiners: [
       {
-        kthid: 'u1sgv24a',
-        givenName: 'Katarina',
-        lastName: 'Tillman',
-        email: 'tillman@kth.se',
-        username: 'tillman',
-      },
-      {
-        kthid: 'u19c1wo2',
-        givenName: 'Joakim',
-        lastName: 'Petersson',
-        email: 'testfan@kth.se',
-        username: 'jocke',
-      },
-      {
-        kthid: 'u16uygcs',
-        givenName: 'Jessica',
-        lastName: 'Klarström',
-        email: 'jeskla@kth.se',
-        username: 'jeskla',
-      },
-      {
-        kthid: 'u1ask19i',
-        givenName: 'Elena',
-        lastName: 'Rakhimova',
-        email: 'elenara@kth.se',
-        username: 'elenara',
-      },
-      {
-        kthid: 'u1rw2ong',
-        givenName: 'Payam',
-        lastName: 'Madjidi',
-        email: 'madjidi@kth.se',
-        username: 'madjidi',
-      },
-      {
-        kthid: 'u1jj599n',
-        givenName: 'Maria',
-        lastName: 'Savela',
-        email: 'savela@kth.se',
-        username: 'savela',
-      },
-      {
-        kthid: 'u13fzqax',
-        givenName: 'Johannes',
-        lastName: 'Bichel',
-        email: 'bichel@kth.se',
-        username: 'bichel',
+        kthid: 'xyz',
+        givenName: 'Xyz',
+        lastName: 'Xyz',
+        email: 'xyz@kth.se',
+        username: 'xyz',
       },
     ],
     roundInfos: [
@@ -1075,11 +1033,11 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [
           {
-            kthid: 'u1z3vglm',
-            givenName: 'Administrator KTH',
-            lastName: 'Test Kopps',
-            email: 'kopps1@kth.se',
-            username: 'kopps1',
+            kthid: 'xyz',
+            givenName: 'Xyz',
+            lastName: 'Xyz',
+            email: 'xyz@kth.se',
+            username: 'xyz',
           },
         ],
         round: {
@@ -1304,7 +1262,7 @@ module.exports = {
     },
     imageInfo: 'Picture_by_own_choice_SF1624.jpg',
     isCourseWebLink: false,
-    sellingTextAuthor: 'u1pvskgi',
+    sellingTextAuthor: 'xyz',
   },
   imageBlobStorage: fs.readFileSync('./static/kth_logo.jpg'),
 }

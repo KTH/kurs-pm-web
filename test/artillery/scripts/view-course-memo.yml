@@ -1,9 +1,19 @@
+# https://artillery.io/docs/guides/getting-started/writing-your-first-test.html#Running-a-performance-test
 config:
   target: 'http://web:3000'
+  http:
+    timeout: 15
   phases:
     - duration: 60
       arrivalRate: 5
       name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
 scenarios:
   - name: 'View course memo'
     flow:
