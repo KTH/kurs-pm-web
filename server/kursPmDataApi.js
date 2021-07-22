@@ -26,7 +26,7 @@ async function getMemoDataById(courseCode, type, version) {
     memoDatas.sort(sortBySemesterAndName)
     return memoDatas
   } catch (err) {
-    log.debug('getMemoDataById is not available', err)
+    log.error('getMemoDataById is not available', err)
     return []
   }
 }
@@ -39,8 +39,8 @@ async function getMiniMemosPdfAndWeb(courseCode) {
     const res = await client.getAsync({ uri })
     return res.body
   } catch (err) {
-    log.debug('getMiniMemosPdfAndWeb is not available', err)
-    return err
+    log.error('getMiniMemosPdfAndWeb is not available', err)
+    return {}
   }
 }
 
