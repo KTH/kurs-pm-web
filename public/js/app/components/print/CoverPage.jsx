@@ -35,7 +35,7 @@ const formatRounds = rounds => {
   )
 }
 
-const syllabusLabel = (labels, language, syllabusValid, courseCode) => {
+const SyllabusLabel = ({ labels, language, syllabusValid, courseCode }) => {
   const { syllabusInformation, syllabusLinkStart, syllabusLinkMiddle, syllabusLinkEnd } = labels
   if (!syllabusValid.textFromTo) {
     return <>{`* ${syllabusInformation} N/A`}</>
@@ -54,7 +54,7 @@ const syllabusLabel = (labels, language, syllabusValid, courseCode) => {
   )
 }
 
-const memoSourceLabel = (labels, url) => {
+const MemoSourceLabel = ({ labels, url }) => {
   const memoLink = <a href={url}>{url}</a>
   return (
     <>
@@ -89,8 +89,12 @@ const CoverPage = ({
     <h2>{labels.offeredByTitle}</h2>
     <p>{departmentName}</p>
     <ul className="link-list cover-page-links">
-      <li>{syllabusLabel(labels, language, syllabusValid, courseCode)}</li>
-      <li>{memoSourceLabel(labels, url)}</li>
+      <li>
+        <SyllabusLabel labels={labels} language={language} syllabusValid={syllabusValid} courseCode={courseCode} />
+      </li>
+      <li>
+        <MemoSourceLabel labels={labels} url={url} />
+      </li>
     </ul>
   </section>
 )
