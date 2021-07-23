@@ -1,5 +1,5 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
+import HtmlWrapper from './HtmlWrapper'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => (
   <section className="d-print-none" aria-labelledby="course-presentation">
@@ -7,7 +7,9 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
       {labels.coursePresentation}
     </h2>
     <img id="course-presentation-image" className="float-sm-left" src={courseImageUrl} alt="" />
-    <article dangerouslySetInnerHTML={{ __html: introText }} aria-labelledby="course-presentation" />
+    <article aria-labelledby="course-presentation">
+      <HtmlWrapper html={introText} />
+    </article>
   </section>
 )
 

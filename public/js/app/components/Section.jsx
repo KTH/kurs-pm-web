@@ -1,10 +1,8 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
+import HtmlWrapper from './HtmlWrapper'
 
 const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* en */ }) => {
   const { noInfoYet, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
@@ -20,12 +18,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* 
       ) : (
         <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} fromSyllabus={fromSyllabus} />
       )}
-      <span
-        style={visibleInMemo ? {} : { display: 'none' }}
-        dangerouslySetInnerHTML={{
-          __html: html || `<p><i>${noInfoYet}</i></p>`,
-        }}
-      />
+      {visibleInMemo && <HtmlWrapper mode="inline" html={html || `<p><i>${noInfoYet}</i></p>`} />}
     </article>
   )
 }

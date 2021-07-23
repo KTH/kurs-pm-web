@@ -1,16 +1,12 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
+import HtmlWrapper from '../HtmlWrapper'
 
 // Volontary information
 const communicationWithTeachers = (language, memoData, labels) =>
   !memoData.communicationDuringCourse || (
     <>
       <h3>{labels.communicationWithTeachersTitle}</h3>
-      <div
-        id="print-communication-with-teachers"
-        dangerouslySetInnerHTML={{ __html: memoData.communicationDuringCourse }}
-      />
+      <HtmlWrapper id="print-communication-with-teachers" html={memoData.communicationDuringCourse} />
     </>
   )
 
@@ -19,7 +15,7 @@ const courseCoordinator = (language, memoData, labels) =>
   memoData.courseCoordinator ? (
     <>
       <h3>{labels.courseCoordinatorTitle}</h3>
-      <div id="print-links-course-coordinator" dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
+      <HtmlWrapper id="print-links-course-coordinator" html={memoData.courseCoordinator} />
     </>
   ) : (
     <>
@@ -33,7 +29,7 @@ const teacher = (language, memoData, labels) =>
   memoData.teacher ? (
     <>
       <h3>{labels.teacherTitle}</h3>
-      <div id="print-links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+      <HtmlWrapper id="print-links-teacher" html={memoData.teacher} />
     </>
   ) : (
     <>
@@ -47,7 +43,7 @@ const teacherAssistants = (language, memoData, labels) =>
   !memoData.teacherAssistants || (
     <>
       <h3>{labels.teacherAssistantsTitle}</h3>
-      <div id="print-links-teacher-assistants" dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+      <HtmlWrapper id="print-links-teacher-assistants" html={memoData.teacherAssistants} />
     </>
   )
 
@@ -56,7 +52,7 @@ const examiner = (language, memoData, labels) =>
   memoData.examiner ? (
     <>
       <h3>{labels.examinerTitle}</h3>
-      <div id="print-links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+      <HtmlWrapper id="print-links-examiner" html={memoData.examiner} />
     </>
   ) : (
     <>
@@ -70,7 +66,7 @@ const otherContacts = (language, memoData, labels) =>
   !memoData.otherContacts || (
     <>
       <h3>{labels.otherContactsTitle}</h3>
-      <div id="print-links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+      <HtmlWrapper id="print-links-other-contacts" html={memoData.otherContacts} />
     </>
   )
 

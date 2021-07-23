@@ -1,15 +1,14 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 
 import { EMPTY } from '../util/constants'
+import HtmlWrapper from './HtmlWrapper'
 
 // Mandatory information
 const infoContact = (languageIndex, infoContactName, labels) =>
   infoContactName ? (
     <>
       <h3 className="t4">{labels.infoContactName}</h3>
-      <div id="links-info-contact-name" dangerouslySetInnerHTML={{ __html: infoContactName }} />
+      <HtmlWrapper id="links-info-contact-name" html={infoContactName} />
     </>
   ) : (
     <>
@@ -25,7 +24,7 @@ const examinerContacts = (languageIndex, examiners, labels) =>
   examiners ? (
     <>
       <h3 className="t4">{labels.examinerTitle}</h3>
-      <div id="links-examiner" dangerouslySetInnerHTML={{ __html: examiners }} />
+      <HtmlWrapper id="links-examiner" html={examiners} />
     </>
   ) : (
     <>

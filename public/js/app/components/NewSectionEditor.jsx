@@ -1,9 +1,8 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import i18n from '../../../../i18n'
 import { ExtraHeaderHead } from './ContentHead'
+import HtmlWrapper from './HtmlWrapper'
 
 @inject(['routerStore'])
 @observer
@@ -26,18 +25,18 @@ class NewSectionEditor extends Component {
 
     const { sourceInfo } = i18n.messages[this.userLangIndex]
 
+    const { isOpen } = this.state
+
     return (
       <article className="Add--New--Title--And--Info" aria-label={contentForTitle}>
-        {!this.state.isOpen && !isEmptyNew && <ExtraHeaderHead header={contentForTitle} />}
+        {!isOpen && !isEmptyNew && <ExtraHeaderHead header={contentForTitle} />}
 
-        {!this.state.isOpen &&
+        {!isOpen &&
           !isEmptyNew &&
           /* is included in memo, preview text without editor */
           ((visibleInMemo && (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${sourceInfo.noInfoYet}</i></p>`,
-              }}
+            <HtmlWrapper
+              html={(contentForEditor !== '' && contentForEditor) || `<p><i>${sourceInfo.noInfoYet}</i></p>`}
             />
           )) ||
             /* editor has content but is not yet included in pm */
