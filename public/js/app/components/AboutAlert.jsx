@@ -5,7 +5,7 @@ import i18n from '../../../../i18n'
 import { aboutCourseLink } from '../util/links'
 import { memoNameWithCourseCode } from '../util/helpers'
 
-const header = (courseCode, semester, roundIds, aboutMemoLabels, language) => (
+const Header = ({ courseCode, semester, roundIds, aboutMemoLabels, language }) => (
   <h2 className="t4">
     {`
       ${memoNameWithCourseCode(courseCode, semester, roundIds, language)} ${aboutMemoLabels.notPublished}
@@ -13,14 +13,14 @@ const header = (courseCode, semester, roundIds, aboutMemoLabels, language) => (
   </h2>
 )
 
-const beforeChoosingCourseLink = (courseCode, aboutMemoLabels, language) => (
+const BeforeChoosingCourseLink = ({ courseCode, aboutMemoLabels, language }) => (
   <a href={aboutCourseLink(courseCode, language)}>{aboutMemoLabels.syllabusLink}</a>
 )
 
-const courseInformation = (aboutMemoLabels, courseCode, language) => (
+const CourseInformation = ({ aboutMemoLabels, courseCode, language }) => (
   <p>
     {`${aboutMemoLabels.courseInfo} ${courseCode} ${aboutMemoLabels.onPage} `}
-    {beforeChoosingCourseLink(courseCode, aboutMemoLabels, language)}
+    <BeforeChoosingCourseLink courseCode={courseCode} aboutMemoLabels={aboutMemoLabels} language={language} />
     {'\u002E'}
   </p>
 )
@@ -31,9 +31,15 @@ const AboutAlert = ({ courseCode, semester, roundIds, language }) => {
 
   return (
     <Alert className="inline-alert" color="danger">
-      {header(courseCode, semester, roundIds, aboutMemoLabels, language)}
+      <Header
+        courseCode={courseCode}
+        semester={semester}
+        roundIds={roundIds}
+        aboutMemoLabels={aboutMemoLabels}
+        language={language}
+      />
       <p>{aboutMemoLabels.shouldBePublished}</p>
-      {courseInformation(aboutMemoLabels, courseCode, language)}
+      <CourseInformation aboutMemoLabels={aboutMemoLabels} courseCode={courseCode} language={language} />
     </Alert>
   )
 }
