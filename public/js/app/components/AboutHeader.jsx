@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 
 import { Row } from 'reactstrap'
@@ -20,6 +18,7 @@ const AboutHeader = ({
   language = 'sv',
 }) => {
   const { adminLinkLabel } = labels
+  const subHeadingText = `${courseCode} ${title} ${formatCredits(credits, creditUnitAbbr, language)}`
   return (
     <Row>
       <header className="col memo-header">
@@ -28,7 +27,7 @@ const AboutHeader = ({
         </h1>
         <div id="page-sub-heading-wrapper">
           <p id="page-sub-heading" aria-hidden="true">
-            {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
+            {subHeadingText}
           </p>
           <p id="page-sub-heading-admin-link" className="d-print-none">
             <a title={adminLinkLabel} href={adminLink(courseCode, language)}>

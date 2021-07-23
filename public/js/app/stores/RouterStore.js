@@ -88,7 +88,6 @@ class RouterStore {
     return null
   }
 
-  // eslint-disable-next-line class-methods-use-this
   @computed get latestMemoUrl() {
     if (typeof window !== 'undefined') {
       return (

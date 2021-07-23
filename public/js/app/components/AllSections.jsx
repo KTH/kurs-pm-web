@@ -103,7 +103,6 @@ function AllSections({ memoData, memoLanguageIndex }) {
             memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
               <NewSectionEditor
                 contentId={extraHeaderTitle}
-                // eslint-disable-next-line react/no-array-index-key
                 key={uKey}
                 initialTitle={title}
                 initialValue={htmlContent}
