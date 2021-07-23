@@ -2,7 +2,7 @@ import React from 'react'
 import HtmlWrapper from '../HtmlWrapper'
 
 // Volontary information
-const communicationWithTeachers = (language, memoData, labels) =>
+const CommunicationWithTeachers = ({ memoData, labels }) =>
   !memoData.communicationDuringCourse || (
     <>
       <h3>{labels.communicationWithTeachersTitle}</h3>
@@ -11,7 +11,7 @@ const communicationWithTeachers = (language, memoData, labels) =>
   )
 
 // Mandatory information
-const courseCoordinator = (language, memoData, labels) =>
+const CourseCoordinator = ({ memoData, labels }) =>
   memoData.courseCoordinator ? (
     <>
       <h3>{labels.courseCoordinatorTitle}</h3>
@@ -25,7 +25,7 @@ const courseCoordinator = (language, memoData, labels) =>
   )
 
 // Mandatory information
-const teacher = (language, memoData, labels) =>
+const Teacher = ({ memoData, labels }) =>
   memoData.teacher ? (
     <>
       <h3>{labels.teacherTitle}</h3>
@@ -39,7 +39,7 @@ const teacher = (language, memoData, labels) =>
   )
 
 // Volontary information
-const teacherAssistants = (language, memoData, labels) =>
+const TeacherAssistants = ({ memoData, labels }) =>
   !memoData.teacherAssistants || (
     <>
       <h3>{labels.teacherAssistantsTitle}</h3>
@@ -48,7 +48,7 @@ const teacherAssistants = (language, memoData, labels) =>
   )
 
 // Mandatory information
-const examiner = (language, memoData, labels) =>
+const Examiner = ({ memoData, labels }) =>
   memoData.examiner ? (
     <>
       <h3>{labels.examinerTitle}</h3>
@@ -62,7 +62,7 @@ const examiner = (language, memoData, labels) =>
   )
 
 // Volontary information
-const otherContacts = (language, memoData, labels) =>
+const OtherContacts = ({ memoData, labels }) =>
   !memoData.otherContacts || (
     <>
       <h3>{labels.otherContactsTitle}</h3>
@@ -70,18 +70,18 @@ const otherContacts = (language, memoData, labels) =>
     </>
   )
 
-const Contacts = ({ language, memoData = {}, labels = {} }) => (
+const Contacts = ({ memoData = {}, labels = {} }) => (
   <section className="d-none d-print-block" aria-labelledby="print-memo-contacts">
     <h2 id="print-memo-contacts" className="info">
       {labels.courseContactsTitle}
     </h2>
     <div className="text-break">
-      {communicationWithTeachers(language, memoData, labels)}
-      {courseCoordinator(language, memoData, labels)}
-      {teacher(language, memoData, labels)}
-      {teacherAssistants(language, memoData, labels)}
-      {examiner(language, memoData, labels)}
-      {otherContacts(language, memoData, labels)}
+      <CommunicationWithTeachers memoData={memoData} labels={labels} />
+      <CourseCoordinator memoData={memoData} labels={labels} />
+      <Teacher memoData={memoData} labels={labels} />
+      <TeacherAssistants memoData={memoData} labels={labels} />
+      <Examiner memoData={memoData} labels={labels} />
+      <OtherContacts memoData={memoData} labels={labels} />
     </div>
   </section>
 )
