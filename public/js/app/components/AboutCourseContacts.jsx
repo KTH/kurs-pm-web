@@ -4,7 +4,7 @@ import { EMPTY } from '../util/constants'
 import HtmlWrapper from './HtmlWrapper'
 
 // Mandatory information
-const infoContact = (languageIndex, infoContactName, labels) =>
+const InfoContact = ({ languageIndex, infoContactName, labels }) =>
   infoContactName ? (
     <>
       <h3 className="t4">{labels.infoContactName}</h3>
@@ -20,7 +20,7 @@ const infoContact = (languageIndex, infoContactName, labels) =>
   )
 
 // Mandatory information
-const examinerContacts = (languageIndex, examiners, labels) =>
+const ExaminerContacts = ({ languageIndex, examiners, labels }) =>
   examiners ? (
     <>
       <h3 className="t4">{labels.examinerTitle}</h3>
@@ -38,8 +38,8 @@ const examinerContacts = (languageIndex, examiners, labels) =>
 const CourseContacts = ({ languageIndex, infoContactName = '', examiners = '', labels = {} }) => (
   <>
     <div className="info-box text-break">
-      {infoContact(languageIndex, infoContactName, labels)}
-      {examinerContacts(languageIndex, examiners, labels)}
+      <InfoContact languageIndex={languageIndex} infoContactName={infoContactName} labels={labels} />
+      <ExaminerContacts languageIndex={languageIndex} examiners={examiners} labels={labels} />
     </div>
   </>
 )
