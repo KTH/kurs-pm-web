@@ -15,11 +15,15 @@ const formatVersion = (languageIndex = 1, lastChangeDate) => {
   return null
 }
 
-const version = (language, labels, lastChangeDate, ver, archived) =>
-  lastChangeDate ? (
+const Version = ({ language, labels, lastChangeDate, version, archived }) => {
+  const versionText = `${archived ? `${labels.version} ${version} – ` : labels.latest} ${formatVersion(
+    language,
+    lastChangeDate
+  )}`
+  return lastChangeDate ? (
     <>
       <h3>{labels.versionTitle}</h3>
-      <p>{`${archived ? `${labels.version} ${ver} – ` : labels.latest} ${formatVersion(language, lastChangeDate)}`}</p>
+      <p>{versionText}</p>
     </>
   ) : (
     <>
@@ -27,8 +31,9 @@ const version = (language, labels, lastChangeDate, ver, archived) =>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
+}
 
-const archiveLink = (language, labels, courseCode) => (
+const ArchiveLink = ({ language, labels, courseCode }) => (
   <p>
     <a id="archive-link" title={labels.courseMemoArchiveLabel} href={linkToArchive(courseCode, language)}>
       {labels.courseMemoArchiveLabel}
@@ -36,7 +41,7 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const printDialogLink = labels => (
+const PrintDialogLink = ({ labels }) => (
   <>
     <h3>{labels.courseMemoPrint}</h3>
     <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
@@ -46,7 +51,7 @@ const printDialogLink = labels => (
   </>
 )
 
-const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) => (
+const SyllabusLink = ({ language, labels, courseCode, syllabusValid }) => (
   <>
     <h3>{labels.syllabus}</h3>
     {syllabusValid ? (
@@ -71,16 +76,27 @@ const syllabusLink = (language, labels, extraInfo, courseCode, syllabusValid) =>
   </>
 )
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, courseMemoName, archivedMemo }) => (
+const CourseMemoLinks = ({ language, labels, memoData = {}, courseMemoName, archivedMemo }) => (
   <aside aria-labelledby="memo-documents">
     <h2 id="memo-documents" className="d-none">
       {labels.documents}
     </h2>
     <div className="info-box text-break">
-      {version(language, labels, memoData.lastChangeDate, memoData.version, archivedMemo)}
-      {!archivedMemo && archiveLink(language, labels, memoData.courseCode)}
-      {printDialogLink(labels, courseMemoName)}
-      {syllabusLink(language, labels, extraInfo, memoData.courseCode, memoData.syllabusValid)}
+      <Version
+        language={language}
+        labels={labels}
+        lastChangeDate={memoData.lastChangeDate}
+        version={memoData.version}
+        archived={archivedMemo}
+      />
+      {!archivedMemo && <ArchiveLink language={language} labels={labels} courseCode={memoData.courseCode} />}
+      <PrintDialogLink labels={labels} courseMemoName={courseMemoName} />
+      <SyllabusLink
+        language={language}
+        labels={labels}
+        courseCode={memoData.courseCode}
+        syllabusValid={memoData.syllabusValid}
+      />
     </div>
   </aside>
 )
