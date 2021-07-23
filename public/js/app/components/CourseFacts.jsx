@@ -18,7 +18,7 @@ const formatRounds = rounds => {
   )
 }
 
-const offeredBy = (language, labels, departmentName) =>
+const OfferedBy = ({ labels, departmentName }) =>
   departmentName ? (
     <>
       <h3>{labels.offeredByTitle}</h3>
@@ -35,7 +35,7 @@ const offeredBy = (language, labels, departmentName) =>
     </>
   )
 
-const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
+const LanguageOfInstruction = ({ labels, memoLanguageOfInstructions }) =>
   memoLanguageOfInstructions ? (
     <>
       <h3>{labels.languageOfInstructionTitle}</h3>
@@ -48,7 +48,7 @@ const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
     </>
   )
 
-const rounds = (labels, memoName) =>
+const Rounds = ({ labels, memoName }) =>
   memoName ? (
     <>
       <h3>{labels.roundsTitle}</h3>
@@ -61,15 +61,15 @@ const rounds = (labels, memoName) =>
     </>
   )
 
-const CourseFacts = ({ language, labels, memoData = {} }) => (
+const CourseFacts = ({ labels, memoData = {} }) => (
   <section aria-labelledby="memo-facts">
     <h2 id="memo-facts" className="d-none">
       {labels.roundFacts}
     </h2>
     <div className="info-box text-break">
-      {offeredBy(language, labels, memoData.departmentName)}
-      {languageOfInstruction(labels, memoData.languageOfInstructions)}
-      {rounds(labels, memoData.memoName)}
+      <OfferedBy labels={labels} departmentName={memoData.departmentName} />
+      <LanguageOfInstruction labels={labels} memoLanguageOfInstructions={memoData.languageOfInstructions} />
+      <Rounds labels={labels} memoName={memoData.memoName} />
     </div>
   </section>
 )
