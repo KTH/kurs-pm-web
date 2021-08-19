@@ -11,6 +11,8 @@ import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/li
 
 import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
+import { getCurrentTerm } from '../util/term'
+
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
 import AboutCourseContacts from '../components/AboutCourseContacts'
@@ -96,8 +98,9 @@ class AboutCourseMemo extends Component {
     const { routerStore, location } = this.props
     const { webAndPdfMiniMemos } = this.state
     const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
-    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
-      i18n.messages[userLanguageIndex]
+    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
+      userLanguageIndex
+    ]
 
     let menuMemoItems = routerStore.memoDatas.map(m => {
       const { outdated, memoEndPoint: id } = m
@@ -114,16 +117,17 @@ class AboutCourseMemo extends Component {
     // Duplicate id’s filtered out
     menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
 
-    // First visible semester
+    // First visible semester according to left meny or getCurrentTerm
     const firstVisibleSemester = menuMemoItems
       .filter(m => !m.outdated)
       .reduce((firstSemester, menuItem) => {
         const menuItemSemester = Number.parseInt(menuItem.semester, 10)
+
         if (menuItemSemester < firstSemester) {
           return menuItemSemester
         }
         return firstSemester
-      }, 21001)
+      }, getCurrentTerm()) // 21001
 
     return (
       // Class preview-container, or equivalent, not needed
@@ -188,7 +192,9 @@ class AboutCourseMemo extends Component {
                         if (Number.parseInt(semester, 10) < firstVisibleSemester) {
                           return null
                         }
+
                         const semesterItems = webAndPdfMiniMemos[semester]
+
                         return (
                           <React.Fragment key={semester}>
                             <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
