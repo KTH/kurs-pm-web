@@ -98,9 +98,8 @@ class AboutCourseMemo extends Component {
     const { routerStore, location } = this.props
     const { webAndPdfMiniMemos } = this.state
     const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
-    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } = i18n.messages[
-      userLanguageIndex
-    ]
+    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
+      i18n.messages[userLanguageIndex]
 
     let menuMemoItems = routerStore.memoDatas.map(m => {
       const { outdated, memoEndPoint: id } = m
@@ -199,15 +198,16 @@ class AboutCourseMemo extends Component {
                           <React.Fragment key={semester}>
                             <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                             <ul>
-                              {semesterItems.map(
-                                ({
+                              {Object.keys(semesterItems).map(roundId => {
+                                const {
                                   courseMemoFileName: pdfFileName,
                                   isPdf,
                                   ladokRoundIds,
                                   memoCommonLangAbbr,
                                   memoEndPoint,
                                   semester: itemSemester,
-                                }) => (
+                                } = semesterItems[roundId]
+                                return (
                                   <li key={memoEndPoint || pdfFileName}>
                                     {(isPdf && (
                                       <a
@@ -228,7 +228,7 @@ class AboutCourseMemo extends Component {
                                     )}
                                   </li>
                                 )
-                              )}
+                              })}
                             </ul>
                           </React.Fragment>
                         )

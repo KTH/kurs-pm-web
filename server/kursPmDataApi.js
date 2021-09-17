@@ -33,7 +33,7 @@ async function getMemoDataById(courseCode, type, version) {
 
 async function getMiniMemosPdfAndWeb(courseCode) {
   const { client, paths } = api.kursPmDataApi
-  const uri = client.resolve(paths.getPdfAndWebMemosListByCourseCode.uri, { courseCode })
+  const uri = client.resolve(paths.getPrioritizedWebOrPdfMemosByCourseCode.uri, { courseCode })
 
   try {
     const res = await client.getAsync({ uri })
