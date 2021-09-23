@@ -27,12 +27,14 @@
     "docker": "npm install --development && npm run build && npm prune --production",
     "build": "NODE_ENV=production rm -rf dist && parcel build ./public/js/app/app.jsx --public-url /kurs-pm/static",
     "build-dev": "cross-env NODE_ENV=development rm -rf dist && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",
+    "build-dev-win": "cross-env NODE_ENV=development rimraf dist && parcel watch ./public/js/app/app.jsx --public-url /kurs-pm/static",
     "start": "NODE_ENV=production node app.js",
-    "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\""
+    "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\"",
+    "start-dev-win": "cross-env NODE_ENV=development concurrently --kill-others -n build,app \"npm run build-dev-win\" \"nodemon --ignore dist/ --ignore public/ app.js\""
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "@kth/kth-kip-style-react-components": "^0.1.2",
+    "@kth/kth-kip-style-react-components": "^0.1.3",
     "applicationinsights": "^2.1.3",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
