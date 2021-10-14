@@ -79,8 +79,21 @@ These settings are also available in the `env.in` file.
 
 ### Install
 
+First time you might need to use options `--ignore-scripts` because of npm resolutions:
+```sh
+npm install --ignore-scripts
+```
+or 
+
 ```sh
 npm install
+
+```
+You might need to install as well:
+
+```sh
+npm install cross-env
+npm install concurrently
 ```
 
 ### Usage
@@ -89,6 +102,46 @@ Start the service on [localhost:3000/kurs-pm/:courseCode](http://localhost:3000/
 
 ```sh
 npm run start-dev
+```
+
+### Debug in Visual Studio Code
+It's possible to use debugging options available in Visual Studio Code
+Add to .vscode file launch.json:
+- *Microsoft*
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",           
+            "request": "launch",
+            "name": "Debug kursinfo-web",
+            "program": "${workspaceFolder}\\app.js",
+            "envFile": "${workspaceFolder}\\.env",
+            "env": {
+              "NODE_ENV": "development"
+            }
+        }
+    ]
+}
+```
+- _Mac, Unix and so on_
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",           
+            "request": "launch",
+            "name": "Debug kursutvecling-web",
+            "program": "${workspaceFolder}/app.js",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+              "NODE_ENV": "development"
+            }
+        }
+    ]
+}
 ```
 
 ## Run tests
