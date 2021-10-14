@@ -18,8 +18,12 @@ async function getMemoDataById(courseCode, type, version) {
   const uri = client.resolve(paths.getAllMemosByCourseCodeAndType.uri, { courseCode, type })
 
   try {
-    const res = await client.getAsync({ uri })
-    const memoDatas = res.body
+    const { body: memoDatas, error, code } = await client.getAsync({ uri })
+
+    if (error || !Array.isArray(memoDatas)) {
+      log.debug(`${code} ${courseCode} getMemoDataById is not available`)
+      return []
+    }
     if (version) {
       return memoDatas.filter(memoData => memoData.version === version || memoData.version === parseInt(version, 10))
     }

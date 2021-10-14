@@ -116,7 +116,7 @@ module.exports = {
   sideMenuLabels: {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
-    beforeChoosingCourse: 'Before choosing course',
+    beforeChoosingCourse: 'Before course selection',
     aboutCourseMemos: 'Course memo',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
@@ -255,7 +255,7 @@ module.exports = {
       'Course memo should be published when the course starts. If you are taking a course and didn’t find your memo here, please contact the Course Contact listed on this page.',
     courseInfo: 'Course information for',
     onPage: 'is available on',
-    syllabusLink: 'Before choosing course (syllabus)',
+    syllabusLink: 'Before course selection (syllabus)',
     currentOfferings: 'Course offerings starting',
     previousOfferings: 'Previous course offerings',
   },
