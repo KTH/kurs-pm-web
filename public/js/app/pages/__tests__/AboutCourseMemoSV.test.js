@@ -136,7 +136,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Before choosing course', done => {
+  test('renders menu link Before course selection', done => {
     const menuItem = getByText('Inför kursval')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720')

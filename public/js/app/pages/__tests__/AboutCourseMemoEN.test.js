@@ -129,8 +129,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Before choosing course', done => {
-    const menuItem = getByText('Before choosing course')
+  test('renders menu link Before course selection', done => {
+    const menuItem = getByText('Before course selection')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720?l=en')
     done()
@@ -186,7 +186,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     const expectedlinks = [
       'Course and programme directory',
       'About course KIP2720',
-      'Before choosing course',
+      'Before course selection',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
       'Course development',
