@@ -30,6 +30,20 @@ function renderBreadcrumbsIntoKthHeader(courseCode, language) {
     )
 }
 
+function removeKeysAndFlattenToArray(memosWithRoundKeys) {
+  return Object.keys(memosWithRoundKeys).map(roundid => memosWithRoundKeys[roundid])
+}
+
+function removeWebMemosDuplicates(flattenMemosList) {
+  const tmpUniqueKeys = []
+  return flattenMemosList.filter(({ memoEndPoint }) => {
+    if (memoEndPoint && tmpUniqueKeys.includes(memoEndPoint)) return false
+    if (memoEndPoint && !tmpUniqueKeys.includes(memoEndPoint)) tmpUniqueKeys.push(memoEndPoint)
+    // if web-based memo is unique or if it's pdf memo, then return grue
+    return true
+  })
+}
+
 // Logic copied from kursinfo-web
 export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
   let courseImage = ''
@@ -192,22 +206,23 @@ class AboutCourseMemo extends Component {
                           return null
                         }
 
-                        const semesterItems = webAndPdfMiniMemos[semester]
+                        const semesterMemos = webAndPdfMiniMemos[semester]
+                        const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
+                        const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
 
                         return (
                           <React.Fragment key={semester}>
                             <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                             <ul>
-                              {Object.keys(semesterItems).map(roundId => {
-                                const {
+                              {cleanFlatMemosList.map(
+                                ({
                                   courseMemoFileName: pdfFileName,
                                   isPdf,
                                   ladokRoundIds,
                                   memoCommonLangAbbr,
                                   memoEndPoint,
                                   semester: itemSemester,
-                                } = semesterItems[roundId]
-                                return (
+                                }) => (
                                   <li key={memoEndPoint || pdfFileName}>
                                     {(isPdf && (
                                       <a
@@ -228,7 +243,7 @@ class AboutCourseMemo extends Component {
                                     )}
                                   </li>
                                 )
-                              })}
+                              )}
                             </ul>
                           </React.Fragment>
                         )
