@@ -152,8 +152,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  test('renders menu link Administrate About course', done => {
-    const menuItem = getByText('Administrate About course')
+  test('renders menu link Administer About course', done => {
+    const menuItem = getByText('Administer About course')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kursinfoadmin/kurser/kurs/KIP2720?l=en')
     done()
@@ -191,7 +191,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Course memo Autumn 2020-1',
       'Course development',
       'Archive',
-      'Administrate About course',
+      'Administer About course',
       'Course memo KIP2720 Autumn 2020-1',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',

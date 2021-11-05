@@ -111,7 +111,7 @@ module.exports = {
     courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
 
-    adminLinkLabel: 'Administrate About course',
+    adminLinkLabel: 'Administer About course',
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
@@ -227,7 +227,7 @@ module.exports = {
     teacherAssistants: 'Teacher assistants',
   },
   courseHeaderLabels: {
-    adminLinkLabel: 'Administrate About course',
+    adminLinkLabel: 'Administer About course',
     notLatestMemo: 'The displayed memo is not the latest version.',
     laterMemos: 'Recent memos are listed on',
     show: 'Show',
@@ -238,7 +238,7 @@ module.exports = {
   },
   aboutHeaderLabels: {
     memoLabel: 'Course memo',
-    adminLinkLabel: 'Administrate About course',
+    adminLinkLabel: 'Administer About course',
     linkOpensInNewTab: 'Link will open in new tab',
   },
   aboutMemoLabels: {
