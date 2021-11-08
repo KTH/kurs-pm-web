@@ -155,7 +155,7 @@ module.exports = {
   },
   sectionsLabels: {
     contentAndOutcomes: 'Innehåll och lärandemål',
-    prep: 'Förbereda inför kursstart',
+    prep: 'Förberedelser inför kursstart',
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare Information',
     contacts: 'Kontakter',
