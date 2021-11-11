@@ -272,7 +272,8 @@ async function getOldContent(req, res, next) {
     routerStore.memoDatas = memoDatas
 
     const latestMemoDatas = await getMemoDataById(courseCode, 'published')
-    routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, latestMemoDatas)
+    const currentMemoData = latestMemoDatas.filter(md => md.memoEndPoint === memoEndPoint)
+    routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, currentMemoData)
 
     const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
       await getDetailedInformation(courseCode, routerStore.memoLanguage)
