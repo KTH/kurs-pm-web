@@ -6,16 +6,16 @@ import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
 
 import i18n from '../../../../i18n'
-import { sideMenuBackLink } from '../util/links'
+import { basicBreadcrumbs, sideMenuBackLink } from '../util/links'
 
 import SideMenu from '../components/SideMenu'
 
-function renderBreadcrumbsIntoKthHeader(courseCode, language) {
+function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
 
   if (breadcrumbContainer)
     ReactDOM.render(
-      <Breadcrumbs include="directory" courseCode={courseCode} language={language} />,
+      <Breadcrumbs items={basicBreadcrumbs(languageAbbr)} courseCode={courseCode} language={languageAbbr} />,
       breadcrumbContainer
     )
 }

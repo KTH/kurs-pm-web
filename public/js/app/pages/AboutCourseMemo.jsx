@@ -7,7 +7,13 @@ import { Breadcrumbs, InfoModalButton } from '@kth/kth-kip-style-react-component
 import axios from 'axios'
 import i18n from '../../../../i18n'
 
-import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
+import {
+  abooutCourseBreadcrumb,
+  basicBreadcrumbs,
+  sideMenuBackLink,
+  linkToPublishedMemo,
+  linkToArchive,
+} from '../util/links'
 
 import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 
@@ -21,11 +27,15 @@ import AboutAlert from '../components/AboutAlert'
 const englishTranslations = i18n.messages[0].messages
 const swedishTranslations = i18n.messages[1].messages
 
-function renderBreadcrumbsIntoKthHeader(courseCode, language) {
+function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
   if (breadcrumbContainer)
     ReactDOM.render(
-      <Breadcrumbs include="aboutCourse" courseCode={courseCode} language={language} />,
+      <Breadcrumbs
+        items={[...basicBreadcrumbs(languageAbbr), abooutCourseBreadcrumb(courseCode, languageAbbr)]}
+        courseCode={courseCode}
+        language={languageAbbr}
+      />,
       breadcrumbContainer
     )
 }
