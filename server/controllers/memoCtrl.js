@@ -4,7 +4,7 @@ const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 
 const log = require('kth-node-log')
-const languageLib = require('kth-node-web-common/lib/language')
+const languageLib = require('@kth/kth-node-web-common/lib/language')
 
 const { sv, en } = require('date-fns/locale')
 const { utcToZonedTime, format } = require('date-fns-tz')
