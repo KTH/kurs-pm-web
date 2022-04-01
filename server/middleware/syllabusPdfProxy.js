@@ -13,7 +13,7 @@ function setApiKey(key) {
 }
 
 function logProvider() {
-  return require('kth-node-log')
+  return require('@kth/log')
 }
 
 function getPdfProxy(config, key) {
