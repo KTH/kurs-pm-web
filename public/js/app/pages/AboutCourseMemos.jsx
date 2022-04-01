@@ -1,61 +1,61 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
-import { Breadcrumbs } from '@kth/kth-kip-style-react-components'
+import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
-import { basicBreadcrumbs, sideMenuBackLink } from '../util/links'
+import { sideMenuBackLink } from '../util/links'
+import { useWebContext } from '../context/WebContext'
 
 import SideMenu from '../components/SideMenu'
 
 function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
-
-  if (breadcrumbContainer)
+  if (breadcrumbContainer) {
     ReactDOM.render(
-      <Breadcrumbs items={basicBreadcrumbs(languageAbbr)} courseCode={courseCode} language={languageAbbr} />,
+      <Breadcrumbs include={'aboutCourse'} courseCode={courseCode} language={languageAbbr} />,
       breadcrumbContainer
     )
+  }
 }
 
-@inject(['routerStore'])
-@observer
-class CourseMemo extends Component {
-  componentDidMount() {
-    const { routerStore } = this.props
-    renderBreadcrumbsIntoKthHeader(routerStore.courseCode, routerStore.language)
-  }
+function CourseMemo() {
+  const [webContext] = useWebContext()
+  const translate = i18n.messages[webContext.userLanguageIndex]
+  const { courseCode, language, memoLanguage } = webContext
 
-  render() {
-    const { routerStore } = this.props
-    const translate = i18n.messages[routerStore.userLanguageIndex]
+  useEffect(() => {
+    let isMounted = true
+    if (isMounted) {
+      renderBreadcrumbsIntoKthHeader(courseCode, language)
+    }
+    return () => (isMounted = false)
+  }, [])
 
-    return (
-      <Container fluid>
-        <Row>
-          <SideMenu
-            courseCode=""
-            courseMemoItems={[]}
-            aboutCourseMemo
-            backLink={sideMenuBackLink[routerStore.language]}
-            labels={translate.sideMenuLabels}
-            language={routerStore.language}
-          />
-          <Col className="col-print-12" lang={routerStore.memoLanguage}>
-            <main>
-              <Row>
-                <Col>
-                  <h1 className="course-header-title">{translate.messages.aboutCourseMemos}</h1>
-                </Col>
-              </Row>
-            </main>
-          </Col>
-        </Row>
-      </Container>
-    )
-  }
+  return (
+    <Container fluid>
+      <Row>
+        <SideMenu
+          courseCode=""
+          courseMemoItems={[]}
+          aboutCourseMemo
+          backLink={sideMenuBackLink[language]}
+          labels={translate.sideMenuLabels}
+          language={language}
+        />
+        <Col className="col-print-12" lang={memoLanguage}>
+          <main>
+            <Row>
+              <Col>
+                <h1 className="course-header-title">{translate.messages.aboutCourseMemos}</h1>
+              </Col>
+            </Row>
+          </main>
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default CourseMemo

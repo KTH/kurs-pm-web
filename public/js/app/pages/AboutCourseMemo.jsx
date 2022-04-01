@@ -1,43 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
-import { Breadcrumbs, InfoModalButton } from '@kth/kth-kip-style-react-components'
+import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import axios from 'axios'
 import i18n from '../../../../i18n'
+import { useWebContext } from '../context/WebContext'
 
-import {
-  abooutCourseBreadcrumb,
-  basicBreadcrumbs,
-  sideMenuBackLink,
-  linkToPublishedMemo,
-  linkToArchive,
-} from '../util/links'
-
+import { resolveCourseImage } from '../util/course-image'
+import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
 import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
-
 import { getCurrentTerm } from '../util/term'
+import { menuItemsForAboutMemo } from '../util/menu-memo-items'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
 import AboutCourseContacts from '../components/AboutCourseContacts'
 import AboutAlert from '../components/AboutAlert'
 
-const englishTranslations = i18n.messages[0].messages
-const swedishTranslations = i18n.messages[1].messages
-
 function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
-  if (breadcrumbContainer)
+  if (breadcrumbContainer) {
     ReactDOM.render(
-      <Breadcrumbs
-        items={[...basicBreadcrumbs(languageAbbr), abooutCourseBreadcrumb(courseCode, languageAbbr)]}
-        courseCode={courseCode}
-        language={languageAbbr}
-      />,
+      <Breadcrumbs include={'aboutCourse'} courseCode={courseCode} language={languageAbbr} />,
       breadcrumbContainer
     )
+  }
 }
 
 function removeKeysAndFlattenToArray(memosWithRoundKeys) {
@@ -52,30 +40,6 @@ function removeWebMemosDuplicates(flattenMemosList) {
     // if web-based memo is unique or if it's pdf memo, then return grue
     return true
   })
-}
-
-// Logic copied from kursinfo-web
-export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
-  let courseImage = ''
-  // If course administrator has set own picture, use that
-  if (imageFromAdmin && imageFromAdmin.length > 4) {
-    courseImage = imageFromAdmin
-    // Course administrator has not set own picture, get one based on course’s main subjects
-  } else {
-    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
-
-    // If main subjects exist, and the language is English, get Swedish translations of main subjects
-    if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
-    }
-    // Get picture according to Swedish translation of first main subject
-    courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
-    // If no picture is available for first main subject, use default picture for language
-    courseImage =
-      courseImage ||
-      (language === 'en' ? englishTranslations.courseImage.default : swedishTranslations.courseImage.default)
-  }
-  return courseImage
 }
 
 const getWebAndPdfMemos = async courseCode => {
@@ -97,107 +61,90 @@ const getWebAndPdfMemos = async courseCode => {
   }
 }
 
-@inject(['routerStore'])
-@observer
-class AboutCourseMemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      webAndPdfMiniMemos: {},
-    }
-  }
+function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
+  // First visible semester according to left meny or getCurrentTerm
 
-  async componentDidMount() {
-    const { routerStore, mockKursPmDataApi } = this.props
-    const { courseCode, language } = routerStore
-    const isThisTest = !!mockKursPmDataApi
-    const webAndPdMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
-    if (webAndPdMemos) {
-      this.setState({ webAndPdfMiniMemos: webAndPdMemos })
-    }
-    renderBreadcrumbsIntoKthHeader(courseCode, language)
-  }
+  return menuMemoItems
+    .filter(m => !m.outdated)
+    .reduce((firstSemester, menuItem) => {
+      const menuItemSemester = Number.parseInt(menuItem.semester, 10)
 
-  render() {
-    const { routerStore, location } = this.props
-    const { webAndPdfMiniMemos } = this.state
-    const { courseCode, language: userLangAbbr, userLanguageIndex } = routerStore
-    const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
-      i18n.messages[userLanguageIndex]
-
-    let menuMemoItems = routerStore.memoDatas.map(m => {
-      const { outdated, memoEndPoint: id } = m
-      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
-      return {
-        id,
-        semester: m.semester,
-        label,
-        active: false,
-        url: `/kurs-pm/${courseCode}/${id}`,
-        outdated,
+      if (menuItemSemester < firstSemester) {
+        return menuItemSemester
       }
-    })
-    // Duplicate id’s filtered out
-    menuMemoItems = menuMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
+      return firstSemester
+    }, getCurrentTerm()) // 21001
+}
 
-    // First visible semester according to left meny or getCurrentTerm
-    const firstVisibleSemester = menuMemoItems
-      .filter(m => !m.outdated)
-      .reduce((firstSemester, menuItem) => {
-        const menuItemSemester = Number.parseInt(menuItem.semester, 10)
+async function AboutCourseMemo({ location, mockKursPmDataApi }) {
+  const [webContext] = useWebContext()
+  const { courseCode, language: userLangAbbr, userLanguageIndex } = webContext
 
-        if (menuItemSemester < firstSemester) {
-          return menuItemSemester
-        }
-        return firstSemester
-      }, getCurrentTerm()) // 21001
+  const isThisTest = !!mockKursPmDataApi
 
-    return (
-      // Class preview-container, or equivalent, not needed
-      <Container className="kip-container about-container" fluid>
-        <Row>
-          <SideMenu
-            courseCode={courseCode}
-            courseMemoItems={menuMemoItems}
-            aboutCourseMemo
-            backLink={sideMenuBackLink[userLangAbbr]}
-            labels={sideMenuLabels}
-            language={userLangAbbr}
-          />
-          <Col className="col-print-12">
-            <main id="mainContent">
-              <AboutHeader
-                courseCode={courseCode}
-                title={routerStore.title}
-                credits={routerStore.credits}
-                creditUnitAbbr={routerStore.creditUnitAbbr}
-                labels={aboutHeaderLabels}
-                language={userLangAbbr}
-              />
+  const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
+
+  const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
+    i18n.messages[userLanguageIndex]
+
+  const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
+
+  const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
+
+  useEffect(() => {
+    let isMounted = true
+    if (isMounted) {
+      renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
+    }
+    return () => (isMounted = false)
+  }, [])
+
+  return (
+    // Class preview-container, or equivalent, not needed
+    <Container className="kip-container about-container" fluid>
+      <Row>
+        <SideMenu
+          courseCode={courseCode}
+          courseMemoItems={menuMemoItems}
+          aboutCourseMemo
+          backLink={sideMenuBackLink[userLangAbbr]}
+          labels={sideMenuLabels}
+          language={userLangAbbr}
+        />
+        <Col className="col-print-12">
+          <main id="mainContent">
+            <AboutHeader
+              courseCode={courseCode}
+              title={webContext.title}
+              credits={webContext.credits}
+              creditUnitAbbr={webContext.creditUnitAbbr}
+              labels={aboutHeaderLabels}
+              language={userLangAbbr}
+            />
+            <Row>
+              <Col>
+                <section>
+                  <p>{aboutMemoLabels.aboutMemosText1}</p>
+                  <p>{aboutMemoLabels.aboutMemosText2}</p>
+                </section>
+              </Col>
+            </Row>
+            {location.state && location.state.noMemoData && (
               <Row>
                 <Col>
-                  <section>
-                    <p>{aboutMemoLabels.aboutMemosText1}</p>
-                    <p>{aboutMemoLabels.aboutMemosText2}</p>
-                  </section>
+                  <AboutAlert
+                    courseCode={courseCode}
+                    semester={location.state.semester}
+                    roundIds={location.state.roundIds}
+                    language={userLangAbbr}
+                  />
                 </Col>
               </Row>
-              {location.state && location.state.noMemoData && (
-                <Row>
-                  <Col>
-                    <AboutAlert
-                      courseCode={routerStore.courseCode}
-                      semester={location.state.semester}
-                      roundIds={location.state.roundIds}
-                      language={userLangAbbr}
-                    />
-                  </Col>
-                </Row>
-              )}
-              <Row>
-                <Col lg="8" className="text-break">
-                  <section>
-                    <span className="about-memo-header">
+            )}
+            <Row>
+              <Col lg="8" className="text-break">
+                <section>
+                  {/* <span className="about-memo-header">
                       <h2>{aboutMemoLabels.currentMemos}</h2>
                       <InfoModalButton
                         modalId="current-memos-title"
@@ -208,82 +155,93 @@ class AboutCourseMemo extends Component {
                           ariaLabel: aboutMemoLabels.ariaLabel,
                         }}
                       />
-                    </span>
-                    {Object.keys(webAndPdfMiniMemos)
-                      .reverse()
-                      .map(semester => {
-                        if (Number.parseInt(semester, 10) < firstVisibleSemester) {
-                          return null
-                        }
+                    </span> */}
+                  <HeadingAsteriskModal
+                    headingTag="h2"
+                    langAbbr={userLangAbbr}
+                    modalId="current-memos-title"
+                    modalBtnAriaLabel={aboutMemoLabels.ariaLabel}
+                    titleAndInfo={{
+                      header: aboutMemoLabels.currentMemos,
+                      body: aboutMemoLabels.currentMemosInfo,
+                    }}
+                    btnClose={aboutMemoLabels.btnClose}
+                    withModal
+                  />
+                  {Object.keys(webAndPdfMiniMemos)
+                    .reverse()
+                    .map(semester => {
+                      if (Number.parseInt(semester, 10) < firstVisibleSemester) {
+                        return null
+                      }
 
-                        const semesterMemos = webAndPdfMiniMemos[semester]
-                        const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
-                        const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
+                      const semesterMemos = webAndPdfMiniMemos[semester]
+                      const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
+                      const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
 
-                        return (
-                          <React.Fragment key={semester}>
-                            <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                            <ul>
-                              {cleanFlatMemosList.map(
-                                ({
-                                  courseMemoFileName: pdfFileName,
-                                  isPdf,
-                                  ladokRoundIds,
-                                  memoCommonLangAbbr,
-                                  memoEndPoint,
-                                  semester: itemSemester,
-                                }) => (
-                                  <li key={memoEndPoint || pdfFileName}>
-                                    {(isPdf && (
-                                      <a
-                                        className="pdf-link"
-                                        href={`${routerStore.browserConfig.memoStorageUri}${pdfFileName}`}
-                                      >
-                                        {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
-                                      </a>
-                                    )) || (
-                                      <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
-                                        {memoNameWithCourseCode(
-                                          courseCode,
-                                          itemSemester,
-                                          ladokRoundIds,
-                                          memoCommonLangAbbr
-                                        )}
-                                      </a>
-                                    )}
-                                  </li>
-                                )
-                              )}
-                            </ul>
-                          </React.Fragment>
-                        )
-                      })}
-                    <h3>{aboutMemoLabels.previousOfferings}</h3>
-                    <ul>
-                      <li>
-                        <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
-                      </li>
-                    </ul>
-                  </section>
-                </Col>
-                <Col lg="4" className="content-right">
-                  <section>
-                    <h2>{courseContactsLabels.courseContactsTitle}</h2>
-                    <AboutCourseContacts
-                      languageIndex={userLanguageIndex}
-                      infoContactName={routerStore.infoContactName}
-                      examiners={routerStore.examiners}
-                      labels={courseContactsLabels}
-                    />
-                  </section>
-                </Col>
-              </Row>
-            </main>
-          </Col>
-        </Row>
-      </Container>
-    )
-  }
+                      return (
+                        <React.Fragment key={semester}>
+                          <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
+                          <ul>
+                            {cleanFlatMemosList.map(
+                              ({
+                                courseMemoFileName: pdfFileName,
+                                isPdf,
+                                ladokRoundIds,
+                                memoCommonLangAbbr,
+                                memoEndPoint,
+                                semester: itemSemester,
+                              }) => (
+                                <li key={memoEndPoint || pdfFileName}>
+                                  {(isPdf && (
+                                    <a
+                                      className="pdf-link"
+                                      href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
+                                    >
+                                      {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
+                                    </a>
+                                  )) || (
+                                    <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
+                                      {memoNameWithCourseCode(
+                                        courseCode,
+                                        itemSemester,
+                                        ladokRoundIds,
+                                        memoCommonLangAbbr
+                                      )}
+                                    </a>
+                                  )}
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        </React.Fragment>
+                      )
+                    })}
+                  <h3>{aboutMemoLabels.previousOfferings}</h3>
+                  <ul>
+                    <li>
+                      <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
+                    </li>
+                  </ul>
+                </section>
+              </Col>
+              <Col lg="4" className="content-right">
+                <section>
+                  <h2>{courseContactsLabels.courseContactsTitle}</h2>
+                  <AboutCourseContacts
+                    languageIndex={userLanguageIndex}
+                    infoContactName={webContext.infoContactName}
+                    examiners={webContext.examiners}
+                    labels={courseContactsLabels}
+                  />
+                </section>
+              </Col>
+            </Row>
+          </main>
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default AboutCourseMemo
