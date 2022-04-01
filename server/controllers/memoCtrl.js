@@ -1,9 +1,6 @@
 'use strict'
 
-const { toJS } = require('mobx')
-const ReactDOMServer = require('react-dom/server')
-
-const log = require('kth-node-log')
+const log = require('@kth/log')
 const languageLib = require('@kth/kth-node-web-common/lib/language')
 
 const { sv, en } = require('date-fns/locale')
@@ -11,10 +8,12 @@ const { utcToZonedTime, format } = require('date-fns-tz')
 
 const apis = require('../api')
 const serverPaths = require('../server').getPaths()
-const { browser, server } = require('../configuration')
+const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation } = require('../koppsApi')
+const { getServerSideFunctions } = require('../utils/serverSideRendering')
+const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
 
 const locales = { sv, en }
 
@@ -30,32 +29,6 @@ function formatVersionDate(language = 'sv', version) {
 
 function formatVersion(version, language, lastChangeDate) {
   return `Ver ${version} – ${formatVersionDate(language, lastChangeDate)}`
-}
-
-function hydrateStores(renderProps) {
-  // This assumes that all stores are specified in a root element called Provider
-  const outp = {}
-  const { props } = renderProps.props.children
-
-  Object.keys(props).forEach(key => {
-    if (typeof props[key].initializeStore === 'function') {
-      outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
-    }
-  })
-
-  return outp
-}
-
-function _staticRender(context, location) {
-  if (process.env.NODE_ENV === 'development') {
-    delete require.cache[require.resolve('../../dist/app.js')]
-  }
-
-  // During startup, before build, there might not be a app.js yet
-  // eslint-disable-next-line import/no-unresolved
-  const { staticRender } = require('../../dist/app.js')
-
-  return staticRender(context, location)
 }
 
 function resolvePotentialMemoEndPoint(courseCode, semester, id) {
@@ -182,26 +155,28 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
 async function getContent(req, res, next) {
   try {
     const context = {}
-    const renderProps = _staticRender(context, req.url)
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+    const webContext = { lang, proxyPrefixPath: serverConfig.proxyPrefixPath, ...createServerSideContext() } // ...createApplicationStore()
 
-    const { routerStore } = renderProps.props.children.props
-
-    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
     const { courseCode: rawCourseCode, semester, id } = req.params
     const courseCode = rawCourseCode.toUpperCase()
-    routerStore.courseCode = courseCode
+    webContext.courseCode = courseCode
 
     const memoDatas = await getMemoDataById(courseCode, 'published')
     // Set temporary memoDatas to be able to resolve language
     // TODO: Try to rework this unsound solution
-    routerStore.memoDatas = memoDatas
+    webContext.memoDatas = memoDatas
 
     const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
-    routerStore.memoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, memoDatas)
+    webContext.memoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, memoDatas)
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    webContext.language = responseLanguage
+    webContext.memoLanguage = webContext.resolveMemoLanguage()
+    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
+    webContext.semester = webContext.memoData.semester
 
     const {
       courseMainSubjects,
@@ -212,37 +187,47 @@ async function getContent(req, res, next) {
       infoContactName,
       examiners,
       roundInfos,
-    } = await getDetailedInformation(courseCode, routerStore.memoLanguage)
-    routerStore.courseMainSubjects = courseMainSubjects
-    routerStore.title = title
-    routerStore.credits = credits
-    routerStore.creditUnitAbbr = creditUnitAbbr
-    routerStore.infoContactName = infoContactName
-    routerStore.examiners = examiners
+    } = await getDetailedInformation(courseCode, webContext.memoLanguage)
+    webContext.courseMainSubjects = courseMainSubjects
+    webContext.title = title
+    webContext.credits = credits
+    webContext.creditUnitAbbr = creditUnitAbbr
+    webContext.infoContactName = infoContactName
+    webContext.examiners = examiners
 
     // MemoDatas are set again.
-    routerStore.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
+    webContext.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)
-    routerStore.imageFromAdmin = imageInfo
+    webContext.sellingText = resolveSellingText(sellingText, recruitmentText, webContext.memoLanguage)
+    webContext.imageFromAdmin = imageInfo
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
-    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
-    const html = ReactDOMServer.renderToString(renderProps)
+    const compressedData = getCompressedData(webContext)
+    const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
+
+    const view = renderStaticPage({
+      applicationStore: {},
+      location: req.url,
+      basename: proxyPrefix,
+      context: webContext,
+    })
+
+    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
     res.render('memo/index', {
-      html,
       aboutCourse: {
         siteName: shortDescription,
         siteUrl: '/student/kurser/kurs/' + courseCode,
       },
-      initialState: JSON.stringify(hydrateStores(renderProps)),
-      instrumentationKey: server.appInsights.instrumentationKey,
-      lang: responseLanguage,
+      compressedData,
       description: shortDescription,
+      instrumentationKey: server.appInsights.instrumentationKey,
+      html: view,
+      lang: responseLanguage,
+      proxyPrefix,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -253,56 +238,73 @@ async function getContent(req, res, next) {
 async function getOldContent(req, res, next) {
   try {
     const context = {}
-    const renderProps = _staticRender(context, req.url)
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+    const webContext = {
+      lang,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      ...createServerSideContext(),
+    }
 
-    const { routerStore } = renderProps.props.children.props
-
-    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
     const { courseCode: rawCourseCode, memoEndPoint, version } = req.params
     const courseCode = rawCourseCode.toUpperCase()
 
-    routerStore.courseCode = courseCode
-    routerStore.memoEndPoint = memoEndPoint
+    webContext.courseCode = courseCode
+    webContext.memoEndPoint = memoEndPoint
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    webContext.language = responseLanguage
 
     const memoDatas = await getMemoDataById(courseCode, 'old', version)
-    routerStore.memoDatas = memoDatas
+    webContext.memoDatas = memoDatas
 
     const latestMemoDatas = await getMemoDataById(courseCode, 'published')
     const currentMemoData = latestMemoDatas.filter(md => md.memoEndPoint === memoEndPoint)
-    routerStore.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, currentMemoData)
+    webContext.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, currentMemoData)
+
+    webContext.memoData = currentMemoData
+    webContext.memoLanguage = webContext.resolveMemoLanguage()
+    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
 
     const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
-      await getDetailedInformation(courseCode, routerStore.memoLanguage)
-    routerStore.courseMainSubjects = courseMainSubjects
-    routerStore.title = title
-    routerStore.credits = credits
-    routerStore.creditUnitAbbr = creditUnitAbbr
-    routerStore.infoContactName = infoContactName
-    routerStore.examiners = examiners
+      await getDetailedInformation(courseCode, webContext.memoLanguage)
+    webContext.courseMainSubjects = courseMainSubjects
+    webContext.title = title
+    webContext.credits = credits
+    webContext.creditUnitAbbr = creditUnitAbbr
+    webContext.infoContactName = infoContactName
+    webContext.examiners = examiners
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    routerStore.sellingText = resolveSellingText(sellingText, recruitmentText, routerStore.memoLanguage)
-    routerStore.imageFromAdmin = imageInfo
+    webContext.sellingText = resolveSellingText(sellingText, recruitmentText, webContext.memoLanguage)
+    webContext.imageFromAdmin = imageInfo
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
-    const html = ReactDOMServer.renderToString(renderProps)
+    const compressedData = getCompressedData(webContext)
+    const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
+
+    const view = renderStaticPage({
+      applicationStore: {},
+      location: req.url,
+      basename: proxyPrefix,
+      context: webContext,
+    })
+
+    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig?.toolbar?.url}`)
 
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
         siteUrl: '/student/kurser/kurs/' + courseCode,
       },
-      html,
-      initialState: JSON.stringify(hydrateStores(renderProps)),
+      compressedData,
+      description: shortDescription,
+      html: view,
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
-      description: shortDescription,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -313,51 +315,66 @@ async function getOldContent(req, res, next) {
 async function getAboutContent(req, res, next) {
   try {
     const context = {}
-    const renderProps = _staticRender(context, req.url)
 
-    const { routerStore } = renderProps.props.children.props
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+    const webContext = {
+      lang,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      ...createServerSideContext(),
+    }
 
-    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
     const { courseCode: rawCourseCode } = req.params
     const courseCode = rawCourseCode.toUpperCase()
-    routerStore.courseCode = courseCode
+    webContext.courseCode = courseCode
 
     const memoDatas = await getMemoDataById(courseCode, 'published')
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    webContext.language = responseLanguage
+    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
 
     const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
-      routerStore.memoLanguage
+      webContext.memoLanguage
     )
-    routerStore.title = title
-    routerStore.credits = credits
-    routerStore.creditUnitAbbr = creditUnitAbbr
-    routerStore.infoContactName = infoContactName
-    routerStore.examiners = examiners
+    webContext.title = title
+    webContext.credits = credits
+    webContext.creditUnitAbbr = creditUnitAbbr
+    webContext.infoContactName = infoContactName
+    webContext.examiners = examiners
 
-    routerStore.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
+    webContext.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
-    const html = ReactDOMServer.renderToString(renderProps)
+    const compressedData = getCompressedData(webContext)
+    const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
+
+    const view = renderStaticPage({
+      applicationStore: {},
+      location: req.url,
+      basename: proxyPrefix,
+      context: webContext,
+    })
+
+    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig?.toolbar?.url}`)
 
     res.render('memo/index', {
-      html,
       aboutCourse: {
         siteName: shortDescription,
         siteUrl: '/student/kurser/kurs/' + courseCode,
       },
-      initialState: JSON.stringify(hydrateStores(renderProps)),
+      compressedData,
+      description: shortDescription,
+      html: view,
       instrumentationKey: server.appInsights.instrumentationKey,
       lang: responseLanguage,
-      description: shortDescription,
     })
   } catch (err) {
-    log.error('Error in getContent', { error: err })
+    log.error('Error', { error: err })
     next(err)
   }
 }
@@ -365,30 +382,41 @@ async function getAboutContent(req, res, next) {
 async function getNoContent(req, res, next) {
   try {
     const context = {}
-    const renderProps = _staticRender(context, req.url)
-
-    const { routerStore } = renderProps.props.children.props
-
-    routerStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+    const webContext = {
+      lang,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      ...createServerSideContext(),
+    }
+    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    routerStore.language = responseLanguage
+    webContext.language = responseLanguage
 
     // TODO: Proper language constant
     const shortDescription = responseLanguage === 'sv' ? 'Kurs-PM' : 'Course memo'
 
-    // log.debug(`renderProps ${JSON.stringify(renderProps)}`)
-    const html = ReactDOMServer.renderToString(renderProps)
+    const compressedData = getCompressedData(webContext)
+    const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
+
+    const view = renderStaticPage({
+      applicationStore: {},
+      location: req.url,
+      basename: proxyPrefix,
+      context: webContext,
+    })
+
+    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
     res.render('memo/index', {
-      html,
       aboutCourse: {
         siteName: shortDescription,
         siteUrl: '',
       },
-      initialState: JSON.stringify(hydrateStores(renderProps)),
-      lang: responseLanguage,
+      compressedData,
       description: shortDescription,
+      html: view,
+      lang: responseLanguage,
     })
   } catch (err) {
     log.error('Error in getNoContent', { error: err })
