@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { Redirect } from 'react-router'
 
 import i18n from '../../../../i18n'
 import { concatMemoName } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { resolveCourseImage } from '../util/course-image'
-import { menuItemsFormemoData } from '../util/menu-memo-items'
+import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
 
 import { useWebContext } from '../context/WebContext'
 
@@ -55,20 +55,13 @@ function getUrl() {
 
 const redirectToAbout = (courseCode, location) => {
   const { pathname } = location
-  const fromPersonalMenu = `/kurs-pm/${courseCode}/\\d*/\\d*`
-  const withMemoEndPoint = `/kurs-pm/${courseCode}/\\w*\\d*-\\d*`
+  const fromPersonalMenu = `/${courseCode}/\\d*/\\d*`
+  const withMemoEndPoint = `/${courseCode}/\\w*\\d*-\\d*`
   if (pathname.match(fromPersonalMenu)) {
     const semesterAndRoundId = pathname.replace(`/kurs-pm/${courseCode}/`, '')
     const [semester, roundId] = semesterAndRoundId.split('/')
     const roundIds = [roundId]
-    return (
-      <Redirect
-        to={{
-          pathname: `/kurs-pm/${courseCode}/om-kurs-pm`,
-          state: { noMemoData: true, semester, roundIds },
-        }}
-      />
-    )
+    return { noMemoData: true, semester, roundIds }
   }
   if (pathname.match(withMemoEndPoint)) {
     const potentialMemoEndPoint = pathname.replace(`/kurs-pm/${courseCode}/`, '')
@@ -77,38 +70,43 @@ const redirectToAbout = (courseCode, location) => {
       const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
       const semester = potentialCourseCodeAndSemester.replace(courseCode, '')
       const roundIds = potentialMemoEndPointParts.slice(1)
-      return (
-        <Redirect
-          to={{
-            pathname: `/kurs-pm/${courseCode}/om-kurs-pm`,
-            state: { noMemoData: true, semester: semester || '', roundIds: roundIds || [] },
-          }}
-        />
-      )
+      return { noMemoData: true, semester: semester || '', roundIds: roundIds || [] }
     }
   }
-  return <Redirect to={`/kurs-pm/${courseCode}/om-kurs-pm`} />
+  return null
 }
 
 function getLangIndex(language) {
-  language === 'en' ? 0 : 1
+  return language === 'en' ? 0 : 1
 }
 
-function CourseMemo({ location }) {
+function CourseMemo() {
   const [webContext] = useWebContext()
-  const { courseCode, language, memoDatas, memoEndPoint, memoLanguage = 'sv', semester, userLanguageIndex } = webContext
+  const navigate = useNavigate()
 
-  const memo = findMemo()
+  const {
+    courseCode,
+    language,
+    memoData: memo,
+    memoDatas,
+    memoEndPoint,
+    memoLanguage,
+    semester: querySemester,
+    userLanguageIndex,
+  } = webContext
 
-  const { ladokRoundIds = [] } = memo
+  const { ladokRoundIds = [], semester: memoSemester } = memo
+  const semester = querySemester || memoSemester
 
-  if (hasNoMemoData()) {
-    return redirectToAbout(courseCode, location)
-  }
+  const location = useLocation()
 
   useEffect(() => {
     let isMounted = true
     if (isMounted) {
+      if (hasNoMemoData()) {
+        const stateForRedirect = redirectToAbout(courseCode, location)
+        navigate(`/${courseCode}/om-kurs-pm`, { state: stateForRedirect })
+      }
       renderBreadcrumbsIntoKthHeader(courseCode, language)
       // Decide which content can have wider content (exempel tables, to make them more readable)
       determineContentFlexibility()
@@ -116,11 +114,7 @@ function CourseMemo({ location }) {
     return () => (isMounted = false)
   }, [])
 
-  const courseImage = resolveCourseImage(
-    webContext.imageFromAdmin,
-    webContext.courseMainSubjects,
-    webContext.memoLanguage
-  )
+  const courseImage = resolveCourseImage(webContext.imageFromAdmin, webContext.courseMainSubjects, memoLanguage)
   const courseImageUrl = `${webContext.browserConfig.imageStorageUri}${courseImage}`
   const memoLanguageIndex = getLangIndex(memoLanguage)
 
@@ -147,12 +141,7 @@ function CourseMemo({ location }) {
   }
 
   function isMemoArchived() {
-    return isMemoOld() || outdatedMemo()
-  }
-
-  function findMemo() {
-    const memoData = memoDatas.find(m => m.memoEndPoint === memoEndPoint)
-    return memoData || {}
+    return isMemoOld() || isMemoOutdated()
   }
 
   function hasNoMemoData() {
@@ -220,13 +209,13 @@ function CourseMemo({ location }) {
                   introText={webContext.sellingText}
                   labels={coursePresentationLabels}
                 />
-                <AllSections memoData={memoData} memoLanguageIndex={memoLanguageIndex} />
-                <Contacts language={memoLanguage} memoData={memoData} labels={courseContactsLabels} />
+                <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
+                <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
               </Col>
               <Col lg="4" className="d-print-none content-right">
                 <Row className="mb-lg-4">
                   <Col>
-                    <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memoData} />
+                    <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memo} />
                   </Col>
                 </Row>
                 <Row className="my-lg-4">
@@ -235,7 +224,7 @@ function CourseMemo({ location }) {
                       language={memoLanguageIndex}
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
-                      memoData={memoData}
+                      memoData={memo}
                       courseMemoName={concatMemoName(semester, ladokRoundIds, memoLanguage)}
                       archivedMemo={isMemoArchived()}
                     />
@@ -251,7 +240,7 @@ function CourseMemo({ location }) {
                     <CourseContacts
                       styleId="last-element-which-determines-styles"
                       language={memoLanguage}
-                      memoData={memoData}
+                      memoData={memo}
                       labels={courseContactsLabels}
                     />
                   </Col>
