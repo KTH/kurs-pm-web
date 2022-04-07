@@ -1,7 +1,7 @@
 # Welcome to kurs-pm-web 👋
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-14.17.0-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-16-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -43,7 +43,7 @@ Kurs-pm-web fetches data from:
 
 ## Prerequisites
 
-- Node.js 14.17.0
+- Node.js 16
 
 ### Secrets for Development
 
@@ -78,12 +78,6 @@ These settings are also available in the `env.in` file.
 ## For Development
 
 ### Install
-
-First time you might need to use options `--ignore-scripts` because of npm resolutions:
-```sh
-npm install --ignore-scripts
-```
-or 
 
 ```sh
 npm install
@@ -191,13 +185,13 @@ ansible-vault edit secrets.env
 Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
 
 ```sh
-KURS_PM_DATA_API_URI=https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000
+KURS_PM_DATA_API_URI=localhost:portNumber/api/kurs-pm-data?defaultTimeout=10000
 KURS_PM_DATA_API_KEY=[key]
 
-KURS_INFO_API_URI=https://app-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000
+KURS_INFO_API_URI=localhost:portNumber/api/kursinfo?defaultTimeout=10000
 KURS_INFO_API_KEY=[key]
 
-# If KOPPS_URI is omitted, https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000 will be used
+# If KOPPS_URI is omitted, pathToKopps/api/kopps/v2/?defaultTimeout=10000 will be used
 
 SESSION_SECRET=[secret]
 SESSION_KEY=[key]
