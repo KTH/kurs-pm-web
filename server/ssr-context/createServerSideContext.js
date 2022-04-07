@@ -11,10 +11,6 @@ function setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
   this.thisHostBaseUrl = thisHostBaseUrl
 }
 
-function resolveMemoLanguage() {
-  return this.memoData.memoCommonLangAbbr || this.language
-}
-
 function createServerSideContext() {
   const context = {
     browserConfig: {},
@@ -22,6 +18,7 @@ function createServerSideContext() {
     courseMainSubjects: '',
     imageFromAdmin: '',
     language: 'sv',
+    memoData: {},
     memoDatas: [],
     memoEndPoint: '',
     memoLanguage: 'sv',
@@ -34,7 +31,6 @@ function createServerSideContext() {
     examiners: '',
     userLanguageIndex: 1,
     ..._createLatestMemoAddition(),
-    resolveMemoLanguage,
     setBrowserConfig,
   }
   return context
