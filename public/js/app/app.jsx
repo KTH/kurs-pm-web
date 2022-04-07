@@ -35,12 +35,12 @@ function appFactory(applicationStore, context) {
   return (
     <WebContextProvider configIn={context}>
       <Routes>
-        <Route exact path="/kurs-pm/" element={<AboutCourseMemos />} />
-        <Route exact path="/kurs-pm/old/:courseCode/:memoEndPoint/:version" element={<CourseMemo />} />
-        <Route exact path="/kurs-pm/:courseCode" element={<CourseMemo />} />
-        <Route exact path="/kurs-pm/:courseCode/om-kurs-pm" element={<AboutCourseMemo />} />
-        <Route exact path="/kurs-pm/:courseCode/:id" element={<CourseMemo />} />
-        <Route exact path="/kurs-pm/:courseCode/:semester/:id" element={<CourseMemo />} />
+        <Route exact path="/" element={<AboutCourseMemos />} />
+        <Route exact path="/old/:courseCode/:memoEndPoint/:version" element={<CourseMemo />} />
+        <Route exact path="/:courseCode" element={<CourseMemo />} />
+        <Route exact path="/:courseCode/om-kurs-pm" element={<AboutCourseMemo />} />
+        <Route exact path="/:courseCode/:id" element={<CourseMemo />} />
+        <Route exact path="/:courseCode/:semester/:id" element={<CourseMemo />} />
       </Routes>
     </WebContextProvider>
   )
