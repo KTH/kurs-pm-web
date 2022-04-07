@@ -59,7 +59,7 @@
     "kth-node-redis": "^3.1.36",
     "kth-node-server": "^3.1.9",
     "kth-node-session": "^2.0.3",
-    "kth-style": "^7.0.18",
+    "kth-style": "^7.0.20",
     "mobx": "^5.15.7",
     "mobx-react": "^5.4.4",
     "react": "^16.14.0",
