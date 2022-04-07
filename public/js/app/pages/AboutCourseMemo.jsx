@@ -63,7 +63,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const [webContext] = useWebContext()
   const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex } = webContext
-
   const isThisTest = !!mockKursPmDataApi
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
@@ -156,6 +155,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                           <ul>
                             {cleanFlatMemosList.map(
                               ({
+                                courseCode: memocourseCode,
                                 courseMemoFileName: pdfFileName,
                                 isPdf,
                                 ladokRoundIds,
@@ -172,7 +172,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                                       {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
                                     </a>
                                   )) || (
-                                    <a href={linkToPublishedMemo(courseCode, memoEndPoint)}>
+                                    <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
                                       {memoNameWithCourseCode(
                                         courseCode,
                                         itemSemester,

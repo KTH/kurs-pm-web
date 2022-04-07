@@ -3,7 +3,7 @@ jest.mock('../../api', () => {})
 
 const systemCtrl = require('../systemCtrl')
 
-xdescribe('Not found', () => {
+describe('Not found', () => {
   test('Gets correct error code', done => {
     const req = { originalUrl: 'http://localhost' }
 
