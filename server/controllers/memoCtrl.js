@@ -16,7 +16,6 @@ const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
 
 const locales = { sv, en }
-const { getCompressedData, renderStaticPage } = getServerSideFunctions()
 
 function findMemo(memoDatas, memoEndPoint) {
   const memoData = memoDatas.find(m => m.memoEndPoint === memoEndPoint)
@@ -161,6 +160,8 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
 
 async function getContent(req, res, next) {
   try {
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+
     const { courseCode: rawCourseCode, semester = null, id } = req.params
     const courseCode = rawCourseCode.toUpperCase()
 
@@ -265,6 +266,8 @@ async function getContent(req, res, next) {
 
 async function getOldContent(req, res, next) {
   try {
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+
     const { courseCode: rawCourseCode, memoEndPoint, version } = req.params
     const courseCode = rawCourseCode.toUpperCase()
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
@@ -353,6 +356,8 @@ async function getOldContent(req, res, next) {
 
 async function getAboutContent(req, res, next) {
   try {
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+
     const { courseCode: rawCourseCode } = req.params
     const courseCode = rawCourseCode.toUpperCase()
 
@@ -415,6 +420,8 @@ async function getAboutContent(req, res, next) {
 
 async function getNoContent(req, res, next) {
   try {
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
 
     const webContext = {
