@@ -59,6 +59,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       },
       memoDatas: [
         {
+          courseCode: 'KIP2720',
           ladokRoundIds: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
@@ -66,6 +67,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           outdated: false,
         },
         {
+          courseCode: 'KIP2720',
           ladokRoundIds: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
