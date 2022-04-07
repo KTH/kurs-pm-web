@@ -119,17 +119,17 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     expect(noInfo.length).toBe(2)
   })
 
-  // test('renders menu link of web-based memo as expected', () => {
-  //   const menuItem = getByText('Course memo Autumn 2019-1')
-  //   expect(menuItem).toBeInTheDocument()
-  //   expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
-  // })
+  xtest('renders menu link of web-based memo as expected', () => {
+    const menuItem = getByText('Course memo Autumn 2019-1')
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
+  })
 
-  // test('renders menu link of web-based memo as expected', () => {
-  //   const menuItem = getByText('Course memo Autumn 2020-1')
-  //   expect(menuItem).toBeInTheDocument()
-  //   expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
-  // })
+  xtest('renders menu link of web-based memo as expected', () => {
+    const menuItem = getByText('Course memo Autumn 2020-1')
+    expect(menuItem).toBeInTheDocument()
+    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
+  })
 
   test('renders menu link Before course selection', () => {
     const menuItem = getByText('Before course selection')
