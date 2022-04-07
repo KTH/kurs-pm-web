@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
@@ -6,6 +6,7 @@ import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/comp
 import axios from 'axios'
 import i18n from '../../../../i18n'
 import { useWebContext } from '../context/WebContext'
+import { useLocation } from 'react-router-dom'
 
 import { resolveCourseImage } from '../util/course-image'
 import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
@@ -42,25 +43,6 @@ function removeWebMemosDuplicates(flattenMemosList) {
   })
 }
 
-const getWebAndPdfMemos = async courseCode => {
-  const URL_KURS_PM_INTERNAL_API = `/kurs-pm/to-kurs-pm-api/${courseCode}`
-  try {
-    const result = await axios.get(URL_KURS_PM_INTERNAL_API)
-
-    if (result) {
-      if (result.status >= 400) {
-        return 'ERROR-getWebAndPdfMemos-' + result.status
-      }
-    }
-    return result.data
-  } catch (error) {
-    if (error.response) {
-      throw new Error('getWebAndPdfMemos ' + error.message)
-    }
-    throw error
-  }
-}
-
 function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
   // First visible semester according to left meny or getCurrentTerm
 
@@ -76,13 +58,15 @@ function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
     }, getCurrentTerm()) // 21001
 }
 
-async function AboutCourseMemo({ location, mockKursPmDataApi }) {
+function AboutCourseMemo({ mockKursPmDataApi = false }) {
+  const location = useLocation()
+
   const [webContext] = useWebContext()
-  const { courseCode, language: userLangAbbr, userLanguageIndex } = webContext
+  const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex } = webContext
 
   const isThisTest = !!mockKursPmDataApi
 
-  const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : await getWebAndPdfMemos(courseCode)
+  const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
 
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
     i18n.messages[userLanguageIndex]
@@ -100,7 +84,6 @@ async function AboutCourseMemo({ location, mockKursPmDataApi }) {
   }, [])
 
   return (
-    // Class preview-container, or equivalent, not needed
     <Container className="kip-container about-container" fluid>
       <Row>
         <SideMenu
@@ -144,18 +127,6 @@ async function AboutCourseMemo({ location, mockKursPmDataApi }) {
             <Row>
               <Col lg="8" className="text-break">
                 <section>
-                  {/* <span className="about-memo-header">
-                      <h2>{aboutMemoLabels.currentMemos}</h2>
-                      <InfoModalButton
-                        modalId="current-memos-title"
-                        modalLabels={{
-                          header: aboutMemoLabels.currentMemos,
-                          body: aboutMemoLabels.currentMemosInfo,
-                          btnClose: aboutMemoLabels.btnClose,
-                          ariaLabel: aboutMemoLabels.ariaLabel,
-                        }}
-                      />
-                    </span> */}
                   <HeadingAsteriskModal
                     headingTag="h2"
                     langAbbr={userLangAbbr}

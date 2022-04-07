@@ -20,10 +20,10 @@ function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   }
 }
 
-function CourseMemo() {
+function AboutCourseMemos() {
   const [webContext] = useWebContext()
   const translate = i18n.messages[webContext.userLanguageIndex]
-  const { courseCode, language, memoLanguage } = webContext
+  const { courseCode, language } = webContext
 
   useEffect(() => {
     let isMounted = true
@@ -44,11 +44,11 @@ function CourseMemo() {
           labels={translate.sideMenuLabels}
           language={language}
         />
-        <Col className="col-print-12" lang={memoLanguage}>
+        <Col className="col-print-12" lang={language}>
           <main>
             <Row>
               <Col>
-                <h1 className="course-header-title">{translate.messages.aboutCourseMemos}</h1>
+                <h1 className="course-header-title">{translate.messages.memoLabel}</h1>
               </Col>
             </Row>
           </main>
@@ -58,4 +58,4 @@ function CourseMemo() {
   )
 }
 
-export default CourseMemo
+export default AboutCourseMemos
