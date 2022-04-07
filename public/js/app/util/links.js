@@ -1,37 +1,3 @@
-function basicBreadcrumbs(langAbbr) {
-  const links = {
-    university: { en: '/en', sv: '/' },
-    student: { en: '/en/student', sv: '/student' },
-    directory: {
-      en: '/student/kurser/kurser-inom-program?l=en',
-      sv: '/student/kurser/kurser-inom-program',
-    },
-  }
-
-  const labels = {
-    en: {
-      university: 'KTH',
-      student: 'Student at KTH',
-      directory: 'Course and programme directory',
-      aboutCourse: '', // must be initiated empty
-    },
-    sv: {
-      university: 'KTH',
-      student: 'Student på KTH',
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: '', // must be initiated empty
-    },
-  }
-  const orderedTypes = ['university', 'student', 'directory']
-  return orderedTypes.map(type => ({ url: links[type][langAbbr], label: labels[langAbbr][type] }))
-}
-
-function abooutCourseBreadcrumb(courseCode, langAbbr) {
-  const url = `/student/kurser/kurs/${courseCode}?l=${langAbbr}`
-  const label = `${langAbbr === 'sv' ? 'Om kursen' : 'About course'} ${courseCode}`
-  return { url, label }
-}
-
 function courseLinks(language) {
   const languagePath = language === 'en' ? 'en/' : ''
   return {
@@ -91,8 +57,6 @@ function linkToSyllabus(courseCode, validFromTerm, language) {
 }
 
 module.exports = {
-  abooutCourseBreadcrumb,
-  basicBreadcrumbs,
   courseLinks,
   sideMenuBackLink,
   aboutCourseLink,

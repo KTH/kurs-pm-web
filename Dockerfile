@@ -1,42 +1,38 @@
-FROM kthse/kth-nodejs:14.0.0
+FROM kthse/kth-nodejs:16.0.0
 
-LABEL maintainer="KTH-Webb web-developers@kth.se"
+LABEL maintainer="KTH-studadm studadm.developers@kth.se"
 
-RUN mkdir -p /npm && \
-  mkdir -p /application
+WORKDIR /application
+ENV NODE_PATH /application
 
-# We do this to avoid npm install when we're only changing code
-WORKDIR /npm
+ENV TZ Europe/Stockholm
 
 COPY ["package.json", "package.json"]
 COPY ["package-lock.json", "package-lock.json"]
 
-RUN npm install --production --no-optional
-
-# Add the code and copy over the node_modules-catalog
-WORKDIR /application
-RUN cp -a /npm/node_modules /application && \
-  rm -rf /npm
-
-# Copy files used by Gulp.
 COPY ["config", "config"]
-COPY ["public", "public"]
 COPY ["i18n", "i18n"]
-COPY ["package.json", "package.json"]
-COPY [".babelrc", ".babelrc"]
+COPY ["public", "public"]
+COPY ["server", "server"]
+
+COPY ["app.js", "app.js"]
+COPY ["build.sh", "build.sh"]
+COPY ["webpack.config.js", "webpack.config.js"]
 # Config for jest tester
 COPY ["babel.config.js", "babel.config.js"]
 COPY ["jest.config.js", "jest.config.js"]
 
-RUN npm run docker
 
-# Copy source files, so changes does not trigger gulp.
-# COPY [".env", ".env"]
-COPY ["app.js", "app.js"]
-COPY ["server", "server"]
-
-ENV NODE_PATH /application
+RUN apk stats && \
+  chmod a+rx build.sh && \
+  apk add --no-cache bash && \
+  apk add --no-cache --virtual .gyp-dependencies python2 make g++ util-linux && \
+  npm ci --unsafe-perm && \
+  npm run build && \
+  npm prune --production && \
+  apk del .gyp-dependencies && \
+  apk stats
 
 EXPOSE 3000
 
-CMD ["node", "app.js"]
+CMD ["npm", "start"]

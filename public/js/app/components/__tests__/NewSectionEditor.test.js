@@ -1,17 +1,16 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { WebContextProvider } from '../../context/WebContext'
 
-import NewSectionEditor from '../NewSectionEditor'
+import ContentFromNewSectionEditor from '../ContentFromNewSectionEditor'
 
-describe('Component <NewSectionEditor>', () => {
-  test('renders', done => {
+describe('Component <ContentFromNewSectionEditor>', () => {
+  test('renders', () => {
     render(
-      <Provider routerStore={{}}>
-        <NewSectionEditor />
-      </Provider>
+      <WebContextProvider configIn={{}}>
+        <ContentFromNewSectionEditor />
+      </WebContextProvider>
     )
-    done()
   })
 })

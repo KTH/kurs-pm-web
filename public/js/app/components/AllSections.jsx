@@ -6,7 +6,7 @@ import { context, sections } from '../util/fieldsByType'
 import { EMPTY } from '../util/constants'
 
 import Section from './Section'
-import NewSectionEditor from './NewSectionEditor'
+import ContentFromNewSectionEditor from './ContentFromNewSectionEditor'
 
 function AllSections({ memoData, memoLanguageIndex }) {
   if (!memoData || Object.keys(memoData).length === 0) {
@@ -101,7 +101,7 @@ function AllSections({ memoData, memoLanguageIndex }) {
           {extraHeaderTitle &&
             Array.isArray(memoData[extraHeaderTitle]) &&
             memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
-              <NewSectionEditor
+              <ContentFromNewSectionEditor
                 contentId={extraHeaderTitle}
                 key={uKey}
                 initialTitle={title}

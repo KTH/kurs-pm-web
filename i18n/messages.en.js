@@ -46,7 +46,6 @@ module.exports = {
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
     aboutCourse: 'About course',
-    aboutCourseMemos: 'Course memo',
 
     mandatoryFieldMissing: 'Missing mandatory information',
 
@@ -108,7 +107,6 @@ module.exports = {
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg',
     },
 
-    courseHeaderTitle: 'Course Memo',
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administer About course',

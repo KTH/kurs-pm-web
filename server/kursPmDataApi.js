@@ -1,6 +1,6 @@
 'use strict'
 
-const log = require('kth-node-log')
+const log = require('@kth/log')
 const api = require('./api')
 
 function sortBySemesterAndName(firstElement, secondElement) {
@@ -13,7 +13,26 @@ function sortBySemesterAndName(firstElement, secondElement) {
   return firstElement.ladokRoundIds.join('').localeCompare(secondElement.ladokRoundIds.join(''))
 }
 
-async function getMemoDataById(courseCode, type, version) {
+async function getMemoVersion(courseCode, memoEndPoint, version) {
+  const { client, paths } = api.kursPmDataApi
+  const uri = client.resolve(paths.getMemoVersion.uri, { courseCode, memoEndPoint, version })
+
+  try {
+    const { body: memo, error, code } = await client.getAsync({ uri })
+
+    if (error || !memo) {
+      log.debug(`${code} getMemoVersion is not available`, { error }, { courseCode, memoEndPoint, version })
+      return {}
+    }
+
+    return memo
+  } catch (err) {
+    log.error('getMemoVersion is not available', err)
+    return {}
+  }
+}
+
+async function getMemoDataById(courseCode, type) {
   const { client, paths } = api.kursPmDataApi
   const uri = client.resolve(paths.getAllMemosByCourseCodeAndType.uri, { courseCode, type })
 
@@ -24,9 +43,7 @@ async function getMemoDataById(courseCode, type, version) {
       log.debug(`${code} ${courseCode} getMemoDataById is not available`)
       return []
     }
-    if (version) {
-      return memoDatas.filter(memoData => memoData.version === version || memoData.version === parseInt(version, 10))
-    }
+
     memoDatas.sort(sortBySemesterAndName)
     return memoDatas
   } catch (err) {
@@ -49,6 +66,7 @@ async function getMiniMemosPdfAndWeb(courseCode) {
 }
 
 module.exports = {
+  getMemoVersion,
   sortBySemesterAndName,
   getMemoDataById,
   getMiniMemosPdfAndWeb,

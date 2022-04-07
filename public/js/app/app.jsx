@@ -1,51 +1,49 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { StaticRouter } from 'react-router'
-import { Provider } from 'mobx-react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { WebContextProvider } from './context/WebContext'
+import { uncompressData } from './context/compress'
 // Sass
 import '../../css/kurs-pm-web.scss'
-
-// Store
-import RouterStore from './stores/RouterStore'
 
 // Pages
 import CourseMemo from './pages/CourseMemo'
 import AboutCourseMemo from './pages/AboutCourseMemo'
 import AboutCourseMemos from './pages/AboutCourseMemos'
 
-function appFactory() {
-  const routerStore = new RouterStore()
+_renderOnClientSide()
 
-  if (typeof window !== 'undefined') {
-    routerStore.initializeStore('routerStore')
+function _renderOnClientSide() {
+  const isClientSide = typeof window !== 'undefined'
+  if (!isClientSide) {
+    return
   }
 
+  const webContext = {}
+  uncompressData(webContext)
+
+  const basename = webContext.proxyPrefixPath.uri
+
+  const app = <BrowserRouter basename={basename}>{appFactory({}, webContext)}</BrowserRouter>
+
+  const domElement = document.getElementById('app')
+  ReactDOM.hydrate(app, domElement)
+}
+
+function appFactory(applicationStore, context) {
   return (
-    <Provider routerStore={routerStore}>
-      <Switch>
-        <Route exact path="/kurs-pm/" component={AboutCourseMemos} />
-        <Route exact path="/kurs-pm/old/:courseCode/:memoEndPoint/:version" component={CourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode" component={CourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode/om-kurs-pm" component={AboutCourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode/:id" component={CourseMemo} />
-        <Route exact path="/kurs-pm/:courseCode/:semester/:id" component={CourseMemo} />
-      </Switch>
-    </Provider>
+    <WebContextProvider configIn={context}>
+      <Routes>
+        <Route exact path="/" element={<AboutCourseMemos />} />
+        <Route exact path="/old/:courseCode/:memoEndPoint/:version" element={<CourseMemo />} />
+        <Route exact path="/:courseCode" element={<CourseMemo />} />
+        <Route exact path="/:courseCode/om-kurs-pm" element={<AboutCourseMemo />} />
+        <Route exact path="/:courseCode/:id" element={<CourseMemo />} />
+        <Route exact path="/:courseCode/:semester/:id" element={<CourseMemo />} />
+      </Routes>
+    </WebContextProvider>
   )
 }
 
-function staticRender(context, location) {
-  return (
-    <StaticRouter location={location} context={context}>
-      {appFactory()}
-    </StaticRouter>
-  )
-}
-
-if (typeof window !== 'undefined') {
-  ReactDOM.render(<BrowserRouter>{appFactory()}</BrowserRouter>, document.getElementById('app'))
-}
-
-export { appFactory, staticRender }
+export default appFactory

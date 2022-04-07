@@ -43,7 +43,7 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
         <ul className="nav nav-list expandable">
           <li className="nav-item ancestor">
             <a aria-current="page" className="nav-link active" href={aboutCourseLink(courseCode, language)}>
-              {courseCode ? `${labels.aboutCourse} ${courseCode}` : labels.aboutCourseMemos}
+              {courseCode ? `${labels.aboutCourse} ${courseCode}` : labels.memoLabel}
             </a>
           </li>
           <li className="nav-item leaf">
