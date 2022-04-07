@@ -5,15 +5,16 @@ function _removeDuplicates(memoMenuItems) {
 }
 
 function _organizeMenuItems(memoDatas, activeFn) {
+  if (!memoDatas || memoDatas.length === 0) return []
   const formattedMenuMemoItems = memoDatas.map(m => {
-    const { courseCode, outdated, memoEndPoint: id } = m
-    const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
+    const { courseCode, outdated, memoEndPoint, semester } = m
+    const label = concatMemoName(semester, m.ladokRoundIds, m.memoCommonLangAbbr)
     return {
-      id,
-      semester: m.semester,
+      id: memoEndPoint,
+      semester,
       label,
-      active: activeFn(),
-      url: `/kurs-pm/${courseCode}/${id}`,
+      active: activeFn(memoEndPoint),
+      url: `/kurs-pm/${courseCode}/${memoEndPoint}`,
       outdated,
     }
   })
@@ -24,7 +25,7 @@ function _organizeMenuItems(memoDatas, activeFn) {
 }
 
 function menuItemsForAboutMemo(memoDatas) {
-  const noActiveFn = () => false
+  const noActiveFn = id => false
 
   return _organizeMenuItems(memoDatas, noActiveFn)
 }
