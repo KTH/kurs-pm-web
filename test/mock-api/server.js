@@ -7,15 +7,12 @@ const config = require('./config')
 
 const app = express()
 config.paths.forEach(path => {
-  // console.log('Added path', path.url)
   app[path.method](path.url, (req, res) => {
-    // console.log('Responded on path', path.url)
     res.send(path.response)
   })
 })
 
 app.use((req, res) => {
-  // console.log('Caught request on path', req.url)
   res.send('')
 })
 
