@@ -46,7 +46,6 @@ module.exports = {
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
     aboutCourse: 'Om kursen',
-    aboutCourseMemos: 'Kurs-PM',
 
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
 
@@ -78,7 +77,6 @@ module.exports = {
       default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg',
     },
 
-    courseHeaderTitle: 'Kurs-PM',
     courseInformationTitle: 'Information',
 
     adminLinkLabel: 'Administrera Om kursen',
