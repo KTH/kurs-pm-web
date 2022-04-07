@@ -9,13 +9,19 @@ const { utcToZonedTime, format } = require('date-fns-tz')
 const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
-const { getMemoDataById, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
+const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
 
 const locales = { sv, en }
+const { getCompressedData, renderStaticPage } = getServerSideFunctions()
+
+function findMemo(memoDatas, memoEndPoint) {
+  const memoData = memoDatas.find(m => m.memoEndPoint === memoEndPoint)
+  return memoData || null
+}
 
 function formatVersionDate(language = 'sv', version) {
   const unixTime = Date.parse(version)
@@ -92,14 +98,15 @@ function resolveSellingText(sellingText = {}, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
+function resolveLatestMemoLanguage(latestMemoDatas) {
+  return latestMemoDatas ? latestMemoDatas.memoCommonLangAbbr : null
+}
+
 function resolveLatestMemoLabel(language, latestMemoDatas) {
-  const latestMemoData = latestMemoDatas[latestMemoDatas.length - 1]
-  if (latestMemoDatas.length > 1) {
-    log.warn(
-      `Inconsistent data: kursPmDataApi responded with more than one memo with status published for memoEndPoint ${latestMemoData.memoEndPoint}`
-    )
-  }
-  return formatVersion(latestMemoData.version, language, latestMemoData.lastChangeDate)
+  if (!latestMemoDatas) return ''
+  const { publishedVersion, lastChangeDate } = latestMemoDatas
+
+  return formatVersion(publishedVersion, language, lastChangeDate)
 }
 
 // TODO: Invert logic
@@ -154,29 +161,30 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
 
 async function getContent(req, res, next) {
   try {
-    const context = {}
-    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
-    const webContext = { lang, proxyPrefixPath: serverConfig.proxyPrefixPath, ...createServerSideContext() } // ...createApplicationStore()
-
-    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
-
-    const { courseCode: rawCourseCode, semester, id } = req.params
+    const { courseCode: rawCourseCode, semester = null, id } = req.params
     const courseCode = rawCourseCode.toUpperCase()
-    webContext.courseCode = courseCode
-
-    const memoDatas = await getMemoDataById(courseCode, 'published')
-    // Set temporary memoDatas to be able to resolve language
-    // TODO: Try to rework this unsound solution
-    webContext.memoDatas = memoDatas
-
-    const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
-    webContext.memoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, memoDatas)
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    webContext.language = responseLanguage
-    webContext.memoLanguage = webContext.resolveMemoLanguage()
-    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
-    webContext.semester = webContext.memoData.semester
+
+    const rawContext = {
+      ...createServerSideContext(),
+      courseCode,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+    }
+
+    rawContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
+
+    const rawMemos = await getMemoDataById(courseCode, 'published')
+
+    const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
+    const finalMemoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, rawMemos)
+    const rawMemo = await findMemo(rawMemos, finalMemoEndPoint)
+
+    const languagesContext = {
+      language: responseLanguage,
+      memoLanguage: rawMemo?.memoCommonLangAbbr || responseLanguage,
+      userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
+    }
 
     const {
       courseMainSubjects,
@@ -187,23 +195,45 @@ async function getContent(req, res, next) {
       infoContactName,
       examiners,
       roundInfos,
-    } = await getDetailedInformation(courseCode, webContext.memoLanguage)
-    webContext.courseMainSubjects = courseMainSubjects
-    webContext.title = title
-    webContext.credits = credits
-    webContext.creditUnitAbbr = creditUnitAbbr
-    webContext.infoContactName = infoContactName
-    webContext.examiners = examiners
+    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
-    // MemoDatas are set again.
-    webContext.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
+    const courseContext = {
+      courseMainSubjects,
+      title,
+      credits,
+      creditUnitAbbr,
+      infoContactName,
+      examiners,
+    }
+
+    const memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
+    const memoWithExtraProps = await findMemo(memoDatas, finalMemoEndPoint)
+
+    const allTypeMemos = !memoWithExtraProps ? await getMiniMemosPdfAndWeb(courseCode) : []
+
+    const memoContext = {
+      allTypeMemos,
+      memoData: memoWithExtraProps || {},
+      memoEndPoint: finalMemoEndPoint,
+      memoDatas,
+      semester: semester || memoWithExtraProps?.semester,
+    }
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    webContext.sellingText = resolveSellingText(sellingText, recruitmentText, webContext.memoLanguage)
-    webContext.imageFromAdmin = imageInfo
+    const courseIntroductionContext = {
+      sellingText: resolveSellingText(sellingText, recruitmentText, languagesContext.memoLanguage),
+      imageFromAdmin: imageInfo,
+    }
 
-    // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
+
+    const webContext = {
+      ...rawContext, // always first
+      ...courseIntroductionContext,
+      ...languagesContext,
+      ...courseContext,
+      ...memoContext,
+    }
 
     const compressedData = getCompressedData(webContext)
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
@@ -215,8 +245,6 @@ async function getContent(req, res, next) {
       context: webContext,
     })
 
-    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig.toolbar.url}`)
-
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -224,7 +252,7 @@ async function getContent(req, res, next) {
       },
       compressedData,
       description: shortDescription,
-      instrumentationKey: server.appInsights.instrumentationKey,
+      instrumentationKey: serverConfig.appInsights.instrumentationKey,
       html: view,
       lang: responseLanguage,
       proxyPrefix,
@@ -237,52 +265,65 @@ async function getContent(req, res, next) {
 
 async function getOldContent(req, res, next) {
   try {
-    const context = {}
-    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
-    const webContext = {
-      lang,
-      proxyPrefixPath: serverConfig.proxyPrefixPath,
-      ...createServerSideContext(),
-    }
-
-    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
-
     const { courseCode: rawCourseCode, memoEndPoint, version } = req.params
     const courseCode = rawCourseCode.toUpperCase()
-
-    webContext.courseCode = courseCode
-    webContext.memoEndPoint = memoEndPoint
-
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    webContext.language = responseLanguage
 
-    const memoDatas = await getMemoDataById(courseCode, 'old', version)
-    webContext.memoDatas = memoDatas
+    const rawContext = {
+      ...createServerSideContext(),
+      courseCode,
+      memoEndPoint,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+    }
 
-    const latestMemoDatas = await getMemoDataById(courseCode, 'published')
-    const currentMemoData = latestMemoDatas.filter(md => md.memoEndPoint === memoEndPoint)
-    webContext.latestMemoLabel = resolveLatestMemoLabel(responseLanguage, currentMemoData)
+    rawContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
 
-    webContext.memoData = currentMemoData
-    webContext.memoLanguage = webContext.resolveMemoLanguage()
-    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
+    const versionMemo = await getMemoVersion(courseCode, memoEndPoint, version)
+    const allTypeMemos = !versionMemo ? await getMiniMemosPdfAndWeb(courseCode) : []
+
+    const languagesContext = {
+      language: responseLanguage,
+      memoLanguage: versionMemo?.memoCommonLangAbbr || responseLanguage,
+      userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
+    }
+    const latestMemoLanguage = resolveLatestMemoLanguage(versionMemo?.latestVersion) || languagesContext.memoLanguage
+
+    const latestMemoLabel = resolveLatestMemoLabel(latestMemoLanguage, versionMemo?.latestVersion)
+
+    const memoContext = {
+      allTypeMemos,
+      latestMemoLabel,
+      memoData: versionMemo,
+      memoDatas: [],
+    }
 
     const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
-      await getDetailedInformation(courseCode, webContext.memoLanguage)
-    webContext.courseMainSubjects = courseMainSubjects
-    webContext.title = title
-    webContext.credits = credits
-    webContext.creditUnitAbbr = creditUnitAbbr
-    webContext.infoContactName = infoContactName
-    webContext.examiners = examiners
+      await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+
+    const courseContext = {
+      courseMainSubjects,
+      title,
+      credits,
+      creditUnitAbbr,
+      infoContactName,
+      examiners,
+    }
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    webContext.sellingText = resolveSellingText(sellingText, recruitmentText, webContext.memoLanguage)
-    webContext.imageFromAdmin = imageInfo
+    const courseIntroductionContext = {
+      sellingText: resolveSellingText(sellingText, recruitmentText, languagesContext.memoLanguage),
+      imageFromAdmin: imageInfo,
+    }
 
-    // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
+    const webContext = {
+      ...rawContext, // always first
+      ...courseIntroductionContext,
+      ...languagesContext,
+      ...courseContext,
+      ...memoContext,
+    }
     const compressedData = getCompressedData(webContext)
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
 
@@ -293,8 +334,6 @@ async function getOldContent(req, res, next) {
       context: webContext,
     })
 
-    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig?.toolbar?.url}`)
-
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -303,7 +342,7 @@ async function getOldContent(req, res, next) {
       compressedData,
       description: shortDescription,
       html: view,
-      instrumentationKey: server.appInsights.instrumentationKey,
+      instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
     })
   } catch (err) {
@@ -314,30 +353,26 @@ async function getOldContent(req, res, next) {
 
 async function getAboutContent(req, res, next) {
   try {
-    const context = {}
-
-    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
-    const webContext = {
-      lang,
-      proxyPrefixPath: serverConfig.proxyPrefixPath,
-      ...createServerSideContext(),
-    }
-
-    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
-
     const { courseCode: rawCourseCode } = req.params
     const courseCode = rawCourseCode.toUpperCase()
-    webContext.courseCode = courseCode
-
-    const memoDatas = await getMemoDataById(courseCode, 'published')
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    webContext.language = responseLanguage
-    webContext.userLanguageIndex = webContext.language === 'en' ? 0 : 1
+
+    const webContext = {
+      ...createServerSideContext(),
+      courseCode,
+      language: responseLanguage,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
+    }
+
+    webContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
+
+    const rawMemos = await getMemoDataById(courseCode, 'published')
 
     const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
-      webContext.memoLanguage
+      responseLanguage
     )
     webContext.title = title
     webContext.credits = credits
@@ -345,22 +380,21 @@ async function getAboutContent(req, res, next) {
     webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 
-    webContext.memoDatas = markOutdatedMemoDatas(memoDatas, roundInfos)
+    webContext.memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
+    webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
-    const compressedData = getCompressedData(webContext)
+    const compressedData = await getCompressedData(webContext)
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
 
-    const view = renderStaticPage({
+    const view = await renderStaticPage({
       applicationStore: {},
       location: req.url,
       basename: proxyPrefix,
       context: webContext,
     })
-
-    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig?.toolbar?.url}`)
 
     res.render('memo/index', {
       aboutCourse: {
@@ -370,7 +404,7 @@ async function getAboutContent(req, res, next) {
       compressedData,
       description: shortDescription,
       html: view,
-      instrumentationKey: server.appInsights.instrumentationKey,
+      instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
     })
   } catch (err) {
@@ -381,17 +415,14 @@ async function getAboutContent(req, res, next) {
 
 async function getNoContent(req, res, next) {
   try {
-    const context = {}
-    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
-    const webContext = {
-      lang,
-      proxyPrefixPath: serverConfig.proxyPrefixPath,
-      ...createServerSideContext(),
-    }
-    webContext.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
-
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
-    webContext.language = responseLanguage
+
+    const webContext = {
+      ...createServerSideContext(),
+      language: responseLanguage,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+    }
+    webContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
 
     // TODO: Proper language constant
     const shortDescription = responseLanguage === 'sv' ? 'Kurs-PM' : 'Course memo'
@@ -405,8 +436,6 @@ async function getNoContent(req, res, next) {
       basename: proxyPrefix,
       context: webContext,
     })
-
-    log.debug(`kurs_pm_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
     res.render('memo/index', {
       aboutCourse: {
@@ -424,24 +453,8 @@ async function getNoContent(req, res, next) {
   }
 }
 
-async function getAllMemosPdfAndWeb(req, res, next) {
-  const { courseCode: rawCourseCode } = req.params
-  const courseCode = rawCourseCode.toUpperCase()
-  try {
-    log.debug('trying to fetch all memos as web or as pdf with course code: ' + courseCode)
-
-    const apiResponse = await getMiniMemosPdfAndWeb(courseCode)
-    log.debug('getAllMemosPdfAndWeb response: ', apiResponse)
-    res.json(apiResponse)
-  } catch (error) {
-    log.error('Exception from getAllMemosPdfAndWeb ', { error })
-    next(error)
-  }
-}
-
 module.exports = {
   markOutdatedMemoDatas,
-  getAllMemosPdfAndWeb,
   getContent,
   getOldContent,
   getNoContent,
