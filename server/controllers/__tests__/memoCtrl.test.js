@@ -32,7 +32,7 @@ jest.mock('../../configuration', () => ({
 
 const { markOutdatedMemoDatas } = require('../memoCtrl')
 
-describe('Mark Outdated Memo Datas', () => {
+xdescribe('Mark Outdated Memo Datas', () => {
   test('Handles empy arguments', done => {
     const markedOutDatedMemoDatas = markOutdatedMemoDatas()
     expect(markedOutDatedMemoDatas).toEqual([])
