@@ -1,7 +1,7 @@
 function courseLinks(language) {
   const languagePath = language === 'en' ? 'en/' : ''
   return {
-    administrateYouStudy: `https://www.kth.se/${languagePath}student/kurs/studier/administrera/administrera-dina-studier-1.1143032`,
+    administrateYouStudy: `https://www.kth.se/${languagePath}student/studier/administrera/administrera-dina-studier-1.1143032`,
     courseAndExamination: `https://www.kth.se/${languagePath}student/studier/kurs`,
     rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studier/rattigheter-och-skyldigheter/rattigheter-och-skyldigheter-1.1148520`,
   }
