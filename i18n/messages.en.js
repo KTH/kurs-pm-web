@@ -123,9 +123,9 @@ module.exports = {
     subMenuAriaLabel: 'Sub menu',
   },
   courseLinksLabels: {
-    linkHeaderTitle: 'Student at KTH',
-    beforeAndDuringACourse: 'Before and during a course',
-    contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
+    linkHeaderTitle: 'Related information',
+    administrateYouStudy: 'Administrate your studies',
+    courseAndExamination: 'Course and examination',
     rightsAndResponsibilities: 'Rights and responsibilities',
   },
   coverPageLabels: {

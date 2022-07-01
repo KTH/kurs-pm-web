@@ -93,9 +93,9 @@ module.exports = {
     subMenuAriaLabel: 'Undermeny',
   },
   courseLinksLabels: {
-    linkHeaderTitle: 'Student på KTH',
-    beforeAndDuringACourse: 'Inför och under en kurs',
-    contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
+    linkHeaderTitle: 'Relaterad information',
+    administrateYouStudy: 'Administrera dina studier',
+    courseAndExamination: 'Kurs och examination',
     rightsAndResponsibilities: 'Rättigheter och skyldigheter',
   },
   coverPageLabels: {
