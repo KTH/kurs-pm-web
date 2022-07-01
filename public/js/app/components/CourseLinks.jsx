@@ -7,7 +7,7 @@ const CourseLinks = ({ language, labels }) => (
     <h2 id="student-links">{labels.linkHeaderTitle}</h2>
     {['rightsAndResponsibilities', 'courseAndExamination', 'administrateYouStudy'].map(linkTitle => (
       <p key={`paragraph-for-link-{linkTitle}`}>
-        <a id={`link-{linkTitle}`} title={labels[linkTitle]} href={courseLinks(language)[linkTitle]}>
+        <a id={`link-${linkTitle}`} title={labels[linkTitle]} href={courseLinks(language)[linkTitle]}>
           {labels[linkTitle]}
         </a>
       </p>
