@@ -58,7 +58,6 @@ describe('Page CourseMemo', () => {
     const spring193 = { memoEndPoint: '193', semester: '20191', ladokRoundIds: [3], memoCommonLangAbbr: 'en' }
     const fall190 = { memoEndPoint: '190', semester: '20192', ladokRoundIds: [], memoCommonLangAbbr: 'en' }
     const memoDatas = [spring181, spring1823, spring184, spring1924, spring193, fall190]
-    console.log('datte', new Date())
     const context = {
       browserConfig: { imageStorageUri: 'localhost://' },
       noMemoData: () => false,

@@ -5,6 +5,6 @@ module.exports = {
   },
   clearMocks: true,
   notifyMode: 'failure-change',
-  transformIgnorePatterns: ['node_modules/(?!(@kth|@babel|@jest)/)', 'test/e2e'],
+  transformIgnorePatterns: ['node_modules/(?!(@kth|@babel|@jest|uuid)/)', 'test/e2e'],
   moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
 }
