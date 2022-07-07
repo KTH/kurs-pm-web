@@ -1,0 +1,719 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
+<DocumentFragment>
+  <div
+    class="container-fluid"
+  >
+    <section
+      class="cover-page d-none d-print-block"
+    >
+      <h1 />
+      <p
+        class="memo-subtitle"
+      >
+        Kurs-PM VT 2018-1
+      </p>
+      <p>
+        Version 2 – 2018-01-27 13:04:37
+      </p>
+      <h2>
+        Kursomgång
+      </h2>
+      <p>
+        <span>
+          <br />
+        </span>
+      </p>
+      <h2>
+        Undervisningsspråk
+      </h2>
+      <p />
+      <h2>
+        Kursen ges av
+      </h2>
+      <p />
+      <ul
+        class="link-list cover-page-links"
+      >
+        <li>
+          * Information hämtas från N/A
+        </li>
+        <li>
+          Utskrift från sidan: 
+          <a
+            href="http://localhost/"
+          >
+            http://localhost/
+          </a>
+        </li>
+      </ul>
+    </section>
+    <div
+      class="row"
+    >
+      <nav
+        aria-label="Sub menu"
+        class="col col-lg-3 navbar navbar-expand-lg navbar-light d-print-none"
+        id="mainMenu"
+      >
+        <div
+          class="collapse navbar-collapse"
+          id="navbarNav"
+        >
+          <ul
+            class="nav"
+          >
+            <li
+              class="parentLink"
+            >
+              <a>
+                Course and programme directory
+              </a>
+            </li>
+          </ul>
+          <ul
+            class="nav nav-list expandable"
+          >
+            <li
+              class="nav-item ancestor"
+            >
+              <a
+                aria-current="page"
+                class="nav-link active"
+                href="/student/kurser/kurs/TEST121"
+              >
+                About course TEST121
+              </a>
+            </li>
+            <li
+              class="nav-item leaf"
+            >
+              <a
+                class="nav-link"
+                href="/student/kurser/kurs/TEST121"
+              >
+                Before course selection
+              </a>
+            </li>
+            <li
+              class="nav-item node selected expanded"
+            >
+              <a
+                class="nav-link"
+              >
+                Prepare and take course
+              </a>
+              <ul
+                class="nav nav-list"
+              >
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    class="nav-link aboutMemos memosLink"
+                    href="/kurs-pm/TEST121/om-kurs-pm"
+                  >
+                    Course memo
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2018-1"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/181"
+                  >
+                    Course memo Spring 2018-1
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2018-2-3"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/1823"
+                  >
+                    Course memo Spring 2018-2-3
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2018-4"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/184"
+                  >
+                    Course memo Spring 2018-4
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2019-2-4"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/1924"
+                  >
+                    Course memo Spring 2019-2-4
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2019-3"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/193"
+                  >
+                    Course memo Spring 2019-3
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Autumn 2019-"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/190"
+                  >
+                    Course memo Autumn 2019-
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li
+              class="nav-item leaf"
+            >
+              <a
+                class="nav-link"
+                href="/kursutveckling/TEST121"
+              >
+                Course development
+              </a>
+            </li>
+            <li
+              class="nav-item leaf"
+            >
+              <a
+                class="nav-link"
+                href="/kursutveckling/TEST121/arkiv"
+              >
+                Archive
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div
+        class="col-print-12 col"
+      >
+        <main
+          id="mainContent"
+        >
+          <div
+            class="row"
+          >
+            <header
+              class="col memo-header"
+            >
+              <h1
+                aria-labelledby="page-heading page-sub-heading"
+                id="page-heading"
+              >
+                Kurs-PM VT 2018-1
+              </h1>
+              <div
+                id="page-sub-heading-wrapper"
+              >
+                <p
+                  aria-hidden="true"
+                  id="page-sub-heading"
+                >
+                  Missing mandatory information
+                </p>
+                <p
+                  class="d-print-none d-none d-sm-block"
+                  id="page-sub-heading-admin-link"
+                >
+                  <a
+                    href="/kursinfoadmin/kurser/kurs/TEST121?l=undefined"
+                    title="Administer About course"
+                  >
+                    Administer About course
+                  </a>
+                </p>
+              </div>
+            </header>
+          </div>
+          <div
+            class="row"
+          >
+            <div
+              class="text-break col-print-12 content-center col-lg-8"
+              id="flexible-content-of-center"
+            >
+              <section
+                aria-labelledby="course-presentation"
+                class="d-print-none"
+              >
+                <h2
+                  class="sr-only"
+                  id="course-presentation"
+                >
+                  Presentation av kursen
+                </h2>
+                <img
+                  alt=""
+                  class="float-sm-left"
+                  id="course-presentation-image"
+                  src="localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg"
+                />
+                <article
+                  aria-labelledby="course-presentation"
+                >
+                  <div />
+                </article>
+              </section>
+              <section
+                aria-labelledby="contentAndOutcomes"
+              >
+                <h2
+                  id="contentAndOutcomes"
+                >
+                  Innehåll och lärandemål
+                </h2>
+                <article
+                  aria-labelledby="courseContent"
+                  id="contentAndOutcomes-courseContent"
+                >
+                  <h3
+                    id="courseContent"
+                  >
+                    Kursinnehåll
+                    <sup>
+                      <svg
+                        class="syllabus-marker-icon"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M478.21 334.093L336 256l142.21-78.093c11.795-6.477 15.961-21.384 9.232-33.037l-19.48-33.741c-6.728-11.653-21.72-15.499-33.227-8.523L296 186.718l3.475-162.204C299.763 11.061 288.937 0 275.48 0h-38.96c-13.456 0-24.283 11.061-23.994 24.514L216 186.718 77.265 102.607c-11.506-6.976-26.499-3.13-33.227 8.523l-19.48 33.741c-6.728 11.653-2.562 26.56 9.233 33.037L176 256 33.79 334.093c-11.795 6.477-15.961 21.384-9.232 33.037l19.48 33.741c6.728 11.653 21.721 15.499 33.227 8.523L216 325.282l-3.475 162.204C212.237 500.939 223.064 512 236.52 512h38.961c13.456 0 24.283-11.061 23.995-24.514L296 325.282l138.735 84.111c11.506 6.976 26.499 3.13 33.227-8.523l19.48-33.741c6.728-11.653 2.563-26.559-9.232-33.036z"
+                        />
+                      </svg>
+                    </sup>
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+                <article
+                  aria-labelledby="learningOutcomes"
+                  id="contentAndOutcomes-learningOutcomes"
+                >
+                  <h3
+                    id="learningOutcomes"
+                  >
+                    Lärandemål
+                    <sup>
+                      <svg
+                        class="syllabus-marker-icon"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M478.21 334.093L336 256l142.21-78.093c11.795-6.477 15.961-21.384 9.232-33.037l-19.48-33.741c-6.728-11.653-21.72-15.499-33.227-8.523L296 186.718l3.475-162.204C299.763 11.061 288.937 0 275.48 0h-38.96c-13.456 0-24.283 11.061-23.994 24.514L216 186.718 77.265 102.607c-11.506-6.976-26.499-3.13-33.227 8.523l-19.48 33.741c-6.728 11.653-2.562 26.56 9.233 33.037L176 256 33.79 334.093c-11.795 6.477-15.961 21.384-9.232 33.037l19.48 33.741c6.728 11.653 21.721 15.499 33.227 8.523L216 325.282l-3.475 162.204C212.237 500.939 223.064 512 236.52 512h38.961c13.456 0 24.283-11.061 23.995-24.514L296 325.282l138.735 84.111c11.506 6.976 26.499 3.13 33.227-8.523l19.48-33.741c6.728-11.653 2.563-26.559-9.232-33.036z"
+                        />
+                      </svg>
+                    </sup>
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+              </section>
+              <section
+                aria-labelledby="prep"
+              >
+                <h2
+                  id="prep"
+                >
+                  Förberedelser inför kursstart
+                </h2>
+                <article
+                  aria-labelledby="literature"
+                  id="prep-literature"
+                >
+                  <h3
+                    id="literature"
+                  >
+                    Kurslitteratur
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+                <article
+                  aria-labelledby="permanentDisability"
+                  id="prep-permanentDisability"
+                >
+                  <h3
+                    id="permanentDisability"
+                  >
+                    Stöd för studenter med funktionsnedsättning
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+              </section>
+              <section
+                aria-labelledby="reqToFinal"
+              >
+                <h2
+                  id="reqToFinal"
+                >
+                  Examination och slutförande
+                </h2>
+                <article
+                  aria-labelledby="gradingScale"
+                  id="reqToFinal-gradingScale"
+                >
+                  <h3
+                    id="gradingScale"
+                  >
+                    Betygsskala
+                    <sup>
+                      <svg
+                        class="syllabus-marker-icon"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M478.21 334.093L336 256l142.21-78.093c11.795-6.477 15.961-21.384 9.232-33.037l-19.48-33.741c-6.728-11.653-21.72-15.499-33.227-8.523L296 186.718l3.475-162.204C299.763 11.061 288.937 0 275.48 0h-38.96c-13.456 0-24.283 11.061-23.994 24.514L216 186.718 77.265 102.607c-11.506-6.976-26.499-3.13-33.227 8.523l-19.48 33.741c-6.728 11.653-2.562 26.56 9.233 33.037L176 256 33.79 334.093c-11.795 6.477-15.961 21.384-9.232 33.037l19.48 33.741c6.728 11.653 21.721 15.499 33.227 8.523L216 325.282l-3.475 162.204C212.237 500.939 223.064 512 236.52 512h38.961c13.456 0 24.283-11.061 23.995-24.514L296 325.282l138.735 84.111c11.506 6.976 26.499 3.13 33.227-8.523l19.48-33.741c6.728-11.653 2.563-26.559-9.232-33.036z"
+                        />
+                      </svg>
+                    </sup>
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+                <article
+                  aria-labelledby="examination"
+                  id="reqToFinal-examination"
+                >
+                  <h3
+                    id="examination"
+                  >
+                    Examination
+                    <sup>
+                      <svg
+                        class="syllabus-marker-icon"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M478.21 334.093L336 256l142.21-78.093c11.795-6.477 15.961-21.384 9.232-33.037l-19.48-33.741c-6.728-11.653-21.72-15.499-33.227-8.523L296 186.718l3.475-162.204C299.763 11.061 288.937 0 275.48 0h-38.96c-13.456 0-24.283 11.061-23.994 24.514L216 186.718 77.265 102.607c-11.506-6.976-26.499-3.13-33.227 8.523l-19.48 33.741c-6.728 11.653-2.562 26.56 9.233 33.037L176 256 33.79 334.093c-11.795 6.477-15.961 21.384-9.232 33.037l19.48 33.741c6.728 11.653 21.721 15.499 33.227 8.523L216 325.282l-3.475 162.204C212.237 500.939 223.064 512 236.52 512h38.961c13.456 0 24.283-11.061 23.995-24.514L296 325.282l138.735 84.111c11.506 6.976 26.499 3.13 33.227-8.523l19.48-33.741c6.728-11.653 2.563-26.559-9.232-33.036z"
+                        />
+                      </svg>
+                    </sup>
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+                <article
+                  aria-labelledby="ethicalApproach"
+                  id="reqToFinal-ethicalApproach"
+                >
+                  <h3
+                    id="ethicalApproach"
+                  >
+                    Etiskt förhållningssätt
+                    <sup>
+                      <svg
+                        class="syllabus-marker-icon"
+                        fill="currentColor"
+                        height="1em"
+                        stroke="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M478.21 334.093L336 256l142.21-78.093c11.795-6.477 15.961-21.384 9.232-33.037l-19.48-33.741c-6.728-11.653-21.72-15.499-33.227-8.523L296 186.718l3.475-162.204C299.763 11.061 288.937 0 275.48 0h-38.96c-13.456 0-24.283 11.061-23.994 24.514L216 186.718 77.265 102.607c-11.506-6.976-26.499-3.13-33.227 8.523l-19.48 33.741c-6.728 11.653-2.562 26.56 9.233 33.037L176 256 33.79 334.093c-11.795 6.477-15.961 21.384-9.232 33.037l19.48 33.741c6.728 11.653 21.721 15.499 33.227 8.523L216 325.282l-3.475 162.204C212.237 500.939 223.064 512 236.52 512h38.961c13.456 0 24.283-11.061 23.995-24.514L296 325.282l138.735 84.111c11.506 6.976 26.499 3.13 33.227-8.523l19.48-33.741c6.728-11.653 2.563-26.559-9.232-33.036z"
+                        />
+                      </svg>
+                    </sup>
+                  </h3>
+                  <span>
+                    Ingen information tillagd
+                  </span>
+                </article>
+              </section>
+              <section
+                aria-labelledby="extra"
+              >
+                <h2
+                  id="extra"
+                >
+                  Ytterligare Information
+                </h2>
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
+              </section>
+              <section
+                aria-labelledby="print-memo-contacts"
+                class="d-none d-print-block"
+              >
+                <h2
+                  class="info"
+                  id="print-memo-contacts"
+                >
+                  Kontakter
+                </h2>
+                <div
+                  class="text-break"
+                >
+                  <h3>
+                    Kursansvarig
+                  </h3>
+                  <p />
+                  <h3>
+                    Lärare
+                  </h3>
+                  <p />
+                  <h3>
+                    Examinator
+                  </h3>
+                  <p />
+                </div>
+              </section>
+            </div>
+            <div
+              class="d-print-none content-right col-lg-4"
+            >
+              <div
+                class="mb-lg-4 row"
+              >
+                <div
+                  class="col"
+                >
+                  <section
+                    aria-labelledby="memo-facts"
+                  >
+                    <h2
+                      class="d-none"
+                      id="memo-facts"
+                    >
+                      Fakta om kursomgång
+                    </h2>
+                    <div
+                      class="info-box text-break"
+                    >
+                      <h3>
+                        Kursen ges av
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                      <h3>
+                        Undervisningsspråk
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                      <h3>
+                        Kursomgång
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div
+                class="my-lg-4 row"
+              >
+                <div
+                  class="col"
+                >
+                  <aside
+                    aria-labelledby="memo-documents"
+                  >
+                    <h2
+                      class="d-none"
+                      id="memo-documents"
+                    >
+                      Dokument
+                    </h2>
+                    <div
+                      class="info-box text-break"
+                    >
+                      <h3>
+                        Version kurs-PM
+                      </h3>
+                      <p>
+                        Senaste: 2018-01-27 13:04:37
+                      </p>
+                      <p>
+                        <a
+                          href="/kursutveckling/TEST121/arkiv"
+                          id="archive-link"
+                          title="Arkiv för kurs-PM"
+                        >
+                          Arkiv för kurs-PM
+                        </a>
+                      </p>
+                      <h3>
+                        Skriv ut eller spara
+                      </h3>
+                      <button
+                        class="print-link btn btn-link"
+                        id="print-link"
+                        type="button"
+                      >
+                        Skriv ut eller spara kurs-PM
+                        <svg
+                          class="pdf-icon"
+                          fill="currentColor"
+                          height="1em"
+                          stroke="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+                          />
+                        </svg>
+                      </button>
+                      <h3>
+                        Kursplan
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+              <div
+                class="mt-lg-4 row"
+              >
+                <div
+                  class="col"
+                >
+                  <aside
+                    aria-labelledby="student-links"
+                    class="info-box text-break"
+                  >
+                    <h2
+                      id="student-links"
+                    >
+                      Relaterad information
+                    </h2>
+                    <p>
+                      <a
+                        href="https://www.kth.se/student/studier/rattigheter-och-skyldigheter/rattigheter-och-skyldigheter-1.1148520"
+                        id="link-rightsAndResponsibilities"
+                        title="Rättigheter och skyldigheter"
+                      >
+                        Rättigheter och skyldigheter
+                      </a>
+                    </p>
+                    <p>
+                      <a
+                        href="https://www.kth.se/student/studier/kurs"
+                        id="link-courseAndExamination"
+                        title="Kurs och examination"
+                      >
+                        Kurs och examination
+                      </a>
+                    </p>
+                    <p>
+                      <a
+                        href="https://www.kth.se/student/studier/administrera/administrera-dina-studier-1.1143032"
+                        id="link-administrateYouStudy"
+                        title="Administrera dina studier"
+                      >
+                        Administrera dina studier
+                      </a>
+                    </p>
+                  </aside>
+                </div>
+              </div>
+              <div
+                class="mt-lg-4 row"
+                id="row-for-the-last-element-which-determines-styles"
+              >
+                <div
+                  class="col"
+                >
+                  <section
+                    aria-labelledby="memo-contacts"
+                    id="last-element-which-determines-styles"
+                  >
+                    <h2
+                      class="info"
+                      id="memo-contacts"
+                    >
+                      Kontakter
+                    </h2>
+                    <div
+                      class="info-box text-break"
+                    >
+                      <h3>
+                        Kursansvarig
+                      </h3>
+                      <p />
+                      <h3>
+                        Lärare
+                      </h3>
+                      <p />
+                      <h3>
+                        Examinator
+                      </h3>
+                      <p />
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

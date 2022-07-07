@@ -53,22 +53,26 @@ function getUrl() {
   return null
 }
 
-const redirectToAbout = (courseCode, location) => {
+export const redirectToAbout = (courseCode, location) => {
   const { pathname } = location
+
+  if (pathname.includes('/om-kurs-pm')) return null
+
+  const memopath = pathname.replace('/kurs-pm', '')
   const fromPersonalMenu = `/${courseCode}/\\d*/\\d*`
   const withMemoEndPoint = `/${courseCode}/\\w*\\d*-\\d*`
-  if (pathname.match(fromPersonalMenu)) {
-    const courseAndSemesterAndRoundId = pathname.replace(`/kurs-pm/${courseCode}/`, '')
-    const [, , semester, roundId] = courseAndSemesterAndRoundId.split('/')
+  if (memopath.match(fromPersonalMenu)) {
+    const semesterAndRoundId = memopath.replace(`/${courseCode}/`, '')
+    const [semester, roundId] = semesterAndRoundId.split('/')
     const roundIds = [roundId]
     return { noMemoData: true, semester, roundIds }
   }
-  if (pathname.match(withMemoEndPoint)) {
-    const potentialMemoEndPoint = pathname.replace(`/kurs-pm/${courseCode}/`, '')
+  if (memopath.match(withMemoEndPoint)) {
+    const potentialMemoEndPoint = memopath.replace(`/${courseCode}/`, '')
     const potentialMemoEndPointParts = potentialMemoEndPoint.split('-')
     if (potentialMemoEndPointParts.length > 1) {
       const [potentialCourseCodeAndSemester] = potentialMemoEndPointParts
-      const semester = potentialCourseCodeAndSemester.replace(courseCode, '') || ''
+      const semester = potentialCourseCodeAndSemester.replace(`${courseCode}`, '') || ''
       const roundIds = potentialMemoEndPointParts.slice(1) || []
       return { noMemoData: true, semester, roundIds }
     }
