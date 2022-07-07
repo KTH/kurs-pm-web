@@ -58,8 +58,8 @@ const redirectToAbout = (courseCode, location) => {
   const fromPersonalMenu = `/${courseCode}/\\d*/\\d*`
   const withMemoEndPoint = `/${courseCode}/\\w*\\d*-\\d*`
   if (pathname.match(fromPersonalMenu)) {
-    const semesterAndRoundId = pathname.replace(`/kurs-pm/${courseCode}/`, '')
-    const [semester, roundId] = semesterAndRoundId.split('/')
+    const courseAndSemesterAndRoundId = pathname.replace(`/kurs-pm/${courseCode}/`, '')
+    const [, , semester, roundId] = courseAndSemesterAndRoundId.split('/')
     const roundIds = [roundId]
     return { noMemoData: true, semester, roundIds }
   }
@@ -67,10 +67,10 @@ const redirectToAbout = (courseCode, location) => {
     const potentialMemoEndPoint = pathname.replace(`/kurs-pm/${courseCode}/`, '')
     const potentialMemoEndPointParts = potentialMemoEndPoint.split('-')
     if (potentialMemoEndPointParts.length > 1) {
-      const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
-      const semester = potentialCourseCodeAndSemester.replace(courseCode, '')
-      const roundIds = potentialMemoEndPointParts.slice(1)
-      return { noMemoData: true, semester: semester || '', roundIds: roundIds || [] }
+      const [potentialCourseCodeAndSemester] = potentialMemoEndPointParts
+      const semester = potentialCourseCodeAndSemester.replace(courseCode, '') || ''
+      const roundIds = potentialMemoEndPointParts.slice(1) || []
+      return { noMemoData: true, semester, roundIds }
     }
   }
   return null
