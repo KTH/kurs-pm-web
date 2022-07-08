@@ -22,16 +22,17 @@ COPY ["webpack.config.js", "webpack.config.js"]
 COPY ["babel.config.js", "babel.config.js"]
 COPY ["jest.config.js", "jest.config.js"]
 
+RUN chmod a+rx build.sh && \
+  chown -R node:node /application
 
-RUN apk stats && \
-  chmod a+rx build.sh && \
-  apk add --no-cache bash && \
-  apk add --no-cache --virtual .gyp-dependencies python3 make g++ util-linux && \
+USER node
+
+RUN id -u
+
+RUN npm pkg delete scripts.prepare && \
   npm ci --unsafe-perm && \
   npm run build && \
-  npm prune --production && \
-  apk del .gyp-dependencies && \
-  apk stats
+  npm prune --production 
 
 EXPOSE 3000
 
