@@ -27,8 +27,6 @@ RUN chmod a+rx build.sh && \
 
 USER node
 
-RUN id -u
-
 RUN npm pkg delete scripts.prepare && \
   npm ci --unsafe-perm && \
   npm run build && \
