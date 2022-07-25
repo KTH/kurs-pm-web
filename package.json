@@ -36,11 +36,11 @@
     "test-performance-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-performance-tests.yml up --build --abort-on-container-exit --remove-orphans"
   },
   "dependencies": {
-    "@kth/api-call": "^4.0.38",
+    "@kth/api-call": "^4.0.39",
     "@kth/kth-node-response": "^1.0.6",
     "@kth/kth-node-web-common": "^7.0.11",
     "@kth/kth-reactstrap": "^0.4.54",
-    "@kth/log": "^4.0.4",
+    "@kth/log": "^4.0.5",
     "@kth/monitor": "^3.0.24",
     "@kth/server": "^4.0.3",
     "@kth/session": "^3.0.4",
