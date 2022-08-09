@@ -117,7 +117,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     const expectedh3ds = [
       'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
-      'Ej pågående kursomgångar',
+      'Tidigare kursomgångar',
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })

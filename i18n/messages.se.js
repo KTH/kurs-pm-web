@@ -212,20 +212,24 @@ module.exports = {
   aboutMemoLabels: {
     notPublished: 'är inte publicerad',
     aboutMemosText1:
-      'Varje kursomgång för en kurs ska tillhandahålla ett kurs-PM senast vid kursstart. Kurs-PM är kursomgångens detaljerade plan för genomförande. Ett kurs-PM innehåller information som hjälper studenten att förbereda och planera för kursomgångens genomförande och examination. Det ska beskriva studentens rättigheter och skyldigheter.',
-    aboutMemosText2: 'Nedan listas publicerade kurs-PM för kursen. I arkivet visas kurs-PM för tidigare kursomgångar.',
+      'Här listas publicerade kurs-PM för pågående kursomgångar. Kurs-PM är kursomgångens detaljerade plan för kursens genomförande. Ett kurs-PM innehåller information som hjälper dig att förbereda, planera och genomföra kursen.',
+    aboutMemosText2:
+      'Kurs-PM ska vara publicerat senast vid kursens start. Saknas kurs-PM kan du kontakta kursens kontaktperson eller examinator.',
     currentMemos: 'Publicerade kurs-PM',
     currentMemosInfo:
-      '<p>Kurs-PM listas under den termin då kursomgången startade. I Arkivet hittar du även publicerade kurs-PM för tidigare kursomgångar.</p><p>Om du är osäker på vilket kurs-PM som tillhör din kursomgång så kontrollera det på kurs-PM-sidan. Ett enklare sätt att nå ditt kurs-PM är via kurs-PM-länken i “Personliga menyn” under “Kurser”.</p><p>Går du en kurs nu men hittar inte ditt kurs-PM här, hör av dig till kursens kontaktperson som finns listad på denna sida.</p>',
+      '<p>Kurs-PM listas under den termin då kursomgången startade. Finns det flera publicerade kurs-PM för en termin kan du ta reda på vilket kurs-PM som tillhör din kursomgång genom att kontrollera kursens startdatum.</p><p>Du når även din kursomgångs kurs-PM via kurs-PM-länken i “Personliga menyn” under “Kurser”.</p>',
     btnClose: 'Stäng',
     ariaLabel: 'Information om publicerade kurs-PM',
-    shouldBePublished:
-      'Kurs-PM ska vara publicerad vid kursstart. Går du en kurs nu men hittar inte ditt kurs-PM här, hör av dig till kursens kontaktperson som finns listad på denna sida.',
+    shouldBePublishedText1:
+      'Kurs-PM ska vara publicerat senast vid kursens start. Har kurs-PM inte publicerats men din kurs har startat kan du kontakta kursens kontaktperson eller examinator.',
+    shouldBePublishedText2: 'Information om kursen hittar du även på sidan ',
+    for: 'för',
     courseInfo: 'Viss information om kurs',
     onPage: 'hittar du på sidan',
-    syllabusLink: 'Inför kursval (kursplan)',
+    syllabusLink: 'Inför kursval',
     currentOfferings: 'Kursomgångar som startar',
-    previousOfferings: 'Ej pågående kursomgångar',
+    previousOfferingsText: 'Kurs-PM för tidigare kursomgångar visas på sidan. ',
+    previousOfferings: 'Tidigare kursomgångar',
   },
   coursePresentationLabels: {
     coursePresentation: 'Presentation av kursen',

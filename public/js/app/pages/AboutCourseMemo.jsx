@@ -191,6 +191,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                   <h3>{aboutMemoLabels.previousOfferings}</h3>
                   <ul>
                     <li>
+                      {aboutMemoLabels.previousOfferingsText}
                       <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
                     </li>
                   </ul>

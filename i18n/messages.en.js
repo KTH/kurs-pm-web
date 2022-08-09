@@ -242,20 +242,23 @@ module.exports = {
   aboutMemoLabels: {
     notPublished: 'hasn’t been published',
     aboutMemosText1:
-      'Each course offering must provide a course memo no later than at the start of the course. The course memo is the course offering’s detailed plan. A course memo helps the student to prepare and plan for the completion and examination of the course. It must describe the student’s rights and obligations.',
+      'Here you will find published course memos for ongoing course offerings. The course memo is the course offering’s detailed plan. A course memo contains information to help you prepare, plan and complete the course.',
     aboutMemosText2:
-      'Below is a list of published course memos for the course. In the archive you will see course memos for all course offerings.',
+      'The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.',
     currentMemos: 'Published course memos',
     currentMemosInfo:
-      '<p>The course memo is listed under the semester when the course offering started. In the Archive, you will also find published course memos for previous course offerings.</p><p>If you are unsure which memo belongs to your course offering, check it on the course memo page. An easier way to reach your course memo is via the course memo link in the ”Personal menu” under ”Courses.”</p><p>If you are taking a course now but cannot find your course memo here, contact the course contact person listed on this page.',
+      '<p>The course memo is listed under the semester when the course offering started. If there are several published course memos for one semester, you can find out which course memo belongs to your course offering by checking the course start date.</p><p>The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.</p>',
     btnClose: 'Close',
     ariaLabel: 'Information about published course memos',
-    shouldBePublished:
-      'Course memo should be published when the course starts. If you are taking a course and didn’t find your memo here, please contact the Course Contact listed on this page.',
+    shouldBePublishedText1:
+      'The course memo shall be published no later than at the start of the course. If the course memo is missing and the course has started, you can contact the course contact or examiner.',
+    shouldBePublishedText2: 'Information about the course is also found on the page Before course selection.',
+    for: 'for',
     courseInfo: 'Course information for',
     onPage: 'is available on',
-    syllabusLink: 'Before course selection (syllabus)',
+    syllabusLink: 'Before course selection',
     currentOfferings: 'Course offerings starting',
+    previousOfferingsText: 'Course memos for previous course offerings are displayed on the ',
     previousOfferings: 'Previous course offerings',
   },
   coursePresentationLabels: {
