@@ -3,7 +3,7 @@ import { Alert } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { aboutCourseLink } from '../util/links'
-import { memoNameWithCourseCode } from '../util/helpers'
+import { memoNameWithoutCourseCode } from '../util/helpers'
 import { aboutMemoLabels } from '../../../../i18n/messages.en'
 
 const Header = ({ courseCode, semester, roundIds, aboutMemoLabels, language }) => (
@@ -20,7 +20,7 @@ const BeforeChoosingCourseLink = ({ courseCode, aboutMemoLabels, language }) => 
 
 const CourseInformation = ({ aboutMemoLabels, courseCode, language }) => (
   <p>
-    {`${aboutMemoLabels.courseInfo} ${courseCode} ${aboutMemoLabels.onPage} `}
+    {`${aboutMemoLabels.courseInfo} ${aboutMemoLabels.onPage} `}
     <BeforeChoosingCourseLink courseCode={courseCode} aboutMemoLabels={aboutMemoLabels} language={language} />
     {'\u002E'}
   </p>
@@ -39,8 +39,7 @@ const AboutAlert = ({ courseCode, semester, roundIds, language }) => {
         aboutMemoLabels={aboutMemoLabels}
         language={language}
       />
-      <p>{aboutMemoLabels.shouldBePublishedText1}</p>
-      <p>{aboutMemoLabels.shouldBePublishedText2}</p>
+      <p>{aboutMemoLabels.shouldBePublished}</p>
       <CourseInformation aboutMemoLabels={aboutMemoLabels} courseCode={courseCode} language={language} />
     </Alert>
   )

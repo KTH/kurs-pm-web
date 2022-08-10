@@ -42,6 +42,7 @@ module.exports = {
     back_to_top_label: 'Till sidans topp',
 
     memoLabel: 'Kurs-PM',
+    prepositionFor: 'för',
 
     noPublishedMemo: 'Inget publicerat kurs-PM',
     obsoleteData: 'Data för kurs-PM är sparat med en tidigare version och föråldrat.',
@@ -220,12 +221,10 @@ module.exports = {
       '<p>Kurs-PM listas under den termin då kursomgången startade. Finns det flera publicerade kurs-PM för en termin kan du ta reda på vilket kurs-PM som tillhör din kursomgång genom att kontrollera kursens startdatum.</p><p>Du når även din kursomgångs kurs-PM via kurs-PM-länken i “Personliga menyn” under “Kurser”.</p>',
     btnClose: 'Stäng',
     ariaLabel: 'Information om publicerade kurs-PM',
-    shouldBePublishedText1:
+    shouldBePublished:
       'Kurs-PM ska vara publicerat senast vid kursens start. Har kurs-PM inte publicerats men din kurs har startat kan du kontakta kursens kontaktperson eller examinator.',
-    shouldBePublishedText2: 'Information om kursen hittar du även på sidan ',
-    for: 'för',
-    courseInfo: 'Viss information om kurs',
-    onPage: 'hittar du på sidan',
+    courseInfo: 'Information om kursen',
+    onPage: 'hittar du även på sidan',
     syllabusLink: 'Inför kursval',
     currentOfferings: 'Kursomgångar som startar',
     previousOfferingsText: 'Kurs-PM för tidigare kursomgångar visas på sidan. ',

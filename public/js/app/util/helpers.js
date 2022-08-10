@@ -21,8 +21,8 @@ export const memoNameWithCourseCode = (courseCode, semester, ladokRoundIds, lang
 
 export const memoNameWithoutCourseCode = (semester, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
-  const { memoLabel, aboutMemoLabels } = i18n.messages[langIndex].messages
-  return `${memoLabel} ${aboutMemoLabels.for} ${seasonStr(
+  const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
+  return `${memoLabel} ${prepositionFor} ${seasonStr(
     i18n.messages[langIndex].extraInfo,
     semester
   )}-${ladokRoundIds.join('-')}`

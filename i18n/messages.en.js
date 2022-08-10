@@ -42,6 +42,7 @@ module.exports = {
     back_to_top_label: 'To page top',
 
     memoLabel: 'Course memo',
+    prepositionFor: 'for',
 
     noPublishedMemo: 'No published course memo',
     obsoleteData: 'Course memo data was saved in an earlier version and is obsolete.',
@@ -250,12 +251,10 @@ module.exports = {
       '<p>The course memo is listed under the semester when the course offering started. If there are several published course memos for one semester, you can find out which course memo belongs to your course offering by checking the course start date.</p><p>The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.</p>',
     btnClose: 'Close',
     ariaLabel: 'Information about published course memos',
-    shouldBePublishedText1:
+    shouldBePublished:
       'The course memo shall be published no later than at the start of the course. If the course memo is missing and the course has started, you can contact the course contact or examiner.',
-    shouldBePublishedText2: 'Information about the course is also found on the page Before course selection.',
-    for: 'for',
-    courseInfo: 'Course information for',
-    onPage: 'is available on',
+    courseInfo: 'Information about the course',
+    onPage: 'is also found on the page',
     syllabusLink: 'Before course selection',
     currentOfferings: 'Course offerings starting',
     previousOfferingsText: 'Course memos for previous course offerings are displayed on the ',
