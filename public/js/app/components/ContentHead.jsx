@@ -22,4 +22,8 @@ export const ContentHead = ({ contentId, memoLangIndex, fromSyllabus }) => {
 
 export const ExtraHeaderHead = ({ header }) => (header ? <h3>{header}</h3> : null)
 
-export const SubSectionHeaderMessage = ({ message }) => <p className="sub-section-header">{message}</p>
+export const SubSectionHeaderMessage = ({ message }) => (
+  <p className="sub-section-header">
+    <i>{message}</i>
+  </p>
+)

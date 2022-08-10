@@ -180,7 +180,7 @@ module.exports = {
   },
   sourceInfo: {
     noInfoYet: 'No information inserted',
-    insertedSubSection: '(Section below is not part of the syllabus)',
+    insertedSubSection: 'The section below is not retrieved from the course syllabus',
   },
   sectionsLabels: {
     contentAndOutcomes: 'Content and learning outcomes',
