@@ -158,6 +158,7 @@ module.exports = {
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare Information',
     contacts: 'Kontakter',
+    asterisk: 'Rubriker markerade med en asterisk ( * ) kommer från kursplan version',
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Övriga föreskrifter',

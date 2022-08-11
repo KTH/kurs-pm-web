@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
-import { concatMemoName } from '../util/helpers'
+import { concatMemoName, seasonStr } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { resolveCourseImage } from '../util/course-image'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
@@ -130,6 +130,7 @@ function CourseMemo() {
     coursePresentationLabels,
     courseLinksLabels,
     courseContactsLabels,
+    sectionsLabels,
   } = i18n.messages[memoLanguageIndex]
 
   const { courseHeaderLabels, sideMenuLabels } = i18n.messages[userLanguageIndex]
@@ -213,6 +214,9 @@ function CourseMemo() {
                   introText={webContext.sellingText}
                   labels={coursePresentationLabels}
                 />
+                <p>
+                  {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, semester)}
+                </p>
                 <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
                 <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
               </Col>

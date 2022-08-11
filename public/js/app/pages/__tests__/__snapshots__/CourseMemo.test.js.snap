@@ -278,6 +278,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   <div />
                 </article>
               </section>
+              <p>
+                Rubriker markerade med en asterisk ( * ) kommer från kursplan version VT 2018
+              </p>
               <section
                 aria-labelledby="contentAndOutcomes"
               >
