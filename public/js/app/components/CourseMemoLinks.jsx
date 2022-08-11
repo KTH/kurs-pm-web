@@ -89,14 +89,7 @@ const CourseMemoLinks = ({ language, labels, memoData = {}, courseMemoName, arch
         version={memoData.version}
         archived={archivedMemo}
       />
-      {!archivedMemo && <ArchiveLink language={language} labels={labels} courseCode={memoData.courseCode} />}
       <PrintDialogLink labels={labels} courseMemoName={courseMemoName} />
-      <SyllabusLink
-        language={language}
-        labels={labels}
-        courseCode={memoData.courseCode}
-        syllabusValid={memoData.syllabusValid}
-      />
     </div>
   </aside>
 )

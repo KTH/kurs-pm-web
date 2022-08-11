@@ -585,15 +585,6 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                       <p>
                         Senaste: 2018-01-27 13:04:37
                       </p>
-                      <p>
-                        <a
-                          href="/kursutveckling/TEST121/arkiv"
-                          id="archive-link"
-                          title="Arkiv för kurs-PM"
-                        >
-                          Arkiv för kurs-PM
-                        </a>
-                      </p>
                       <h3>
                         Skriv ut eller spara
                       </h3>
@@ -618,12 +609,6 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                           />
                         </svg>
                       </button>
-                      <h3>
-                        Kursplan
-                      </h3>
-                      <p>
-                        Obligatoriskt innehåll saknas
-                      </p>
                     </div>
                   </aside>
                 </div>
