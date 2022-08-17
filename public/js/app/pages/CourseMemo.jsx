@@ -99,8 +99,9 @@ function CourseMemo() {
     userLanguageIndex,
   } = webContext
 
-  const { ladokRoundIds = [], semester: memoSemester } = memo
+  const { ladokRoundIds = [], semester: memoSemester, syllabusValid } = memo
   const semester = querySemester || memoSemester
+  const validFromTerm = syllabusValid.validFromTerm
 
   const location = useLocation()
 
@@ -215,8 +216,7 @@ function CourseMemo() {
                   labels={coursePresentationLabels}
                 />
                 <p>
-                  {sectionsLabels.asterisk}{' '}
-                  {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, memo.syllabusValid.validFromTerm)}
+                  {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, validFromTerm)}
                 </p>
                 <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
                 <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />

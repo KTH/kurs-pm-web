@@ -71,15 +71,18 @@ describe('Component <CourseMemo>', () => {
       memoData: {
         courseTitle: '',
         visibleInMemo: {},
+        syllabusValid: { validFromTerm: '20181' },
       },
       memoDatas: [
         {
           semester: '',
           ladokRoundIds: [],
           memoCommonLangAbbr: '',
+          syllabusValid: { validFromTerm: '20181' },
         },
       ],
       userLanguageIndex: 0,
+      syllabusValid: { validFromTerm: '20181' },
     }
     render(
       <BrowserRouter basename={'/'} location={{}}>
@@ -101,6 +104,7 @@ const spring181 = {
   memoCommonLangAbbr: 'en',
   lastChangeDate: 'Fri Jan 27 2018 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 2,
+  syllabusValid: { validFromTerm: '20181' },
 }
 const spring1823 = {
   courseCode: 'TEST121',
@@ -110,6 +114,7 @@ const spring1823 = {
   memoCommonLangAbbr: 'en',
   lastChangeDate: 'Fri Dec 1 2017 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 6,
+  syllabusValid: { validFromTerm: '20181' },
 }
 const spring184 = {
   courseCode: 'TEST121',
@@ -117,6 +122,7 @@ const spring184 = {
   semester: '20181',
   ladokRoundIds: [4],
   memoCommonLangAbbr: 'en',
+  syllabusValid: { validFromTerm: '20181' },
 }
 const spring1924 = {
   courseCode: 'TEST121',
@@ -124,6 +130,7 @@ const spring1924 = {
   semester: '20191',
   ladokRoundIds: [2, 4],
   memoCommonLangAbbr: 'en',
+  syllabusValid: { validFromTerm: '20191' },
 }
 const spring193 = {
   courseCode: 'TEST121',
@@ -131,6 +138,7 @@ const spring193 = {
   semester: '20191',
   ladokRoundIds: [3],
   memoCommonLangAbbr: 'en',
+  syllabusValid: { validFromTerm: '20191' },
 }
 const fall190 = {
   courseCode: 'TEST121',
@@ -138,6 +146,7 @@ const fall190 = {
   semester: '20192',
   ladokRoundIds: [],
   memoCommonLangAbbr: 'en',
+  syllabusValid: { validFromTerm: '20191' },
 }
 
 describe('Page CourseMemo', () => {
