@@ -215,7 +215,8 @@ function CourseMemo() {
                   labels={coursePresentationLabels}
                 />
                 <p>
-                  {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, semester)}
+                  {sectionsLabels.asterisk}{' '}
+                  {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, memo.syllabusValid.validFromTerm)}
                 </p>
                 <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
                 <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
