@@ -150,7 +150,7 @@ module.exports = {
   },
   sourceInfo: {
     noInfoYet: 'Ingen information tillagd.',
-    insertedSubSection: 'Avsnittet nedan kommer inte från kursplan:',
+    insertedSubSection: 'Avsnittet nedan kommer inte från kursplanen:',
   },
   sectionsLabels: {
     contentAndOutcomes: 'Innehåll och lärandemål',
