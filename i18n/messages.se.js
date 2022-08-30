@@ -214,7 +214,7 @@ module.exports = {
   aboutMemoLabels: {
     notPublished: 'är inte publicerad',
     aboutMemosText1:
-      'Här listas publicerade kurs-PM för pågående kursomgångar. Kurs-PM är kursomgångens detaljerade plan för kursens genomförande. Ett kurs-PM innehåller information som hjälper dig att förbereda, planera och genomföra kursen.',
+      'Här listas publicerade kurs-PM för pågående kursomgångar. Kurs-PM är kursomgångens detaljerade plan för kursens genomförande. Ett kurs-PM innehåller information som hjälper dig att förbereda, planera och genomföra kursen. Kurs-PM för tidigare kursomgångar visas på sidan Arkiv',
     aboutMemosText2:
       'Kurs-PM ska vara publicerat senast vid kursens start. Saknas kurs-PM kan du kontakta kursens kontaktperson eller examinator.',
     currentMemos: 'Publicerade kurs-PM',
