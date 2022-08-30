@@ -99,9 +99,9 @@ function CourseMemo() {
     userLanguageIndex,
   } = webContext
 
-  const { ladokRoundIds = [], semester: memoSemester, syllabusValid } = memo
+  const { ladokRoundIds = [], semester: memoSemester, syllabusValid = {} } = memo
   const semester = querySemester || memoSemester
-  const validFromTerm = syllabusValid.validFromTerm
+  const { validFromTerm = '' } = syllabusValid
 
   const location = useLocation()
 
