@@ -32,7 +32,7 @@ module.exports = {
       ethicalApproach:
         '<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>',
       examination:
-        '<p><ul><li>TEN1 - Tentamen, 7,5 hp, Betygsskala: A, B, C, D, E, FX, F</li></ul></p><p>Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning.&#160;</p></p>',
+        '<p><ul><li>TEN1 - Tentamen, 7,5 hp, Betygsskala: A, B, C, D, E, FX, F</li></ul></p><p>Examinator beslutar, baserat på rekommendation från KTH:s handläggare av stöd till studenter med funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.</p>',
       otherRequirementsForFinalGrade:
         '<p>Skriftlig tentamen, eventuellt med m&#246;jlighet till kontinuerlig examination.</p>',
       extraHeaders1: '',
@@ -1155,7 +1155,7 @@ module.exports = {
           literatureComment:
             '<p>Kurslitteraturen ansl&#229;s p&#229; kursens hemsida senast fyra veckor innan kursstart.</p>',
           examComments:
-            'Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning.&#160;</p>',
+            'Examinator beslutar, baserat på rekommendation från KTH:s handläggare av stöd till studenter med funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
           reqsForFinalGrade: '<p>Skriftlig tentamen, eventuellt med m&#246;jlighet till kontinuerlig examination.</p>',
           establishment: 'Kursplan för SF1624 gäller från och med HT19',
           languageOfInstruction: 'Undervisningsspråk anges i kurstillfällesinformationen i kurs- och programkatalogen.',
@@ -1182,7 +1182,7 @@ module.exports = {
           eligibility:
             '<p>Grundl&#228;ggande och s&#228;rskild beh&#246;righet f&#246;r civilingenj&#246;rsprogram.</p><p><strong><em>Obligatorisk f&#246;r &#229;k1, kan ej l&#228;sas av andra studenter</em></strong></p>',
           examComments:
-            'Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
+            'Examinator beslutar, baserat på rekommendation från KTH:s handläggare av stöd till studenter med funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
           reqsForFinalGrade: '<p>Skriftlig tentamen, eventuellt med m&#246;jlighet till kontinuerlig examination.</p>',
           establishment: 'Kursplan för SF1624 gäller från och med HT10',
           languageOfInstruction: 'Undervisningsspråk anges i kurstillfällesinformationen i kurs- och programkatalogen.',
@@ -1209,7 +1209,7 @@ module.exports = {
           eligibility:
             '<p>Allm&#228;n och s&#228;rskild beh&#246;righet f&#246;r civilingenj&#246;rsprogram.</p><p><strong><em>Obligatorisk f&#246;r &#229;k1, kan ej l&#228;sas av andra studenter</em></strong></p>',
           examComments:
-            'Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
+            'Examinator beslutar, baserat på rekommendation från KTH:s handläggare av stöd till studenter med funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
           reqsForFinalGrade: '<p>Skriftlig tentamen, eventuellt med m&#246;jlighet till kontinuerlig examination.</p>',
           establishment: 'Kursplan för SF1624 gäller från och med HT09',
           languageOfInstruction: 'Undervisningsspråk anges i kurstillfällesinformationen i kurs- och programkatalogen.',
@@ -1237,7 +1237,7 @@ module.exports = {
             '<p>Allm&#228;n och s&#228;rskild beh&#246;righet f&#246;r civilingenj&#246;rsprogram.</p><p><strong><em>Obligatorisk f&#246;r &#229;k1, kan ej l&#228;sas av andra studenter</em></strong></p>',
           literature: '<p>Andersson Lennart m.fl.: Linj&#228;r algebra med geometri. </p>',
           examComments:
-            'Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
+            'Examinator beslutar, baserat på rekommendation från KTH:s handläggare av stöd till studenter med funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.',
           reqsForFinalGrade: '<p>Skriftlig tentamen, eventuellt med m&#246;jlighet till kontinuerlig examination.</p>',
           establishment: 'Kursplan för SF1624 gäller från och med HT08',
           languageOfInstruction: 'Undervisningsspråk anges i kurstillfällesinformationen i kurs- och programkatalogen.',

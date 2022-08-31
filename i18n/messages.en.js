@@ -242,14 +242,14 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab',
   },
   aboutMemoLabels: {
-    notPublished: 'hasn’t been published',
+    notPublished: 'is not published',
     aboutMemosText1:
       'Here you will find published course memos for ongoing course offerings. The course memo is the course offering’s detailed plan. A course memo contains information to help you prepare, plan and complete the course. Course memos for previous course offerings are displayed on the Archive page.',
     aboutMemosText2:
       'The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.',
     currentMemos: 'Published course memos',
     currentMemosInfo:
-      '<p>The course memo is listed under the semester when the course offering started. If there are several published course memos for one semester, you can find out which course memo belongs to your course offering by checking the course start date.</p><p>The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.</p>',
+      '<p>The course memo is listed under the semester when the course offering started. If there are several published course memos for one semester, you can find out which course memo belongs to your course offering by checking the course start date.</p><p>You can also reach your course offering’s course memo via the course memo link in the "Personal menu" under "Courses".</p>',
     btnClose: 'Close',
     ariaLabel: 'Information about published course memos',
     shouldBePublished:

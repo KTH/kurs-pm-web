@@ -212,7 +212,7 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
   },
   aboutMemoLabels: {
-    notPublished: 'är inte publicerad',
+    notPublished: 'är inte publicerat',
     aboutMemosText1:
       'Här listas publicerade kurs-PM för pågående kursomgångar. Kurs-PM är kursomgångens detaljerade plan för kursens genomförande. Ett kurs-PM innehåller information som hjälper dig att förbereda, planera och genomföra kursen. Kurs-PM för tidigare kursomgångar visas på sidan Arkiv',
     aboutMemosText2:

@@ -102,7 +102,7 @@ function CourseMemo() {
   const { ladokRoundIds = [], semester: memoSemester, syllabusValid } = memo
   const semester = querySemester || memoSemester
   const validFromTerm = syllabusValid.validFromTerm
-
+  console.log(memo)
   const location = useLocation()
 
   useEffect(() => {
