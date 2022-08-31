@@ -106,7 +106,10 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
             <Row>
               <Col>
                 <section>
-                  <p>{aboutMemoLabels.aboutMemosText1}</p>
+                  <p>
+                    {aboutMemoLabels.aboutMemosText1}
+                    <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
+                  </p>
                   <p>{aboutMemoLabels.aboutMemosText2}</p>
                 </section>
               </Col>
