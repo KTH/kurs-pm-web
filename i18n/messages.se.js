@@ -121,6 +121,7 @@ module.exports = {
     versionTitle: 'Version kurs-PM',
     latest: 'Senaste:',
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
+    archivePageLabel: 'Arkiv',
     courseMemoPdf: 'Kurs-PM som pdf',
     courseMemoPrint: 'Skriv ut eller spara',
     syllabus: 'Kursplan',

@@ -144,8 +144,16 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   })
 
   test('renders menu link Archive', () => {
+    const menuItems = getAllByText('Archive')
+    expect(menuItems.length).toBe(1)
+    menuItems.forEach(menuItem => {
+      expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
+    })
+  })
+
+  test('renders menu link Archive', () => {
     const menuItems = getAllByText('Archive page')
-    expect(menuItems.length).toBe(3)
+    expect(menuItems.length).toBe(2)
     menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     })

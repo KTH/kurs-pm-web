@@ -120,7 +120,7 @@ module.exports = {
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
-    archive: 'Archive page',
+    archive: 'Archive',
     subMenuAriaLabel: 'Sub menu',
   },
   courseLinksLabels: {
@@ -151,6 +151,7 @@ module.exports = {
     versionTitle: 'Course memo version',
     latest: 'Latest:',
     courseMemoArchiveLabel: 'Course memo archive',
+    archivePageLabel: 'Archive page',
     courseMemoPdf: 'Course memo pdf',
     courseMemoPrint: 'Print or save',
     syllabus: 'Syllabus',

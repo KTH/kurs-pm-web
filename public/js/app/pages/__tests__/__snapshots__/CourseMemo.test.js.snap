@@ -202,7 +202,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 class="nav-link"
                 href="/kursutveckling/TEST121/arkiv"
               >
-                Archive page
+                Archive
               </a>
             </li>
           </ul>

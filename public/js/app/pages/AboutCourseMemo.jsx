@@ -67,7 +67,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
 
-  const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo } =
+  const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
   const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
@@ -108,7 +108,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                 <section>
                   <p>
                     {aboutMemoLabels.aboutMemosText1}
-                    <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
+                    <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
                   </p>
                   <p>{aboutMemoLabels.aboutMemosText2}</p>
                 </section>
@@ -195,7 +195,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                   <ul>
                     <li>
                       {aboutMemoLabels.previousOfferingsText}
-                      <a href={linkToArchive(courseCode, userLangAbbr)}>{sideMenuLabels.archive}</a>
+                      <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
                     </li>
                   </ul>
                 </section>
