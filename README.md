@@ -20,18 +20,10 @@ Kurs-pm-web is a microservice with the public view of course memos. It uses [Rea
 
 Kurs-pm-web fetches data from:
 
-- Course memo API
-  - Dev (Stage): [api-r.referens.sys.kth.se/api/kurs-pm-data](https://api-r.referens.sys.kth.se/api/kurs-pm-data)
-  - Prod (Active): [api.kth.se/api/kurs-pm-data](https://api.kth.se/api/kurs-pm-data)
-- Course information API
-  - Dev (Stage): [api-r.referens.sys.kth.se/api/kursinfo](https://api-r.referens.sys.kth.se/api/kursinfo)
-  - Prod (Active): [api.kth.se/api/kursinfo](https://api.kth.se/api/kursinfo)
-- API to store information about course syllabuses
-  - Dev (Stage): [api-r.referens.sys.kth.se/api/kursplan](https://api-r.referens.sys.kth.se/api/kursplan)
-  - Prod (Active): [api.kth.se/api/kursplan](https://api.kth.se/api/kursplan)
-- API för kurs- och programinformation
-  - Dev (Stage): [api-r.referens.sys.kth.se/api/kopps/v2/](https://api-r.referens.sys.kth.se/api/kopps/v2/)
-  - Prod (Active): [api.kth.se/api/kopps/v2/](https://api.kth.se/api/kopps/v2/)
+- Course memo API `/api/kurs-pm-data`
+- Course information API `/api/kursinfo`
+- API to store information about course syllabuses `/api/kursplan`
+- API för kurs- och programinformation `/api/kopps/v2/`
 
 ### Related projects
 
@@ -83,6 +75,7 @@ These settings are also available in the `env.in` file.
 npm install
 
 ```
+
 You might need to install as well:
 
 ```sh
@@ -99,42 +92,47 @@ npm run start-dev
 ```
 
 ### Debug in Visual Studio Code
+
 It's possible to use debugging options available in Visual Studio Code
 Add to .vscode file launch.json:
-- *Microsoft*
+
+- _Microsoft_
+
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",           
-            "request": "launch",
-            "name": "Debug kursinfo-web",
-            "program": "${workspaceFolder}\\app.js",
-            "envFile": "${workspaceFolder}\\.env",
-            "env": {
-              "NODE_ENV": "development"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug kursinfo-web",
+      "program": "${workspaceFolder}\\app.js",
+      "envFile": "${workspaceFolder}\\.env",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
 }
 ```
+
 - _Mac, Unix and so on_
+
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",           
-            "request": "launch",
-            "name": "Debug kursutvecling-web",
-            "program": "${workspaceFolder}/app.js",
-            "envFile": "${workspaceFolder}/.env",
-            "env": {
-              "NODE_ENV": "development"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug kursutvecling-web",
+      "program": "${workspaceFolder}/app.js",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
 }
 ```
 
