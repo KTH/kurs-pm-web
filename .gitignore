@@ -44,3 +44,6 @@ docker-compose.yml
 
 # Local developer notes
 docs
+
+# yarn
+yarn.lock
