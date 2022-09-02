@@ -192,7 +192,6 @@ module.exports = {
     asterisk: 'Headings denoted with an asterisk ( * ) is retrieved from the course syllabus version ',
   },
   memoTitlesByMemoLang: {
-    additionalRegulations: 'Additional regulations',
     communicationDuringCourse: 'Communication during course',
     courseContent: 'Course contents',
     courseCoordinator: 'Course coordinator',
