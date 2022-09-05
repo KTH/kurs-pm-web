@@ -162,6 +162,7 @@ module.exports = {
     asterisk: 'Rubriker markerade med en asterisk ( * ) kommer från kursplan version',
   },
   memoTitlesByMemoLang: {
+    additionalRegulations: 'Övriga föreskrifter',
     communicationDuringCourse: 'Kommunikation i kursen',
     courseContent: 'Kursinnehåll',
     courseCoordinator: 'Kursansvarig',
