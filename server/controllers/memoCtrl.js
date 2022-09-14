@@ -11,7 +11,7 @@ const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
-const { getDetailedInformation } = require('../koppsApi')
+const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
 
@@ -374,6 +374,8 @@ async function getAboutContent(req, res, next) {
     webContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
 
     const rawMemos = await getMemoDataById(courseCode, 'published')
+
+    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
 
     const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
