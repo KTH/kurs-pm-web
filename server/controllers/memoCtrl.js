@@ -375,8 +375,6 @@ async function getAboutContent(req, res, next) {
 
     const rawMemos = await getMemoDataById(courseCode, 'published')
 
-    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
-
     const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
       responseLanguage
@@ -462,10 +460,22 @@ async function getNoContent(req, res, next) {
   }
 }
 
+// eslint-disable-next-line consistent-return
+async function getTermsWithCourseRounds(req, res, next) {
+  try {
+    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
+    res.send(termsWithCourseRounds)
+  } catch (err) {
+    log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
+    next(err)
+  }
+}
+
 module.exports = {
   markOutdatedMemoDatas,
   getContent,
   getOldContent,
   getNoContent,
   getAboutContent,
+  getTermsWithCourseRounds,
 }

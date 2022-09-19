@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
@@ -13,6 +13,7 @@ import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/li
 import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
 import { getCurrentTerm } from '../util/term'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
+import getTermsWithCourseRounds from '../util/internApi'
 
 import SideMenu from '../components/SideMenu'
 import AboutHeader from '../components/AboutHeader'
@@ -59,6 +60,7 @@ function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
 }
 
 function AboutCourseMemo({ mockKursPmDataApi = false }) {
+  const [termsWithCourseRounds, setTermsWithCourseRounds] = useState([])
   const location = useLocation()
 
   const [webContext] = useWebContext()
@@ -70,11 +72,15 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
+  const proxyUrl = `${webContext.thisHostBaseUrl}${webContext.browserConfig.proxyPrefixPath.uri}`
+
   const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
 
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
   useEffect(() => {
+    const apiResponse = getTermsWithCourseRounds(proxyUrl)
+    console.log(apiResponse)
     let isMounted = true
     if (isMounted) {
       renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
