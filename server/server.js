@@ -222,7 +222,7 @@ appRoute.get('public.getNoContent', config.proxyPrefixPath.uri + '/', CourseMemo
 
 appRoute.get(
   'public.getTermsWithCourseRounds',
-  config.proxyPrefixPath.uri + '/intern-api/getTermsWithCourseRounds',
+  '/termsWithCourseRounds/:courseCode',
   CourseMemo.getTermsWithCourseRounds
 )
 

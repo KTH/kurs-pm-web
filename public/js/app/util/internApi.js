@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 // eslint-disable-next-line consistent-return
-async function getTermsWithCourseRounds(proxyUrl) {
+async function getTermsWithCourseRounds(courseCode) {
   try {
-    const result = await axios.get(`${proxyUrl}/intern-api/getTermsWithCourseRounds`)
+    const result = await axios.get(`/termsWithCourseRounds/${courseCode}`)
     if (result) {
       if (result.status >= 400) {
         return 'ERROR-INTERN-API' + result.status

@@ -79,8 +79,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
   useEffect(() => {
-    const apiResponse = getTermsWithCourseRounds(proxyUrl)
-    console.log(apiResponse)
+    getTermsWithCourseRounds(courseCode).then(data => {
+      console.log(data)
+    })
     let isMounted = true
     if (isMounted) {
       renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)

@@ -460,8 +460,8 @@ async function getNoContent(req, res, next) {
   }
 }
 
-// eslint-disable-next-line consistent-return
 async function getTermsWithCourseRounds(req, res, next) {
+  const { courseCode } = req.params
   try {
     const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
     res.send(termsWithCourseRounds)

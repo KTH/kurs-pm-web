@@ -49,7 +49,10 @@ async function getDetailedInformation(courseCode, language) {
     if (res.body) {
       const { mainSubjects, course, examiners, roundInfos } = res.body
       const isCreditNotStandard =
-        course.credits && course.credits.toString().indexOf('.') < 0 && course.credits.toString().indexOf(',') < 0
+        course &&
+        course.credits &&
+        course.credits.toString().indexOf('.') < 0 &&
+        course.credits.toString().indexOf(',') < 0
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
