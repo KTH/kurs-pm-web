@@ -59,11 +59,61 @@ function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
     }, getCurrentTerm()) // 21001
 }
 
+function isDateWithinCurrentSemester(checkDate) {
+  //checking if lastTuitionDate is within current semester
+  const currentSemester = getCurrentTerm().slice(-1)
+  const dateToCheck = new Date(checkDate)
+  const today = new Date()
+  const currentYear = today.getFullYear()
+  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
+  const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
+  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
+
+  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
+  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
+  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
+
+  if (currentSemester == 2) {
+    if (
+      dateToCheck > startDateOfAutumnSemester ||
+      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
+    ) {
+      return true
+    }
+  } else {
+    if (
+      dateToCheck > startDateOfSpringSemester ||
+      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
+function getDateOfMondayOfTheWeek(startDate) {
+  const currentDate = new Date(startDate)
+  const first = currentDate.getDate() - currentDate.getDay() + 1
+  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
+  return firstMondayOfSpringSemester
+}
+
+function addDays(date, days) {
+  // return date.setDate(date.getDate() + days)
+  const copy = new Date(Number(date))
+  copy.setDate(date.getDate() + days)
+  return copy
+}
+
+console.log(isDateWithinCurrentSemester('2023-03-17'))
 function AboutCourseMemo({ mockKursPmDataApi = false }) {
   const [termsWithCourseRounds, setTermsWithCourseRounds] = useState([])
   const location = useLocation()
 
   const [webContext] = useWebContext()
+
+  webContext.termsWithCourseRounds = termsWithCourseRounds
+
   const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex } = webContext
   const isThisTest = !!mockKursPmDataApi
 
@@ -78,9 +128,13 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
+  const activeTermRounds = webContext.termsWithCourseRounds.map(term => term.rounds)
+
+  console.log(activeTermRounds)
+
   useEffect(() => {
     getTermsWithCourseRounds(courseCode).then(data => {
-      console.log(data)
+      setTermsWithCourseRounds(data)
     })
     let isMounted = true
     if (isMounted) {
@@ -158,7 +212,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                       const semesterMemos = webAndPdfMiniMemos[semester]
                       const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
                       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
-
+                      console.log(semesterMemos)
                       return (
                         <React.Fragment key={semester}>
                           <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>

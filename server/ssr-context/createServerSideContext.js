@@ -30,6 +30,7 @@ function createServerSideContext() {
     semester: '',
     examiners: '',
     userLanguageIndex: 1,
+    termsWithCourseRounds: [],
     ..._createLatestMemoAddition(),
     setBrowserConfig,
   }
