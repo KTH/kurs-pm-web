@@ -107,12 +107,10 @@ function addDays(date, days) {
 
 console.log(isDateWithinCurrentSemester('2023-03-17'))
 function AboutCourseMemo({ mockKursPmDataApi = false }) {
-  const [termsWithCourseRounds, setTermsWithCourseRounds] = useState([])
+  const [allRounds, setAllRounds] = useState([])
   const location = useLocation()
 
   const [webContext] = useWebContext()
-
-  webContext.termsWithCourseRounds = termsWithCourseRounds
 
   const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex } = webContext
   const isThisTest = !!mockKursPmDataApi
@@ -128,13 +126,20 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
-  const activeTermRounds = webContext.termsWithCourseRounds.map(term => term.rounds)
-
-  console.log(activeTermRounds)
-
   useEffect(() => {
     getTermsWithCourseRounds(courseCode).then(data => {
-      setTermsWithCourseRounds(data)
+      let allTempRounds = []
+      data.forEach(t => {
+        const rounds = []
+        t.rounds.forEach(round => {
+          if (isDateWithinCurrentSemester(round.lastTuitionDate)) {
+            round.term = t.term
+            rounds.push(round)
+          }
+        })
+        allTempRounds = allTempRounds.concat(rounds)
+      })
+      setAllRounds(allTempRounds)
     })
     let isMounted = true
     if (isMounted) {
