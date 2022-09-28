@@ -231,6 +231,7 @@ module.exports = {
     currentOfferings: 'Kursomgångar som startar',
     previousOfferingsText: 'Kurs-PM för tidigare kursomgångar visas på sidan ',
     previousOfferings: 'Tidigare kursomgångar',
+    startdate: 'Startdatum',
   },
   coursePresentationLabels: {
     coursePresentation: 'Presentation av kursen',

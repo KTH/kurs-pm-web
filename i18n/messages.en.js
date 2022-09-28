@@ -261,6 +261,7 @@ module.exports = {
     currentOfferings: 'Course offerings starting',
     previousOfferingsText: 'Course memos for previous course offerings are displayed on the ',
     previousOfferings: 'Previous course offerings',
+    startdate: 'Startdatum',
   },
   coursePresentationLabels: {
     coursePresentation: 'Course presentation',

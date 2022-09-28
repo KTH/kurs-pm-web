@@ -18,6 +18,14 @@ export const memoNameWithCourseCode = (courseCode, semester, ladokRoundIds, lang
     '-'
   )}`
 }
+export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  const { startdate } = i18n.messages[langIndex].aboutMemoLabels
+  const roundShortNameArray = round.shortName.split(' ')
+  const roundShortName = roundShortNameArray[0]
+  const roundStartDate = round.firstTuitionDate
+  return `${roundShortName}(${startdate} ${roundStartDate})`
+}
 
 export const memoNameWithoutCourseCode = (semester, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1

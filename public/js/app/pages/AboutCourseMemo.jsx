@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom'
 
 import { resolveCourseImage } from '../util/course-image'
 import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
-import { concatMemoName, memoNameWithCourseCode, seasonStr } from '../util/helpers'
+import { concatMemoName, memoNameWithCourseCode, seasonStr, roundShortNameWithStartdate } from '../util/helpers'
 import { getCurrentTerm } from '../util/term'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
 import getTermsWithCourseRounds from '../util/internApi'
@@ -105,7 +105,11 @@ function addDays(date, days) {
   return copy
 }
 
-console.log(isDateWithinCurrentSemester('2023-03-17'))
+function doesArrIncludesElem(arr, element) {
+  if (arr.filter(elem => elem.includes(element)).length > 0) return true
+  return false
+}
+
 function AboutCourseMemo({ mockKursPmDataApi = false }) {
   const [allRounds, setAllRounds] = useState([])
   const location = useLocation()
@@ -147,6 +151,8 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
     }
     return () => (isMounted = false)
   }, [])
+
+  console.log(allRounds)
 
   return (
     <Container className="kip-container about-container" fluid>
@@ -217,43 +223,80 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                       const semesterMemos = webAndPdfMiniMemos[semester]
                       const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
                       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
-                      console.log(semesterMemos)
+                      const allSemesterMemosLadokRoundIds = cleanFlatMemosList.map(memo => memo.ladokRoundIds)
+                      const allTermRounds = allRounds.filter(round => round.term === semester).reverse()
+                      const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
+                      const diffLadokIds = allTermLadokIds.filter(
+                        id => !allSemesterMemosLadokRoundIds.flat().includes(id)
+                      )
+                      const diffLadokIdsArrayStructure = diffLadokIds.map(element => [].concat(element))
+                      const allTermLadokIdsExtend = allSemesterMemosLadokRoundIds.concat(diffLadokIdsArrayStructure)
+
                       return (
                         <React.Fragment key={semester}>
                           <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                          <ul>
-                            {cleanFlatMemosList.map(
-                              ({
-                                courseCode: memocourseCode,
-                                courseMemoFileName: pdfFileName,
-                                isPdf,
-                                ladokRoundIds,
-                                memoCommonLangAbbr,
-                                memoEndPoint,
-                                semester: itemSemester,
-                              }) => (
-                                <li key={memoEndPoint || pdfFileName}>
-                                  {(isPdf && (
-                                    <a
-                                      className="pdf-link"
-                                      href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
-                                    >
-                                      {memoNameWithCourseCode(courseCode, itemSemester, ladokRoundIds, userLangAbbr)}
-                                    </a>
-                                  )) || (
-                                    <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
-                                      {memoNameWithCourseCode(
-                                        courseCode,
-                                        itemSemester,
-                                        ladokRoundIds,
-                                        memoCommonLangAbbr
+                          {allTermRounds.map(round =>
+                            doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId) ? (
+                              cleanFlatMemosList
+                                .filter(memo => memo.ladokRoundIds.includes(round.ladokRoundId))
+                                .map(
+                                  ({
+                                    courseCode: memocourseCode,
+                                    courseMemoFileName: pdfFileName,
+                                    isPdf,
+                                    ladokRoundIds,
+                                    memoCommonLangAbbr,
+                                    memoEndPoint,
+                                    semester: itemSemester,
+                                    memoName,
+                                  }) => (
+                                    <div key={memoEndPoint || pdfFileName}>
+                                      {(isPdf && (
+                                        <div>
+                                          <p>
+                                            <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
+                                          </p>
+                                          <a
+                                            className="pdf-link"
+                                            href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
+                                          >
+                                            {memoNameWithCourseCode(
+                                              courseCode,
+                                              itemSemester,
+                                              ladokRoundIds,
+                                              userLangAbbr
+                                            )}
+                                          </a>
+                                        </div>
+                                      )) || (
+                                        <div>
+                                          <p>
+                                            <b>{memoName}</b>
+                                          </p>
+                                          <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
+                                            {memoNameWithCourseCode(
+                                              courseCode,
+                                              itemSemester,
+                                              ladokRoundIds,
+                                              memoCommonLangAbbr
+                                            )}
+                                          </a>
+                                        </div>
                                       )}
-                                    </a>
-                                  )}
-                                </li>
-                              )
-                            )}
-                          </ul>
+                                    </div>
+                                  )
+                                )
+                            ) : (
+                              <div>
+                                <p>
+                                  <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
+                                </p>
+                                <p>
+                                  <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                                </p>
+                              </div>
+                            )
+                          )}
                         </React.Fragment>
                       )
                     })}
