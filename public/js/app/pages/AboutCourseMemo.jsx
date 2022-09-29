@@ -130,18 +130,23 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
-  const memoToCheck = useRef(null)
+  const memoToCheck = useRef([])
 
   function isCurrentMemoIsUnqiue(memoList, round) {
     const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
+    const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
     if (memo) {
-      if (memoToCheck.current) {
-        if (JSON.stringify(memoToCheck.current.ladokRoundIds) == JSON.stringify(memo.ladokRoundIds)) {
+      if (refMemos.length > 0) {
+        const refMemo = refMemos.find(x => JSON.stringify(x.ladokRoundIds) === JSON.stringify(memo.ladokRoundIds))
+        if (refMemo) {
           return false
         }
       }
     }
-    memoToCheck.current = memo
+    if (memo) {
+      refMemos.push(memo)
+    }
+    memoToCheck.current = refMemos
     return true
   }
 
