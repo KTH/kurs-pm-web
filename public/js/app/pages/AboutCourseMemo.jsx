@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
@@ -130,6 +130,21 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
+  const memoToCheck = useRef(null)
+
+  function isCurrentMemoIsUnqiue(memoList, round) {
+    const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
+    if (memo) {
+      if (memoToCheck.current) {
+        if (JSON.stringify(memoToCheck.current.ladokRoundIds) == JSON.stringify(memo.ladokRoundIds)) {
+          return false
+        }
+      }
+    }
+    memoToCheck.current = memo
+    return true
+  }
+
   useEffect(() => {
     getTermsWithCourseRounds(courseCode).then(data => {
       let allTempRounds = []
@@ -236,66 +251,67 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                         <React.Fragment key={semester}>
                           <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                           {allTermRounds.map(round =>
-                            doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId) ? (
-                              cleanFlatMemosList
-                                .filter(memo => memo.ladokRoundIds.includes(round.ladokRoundId))
-                                .map(
-                                  ({
-                                    courseCode: memocourseCode,
-                                    courseMemoFileName: pdfFileName,
-                                    isPdf,
-                                    ladokRoundIds,
-                                    memoCommonLangAbbr,
-                                    memoEndPoint,
-                                    semester: itemSemester,
-                                    memoName,
-                                  }) => (
-                                    <div key={memoEndPoint || pdfFileName}>
-                                      {(isPdf && (
-                                        <div>
-                                          <p>
-                                            <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
-                                          </p>
-                                          <a
-                                            className="pdf-link"
-                                            href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
-                                          >
-                                            {memoNameWithCourseCode(
-                                              courseCode,
-                                              itemSemester,
-                                              ladokRoundIds,
-                                              userLangAbbr
-                                            )}
-                                          </a>
-                                        </div>
-                                      )) || (
-                                        <div>
-                                          <p>
-                                            <b>{memoName}</b>
-                                          </p>
-                                          <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
-                                            {memoNameWithCourseCode(
-                                              courseCode,
-                                              itemSemester,
-                                              ladokRoundIds,
-                                              memoCommonLangAbbr
-                                            )}
-                                          </a>
-                                        </div>
-                                      )}
-                                    </div>
+                            doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId) &&
+                            isCurrentMemoIsUnqiue(cleanFlatMemosList, round)
+                              ? cleanFlatMemosList
+                                  .filter(memo => memo.ladokRoundIds.includes(round.ladokRoundId))
+                                  .map(
+                                    ({
+                                      courseCode: memocourseCode,
+                                      courseMemoFileName: pdfFileName,
+                                      isPdf,
+                                      ladokRoundIds,
+                                      memoCommonLangAbbr,
+                                      memoEndPoint,
+                                      semester: itemSemester,
+                                      memoName,
+                                    }) => (
+                                      <div key={memoEndPoint || pdfFileName}>
+                                        {(isPdf && (
+                                          <div>
+                                            <p>
+                                              <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
+                                            </p>
+                                            <a
+                                              className="pdf-link"
+                                              href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
+                                            >
+                                              {memoNameWithCourseCode(
+                                                courseCode,
+                                                itemSemester,
+                                                ladokRoundIds,
+                                                userLangAbbr
+                                              )}
+                                            </a>
+                                          </div>
+                                        )) || (
+                                          <div>
+                                            <p>
+                                              <b>{memoName}</b>
+                                            </p>
+                                            <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
+                                              {memoNameWithCourseCode(
+                                                courseCode,
+                                                itemSemester,
+                                                ladokRoundIds,
+                                                memoCommonLangAbbr
+                                              )}
+                                            </a>
+                                          </div>
+                                        )}
+                                      </div>
+                                    )
                                   )
+                              : isCurrentMemoIsUnqiue(cleanFlatMemosList, round) && (
+                                  <div>
+                                    <p>
+                                      <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
+                                    </p>
+                                    <p>
+                                      <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                                    </p>
+                                  </div>
                                 )
-                            ) : (
-                              <div>
-                                <p>
-                                  <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
-                                </p>
-                                <p>
-                                  <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
-                                </p>
-                              </div>
-                            )
                           )}
                         </React.Fragment>
                       )
