@@ -42,7 +42,7 @@
     "@kth/kth-reactstrap": "^0.4.55",
     "@kth/log": "^4.0.5",
     "@kth/monitor": "^3.0.25",
-    "@kth/server": "^4.0.3",
+    "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.5",
     "applicationinsights": "^2.3.4",
     "axios": "^0.27.2",
