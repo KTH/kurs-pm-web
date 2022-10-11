@@ -245,7 +245,7 @@ module.exports = {
   aboutMemoLabels: {
     notPublished: 'is not published',
     aboutMemosText1:
-      'Here you will find published course memos for ongoing course offerings. The course memo is the course offering’s detailed plan. A course memo contains information to help you prepare, plan and complete the course. Course memos for previous course offerings are displayed on the ',
+      'Here you will find published course memos for ongoing course offerings. The course memo is the course offering’s detailed plan. A course memo contains information to help you prepare, plan and complete the course.',
     aboutMemosText2:
       'The course memo must be published no later than at the start of the course. If the course memo is missing, you can contact the course contact or examiner.',
     currentMemos: 'Published course memos',

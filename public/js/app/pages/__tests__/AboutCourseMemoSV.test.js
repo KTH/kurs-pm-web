@@ -45,6 +45,38 @@ const mockMixKursPmDataApi = () => ({
   ],
 })
 
+const mockMixKoppsApi = () => [
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20212',
+  },
+
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20202',
+  },
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20192',
+  },
+  {
+    shortName: '',
+    ladokRoundId: '2',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20192',
+  },
+]
+
 const { getAllByRole, getAllByText, getByText } = screen
 
 describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pdf- and web-based', () => {
@@ -89,7 +121,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     }
     render(
       <WebContextProvider configIn={context}>
-        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} location={{}} />
+        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} mockMixKoppsApi={mockMixKoppsApi()} location={{}} />
       </WebContextProvider>
     )
   })
@@ -113,13 +145,26 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(5)
+    expect(allH3Headers.length).toBe(6)
     const expectedh3ds = [
+      'Kursomgångar som startar HT 2021',
       'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
       'Tidigare kursomgångar',
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
+  })
+
+  test('renders h4 ', () => {
+    const allH4Headers = getAllByRole('heading', { level: 4 })
+    expect(allH4Headers.length).toBe(4)
+    const expectedh4ds = [
+      'HT 2021(Startdatum 2023-01-17)',
+      'HT 2020(Startdatum 2023-01-17)',
+      'HT 2019(Startdatum 2023-01-17)',
+      'HT 2019(Startdatum 2023-01-17)',
+    ]
+    expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
   test('renders text about empty fields (Kontaktperson) ', () => {
@@ -158,7 +203,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders menu link Arkiv', done => {
     const menuItems = getAllByText('Arkiv')
-    expect(menuItems.length).toBe(3)
+    expect(menuItems.length).toBe(2)
     menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv')
     })
@@ -195,7 +240,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', done => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(14)
+    expect(links.length).toBe(13)
     const expectedlinks = [
       'Kurs- och programkatalogen',
       'Om kursen KIP2720',
@@ -205,7 +250,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kursens utveckling',
       'Arkiv',
       'Administrera Om kursen',
-      'Arkiv',
       'Course memo KIP2720 Autumn 2020-1',
       'Kurs-PM KIP2720 HT 2019-2',
       'Course memo KIP2720 Autumn 2019-1',

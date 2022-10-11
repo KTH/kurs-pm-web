@@ -37,6 +37,37 @@ const mockMixKursPmDataApi = () => ({
   ],
 })
 
+const mockMixKoppsApi = () => [
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20212',
+  },
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20202',
+  },
+  {
+    shortName: '',
+    ladokRoundId: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20192',
+  },
+  {
+    shortName: '',
+    ladokRoundId: '2',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
+    term: '20192',
+  },
+]
+
 const { getAllByRole, getAllByText, getByText } = screen
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -83,7 +114,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     }
     render(
       <WebContextProvider configIn={context}>
-        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} location={{}} />
+        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} mockMixKoppsApi={mockMixKoppsApi()} location={{}} />
       </WebContextProvider>
     )
   })
@@ -105,13 +136,26 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(5)
+    expect(allH3Headers.length).toBe(6)
     const expectedh3ds = [
+      'Course offerings starting Autumn 2021',
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
       'Previous course offerings',
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
+  })
+
+  test('renders h4 ', () => {
+    const allH4Headers = getAllByRole('heading', { level: 4 })
+    expect(allH4Headers.length).toBe(4)
+    const expectedh4ds = [
+      'Autumn 2021(Startdatum 2023-01-17)',
+      'Autumn 2020(Startdatum 2023-01-17)',
+      'Autumn 2019(Startdatum 2023-01-17)',
+      'Autumn 2019(Startdatum 2023-01-17)',
+    ]
+    expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
   test('renders text about empty fields (Course Contact, Examiner) ', () => {
@@ -153,7 +197,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders menu link Archive', () => {
     const menuItems = getAllByText('Archive page')
-    expect(menuItems.length).toBe(2)
+    expect(menuItems.length).toBe(1)
     menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     })
@@ -185,7 +229,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(13)
+    expect(links.length).toBe(12)
     const expectedlinks = [
       'Course and programme directory',
       'About course KIP2720',
@@ -195,7 +239,6 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Course development',
       'Archive',
       'Administer About course',
-      'Archive page',
       'Course memo KIP2720 Autumn 2020-1',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',

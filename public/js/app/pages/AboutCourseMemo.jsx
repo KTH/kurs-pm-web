@@ -44,6 +44,10 @@ function removeWebMemosDuplicates(flattenMemosList) {
   })
 }
 
+function removeDuplicates(allActiveTerms) {
+  return allActiveTerms.filter((term, index) => allActiveTerms.indexOf(term) === index)
+}
+
 function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
   // First visible semester according to left meny or getCurrentTerm
 
@@ -105,12 +109,78 @@ function addDays(date, days) {
   return copy
 }
 
+function addElement(element) {
+  const arrWithObject = []
+  arrWithObject.push(element)
+  return arrWithObject
+}
+
 function doesArrIncludesElem(arr, element) {
   if (arr.filter(elem => elem.includes(element)).length > 0) return true
   return false
 }
 
-function AboutCourseMemo({ mockKursPmDataApi = false }) {
+function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
+  const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
+  const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
+  if (memo) {
+    if (refMemos.length > 0) {
+      const refMemo = refMemos.find(x => JSON.stringify(x.ladokRoundIds) === JSON.stringify(memo.ladokRoundIds))
+      if (refMemo) {
+        return false
+      }
+    }
+  }
+  if (memo) {
+    refMemos.push(memo)
+  }
+  memoToCheck.current = refMemos
+  return true
+}
+
+function extendMemo(memo, round) {
+  memo.shortName = round.shortName
+  memo.firstTuitionDate = round.firstTuitionDate
+
+  return memo
+}
+
+function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck) {
+  const allSemestersRoundsWithMemos = []
+  const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
+  const allMemosSemesters = Object.keys(webAndPdfMiniMemos)
+
+  allActiveTerms.map(semester => {
+    memoToCheck.current = []
+    if (doesArrIncludesElem(allMemosSemesters, semester)) {
+      const semesterMemos = webAndPdfMiniMemos[semester]
+      const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
+      const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
+      const allSemesterMemosLadokRoundIds = cleanFlatMemosList.map(memo => memo.ladokRoundIds)
+      const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
+      const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
+
+      allTermRounds.map(round => {
+        doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
+          ? isCurrentMemoIsUnqiue(cleanFlatMemosList, round, memoToCheck)
+            ? allSemestersRoundsWithMemos.push(
+                extendMemo(
+                  cleanFlatMemosList.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
+                  round
+                )
+              )
+            : ''
+          : allSemestersRoundsWithMemos.push(round)
+      })
+    } else {
+      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term === semester))
+    }
+  })
+  console.log(allSemestersRoundsWithMemos)
+  return allSemestersRoundsWithMemos
+}
+
+function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
   const [allRounds, setAllRounds] = useState([])
   const location = useLocation()
 
@@ -120,11 +190,10 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
   const isThisTest = !!mockKursPmDataApi
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
+  const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
 
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
-
-  const proxyUrl = `${webContext.thisHostBaseUrl}${webContext.browserConfig.proxyPrefixPath.uri}`
 
   const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
 
@@ -132,23 +201,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
 
   const memoToCheck = useRef([])
 
-  function isCurrentMemoIsUnqiue(memoList, round) {
-    const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
-    const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
-    if (memo) {
-      if (refMemos.length > 0) {
-        const refMemo = refMemos.find(x => JSON.stringify(x.ladokRoundIds) === JSON.stringify(memo.ladokRoundIds))
-        if (refMemo) {
-          return false
-        }
-      }
-    }
-    if (memo) {
-      refMemos.push(memo)
-    }
-    memoToCheck.current = refMemos
-    return true
-  }
+  const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
+
+  const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck)
 
   useEffect(() => {
     getTermsWithCourseRounds(courseCode).then(data => {
@@ -171,8 +226,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
     }
     return () => (isMounted = false)
   }, [])
-
-  console.log(allRounds)
 
   return (
     <Container className="kip-container about-container" fluid>
@@ -198,10 +251,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
             <Row>
               <Col>
                 <section>
-                  <p>
-                    {aboutMemoLabels.aboutMemosText1}
-                    <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-                  </p>
+                  <p>{aboutMemoLabels.aboutMemosText1}</p>
                   <p>{aboutMemoLabels.aboutMemosText2}</p>
                 </section>
               </Col>
@@ -233,94 +283,62 @@ function AboutCourseMemo({ mockKursPmDataApi = false }) {
                     btnClose={aboutMemoLabels.btnClose}
                     withModal
                   />
-                  {Object.keys(webAndPdfMiniMemos)
-                    .reverse()
-                    .map(semester => {
-                      if (Number.parseInt(semester, 10) < firstVisibleSemester) {
-                        return null
-                      }
-
-                      const semesterMemos = webAndPdfMiniMemos[semester]
-                      const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
-                      const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
-                      const allSemesterMemosLadokRoundIds = cleanFlatMemosList.map(memo => memo.ladokRoundIds)
-                      const allTermRounds = allRounds.filter(round => round.term === semester).reverse()
-                      const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
-                      const diffLadokIds = allTermLadokIds.filter(
-                        id => !allSemesterMemosLadokRoundIds.flat().includes(id)
-                      )
-                      const diffLadokIdsArrayStructure = diffLadokIds.map(element => [].concat(element))
-                      const allTermLadokIdsExtend = allSemesterMemosLadokRoundIds.concat(diffLadokIdsArrayStructure)
-
-                      return (
-                        <React.Fragment key={semester}>
-                          <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                          {allTermRounds.map(round =>
-                            doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId) &&
-                            isCurrentMemoIsUnqiue(cleanFlatMemosList, round)
-                              ? cleanFlatMemosList
-                                  .filter(memo => memo.ladokRoundIds.includes(round.ladokRoundId))
-                                  .map(
-                                    ({
-                                      courseCode: memocourseCode,
-                                      courseMemoFileName: pdfFileName,
-                                      isPdf,
-                                      ladokRoundIds,
-                                      memoCommonLangAbbr,
-                                      memoEndPoint,
-                                      semester: itemSemester,
-                                      memoName,
-                                    }) => (
-                                      <div key={memoEndPoint || pdfFileName}>
-                                        {(isPdf && (
-                                          <div>
-                                            <p>
-                                              <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
-                                            </p>
-                                            <a
-                                              className="pdf-link"
-                                              href={`${webContext.browserConfig.memoStorageUri}${pdfFileName}`}
-                                            >
-                                              {memoNameWithCourseCode(
-                                                courseCode,
-                                                itemSemester,
-                                                ladokRoundIds,
-                                                userLangAbbr
-                                              )}
-                                            </a>
-                                          </div>
-                                        )) || (
-                                          <div>
-                                            <p>
-                                              <b>{memoName}</b>
-                                            </p>
-                                            <a href={linkToPublishedMemo(courseCode || memocourseCode, memoEndPoint)}>
-                                              {memoNameWithCourseCode(
-                                                courseCode,
-                                                itemSemester,
-                                                ladokRoundIds,
-                                                memoCommonLangAbbr
-                                              )}
-                                            </a>
-                                          </div>
-                                        )}
-                                      </div>
-                                    )
-                                  )
-                              : isCurrentMemoIsUnqiue(cleanFlatMemosList, round) && (
-                                  <div>
+                  {allActiveTerms.map(semester => {
+                    return (
+                      <React.Fragment key={semester}>
+                        <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
+                        {semestersMemosAndRounds
+                          .filter(round => round.term === semester || round.semester === semester)
+                          .map(memo => (
+                            <div key={memo.memoEndPoint || memo.courseMemoFileName}>
+                              {'isPdf' in memo ? (
+                                (memo.isPdf && (
+                                  <div className="mb-3">
                                     <p>
-                                      <b>{roundShortNameWithStartdate(round, userLangAbbr)}</b>
+                                      <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     </p>
+                                    <a
+                                      className="pdf-link"
+                                      href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
+                                    >
+                                      {memoNameWithCourseCode(
+                                        courseCode,
+                                        memo.semester,
+                                        memo.ladokRoundIds,
+                                        userLangAbbr
+                                      )}
+                                    </a>
+                                  </div>
+                                )) || (
+                                  <div className="mb-3">
                                     <p>
-                                      <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                                      <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     </p>
+                                    <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
+                                      {memoNameWithCourseCode(
+                                        courseCode,
+                                        memo.semester,
+                                        memo.ladokRoundIds,
+                                        memo.memoCommonLangAbbr
+                                      )}
+                                    </a>
                                   </div>
                                 )
-                          )}
-                        </React.Fragment>
-                      )
-                    })}
+                              ) : (
+                                <div className="mb-3">
+                                  <p>
+                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
+                                  </p>
+                                  <p>
+                                    <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                      </React.Fragment>
+                    )
+                  })}
                   <h3>{aboutMemoLabels.previousOfferings}</h3>
                   <ul>
                     <li>
