@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
+import { v4 as uuidv4 } from 'uuid'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
@@ -176,7 +177,6 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term === semester))
     }
   })
-  console.log(allSemestersRoundsWithMemos)
   return allSemestersRoundsWithMemos
 }
 
@@ -290,13 +290,11 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                         {semestersMemosAndRounds
                           .filter(round => round.term === semester || round.semester === semester)
                           .map(memo => (
-                            <div key={memo.memoEndPoint || memo.courseMemoFileName}>
+                            <div key={uuidv4()}>
                               {'isPdf' in memo ? (
                                 (memo.isPdf && (
-                                  <div className="mb-3">
-                                    <p>
-                                      <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                    </p>
+                                  <div key={uuidv4()} className="mb-3">
+                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     <a
                                       className="pdf-link"
                                       href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
@@ -310,10 +308,8 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                     </a>
                                   </div>
                                 )) || (
-                                  <div className="mb-3">
-                                    <p>
-                                      <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                    </p>
+                                  <div key={uuidv4()} className="mb-3">
+                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
                                       {memoNameWithCourseCode(
                                         courseCode,
@@ -325,13 +321,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                   </div>
                                 )
                               ) : (
-                                <div className="mb-3">
-                                  <p>
-                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                  </p>
-                                  <p>
-                                    <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
-                                  </p>
+                                <div key={uuidv4()} className="mb-3">
+                                  <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
+                                  <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
                                 </div>
                               )}
                             </div>
@@ -341,7 +333,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                   })}
                   <h3>{aboutMemoLabels.previousOfferings}</h3>
                   <ul>
-                    <li>
+                    <li key={uuidv4()}>
                       {aboutMemoLabels.previousOfferingsText}
                       <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
                     </li>
