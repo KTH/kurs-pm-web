@@ -206,20 +206,24 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck)
 
   useEffect(() => {
-    getTermsWithCourseRounds(courseCode).then(data => {
-      let allTempRounds = []
-      data.forEach(t => {
-        const rounds = []
-        t.rounds.forEach(round => {
-          if (isDateWithinCurrentSemester(round.lastTuitionDate)) {
-            round.term = t.term
-            rounds.push(round)
-          }
+    if (isThisTest) {
+      setAllRounds(allRoundsMockOrReal)
+    } else {
+      getTermsWithCourseRounds(courseCode).then(data => {
+        let allTempRounds = []
+        data.forEach(t => {
+          const rounds = []
+          t.rounds.forEach(round => {
+            if (isDateWithinCurrentSemester(round.lastTuitionDate)) {
+              round.term = t.term
+              rounds.push(round)
+            }
+          })
+          allTempRounds = allTempRounds.concat(rounds)
         })
-        allTempRounds = allTempRounds.concat(rounds)
+        setAllRounds(allTempRounds)
       })
-      setAllRounds(allTempRounds)
-    })
+    }
     let isMounted = true
     if (isMounted) {
       renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
