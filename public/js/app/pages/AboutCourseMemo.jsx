@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { v4 as uuidv4 } from 'uuid'
 import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
@@ -294,10 +293,10 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                         {semestersMemosAndRounds
                           .filter(round => round.term === semester || round.semester === semester)
                           .map(memo => (
-                            <div key={uuidv4()}>
+                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.ladokRoundId}>
                               {'isPdf' in memo ? (
                                 (memo.isPdf && (
-                                  <div key={uuidv4()} className="mb-3">
+                                  <div className="mb-3">
                                     <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     <a
                                       className="pdf-link"
@@ -312,7 +311,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                     </a>
                                   </div>
                                 )) || (
-                                  <div key={uuidv4()} className="mb-3">
+                                  <div className="mb-3">
                                     <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
                                       {memoNameWithCourseCode(
@@ -325,7 +324,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                   </div>
                                 )
                               ) : (
-                                <div key={uuidv4()} className="mb-3">
+                                <div className="mb-3">
                                   <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                   <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
                                 </div>
@@ -337,7 +336,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                   })}
                   <h3>{aboutMemoLabels.previousOfferings}</h3>
                   <ul>
-                    <li key={uuidv4()}>
+                    <li>
                       {aboutMemoLabels.previousOfferingsText}
                       <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
                     </li>
