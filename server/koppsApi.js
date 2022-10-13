@@ -49,7 +49,10 @@ async function getDetailedInformation(courseCode, language) {
     if (res.body) {
       const { mainSubjects, course, examiners, roundInfos } = res.body
       const isCreditNotStandard =
-        course.credits && course.credits.toString().indexOf('.') < 0 && course.credits.toString().indexOf(',') < 0
+        course &&
+        course.credits &&
+        course.credits.toString().indexOf('.') < 0 &&
+        course.credits.toString().indexOf(',') < 0
       return {
         courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
         recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
@@ -94,7 +97,29 @@ async function getDetailedInformation(courseCode, language) {
   }
 }
 
+async function getCourseRoundTerms(courseCode) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
+  try {
+    const res = await client.getAsync({ uri, useCache: true })
+
+    if (res.body) {
+      const { termsWithCourseRounds } = res.body
+
+      return termsWithCourseRounds //array of objects(term, rounds)
+    }
+
+    log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for course code', courseCode)
+
+    return []
+  } catch (err) {
+    log.error('Kopps is not available', err)
+    return []
+  }
+}
+
 module.exports = {
   koppsApi: api,
   getDetailedInformation,
+  getCourseRoundTerms,
 }

@@ -220,6 +220,12 @@ appRoute.get('public.getContent', config.proxyPrefixPath.uri + '/:courseCode/:se
 
 appRoute.get('public.getNoContent', config.proxyPrefixPath.uri + '/', CourseMemo.getNoContent)
 
+appRoute.get(
+  'public.getTermsWithCourseRounds',
+  '/termsWithCourseRounds/:courseCode',
+  CourseMemo.getTermsWithCourseRounds
+)
+
 server.use('/', appRoute.getRouter())
 
 // Not found etc

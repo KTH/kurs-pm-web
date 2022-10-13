@@ -11,7 +11,7 @@ const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
-const { getDetailedInformation } = require('../koppsApi')
+const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
 
@@ -460,10 +460,22 @@ async function getNoContent(req, res, next) {
   }
 }
 
+async function getTermsWithCourseRounds(req, res, next) {
+  const { courseCode } = req.params
+  try {
+    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
+    res.send(termsWithCourseRounds)
+  } catch (err) {
+    log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
+    next(err)
+  }
+}
+
 module.exports = {
   markOutdatedMemoDatas,
   getContent,
   getOldContent,
   getNoContent,
   getAboutContent,
+  getTermsWithCourseRounds,
 }

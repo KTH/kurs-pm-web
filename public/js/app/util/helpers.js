@@ -18,6 +18,30 @@ export const memoNameWithCourseCode = (courseCode, semester, ladokRoundIds, lang
     '-'
   )}`
 }
+export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  const { startdate } = i18n.messages[langIndex].aboutMemoLabels
+  const roundShortNameArray = round.shortName.split(' ')
+  const roundShortName = roundShortNameArray[0]
+  const roundStartDate = round.firstTuitionDate
+
+  if ('memoName' in round) {
+    const regEx = /\s*\(.*?\)\s*/g
+    const shortMemoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
+
+    if (round.ladokRoundIds.length > 1) {
+      return `${shortMemoNames}(${startdate} ${roundStartDate})`
+    }
+  }
+
+  if (round.shortName !== '') {
+    return `${roundShortName}(${startdate} ${roundStartDate})`
+  }
+  return `${seasonStr(
+    i18n.messages[langIndex].extraInfo,
+    round.term || round.semester
+  )}(${startdate} ${roundStartDate})`
+}
 
 export const memoNameWithoutCourseCode = (semester, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
