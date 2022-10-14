@@ -1,9 +1,22 @@
 import axios from 'axios'
 
+function _getThisHost(url) {
+  return url.slice(-1) === '/' ? url.slice(0, -1) : url
+}
 // eslint-disable-next-line consistent-return
-async function getTermsWithCourseRounds(courseCode) {
+async function getTermsWithCourseRounds(
+  courseCode,
+  thisHostBaseUrl = 'https://kth.se',
+  proxyPrefixPath = { uri: '/kurs-pm' }
+) {
   try {
-    const result = await axios.get(`/termsWithCourseRounds/${courseCode}`)
+    const proxyUrl = _getThisHost(`${thisHostBaseUrl}${proxyPrefixPath.uri}`)
+
+    // example http://localhost:3000/kurs-pm/internApi/termsWithCourseRounds/${courseCode}
+    const url = `${proxyUrl}/internApi/termsWithCourseRounds/${courseCode}`
+
+    const result = await axios.get(url)
+
     if (result) {
       if (result.status >= 400) {
         return 'ERROR-INTERN-API' + result.status

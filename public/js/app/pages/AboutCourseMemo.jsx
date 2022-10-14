@@ -185,7 +185,14 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const [webContext] = useWebContext()
 
-  const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex } = webContext
+  const {
+    allTypeMemos,
+    courseCode,
+    language: userLangAbbr,
+    proxyPrefixPath,
+    thisHostBaseUrl,
+    userLanguageIndex,
+  } = webContext
   const isThisTest = !!mockKursPmDataApi
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
@@ -208,7 +215,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
     if (isThisTest) {
       setAllRounds(allRoundsMockOrReal)
     } else {
-      getTermsWithCourseRounds(courseCode).then(data => {
+      getTermsWithCourseRounds(courseCode, thisHostBaseUrl, proxyPrefixPath).then(data => {
         let allTempRounds = []
         data.forEach(t => {
           const rounds = []
