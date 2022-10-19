@@ -463,6 +463,7 @@ async function getNoContent(req, res, next) {
 async function getTermsWithCourseRounds(req, res, next) {
   const { courseCode } = req.params
   try {
+    log.info('Get request to fetch course rounds', { function: 'getTermsWithCourseRounds', courseCode })
     const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
     res.send(termsWithCourseRounds)
   } catch (err) {

@@ -104,7 +104,7 @@ async function getDetailedInformation(courseCode, language) {
 async function getCourseRoundTerms(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
-  log.info('Trying fetch course rounds by', { uri, config: config.koppsApi })
+  log.info('Trying fetch course rounds by', { courseCode, uri, config: config.koppsApi })
   try {
     const res = await client.getAsync({ uri, useCache: true })
 
