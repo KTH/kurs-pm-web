@@ -25,9 +25,9 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-const slashEndedKoppsBase = config.koppsApi.basePath.endsWith('/')
-  ? config.koppsApi.basePath
-  : config.koppsApi.basePath.concat('/')
+// const slashEndedKoppsBase = config.koppsApi.basePath.endsWith('/')
+//   ? config.koppsApi.basePath
+//   : config.koppsApi.basePath.concat('/')
 
 // From kurs-pm-data-admin-web
 const createPersonHtml = (personList = []) => {
@@ -104,7 +104,7 @@ async function getDetailedInformation(courseCode, language) {
 async function getCourseRoundTerms(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
-  log.info('Trying fetch course rounds by', { uri, slashEndedKoppsBase })
+  log.info('Trying fetch course rounds by', { uri, config: config.koppsApi })
   try {
     const res = await client.getAsync({ uri, useCache: true })
 
