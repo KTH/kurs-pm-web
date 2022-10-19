@@ -10,7 +10,7 @@ async function getTermsWithCourseRounds(
   proxyPrefixPath = { uri: '/kurs-pm' }
 ) {
   try {
-    const proxyUrl = _getThisHost(`${thisHostBaseUrl}${proxyPrefixPath.uri}`)
+    const proxyUrl = `${_getThisHost(thisHostBaseUrl)}${proxyPrefixPath.uri}`
 
     // example http://localhost:3000/kurs-pm/internApi/termsWithCourseRounds/${courseCode}
     const url = `${proxyUrl}/internApi/termsWithCourseRounds/${courseCode}`
