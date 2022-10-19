@@ -14,6 +14,7 @@ async function getTermsWithCourseRounds(
 
     // example http://localhost:3000/kurs-pm/internApi/termsWithCourseRounds/${courseCode}
     const url = `${proxyUrl}/internApi/termsWithCourseRounds/${courseCode}`
+    console.log('getTermsWithCourseRounds internal url', url)
 
     const result = await axios.get(url)
 
