@@ -30,12 +30,12 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
     const shortMemoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
 
     if (round.ladokRoundIds.length > 1) {
-      return `${shortMemoNames}(${startdate} ${roundStartDate})`
+      return `${shortMemoNames} (${startdate} ${roundStartDate})`
     }
   }
 
   if (round.shortName !== '') {
-    return `${roundShortName}(${startdate} ${roundStartDate})`
+    return `${roundShortName} (${startdate} ${roundStartDate})`
   }
   return `${seasonStr(
     i18n.messages[langIndex].extraInfo,
