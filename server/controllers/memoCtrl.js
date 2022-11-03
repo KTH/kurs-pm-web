@@ -363,7 +363,7 @@ async function getAboutContent(req, res, next) {
 
     const responseLanguage = languageLib.getLanguage(res) || 'sv'
 
-    let klaroConsentCookie = false
+    let klaroAnalyticsConsentCookie = false
     if (req.cookies.klaro) {
       const consentCookiesArray = req.cookies.klaro.slice(1, -1).split(',')
       // eslint-disable-next-line prefer-destructuring
@@ -371,7 +371,7 @@ async function getAboutContent(req, res, next) {
         .find(cookie => cookie.includes('analytics-consent'))
         .split(':')[1]
       // eslint-disable-next-line no-const-assign
-      klaroConsentCookie = analyticsConsentCookieString === 'true'
+      klaroAnalyticsConsentCookie = analyticsConsentCookieString === 'true'
     }
 
     const webContext = {
@@ -422,7 +422,7 @@ async function getAboutContent(req, res, next) {
       html: view,
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
-      cookies: klaroConsentCookie,
+      klaroAnalyticsConsentCookie,
     })
   } catch (err) {
     log.error('Error', { error: err })

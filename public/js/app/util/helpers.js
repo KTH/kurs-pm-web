@@ -27,7 +27,22 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
 
   if ('memoName' in round) {
     const regEx = /\s*\(.*?\)\s*/g
-    const shortMemoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
+    const regEx2 = /[-]\d/
+    const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
+
+    let shortMemoNames = ''
+
+    if ('shortName' in round && round.shortName !== '') {
+      shortMemoNames = round.shortName
+    } else {
+      const memoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
+
+      if (pattern.test(memoNames.split(', ')[0])) {
+        shortMemoNames = `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
+      } else {
+        shortMemoNames = memoNames
+      }
+    }
 
     if (round.ladokRoundIds.length > 1) {
       return `${shortMemoNames} (${startdate} ${roundStartDate})`
@@ -40,7 +55,19 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   return `${seasonStr(
     i18n.messages[langIndex].extraInfo,
     round.term || round.semester
-  )}(${startdate} ${roundStartDate})`
+  )} (${startdate} ${roundStartDate})`
+}
+
+export const doubleSortOnAnArrayOfObjects = (arr, par1, par2) => {
+  let sortedArray = [...arr].sort((a, b) => {
+    if (Number(a[par1]) == Number(b[par1])) {
+      if (a[par2] === b[par2]) return 0
+      return a[par2] < b[par2] ? -1 : 1
+    } else {
+      return Number(a[par1]) < Number(b[par1]) ? -1 : 1
+    }
+  })
+  return sortedArray
 }
 
 export const memoNameWithoutCourseCode = (semester, ladokRoundIds, langAbbr = 'sv') => {

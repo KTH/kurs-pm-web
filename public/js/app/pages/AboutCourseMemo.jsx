@@ -10,7 +10,13 @@ import { useLocation } from 'react-router-dom'
 
 import { resolveCourseImage } from '../util/course-image'
 import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
-import { concatMemoName, memoNameWithCourseCode, seasonStr, roundShortNameWithStartdate } from '../util/helpers'
+import {
+  concatMemoName,
+  memoNameWithCourseCode,
+  seasonStr,
+  roundShortNameWithStartdate,
+  doubleSortOnAnArrayOfObjects,
+} from '../util/helpers'
 import { getCurrentTerm } from '../util/term'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
 import getTermsWithCourseRounds from '../util/internApi'
@@ -176,7 +182,23 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term === semester))
     }
   })
-  return allSemestersRoundsWithMemos
+  const arrDateFormat = allSemestersRoundsWithMemos.map(obj => {
+    return { ...obj, firstTuitionDate: new Date(obj.firstTuitionDate) }
+  })
+
+  const sortedArrayDateFormat = doubleSortOnAnArrayOfObjects(arrDateFormat, 'firstTuitionDate', 'shortName')
+
+  const sortedAscAllSemestersRoundsWithMemos = sortedArrayDateFormat.map(obj => {
+    return {
+      ...obj,
+      firstTuitionDate: obj.firstTuitionDate.toLocaleString('sv-SE', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }),
+    }
+  })
+  return sortedAscAllSemestersRoundsWithMemos
 }
 
 function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
