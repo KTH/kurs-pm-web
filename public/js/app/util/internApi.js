@@ -11,8 +11,8 @@ async function getTermsWithCourseRounds(
 ) {
   try {
     let hostUrl = thisHostBaseUrl
-    if (origin.includes('app-')) {
-      hostUrl = hostUrl.replace('www-', 'app-')
+    if (origin.includes('app')) {
+      hostUrl = hostUrl.replace('www', 'app')
     }
     const proxyUrl = `${_getThisHost(hostUrl)}${proxyPrefixPath.uri}`
 
