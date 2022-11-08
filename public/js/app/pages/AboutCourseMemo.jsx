@@ -16,6 +16,7 @@ import {
   seasonStr,
   roundShortNameWithStartdate,
   doubleSortOnAnArrayOfObjects,
+  removeDuplicates,
 } from '../util/helpers'
 import { getCurrentTerm } from '../util/term'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
@@ -48,10 +49,6 @@ function removeWebMemosDuplicates(flattenMemosList) {
     // if web-based memo is unique or if it's pdf memo, then return grue
     return true
   })
-}
-
-function removeDuplicates(allActiveTerms) {
-  return allActiveTerms.filter((term, index) => allActiveTerms.indexOf(term) === index)
 }
 
 function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
@@ -151,7 +148,8 @@ function extendMemo(memo, round) {
   return memo
 }
 
-function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck) {
+function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck, langAbbr = 'sv') {
+  const langIndex = langAbbr === 'en' ? 0 : 1
   const allSemestersRoundsWithMemos = []
   const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
   const allMemosSemesters = Object.keys(webAndPdfMiniMemos)
@@ -165,7 +163,6 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       const allSemesterMemosLadokRoundIds = cleanFlatMemosList.map(memo => memo.ladokRoundIds)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
       const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
-
       allTermRounds.map(round => {
         doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
           ? isCurrentMemoIsUnqiue(cleanFlatMemosList, round, memoToCheck)
@@ -186,7 +183,7 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
     return { ...obj, firstTuitionDate: new Date(obj.firstTuitionDate) }
   })
 
-  const sortedArrayDateFormat = doubleSortOnAnArrayOfObjects(arrDateFormat, 'firstTuitionDate', 'shortName')
+  const sortedArrayDateFormat = doubleSortOnAnArrayOfObjects(arrDateFormat, 'firstTuitionDate', 'shortName', langIndex)
 
   const sortedAscAllSemestersRoundsWithMemos = sortedArrayDateFormat.map(obj => {
     return {
@@ -198,6 +195,7 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       }),
     }
   })
+
   return sortedAscAllSemestersRoundsWithMemos
 }
 
@@ -231,7 +229,12 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
 
-  const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck)
+  const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(
+    webAndPdfMiniMemos,
+    allRoundsMockOrReal,
+    memoToCheck,
+    userLangAbbr
+  )
 
   useEffect(() => {
     if (isThisTest) {

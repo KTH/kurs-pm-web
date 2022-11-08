@@ -18,39 +18,28 @@ export const memoNameWithCourseCode = (courseCode, semester, ladokRoundIds, lang
     '-'
   )}`
 }
+export const removeDuplicates = elements => {
+  return elements.filter((term, index) => elements.indexOf(term) === index)
+}
 export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { startdate } = i18n.messages[langIndex].aboutMemoLabels
   const roundShortNameArray = round.shortName.split(' ')
-  const roundShortName = roundShortNameArray[0]
   const roundStartDate = round.firstTuitionDate
+  const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
+  const pattern2 = /[a-zA-Z]\w*\s\d{4}/
+  const memoNames = round.memoName
 
-  if ('memoName' in round) {
-    const regEx = /\s*\(.*?\)\s*/g
-    const regEx2 = /[-]\d/
-    const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
+  if ('memoName' in round) return `${memoNames} (${startdate} ${roundStartDate})`
 
+  if ('shortName' in round && round.shortName !== '') {
     let shortMemoNames = ''
-
-    if ('shortName' in round && round.shortName !== '') {
-      shortMemoNames = round.shortName
+    if (pattern.test(round.shortName)) {
+      shortMemoNames = `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
     } else {
-      const memoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
-
-      if (pattern.test(memoNames.split(', ')[0])) {
-        shortMemoNames = `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
-      } else {
-        shortMemoNames = memoNames
-      }
+      shortMemoNames = round.shortName.replace(/ m.fl./g, '')
     }
-
-    if (round.ladokRoundIds.length > 1) {
-      return `${shortMemoNames} (${startdate} ${roundStartDate})`
-    }
-  }
-
-  if (round.shortName !== '') {
-    return `${roundShortName} (${startdate} ${roundStartDate})`
+    return `${shortMemoNames} (${startdate} ${roundStartDate})`
   }
   return `${seasonStr(
     i18n.messages[langIndex].extraInfo,
@@ -58,8 +47,33 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   )} (${startdate} ${roundStartDate})`
 }
 
-export const doubleSortOnAnArrayOfObjects = (arr, par1, par2) => {
-  let sortedArray = [...arr].sort((a, b) => {
+export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
+  const arrWithSortedMemoNames = [...arr].map(round => {
+    const regEx = /\s*\(.*?\)\s*/g
+    const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
+    if ('memoName' in round) {
+      const memoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
+      const memoNamesArray = memoNames.split(', ').map(item => {
+        if (pattern.test(item)) {
+          return `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
+        }
+        return item
+      })
+
+      const uniqueMemoNamesArray = removeDuplicates(memoNamesArray)
+      const sortedMemoNamesArray = uniqueMemoNamesArray.sort()
+
+      return {
+        ...round,
+        memoName: sortedMemoNamesArray.join(', '),
+        shortName: sortedMemoNamesArray[0],
+      }
+    }
+
+    return round
+  })
+
+  let sortedArray = arrWithSortedMemoNames.sort((a, b) => {
     if (Number(a[par1]) == Number(b[par1])) {
       if (a[par2] === b[par2]) return 0
       return a[par2] < b[par2] ? -1 : 1
@@ -67,6 +81,7 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2) => {
       return Number(a[par1]) < Number(b[par1]) ? -1 : 1
     }
   })
+
   return sortedArray
 }
 
