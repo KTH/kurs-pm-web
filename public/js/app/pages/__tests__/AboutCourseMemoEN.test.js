@@ -150,10 +150,10 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     const allH4Headers = getAllByRole('heading', { level: 4 })
     expect(allH4Headers.length).toBe(4)
     const expectedh4ds = [
-      'Autumn 2021 (Startdatum 2023-01-17)',
-      'Autumn 2020 (Startdatum 2023-01-17)',
-      'Autumn 2019 (Startdatum 2023-01-17)',
-      'Autumn 2019 (Startdatum 2023-01-17)',
+      'Autumn 2021 (Start date 17/01/2023)',
+      'Autumn 2020 (Start date 17/01/2023)',
+      'Autumn 2019 (Start date 17/01/2023)',
+      'Autumn 2019 (Start date 17/01/2023)',
     ]
     expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })

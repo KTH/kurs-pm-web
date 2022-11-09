@@ -150,6 +150,7 @@ function extendMemo(memo, round) {
 
 function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck, langAbbr = 'sv') {
   const langIndex = langAbbr === 'en' ? 0 : 1
+  const locale = ['en-GB', 'sv-SE']
   const allSemestersRoundsWithMemos = []
   const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
   const allMemosSemesters = Object.keys(webAndPdfMiniMemos)
@@ -188,7 +189,7 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
   const sortedAscAllSemestersRoundsWithMemos = sortedArrayDateFormat.map(obj => {
     return {
       ...obj,
-      firstTuitionDate: obj.firstTuitionDate.toLocaleString('sv-SE', {
+      firstTuitionDate: obj.firstTuitionDate.toLocaleString(locale[langIndex], {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
