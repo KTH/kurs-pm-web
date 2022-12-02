@@ -128,13 +128,77 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   return true
 }
 
+function getCurrentTerm(overrideDate) {
+  const JULY = 6
+  const SPRING = 1
+  const FALL = 2
+  const currentDate = overrideDate || new Date()
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentSemester = currentMonth < JULY ? SPRING : FALL
+  return `${currentYear * 10 + currentSemester}`
+}
+
+function isDateWithinCurrentSemester(checkDate) {
+  //checking if lastTuitionDate is within current semester
+  const currentSemester = getCurrentTerm().slice(-1)
+  const dateToCheck = new Date(checkDate)
+  const today = new Date()
+  const currentYear = today.getFullYear()
+  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
+  const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
+  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
+
+  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
+  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
+  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
+
+  if (currentSemester == 2) {
+    if (
+      dateToCheck > startDateOfAutumnSemester ||
+      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
+    ) {
+      return true
+    }
+  } else {
+    if (
+      dateToCheck > startDateOfSpringSemester ||
+      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
+function getDateOfMondayOfTheWeek(startDate) {
+  const currentDate = new Date(startDate)
+  const first = currentDate.getDate() - currentDate.getDay() + 1
+  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
+  return firstMondayOfSpringSemester
+}
+
+function addDays(date, days) {
+  // return date.setDate(date.getDate() + days)
+  const copy = new Date(Number(date))
+  copy.setDate(date.getDate() + days)
+  return copy
+}
+
 function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   if (!Array.isArray(memoDatas)) {
     log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
     return []
   }
+  // for test
+  if (memoDatas.length === 0 || roundInfos.length === 0) {
+    return []
+  }
+
+  const allActiveTerms = roundInfos.filter(r => isDateWithinCurrentSemester(r.round.lastTuitionDate))
+  const lastActiveYear = allActiveTerms[allActiveTerms.length - 1].round.startWeek.year
   const currentYear = new Date().getFullYear()
-  const startSelectionYear = currentYear - 1
+  const startSelectionYear = lastActiveYear
 
   const offerings = roundInfos.filter(r =>
     r.round &&
