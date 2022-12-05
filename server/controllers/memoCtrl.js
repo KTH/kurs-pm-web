@@ -196,7 +196,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   }
 
   const allActiveTerms = roundInfos.filter(r => isDateWithinCurrentSemester(r.round.lastTuitionDate))
-  const lastActiveYear = allActiveTerms[allActiveTerms.length - 1].round.startWeek.year
+  const lastActiveYear = allActiveTerms[0].round.startWeek.year
   const currentYear = new Date().getFullYear()
   const startSelectionYear = lastActiveYear
 
