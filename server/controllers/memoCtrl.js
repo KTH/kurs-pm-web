@@ -185,6 +185,10 @@ function addDays(date, days) {
   return copy
 }
 
+function removeDuplicates(elements) {
+  return elements.filter((term, index) => elements.indexOf(term) === index)
+}
+
 function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   if (!Array.isArray(memoDatas)) {
     log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
@@ -196,9 +200,9 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   }
 
   const allActiveTerms = roundInfos.filter(r => isDateWithinCurrentSemester(r.round.lastTuitionDate))
-  const lastActiveYear = allActiveTerms[0].round.startWeek.year
+  const activeYears = removeDuplicates(allActiveTerms.map(term => term.round.startWeek.year)).sort()
   const currentYear = new Date().getFullYear()
-  const startSelectionYear = lastActiveYear
+  const startSelectionYear = activeYears[0]
 
   const offerings = roundInfos.filter(r =>
     r.round &&
