@@ -276,11 +276,19 @@ section[aria-labelledby='course-presentation'] {
 }
 
 .pdf-icon {
-  color: #000;
-  margin-left: 0.5rem;
-  overflow: auto;
-  vertical-align: baseline;
+  background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/print-blue.svg');
+  height: 20px;
+  width: 20px;
+  margin-left: 0.3rem;
+  vertical-align: middle;
 }
+
+// .pdf-icon {
+//   color: #000;
+//   margin-left: 0.5rem;
+//   overflow: auto;
+//   vertical-align: baseline;
+// }
 
 .pdf-link {
   margin: 0;
@@ -298,13 +306,7 @@ section[aria-labelledby='course-presentation'] {
   text-align: left;
   outline: none !important;
   box-shadow: none !important;
-}
-
-.print-icon {
-  color: #000;
-  margin-left: 0.3rem;
-  overflow: auto;
-  vertical-align: baseline;
+  font-weight: 100;
 }
 
 .syllabus-marker-icon {
