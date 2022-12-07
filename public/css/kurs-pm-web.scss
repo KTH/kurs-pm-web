@@ -1,3 +1,5 @@
+@import 'node_modules/kth-style/public/sass/custom/common/icons';
+
 $grey: #65656c;
 $lightGrey: #f6f6f6;
 $white: #fff;
@@ -276,7 +278,8 @@ section[aria-labelledby='course-presentation'] {
 }
 
 .pdf-icon {
-  background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/print-blue.svg');
+  background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
+  // background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/print-blue.svg');
   height: 20px;
   width: 20px;
   margin-left: 0.3rem;
