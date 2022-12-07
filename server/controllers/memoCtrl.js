@@ -17,6 +17,17 @@ const { createServerSideContext, createAdditionalContext } = require('../ssr-con
 
 const locales = { sv, en }
 
+function getCurrentTerm(overrideDate) {
+  const JULY = 6
+  const SPRING = 1
+  const FALL = 2
+  const currentDate = overrideDate || new Date()
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentSemester = currentMonth < JULY ? SPRING : FALL
+  return `${currentYear * 10 + currentSemester}`
+}
+
 function findMemo(memoDatas, memoEndPoint) {
   const memoData = memoDatas.find(m => m.memoEndPoint === memoEndPoint)
   return memoData || null
@@ -112,31 +123,20 @@ function resolveLatestMemoLabel(language, latestMemoDatas) {
 function outdatedMemoData(offerings, startSelectionYear, memoData) {
   // Course memo semester is in current or previous year
   const memoYear = Math.floor(memoData.semester / 10)
-  if (memoYear >= startSelectionYear) {
+  if (memoYear >= startSelectionYear && memoData.semester >= getCurrentTerm()) {
     return false
   }
 
   // Course offering in memo has end year later or equal to previous year
   const offering = offerings.find(
-    o => memoData.ladokRoundIds.includes(o.ladokRoundId) && memoData.semester === o.semester
+    o => memoData.ladokRoundIds.includes(o.round.ladokRoundId) && memoData.semester === String(o.round.startTerm.term)
   )
-  if (offering && offering.endYear >= startSelectionYear) {
+  if (offering && offering.round.endWeek.year >= startSelectionYear) {
     return false
   }
 
   // Course memo does not meet the criteria
   return true
-}
-
-function getCurrentTerm(overrideDate) {
-  const JULY = 6
-  const SPRING = 1
-  const FALL = 2
-  const currentDate = overrideDate || new Date()
-  const currentYear = currentDate.getFullYear()
-  const currentMonth = currentDate.getMonth()
-  const currentSemester = currentMonth < JULY ? SPRING : FALL
-  return `${currentYear * 10 + currentSemester}`
 }
 
 function isDateWithinCurrentSemester(checkDate) {
