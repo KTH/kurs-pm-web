@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaRegFilePdf, FaAsterisk, FaPrint } from 'react-icons/fa'
+import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 
 import { linkToArchive, linkToSyllabus } from '../util/links'
@@ -46,7 +46,7 @@ const PrintDialogLink = ({ labels }) => (
     <h3>{labels.courseMemoPrint}</h3>
     <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
       {labels.printDialog}
-      <FaPrint className="pdf-icon" />
+      <svg className="pdf-icon" />
     </Button>
   </>
 )
