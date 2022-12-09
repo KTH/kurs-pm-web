@@ -44,10 +44,9 @@ const ArchiveLink = ({ language, labels, courseCode }) => (
 const PrintDialogLink = ({ labels }) => (
   <>
     <h3>{labels.courseMemoPrint}</h3>
-    <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
-      {labels.printDialog}
-      <svg className="pdf-icon" />
-    </Button>
+    <a id="print-link" className="print-link" color="link" onClick={printDialog}>
+      <svg className="pdf-icon" /> <a className="print-link-p">{labels.printDialog}</a>
+    </a>
   </>
 )
 
