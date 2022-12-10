@@ -51,6 +51,33 @@ function removeWebMemosDuplicates(flattenMemosList) {
   })
 }
 
+function removePdfMemosDuplicates(flattenMemosList) {
+  let tmpUniqueMemosList = []
+  let tmpPdfMemos = []
+
+  flattenMemosList.map(round => {
+    if (round.isPdf) {
+      if (
+        tmpPdfMemos.some(element => {
+          if (element.courseMemoFileName === round.courseMemoFileName) return true
+          return false
+        })
+      ) {
+        const index = tmpPdfMemos.findIndex(element => {
+          if (element.courseMemoFileName === round.courseMemoFileName) return true
+          return false
+        })
+        tmpPdfMemos[index].ladokRoundIds = tmpPdfMemos[index].ladokRoundIds.concat(round.ladokRoundIds)
+      } else {
+        tmpPdfMemos.push(round)
+      }
+    } else {
+      tmpUniqueMemosList.push(round)
+    }
+  })
+  return tmpUniqueMemosList.concat(tmpPdfMemos)
+}
+
 function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
   // First visible semester according to left meny or getCurrentTerm
 
@@ -161,15 +188,16 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       const semesterMemos = webAndPdfMiniMemos[semester]
       const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
-      const allSemesterMemosLadokRoundIds = cleanFlatMemosList.map(memo => memo.ladokRoundIds)
+      const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
+      const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
       const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
       allTermRounds.map(round => {
         doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
-          ? isCurrentMemoIsUnqiue(cleanFlatMemosList, round, memoToCheck)
+          ? isCurrentMemoIsUnqiue(cleanAllMemos, round, memoToCheck)
             ? allSemestersRoundsWithMemos.push(
                 extendMemo(
-                  cleanFlatMemosList.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
+                  cleanAllMemos.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
                   round
                 )
               )
