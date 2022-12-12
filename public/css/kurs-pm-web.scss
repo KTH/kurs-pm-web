@@ -281,13 +281,7 @@ section[aria-labelledby='course-presentation'] {
   margin: 0;
 }
 
-.print-link-p {
-  font-size: 16px;
-  font-weight: 400;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.pdf-icon {
+.print-icon {
   background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
   background-repeat: no-repeat;
   height: 20px;
@@ -301,7 +295,10 @@ section[aria-labelledby='course-presentation'] {
   text-align: left;
   outline: none !important;
   box-shadow: none !important;
-  font-weight: 100;
+}
+
+.btn-info-modal {
+  margin-left: 10px;
 }
 
 .syllabus-marker-icon {

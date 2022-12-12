@@ -45,8 +45,8 @@ const PrintDialogLink = ({ labels }) => (
   <>
     <h3>{labels.courseMemoPrint}</h3>
     <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
-      <svg className="pdf-icon" />
-      <a className="print-link-p">{labels.printDialog}</a>
+      <svg className="print-icon" />
+      {labels.printDialog}
     </Button>
   </>
 )

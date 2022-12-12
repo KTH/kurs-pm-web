@@ -597,13 +597,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                         type="button"
                       >
                         <svg
-                          class="pdf-icon"
+                          class="print-icon"
                         />
-                        <a
-                          class="print-link-p"
-                        >
-                          Skriv ut eller spara kurs-PM
-                        </a>
+                        Skriv ut eller spara kurs-PM
                       </button>
                     </div>
                   </aside>
