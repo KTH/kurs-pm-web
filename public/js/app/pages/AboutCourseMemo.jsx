@@ -77,6 +77,22 @@ function removePdfMemosDuplicates(flattenMemosList) {
   })
   return tmpUniqueMemosList.concat(tmpPdfMemos)
 }
+function extendPdfMemosShortName(cleanAllMemo, allTempRounds) {
+  let arr = [...cleanAllMemo]
+
+  cleanAllMemo.map(memo => {
+    if (memo.isPdf === true && memo.ladokRoundIds.length > 1) {
+      let extendedShortNames = []
+      allTempRounds.map(round => {
+        if (memo.ladokRoundIds.includes(round.ladokRoundId)) {
+          extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
+        }
+      })
+      memo.shortName = extendedShortNames.join(', ')
+    }
+  })
+  return cleanAllMemo
+}
 
 function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
   // First visible semester according to left meny or getCurrentTerm
@@ -169,7 +185,7 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  memo.shortName = round.shortName
+  if (memo.isPdf !== true || (memo.isPdf === true && memo.ladokRoundIds.length == 1)) memo.shortName = round.shortName
   memo.firstTuitionDate = round.firstTuitionDate
 
   return memo
@@ -192,12 +208,14 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
       const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
+      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds)
+
       allTermRounds.map(round => {
         doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
-          ? isCurrentMemoIsUnqiue(cleanAllMemos, round, memoToCheck)
+          ? isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)
             ? allSemestersRoundsWithMemos.push(
                 extendMemo(
-                  cleanAllMemos.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
+                  extendedAllMemo.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
                   round
                 )
               )

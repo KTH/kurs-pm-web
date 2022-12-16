@@ -24,7 +24,7 @@ export const removeDuplicates = elements => {
 export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { startdate } = i18n.messages[langIndex].aboutMemoLabels
-  const roundShortNameArray = round.shortName.split(' ')
+  // const roundShortNameArray = round.shortName.split(' ')
   const roundStartDate = round.firstTuitionDate
   const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
   const pattern2 = /[a-zA-Z]\w*\s\d{4}/
