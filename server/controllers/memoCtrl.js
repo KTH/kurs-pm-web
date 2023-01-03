@@ -139,34 +139,12 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   return true
 }
 
-function isDateWithinCurrentSemester(checkDate) {
-  //checking if lastTuitionDate is within current semester
-  const currentSemester = getCurrentTerm().slice(-1)
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-  const currentYear = today.getFullYear()
-  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
-  const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
-  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
-
-  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
-  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
-  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
-
-  if (currentSemester == 2) {
-    if (
-      dateToCheck > startDateOfAutumnSemester ||
-      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
-    ) {
-      return true
-    }
-  } else {
-    if (
-      dateToCheck > startDateOfSpringSemester ||
-      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
-    ) {
-      return true
-    }
+function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
+  const currentDate = new Date()
+  const startSemester = new Date(startSemesterDate)
+  const endSemester = new Date(endSemesterDate)
+  if (startSemester.valueOf() >= currentDate.valueOf() || endSemester.valueOf() >= currentDate.valueOf()) {
+    return true
   }
   return false
 }
@@ -199,7 +177,9 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
     return []
   }
 
-  const allActiveTerms = roundInfos.filter(r => isDateWithinCurrentSemester(r.round.lastTuitionDate))
+  const allActiveTerms = roundInfos.filter(r =>
+    isDateWithInCurrentOrFutureSemester(r.round.firstTuitionDate, r.round.lastTuitionDate)
+  )
   const activeYears = removeDuplicates(allActiveTerms.map(term => term.round.startWeek.year)).sort()
   const currentYear = new Date().getFullYear()
   const startSelectionYear = activeYears[0]

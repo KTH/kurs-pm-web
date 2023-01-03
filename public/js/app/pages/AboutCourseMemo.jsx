@@ -109,50 +109,14 @@ function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
     }, getCurrentTerm()) // 21001
 }
 
-function isDateWithinCurrentSemester(checkDate) {
-  //checking if lastTuitionDate is within current semester
-  const currentSemester = getCurrentTerm().slice(-1)
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-  const currentYear = today.getFullYear()
-  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
-  const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
-  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
-
-  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
-  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
-  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
-
-  if (currentSemester == 2) {
-    if (
-      dateToCheck > startDateOfAutumnSemester ||
-      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
-    ) {
-      return true
-    }
-  } else {
-    if (
-      dateToCheck > startDateOfSpringSemester ||
-      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
-    ) {
-      return true
-    }
+function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
+  const currentDate = new Date()
+  const startSemester = new Date(startSemesterDate)
+  const endSemester = new Date(endSemesterDate)
+  if (startSemester.valueOf() >= currentDate.valueOf() || endSemester.valueOf() >= currentDate.valueOf()) {
+    return true
   }
   return false
-}
-
-function getDateOfMondayOfTheWeek(startDate) {
-  const currentDate = new Date(startDate)
-  const first = currentDate.getDate() - currentDate.getDay() + 1
-  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
-  return firstMondayOfSpringSemester
-}
-
-function addDays(date, days) {
-  // return date.setDate(date.getDate() + days)
-  const copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
 }
 
 function addElement(element) {
@@ -207,7 +171,6 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
       const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
-      const allTermLadokIds = allTermRounds.map(round => round.ladokRoundId)
       const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds)
 
       allTermRounds.map(round => {
@@ -264,13 +227,10 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
   const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
-
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
   const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
-
-  const firstVisibleSemester = resolveFirstVisibleSemesterInMenu(menuMemoItems)
 
   const memoToCheck = useRef([])
 
@@ -292,7 +252,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
         data.forEach(t => {
           const rounds = []
           t.rounds.forEach(round => {
-            if (isDateWithinCurrentSemester(round.lastTuitionDate)) {
+            if (isDateWithInCurrentOrFutureSemester(round.firstTuitionDate, round.lastTuitionDate)) {
               round.term = t.term
               rounds.push(round)
             }
