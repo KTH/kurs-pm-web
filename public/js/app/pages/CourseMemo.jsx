@@ -99,7 +99,7 @@ function CourseMemo() {
     userLanguageIndex,
   } = webContext
 
-  const { ladokRoundIds = [], semester: memoSemester, syllabusValid = {} } = memo
+  const { ladokRoundIds = [], semester: memoSemester, syllabusValid = {}, applicationCodes = [] } = memo
   const semester = querySemester || memoSemester
   const { validFromTerm = '' } = syllabusValid
 
@@ -177,7 +177,7 @@ function CourseMemo() {
         language={memoLanguage}
         courseTitle={memo.courseTitle}
         courseCode={courseCode}
-        memoName={concatMemoName(semester, ladokRoundIds, memoLanguage)}
+        memoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
         version={memo.version}
         lastChangeDate={memo.lastChangeDate}
         rounds={memo.memoName}
@@ -198,7 +198,7 @@ function CourseMemo() {
         <Col className="col-print-12" lang={memoLanguage}>
           <main id="mainContent">
             <CourseHeader
-              courseMemoName={concatMemoName(semester, ladokRoundIds, memoLanguage)}
+              courseMemoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
               courseTitle={memo.courseTitle}
               courseCode={courseCode}
               labels={courseHeaderLabels}
@@ -234,7 +234,7 @@ function CourseMemo() {
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
                       memoData={memo}
-                      courseMemoName={concatMemoName(semester, ladokRoundIds, memoLanguage)}
+                      courseMemoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
                       archivedMemo={isMemoArchived()}
                     />
                   </Col>

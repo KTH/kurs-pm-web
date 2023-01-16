@@ -1,5 +1,6 @@
 'use strict'
 
+const language = require('@kth/kth-node-web-common/lib/language')
 const log = require('@kth/log')
 const redis = require('kth-node-redis')
 const connections = require('@kth/api-call').Connections
@@ -107,10 +108,8 @@ async function getCourseRoundTerms(courseCode) {
   log.info('Trying fetch course rounds by', { courseCode, uri, config: config.koppsApi })
   try {
     const res = await client.getAsync({ uri, useCache: true })
-
     if (res.body) {
       const { termsWithCourseRounds } = res.body
-
       return termsWithCourseRounds //array of objects(term, rounds)
     }
 
@@ -123,8 +122,29 @@ async function getCourseRoundTerms(courseCode) {
   }
 }
 
+async function getApplicationFromLadokID(ladokRoundId) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.proxyBasePath}courses/offerings/roundnumber?ladokuid=${ladokRoundId}`
+  log.info('Trying fetch courses application by', { ladokId: ladokRoundId, uri, config: config.koppsApi })
+  try {
+    const res = await client.getAsync({ uri, useCache: true })
+    if (res.body) {
+      const { body } = res
+      return body
+    }
+
+    log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for all courses')
+
+    return []
+  } catch (err) {
+    log.error('Kopps is not available', err)
+    return []
+  }
+}
+
 module.exports = {
   koppsApi: api,
   getDetailedInformation,
   getCourseRoundTerms,
+  getApplicationFromLadokID,
 }

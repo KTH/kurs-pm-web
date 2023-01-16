@@ -1,31 +1,27 @@
-import React, { memo, useEffect, useState, useRef } from 'react'
-import ReactDOM from 'react-dom'
-import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import React, { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
+import { Col, Container, Row } from 'reactstrap'
 
-import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import i18n from '../../../../i18n'
 import { useWebContext } from '../context/WebContext'
-import { useLocation } from 'react-router-dom'
 
-import { resolveCourseImage } from '../util/course-image'
-import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
 import {
-  concatMemoName,
-  memoNameWithCourseCode,
-  seasonStr,
-  roundShortNameWithStartdate,
   doubleSortOnAnArrayOfObjects,
+  memoNameWithCourseCode,
   removeDuplicates,
+  roundShortNameWithStartdate,
+  seasonStr,
 } from '../util/helpers'
-import { getCurrentTerm } from '../util/term'
+import { linkToArchive, linkToPublishedMemo, sideMenuBackLink } from '../util/links'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
-import getTermsWithCourseRounds from '../util/internApi'
+import { getCurrentTerm } from '../util/term'
 
-import SideMenu from '../components/SideMenu'
-import AboutHeader from '../components/AboutHeader'
-import AboutCourseContacts from '../components/AboutCourseContacts'
 import AboutAlert from '../components/AboutAlert'
+import AboutCourseContacts from '../components/AboutCourseContacts'
+import AboutHeader from '../components/AboutHeader'
+import SideMenu from '../components/SideMenu'
 
 function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
@@ -107,22 +103,6 @@ function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
       }
       return firstSemester
     }, getCurrentTerm()) // 21001
-}
-
-function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
-  const currentDate = new Date()
-  const startSemester = new Date(startSemesterDate)
-  const endSemester = new Date(endSemesterDate)
-  if (startSemester.valueOf() >= currentDate.valueOf() || endSemester.valueOf() >= currentDate.valueOf()) {
-    return true
-  }
-  return false
-}
-
-function addElement(element) {
-  const arrWithObject = []
-  arrWithObject.push(element)
-  return arrWithObject
 }
 
 function doesArrIncludesElem(arr, element) {
@@ -210,20 +190,14 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
 }
 
 function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
-  const [allRounds, setAllRounds] = useState([])
   const location = useLocation()
 
   const [webContext] = useWebContext()
 
-  const {
-    allTypeMemos,
-    courseCode,
-    language: userLangAbbr,
-    proxyPrefixPath,
-    thisHostBaseUrl,
-    userLanguageIndex,
-  } = webContext
+  const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex, allRoundsFromKopps } = webContext
   const isThisTest = !!mockKursPmDataApi
+
+  const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
   const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
@@ -244,24 +218,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   )
 
   useEffect(() => {
-    if (isThisTest) {
-      setAllRounds(allRoundsMockOrReal)
-    } else {
-      getTermsWithCourseRounds(courseCode, thisHostBaseUrl, proxyPrefixPath).then(data => {
-        let allTempRounds = []
-        data.forEach(t => {
-          const rounds = []
-          t.rounds.forEach(round => {
-            if (isDateWithInCurrentOrFutureSemester(round.firstTuitionDate, round.lastTuitionDate)) {
-              round.term = t.term
-              rounds.push(round)
-            }
-          })
-          allTempRounds = allTempRounds.concat(rounds)
-        })
-        setAllRounds(allTempRounds)
-      })
-    }
+    setAllRounds(allRoundsMockOrReal)
     let isMounted = true
     if (isMounted) {
       renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
@@ -344,6 +301,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                       {memoNameWithCourseCode(
                                         courseCode,
                                         memo.semester,
+                                        memo.applicationCodes,
                                         memo.ladokRoundIds,
                                         userLangAbbr
                                       )}
@@ -356,6 +314,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                       {memoNameWithCourseCode(
                                         courseCode,
                                         memo.semester,
+                                        memo.applicationCodes,
                                         memo.ladokRoundIds,
                                         memo.memoCommonLangAbbr
                                       )}

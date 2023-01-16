@@ -11,9 +11,9 @@ const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
-const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
+const { getDetailedInformation, getCourseRoundTerms, getApplicationFromLadokID } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
-const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
+const { createServerSideContext } = require('../ssr-context/createServerSideContext')
 
 const locales = { sv, en }
 
@@ -149,20 +149,6 @@ function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate)
   return false
 }
 
-function getDateOfMondayOfTheWeek(startDate) {
-  const currentDate = new Date(startDate)
-  const first = currentDate.getDate() - currentDate.getDay() + 1
-  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
-  return firstMondayOfSpringSemester
-}
-
-function addDays(date, days) {
-  // return date.setDate(date.getDate() + days)
-  const copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
-}
-
 function removeDuplicates(elements) {
   return elements.filter((term, index) => elements.indexOf(term) === index)
 }
@@ -181,7 +167,6 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
     isDateWithInCurrentOrFutureSemester(r.round.firstTuitionDate, r.round.lastTuitionDate)
   )
   const activeYears = removeDuplicates(allActiveTerms.map(term => term.round.startWeek.year)).sort()
-  const currentYear = new Date().getFullYear()
   const startSelectionYear = activeYears[0]
 
   const offerings = roundInfos.filter(r =>
@@ -199,11 +184,81 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
         }
       : {}
   )
+
   const markedOutDatedMemoDatas = memoDatas.map(m => ({
     ...m,
     ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) },
   }))
+
+  markedOutDatedMemoDatas.forEach(memo => {
+    memo.ladokRoundIds.forEach(roundId => {
+      const roundInfo = roundInfos.find(
+        x => x.round.ladokRoundId === roundId && Number(memo.semester) === x.round.startTerm.term
+      )
+      if (roundInfo) {
+        if (memo.applicationCodes && memo.applicationCodes.length > 0) {
+          if (
+            memo.applicationCodes.findIndex(
+              x => x.application_code === roundInfo.round.applicationCodes[0].applicationCode
+            ) < 0
+          ) {
+            memo.applicationCodes.push({
+              application_code: roundInfo.round.applicationCodes[0].applicationCode,
+            })
+          }
+        } else {
+          memo.applicationCodes = [{ application_code: roundInfo.round.applicationCodes[0].applicationCode }]
+        }
+      }
+    })
+  })
   return markedOutDatedMemoDatas
+}
+
+function addApplicationCodesInAllTypeMemos(allTypeMemos, allRounds) {
+  Object.keys(allTypeMemos).forEach(semester => {
+    const semesterDetails = allTypeMemos[semester]
+    const rounds = allRounds.filter(round => round.term === semester)
+    if (rounds && rounds.length > 0) {
+      Object.keys(semesterDetails).forEach(key => {
+        const roundDetails = semesterDetails[key]
+        roundDetails.ladokRoundIds.forEach(roundId => {
+          const round = rounds.find(x => x.ladokRoundId === roundId)
+          if (round) {
+            if (roundDetails.applicationCodes && roundDetails.applicationCodes.length > 0) {
+              if (
+                roundDetails.applicationCodes.findIndex(
+                  x => x.application_code === round.applicationCodes[0].application_code
+                ) < 0
+              ) {
+                roundDetails.applicationCodes.push(round.applicationCodes[0])
+              }
+            } else {
+              roundDetails.applicationCodes = round.applicationCodes
+            }
+          }
+        })
+      })
+    }
+  })
+}
+
+function addApplicationCodesInMemosData(memosData, allRounds) {
+  memosData.forEach(memo => {
+    memo.ladokRoundIds.forEach(roundId => {
+      const round = allRounds.find(round => round.term === memo.semester && roundId === round.ladokRoundId)
+      if (round) {
+        const { applicationCodes } = round
+        if (memo.applicationCodes && memo.applicationCodes.length > 0) {
+          if (memo.applicationCodes.findIndex(x => x.application_code === applicationCodes[0].application_code) < 0) {
+            memo.applicationCodes.push(applicationCodes[0])
+          }
+        } else {
+          memo.applicationCodes = applicationCodes
+        }
+      }
+    })
+  })
 }
 
 async function getContent(req, res, next) {
@@ -444,9 +499,15 @@ async function getAboutContent(req, res, next) {
     webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 
-    webContext.memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
+    const memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
 
+    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode)
+    // Adding application codes in every memo
+    addApplicationCodesInAllTypeMemos(webContext.allTypeMemos, webContext.allRoundsFromKopps)
+    addApplicationCodesInMemosData(memoDatas, webContext.allRoundsFromKopps)
+
+    webContext.memoDatas = memoDatas
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
@@ -531,6 +592,27 @@ async function getTermsWithCourseRounds(req, res, next) {
     log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
     next(err)
   }
+}
+
+async function _getAllRoundsWithApplicationCodes(courseCode) {
+  let allRounds = await getCourseRoundTerms(courseCode)
+  let allTempRounds = []
+  allRounds.forEach(t => {
+    const rounds = []
+    t.rounds.forEach(round => {
+      if (isDateWithInCurrentOrFutureSemester(round.firstTuitionDate, round.lastTuitionDate)) {
+        round.term = t.term
+        rounds.push(round)
+      }
+    })
+    allTempRounds = allTempRounds.concat(rounds)
+  })
+  allRounds = [...allTempRounds]
+  for await (let round of allRounds) {
+    const { ladokUID } = round
+    round.applicationCodes = [await getApplicationFromLadokID(ladokUID)]
+  }
+  return allRounds
 }
 
 module.exports = {
