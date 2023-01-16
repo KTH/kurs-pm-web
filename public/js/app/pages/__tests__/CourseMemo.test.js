@@ -105,6 +105,7 @@ const spring181 = {
   lastChangeDate: 'Fri Jan 27 2018 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 2,
   syllabusValid: { validFromTerm: '20181' },
+  applicationCodes: [{ application_code: '0181' }],
 }
 const spring1823 = {
   courseCode: 'TEST121',
@@ -115,6 +116,7 @@ const spring1823 = {
   lastChangeDate: 'Fri Dec 1 2017 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 6,
   syllabusValid: { validFromTerm: '20181' },
+  applicationCodes: [{ application_code: '1234' }, { application_code: '1823' }],
 }
 const spring184 = {
   courseCode: 'TEST121',
@@ -123,6 +125,7 @@ const spring184 = {
   ladokRoundIds: [4],
   memoCommonLangAbbr: 'en',
   syllabusValid: { validFromTerm: '20181' },
+  applicationCodes: [{ application_code: '0184' }],
 }
 const spring1924 = {
   courseCode: 'TEST121',
@@ -131,6 +134,7 @@ const spring1924 = {
   ladokRoundIds: [2, 4],
   memoCommonLangAbbr: 'en',
   syllabusValid: { validFromTerm: '20191' },
+  applicationCodes: [{ application_code: '1234' }, { application_code: '1924' }],
 }
 const spring193 = {
   courseCode: 'TEST121',
@@ -139,6 +143,7 @@ const spring193 = {
   ladokRoundIds: [3],
   memoCommonLangAbbr: 'en',
   syllabusValid: { validFromTerm: '20191' },
+  applicationCodes: [{ application_code: '0193' }],
 }
 const fall190 = {
   courseCode: 'TEST121',
@@ -147,6 +152,7 @@ const fall190 = {
   ladokRoundIds: [],
   memoCommonLangAbbr: 'en',
   syllabusValid: { validFromTerm: '20191' },
+  applicationCodes: [{ application_code: '' }],
 }
 
 describe('Page CourseMemo', () => {
@@ -169,6 +175,11 @@ describe('Page CourseMemo', () => {
       userLanguageIndex: 0,
       activeMemoEndPoint: id => id === '181',
       roundIds: [2, 3],
+      applicationCodes: [
+        {
+          application_code: '1234',
+        },
+      ],
       courseCode: 'TEST121',
     }
 
@@ -197,6 +208,7 @@ describe('Page CourseMemo', () => {
       activeMemoEndPoint: id => id === '181',
       roundIds: [],
       courseCode: 'TEST121',
+      applicationCodes: [{ application_code: '1234' }],
     }
 
     const { asFragment } = render(
@@ -212,11 +224,11 @@ describe('Page CourseMemo', () => {
     const links = getAllByRole('link', { name: /Course memo.*\d*-\d*/i })
     expect(links.length).toEqual(6)
     const expectedLinks = [
-      ['Course memo Spring 2018-1', '/kurs-pm/TEST121/181'],
-      ['Course memo Spring 2018-2-3', '/kurs-pm/TEST121/1823'],
-      ['Course memo Spring 2018-4', '/kurs-pm/TEST121/184'],
-      ['Course memo Spring 2019-2-4', '/kurs-pm/TEST121/1924'],
-      ['Course memo Spring 2019-3', '/kurs-pm/TEST121/193'],
+      ['Course memo Spring 2018-0181', '/kurs-pm/TEST121/181'],
+      ['Course memo Spring 2018-1234-1823', '/kurs-pm/TEST121/1823'],
+      ['Course memo Spring 2018-0184', '/kurs-pm/TEST121/184'],
+      ['Course memo Spring 2019-1234-1924', '/kurs-pm/TEST121/1924'],
+      ['Course memo Spring 2019-0193', '/kurs-pm/TEST121/193'],
       ['Course memo Autumn 2019-', '/kurs-pm/TEST121/190'],
     ]
 

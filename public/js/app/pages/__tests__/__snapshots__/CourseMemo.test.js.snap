@@ -12,7 +12,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
       <p
         class="memo-subtitle"
       >
-        Kurs-PM VT 2018-1
+        Kurs-PM VT 2018-0181
       </p>
       <p>
         Version 2 – 2018-01-27 13:04:37
@@ -121,55 +121,60 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-1"
-                    class="nav-link memosLink"
+                    aria-label="Course memo Spring 2018-0181"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/181"
+                    title="Course memo Spring 2018-0181"
                   >
-                    Course memo Spring 2018-1
+                    Course memo Spring 2018-0181
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-2-3"
-                    class="nav-link memosLink"
+                    aria-label="Course memo Spring 2018-1234-1823"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/1823"
+                    title="Course memo Spring 2018-1234-1823"
                   >
-                    Course memo Spring 2018-2-3
+                    Course memo Spring 2018-1234-1823
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-4"
-                    class="nav-link memosLink"
+                    aria-label="Course memo Spring 2018-0184"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/184"
+                    title="Course memo Spring 2018-0184"
                   >
-                    Course memo Spring 2018-4
+                    Course memo Spring 2018-0184
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2019-2-4"
-                    class="nav-link memosLink"
+                    aria-label="Course memo Spring 2019-1234-1924"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/1924"
+                    title="Course memo Spring 2019-1234-1924"
                   >
-                    Course memo Spring 2019-2-4
+                    Course memo Spring 2019-1234-1924
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2019-3"
-                    class="nav-link memosLink"
+                    aria-label="Course memo Spring 2019-0193"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/193"
+                    title="Course memo Spring 2019-0193"
                   >
-                    Course memo Spring 2019-3
+                    Course memo Spring 2019-0193
                   </a>
                 </li>
                 <li
@@ -177,8 +182,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 >
                   <a
                     aria-label="Course memo Autumn 2019-"
-                    class="nav-link memosLink"
+                    class="nav-link memosLink text-overflow-ellipsis"
                     href="/kurs-pm/TEST121/190"
+                    title="Course memo Autumn 2019-"
                   >
                     Course memo Autumn 2019-
                   </a>
@@ -224,7 +230,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 aria-labelledby="page-heading page-sub-heading"
                 id="page-heading"
               >
-                Kurs-PM VT 2018-1
+                Kurs-PM VT 2018-0181
               </h1>
               <div
                 id="page-sub-heading-wrapper"
