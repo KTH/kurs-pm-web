@@ -114,6 +114,7 @@ module.exports = {
     offeredByTitle: 'Kursen ges av',
     languageOfInstructionTitle: 'Undervisningsspråk',
     roundsTitle: 'Kursomgång',
+    startDate: 'Startdatum',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
   },
   courseMemoLinksLabels: {

@@ -114,14 +114,25 @@ $icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 #kth-node {
   background: pink;
 }
+.top-holder {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 15px 15px 15px;
+}
 
 .memo-header {
-  margin-bottom: 15px;
+  width: 100%;
+  height: auto;
 }
 
 .col-like {
   padding: 0 15px;
   width: 100%;
+}
+
+header.col.memo-header {
+  padding-left: 0;
 }
 
 .menu-memos {
@@ -138,8 +149,13 @@ $icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 
 #page-sub-heading-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: baseline;
+  background-color: white;
+  width: 50%;
+  margin: 15px 0;
+  padding-left: 15px;
 }
 
 #page-sub-heading-admin-link {

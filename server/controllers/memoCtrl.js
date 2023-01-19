@@ -182,7 +182,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
           semester: r.round.startTerm.term,
           endYear: r.round.endWeek.year,
         }
-      : {}
+      : {} && r.round.firstTuitionDate
   )
 
   const markedOutDatedMemoDatas = memoDatas.map(m => ({
@@ -196,6 +196,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
         x => x.round.ladokRoundId === roundId && Number(memo.semester) === x.round.startTerm.term
       )
       if (roundInfo) {
+        memo.startDate = roundInfo.round.firstTuitionDate
         if (memo.applicationCodes && memo.applicationCodes.length > 0) {
           if (
             memo.applicationCodes.findIndex(

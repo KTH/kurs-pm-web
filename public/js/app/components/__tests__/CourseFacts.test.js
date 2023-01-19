@@ -9,13 +9,13 @@ import i18n from '../../../../../i18n'
 const { courseFactsLabels } = i18n.messages[0]
 
 const TEST_MEMO_DATA_1_ROUND = {
-  memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska)',
+  memoName: 'CDEPR1 HT 2020-12345',
   languageOfInstructions: '',
   departmentName: '',
 }
 
 const TEST_MEMO_DATA_2_ROUNDS = {
-  memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska), CMEDT1 (Startdatum 2020-10-26, Svenska)',
+  memoName: 'CDEPR1 HT 2020-12345, CMEDT1 HT 2020-12345',
   languageOfInstructions: 'Svenska',
   departmentName: 'SCI/Matematik',
 }
@@ -50,9 +50,9 @@ describe('Component <CourseFacts>', () => {
 
   test('renders course memo name as two rounds', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_2_ROUNDS} />)
-    const round1 = screen.getByText('CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska)')
+    const round1 = screen.getByText('CDEPR1 HT 2020-12345')
     expect(round1).toBeInTheDocument()
-    const round2 = screen.getByText('CMEDT1 (Startdatum 2020-10-26, Svenska)')
+    const round2 = screen.getByText('CMEDT1 HT 2020-12345')
     expect(round2).toBeInTheDocument()
     done()
   })

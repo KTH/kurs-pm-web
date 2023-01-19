@@ -144,6 +144,7 @@ module.exports = {
     offeredByTitle: 'Offered By',
     languageOfInstructionTitle: 'Language Of Instruction',
     roundsTitle: 'Course offering',
+    startDate: 'Start date',
     mandatoryFieldMissing: 'Missing mandatory information',
   },
   courseMemoLinksLabels: {

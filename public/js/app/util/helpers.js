@@ -5,6 +5,20 @@ export const seasonStr = (translate, semesterCode = '') =>
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 
+export const getDateFormat = (date, language) => {
+  if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
+    return date
+  }
+  const timestamp = Date.parse(date)
+  const parsedDate = new Date(timestamp)
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }
+  return parsedDate.toLocaleString('en-GB', options)
+}
+
 export const concatMemoName = (semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
@@ -13,10 +27,23 @@ export const concatMemoName = (semester, applicationCodes, ladokRoundIds, langAb
   }`
 }
 
+export const concatMemoNameShort = (semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
+    applicationCodes ? applicationCodes.map(code => code.application_code).join('-') : ladokRoundIds.join('-')
+  }`
+}
+
+export const memoNameWithoutApplicationCode = (semester, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  const { memoLabel } = i18n.messages[langIndex].messages
+  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
+}
+
 export const memoNameWithCourseCode = (courseCode, semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
-  console.log(semester)
+
   return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
     applicationCodes ? applicationCodes.map(code => code.application_code).join('-') : ladokRoundIds.join('-')
   }`

@@ -1,6 +1,8 @@
 import React from 'react'
+import i18n from '../../../../i18n'
 
 import { linkToSchool } from '../util/links'
+import { getDateFormat, seasonStr } from '../util/helpers'
 
 const formatRounds = rounds => {
   // Split rounds with comma after end parentheses and then add '),' in display
@@ -14,6 +16,27 @@ const formatRounds = rounds => {
           <br />
         </span>
       ))}
+    </>
+  )
+}
+
+const formatRoundsShort = (language, memoData) => {
+  // Split rounds with comma after end parentheses and then add '),' in display
+  const langIndex = language === 'en' ? 0 : 1
+  const splitRounds = memoData.memoName.split('),')
+  const lastIndex = splitRounds.length - 1
+  return (
+    <>
+      {splitRounds.map((round, thisIndex) => {
+        let shortName = round.slice(0, 7)
+        return (
+          <ul key={round}>
+            <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
+              memoData.applicationCodes[thisIndex].application_code
+            }`}</li>
+          </ul>
+        )
+      })}
     </>
   )
 }
@@ -48,11 +71,11 @@ const LanguageOfInstruction = ({ labels, memoLanguageOfInstructions }) =>
     </>
   )
 
-const Rounds = ({ labels, memoName }) =>
-  memoName ? (
+const Rounds = ({ language, labels, memoData }) =>
+  memoData.memoName ? (
     <>
       <h3>{labels.roundsTitle}</h3>
-      <p>{formatRounds(memoName)}</p>
+      <p>{formatRoundsShort(language, memoData)}</p>
     </>
   ) : (
     <>
@@ -61,15 +84,31 @@ const Rounds = ({ labels, memoName }) =>
     </>
   )
 
-const CourseFacts = ({ labels, memoData = {} }) => (
+const StartDate = ({ language, labels, startDate }) =>
+  startDate ? (
+    <>
+      <h3>{labels.startDate}</h3>
+      <p>
+        <p>{getDateFormat(startDate, language)}</p>
+      </p>
+    </>
+  ) : (
+    <>
+      <h3>{labels.startDate}</h3>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
+  )
+
+const CourseFacts = ({ language, labels, memoData = {} }) => (
   <section aria-labelledby="memo-facts">
     <h2 id="memo-facts" className="d-none">
       {labels.roundFacts}
     </h2>
     <div className="info-box text-break">
-      <OfferedBy labels={labels} departmentName={memoData.departmentName} />
+      <StartDate language={language} labels={labels} startDate={memoData.startDate} />
+      <Rounds language={language} labels={labels} memoData={memoData} />
       <LanguageOfInstruction labels={labels} memoLanguageOfInstructions={memoData.languageOfInstructions} />
-      <Rounds labels={labels} memoName={memoData.memoName} />
+      <OfferedBy labels={labels} departmentName={memoData.departmentName} />
     </div>
   </section>
 )

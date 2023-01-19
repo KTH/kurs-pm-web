@@ -13,6 +13,7 @@ const CourseHeader = ({
   outdatedMemo,
   latestMemoLabel,
   latestMemoUrl,
+  courseImageUrl,
 }) => {
   const {
     adminLinkLabel,
@@ -25,21 +26,26 @@ const CourseHeader = ({
   } = labels
   return (
     <Row>
-      <header className="col memo-header">
-        <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading">
-          {courseMemoName}
-        </h1>
-        <div id="page-sub-heading-wrapper">
-          <p id="page-sub-heading" aria-hidden="true">
-            {courseTitle || mandatoryFieldMissing}
-          </p>
-          <p id="page-sub-heading-admin-link" className="d-print-none d-none d-sm-block">
-            <a title={adminLinkLabel} href={adminLink(courseCode, language)}>
-              {adminLinkLabel}
-            </a>
-          </p>
-        </div>
-      </header>
+      <div className="top-holder">
+        <p id="page-sub-heading-admin-link" className="d-print-none d-none d-sm-block">
+          <a title={adminLinkLabel} href={adminLink(courseCode, language)}>
+            {adminLinkLabel}
+          </a>
+        </p>
+        <header
+          className="col memo-header"
+          style={{ backgroundImage: `url(${courseImageUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+        >
+          <div id="page-sub-heading-wrapper">
+            <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading" style={{ backgroundColor: 'white' }}>
+              {courseMemoName}
+            </h1>
+            <p id="page-sub-heading" aria-hidden="true">
+              {courseTitle || mandatoryFieldMissing}
+            </p>
+          </div>
+        </header>
+      </div>
       {oldMemo && (
         <div className="col-like">
           <Alert color="info">

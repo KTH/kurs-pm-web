@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
-import { concatMemoName, seasonStr } from '../util/helpers'
+import { concatMemoName, memoNameWithoutApplicationCode, seasonStr } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { resolveCourseImage } from '../util/course-image'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
@@ -185,6 +185,7 @@ function CourseMemo() {
         languageOfInstruction={memo.languageOfInstructions}
         syllabusValid={memo.syllabusValid}
         url={getUrl()}
+        startDate={memo.firstTuititionDate}
       />
       <Row>
         <SideMenu
@@ -198,7 +199,7 @@ function CourseMemo() {
         <Col className="col-print-12" lang={memoLanguage}>
           <main id="mainContent">
             <CourseHeader
-              courseMemoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
+              courseMemoName={memoNameWithoutApplicationCode(semester, memoLanguage)}
               courseTitle={memo.courseTitle}
               courseCode={courseCode}
               labels={courseHeaderLabels}
@@ -207,6 +208,7 @@ function CourseMemo() {
               outdatedMemo={isMemoOutdated()}
               latestMemoLabel={webContext.latestMemoLabel}
               latestMemoUrl={resolveLatestMemoUrl()}
+              courseImageUrl={courseImageUrl}
             />
             <Row>
               <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
