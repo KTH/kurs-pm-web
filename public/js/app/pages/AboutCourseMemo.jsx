@@ -216,7 +216,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
     memoToCheck,
     userLangAbbr
   )
-
   useEffect(() => {
     setAllRounds(allRoundsMockOrReal)
     let isMounted = true

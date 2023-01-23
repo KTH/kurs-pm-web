@@ -9,15 +9,21 @@ import i18n from '../../../../../i18n'
 const { courseFactsLabels } = i18n.messages[0]
 
 const TEST_MEMO_DATA_1_ROUND = {
-  memoName: 'CDEPR1 HT 2020-12345',
+  startDate: '2020-10-17',
+  applicationCodes: [{ application_code: '12345' }],
+  memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: '',
   departmentName: '',
+  semester: '20202',
 }
 
 const TEST_MEMO_DATA_2_ROUNDS = {
-  memoName: 'CDEPR1 HT 2020-12345, CMEDT1 HT 2020-12345',
+  startDate: '2020-10-17',
+  applicationCodes: [{ application_code: '12345' }, { application_code: '23456' }],
+  memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska), CMEDT1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: 'Svenska',
   departmentName: 'SCI/Matematik',
+  semester: '20202',
 }
 
 // const CHECK_LABEL = {
@@ -43,7 +49,7 @@ describe('Component <CourseFacts>', () => {
 
   test('renders course memo name as one round ', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_1_ROUND} />)
-    const round = screen.getByText(TEST_MEMO_DATA_1_ROUND.memoName)
+    const round = screen.getByText('CDEPR1 HT 2020-12345')
     expect(round).toBeInTheDocument()
     done()
   })
@@ -52,7 +58,7 @@ describe('Component <CourseFacts>', () => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_2_ROUNDS} />)
     const round1 = screen.getByText('CDEPR1 HT 2020-12345')
     expect(round1).toBeInTheDocument()
-    const round2 = screen.getByText('CMEDT1 HT 2020-12345')
+    const round2 = screen.getByText('CMEDT1 HT 2020-23456')
     expect(round2).toBeInTheDocument()
     done()
   })

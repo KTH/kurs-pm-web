@@ -223,37 +223,43 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
           <div
             class="row"
           >
-            <header
-              class="col memo-header"
+            <div
+              class="top-holder"
             >
-              <h1
-                aria-labelledby="page-heading page-sub-heading"
-                id="page-heading"
+              <p
+                class="d-print-none d-none d-sm-block"
+                id="page-sub-heading-admin-link"
               >
-                Kurs-PM VT 2018-0181
-              </h1>
-              <div
-                id="page-sub-heading-wrapper"
+                <a
+                  href="/kursinfoadmin/kurser/kurs/TEST121?l=undefined"
+                  title="Administer About course"
+                >
+                  Administer About course
+                </a>
+              </p>
+              <header
+                class="col memo-header"
+                style="background-image: url(localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg); background-repeat: no-repeat; background-size: cover;"
               >
-                <p
-                  aria-hidden="true"
-                  id="page-sub-heading"
+                <div
+                  id="page-sub-heading-wrapper"
                 >
-                  Missing mandatory information
-                </p>
-                <p
-                  class="d-print-none d-none d-sm-block"
-                  id="page-sub-heading-admin-link"
-                >
-                  <a
-                    href="/kursinfoadmin/kurser/kurs/TEST121?l=undefined"
-                    title="Administer About course"
+                  <h1
+                    aria-labelledby="page-heading page-sub-heading"
+                    id="page-heading"
+                    style="background-color: white;"
                   >
-                    Administer About course
-                  </a>
-                </p>
-              </div>
-            </header>
+                    Kurs-PM VT 2018
+                  </h1>
+                  <p
+                    aria-hidden="true"
+                    id="page-sub-heading"
+                  >
+                    Missing mandatory information
+                  </p>
+                </div>
+              </header>
+            </div>
           </div>
           <div
             class="row"
@@ -272,12 +278,6 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 >
                   Presentation av kursen
                 </h2>
-                <img
-                  alt=""
-                  class="float-sm-left"
-                  id="course-presentation-image"
-                  src="localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg"
-                />
                 <article
                   aria-labelledby="course-presentation"
                 >
@@ -549,7 +549,13 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                       class="info-box text-break"
                     >
                       <h3>
-                        Kursen ges av
+                        Startdatum
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                      <h3>
+                        Kursomgång
                       </h3>
                       <p>
                         Obligatoriskt innehåll saknas
@@ -561,7 +567,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                         Obligatoriskt innehåll saknas
                       </p>
                       <h3>
-                        Kursomgång
+                        Kursen ges av
                       </h3>
                       <p>
                         Obligatoriskt innehåll saknas
