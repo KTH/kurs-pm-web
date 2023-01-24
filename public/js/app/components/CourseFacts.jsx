@@ -4,27 +4,10 @@ import i18n from '../../../../i18n'
 import { linkToSchool } from '../util/links'
 import { getDateFormat, seasonStr } from '../util/helpers'
 
-const formatRounds = rounds => {
-  // Split rounds with comma after end parentheses and then add '),' in display
-  const splitRounds = rounds.split('),')
-  const lastIndex = splitRounds.length - 1
-  return (
-    <>
-      {splitRounds.map((round, thisIndex) => (
-        <span key={round}>
-          {`${round}${thisIndex === lastIndex ? '' : ')'}`}
-          <br />
-        </span>
-      ))}
-    </>
-  )
-}
-
 const formatRoundsShort = (language, memoData) => {
   // Split rounds with comma after end parentheses and then add '),' in display
   const langIndex = language === 'en' ? 0 : 1
   const splitRounds = memoData.memoName.split('),')
-  const lastIndex = splitRounds.length - 1
   return (
     <>
       {splitRounds.map((round, thisIndex) => {
@@ -75,7 +58,7 @@ const Rounds = ({ language, labels, memoData }) =>
   memoData.memoName ? (
     <>
       <h3>{labels.roundsTitle}</h3>
-      <p>{formatRoundsShort(language, memoData)}</p>
+      <div>{formatRoundsShort(language, memoData)}</div>
     </>
   ) : (
     <>
@@ -88,9 +71,7 @@ const StartDate = ({ language, labels, startDate }) =>
   startDate ? (
     <>
       <h3>{labels.startDate}</h3>
-      <p>
-        <p>{getDateFormat(startDate, language)}</p>
-      </p>
+      <p>{getDateFormat(startDate, language)}</p>
     </>
   ) : (
     <>
