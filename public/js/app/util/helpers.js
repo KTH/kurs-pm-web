@@ -4,7 +4,7 @@ export const seasonStr = (translate, semesterCode = '') =>
   `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
-
+//comment
 export const getDateFormat = (date, language) => {
   if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
     return date
