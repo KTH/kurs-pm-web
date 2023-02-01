@@ -15,7 +15,7 @@ const formatRoundsShort = (language, memoData) => {
         return (
           <ul key={round}>
             <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
-              memoData.applicationCodes[thisIndex].application_code
+              memoData.applicationCodes[thisIndex]
             }`}</li>
           </ul>
         )

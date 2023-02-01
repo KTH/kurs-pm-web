@@ -23,14 +23,14 @@ export const concatMemoName = (semester, applicationCodes, ladokRoundIds, langAb
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code.application_code).join('-') : ladokRoundIds.join('-')
+    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
   }`
 }
 
 export const concatMemoNameShort = (semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code.application_code).join('-') : ladokRoundIds.join('-')
+    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
   }`
 }
 
@@ -45,7 +45,7 @@ export const memoNameWithCourseCode = (courseCode, semester, applicationCodes, l
   const { memoLabel } = i18n.messages[langIndex].messages
 
   return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code.application_code).join('-') : ladokRoundIds.join('-')
+    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
   }`
 }
 export const removeDuplicates = elements => {

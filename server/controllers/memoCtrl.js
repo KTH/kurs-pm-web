@@ -190,29 +190,6 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
     ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) },
   }))
 
-  markedOutDatedMemoDatas.forEach(memo => {
-    memo.ladokRoundIds.forEach(roundId => {
-      const roundInfo = roundInfos.find(
-        x => x.round.ladokRoundId === roundId && Number(memo.semester) === x.round.startTerm.term
-      )
-      if (roundInfo) {
-        memo.startDate = roundInfo.round.firstTuitionDate
-        if (memo.applicationCodes && memo.applicationCodes.length > 0) {
-          if (
-            memo.applicationCodes.findIndex(
-              x => x.application_code === roundInfo.round.applicationCodes[0].applicationCode
-            ) < 0
-          ) {
-            memo.applicationCodes.push({
-              application_code: roundInfo.round.applicationCodes[0].applicationCode,
-            })
-          }
-        } else {
-          memo.applicationCodes = [{ application_code: roundInfo.round.applicationCodes[0].applicationCode }]
-        }
-      }
-    })
-  })
   return markedOutDatedMemoDatas
 }
 
@@ -227,15 +204,11 @@ function addApplicationCodesInAllTypeMemos(allTypeMemos, allRounds) {
           const round = rounds.find(x => x.ladokRoundId === roundId)
           if (round) {
             if (roundDetails.applicationCodes && roundDetails.applicationCodes.length > 0) {
-              if (
-                roundDetails.applicationCodes.findIndex(
-                  x => x.application_code === round.applicationCodes[0].application_code
-                ) < 0
-              ) {
-                roundDetails.applicationCodes.push(round.applicationCodes[0])
+              if (roundDetails.applicationCodes.findIndex(x => x !== round.applicationCodes[0].application_code) < 0) {
+                roundDetails.applicationCodes.push(round.applicationCodes[0].application_code)
               }
             } else {
-              roundDetails.applicationCodes = round.applicationCodes
+              roundDetails.applicationCodes = [round.applicationCodes[0].application_code]
             }
           }
         })
@@ -251,11 +224,11 @@ function addApplicationCodesInMemosData(memosData, allRounds) {
       if (round) {
         const { applicationCodes } = round
         if (memo.applicationCodes && memo.applicationCodes.length > 0) {
-          if (memo.applicationCodes.findIndex(x => x.application_code === applicationCodes[0].application_code) < 0) {
-            memo.applicationCodes.push(applicationCodes[0])
+          if (!memo.applicationCodes.includes(applicationCodes[0].application_code)) {
+            memo.applicationCodes.push(applicationCodes[0].application_code)
           }
         } else {
-          memo.applicationCodes = applicationCodes
+          memo.applicationCodes = [applicationCodes[0].application_code]
         }
       }
     })

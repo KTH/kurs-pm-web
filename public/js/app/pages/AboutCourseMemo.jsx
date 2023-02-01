@@ -80,7 +80,7 @@ function extendPdfMemosShortName(cleanAllMemo, allTempRounds) {
     if (memo.isPdf === true && memo.ladokRoundIds.length > 1) {
       let extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.ladokRoundIds.includes(round.ladokRoundId)) {
+        if (memo.ladokRoundIds.includes(round.ladokRoundId) && round.shortName && round.shortName !== '') {
           extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
         }
       })
@@ -195,6 +195,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   const [webContext] = useWebContext()
 
   const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex, allRoundsFromKopps } = webContext
+  console.log(allTypeMemos)
   const isThisTest = !!mockKursPmDataApi
 
   const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
