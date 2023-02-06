@@ -193,7 +193,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   return markedOutDatedMemoDatas
 }
 
-function addApplicationCodesInAllTypeMemos(allTypeMemos, allRounds) {
+/* function addApplicationCodesInAllTypeMemos(allTypeMemos, allRounds) {
   Object.keys(allTypeMemos).forEach(semester => {
     const semesterDetails = allTypeMemos[semester]
     const rounds = allRounds.filter(round => round.term === semester)
@@ -233,7 +233,7 @@ function addApplicationCodesInMemosData(memosData, allRounds) {
       }
     })
   })
-}
+} */
 
 async function getContent(req, res, next) {
   try {
@@ -476,10 +476,10 @@ async function getAboutContent(req, res, next) {
     const memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
 
-    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode)
+    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode, responseLanguage)
     // Adding application codes in every memo
-    addApplicationCodesInAllTypeMemos(webContext.allTypeMemos, webContext.allRoundsFromKopps)
-    addApplicationCodesInMemosData(memoDatas, webContext.allRoundsFromKopps)
+    // addApplicationCodesInAllTypeMemos(webContext.allTypeMemos, webContext.allRoundsFromKopps)
+    // addApplicationCodesInMemosData(memoDatas, webContext.allRoundsFromKopps)
 
     webContext.memoDatas = memoDatas
     // TODO: Proper language constant
@@ -568,24 +568,19 @@ async function getTermsWithCourseRounds(req, res, next) {
   }
 }
 
-async function _getAllRoundsWithApplicationCodes(courseCode) {
-  let allRounds = await getCourseRoundTerms(courseCode)
+async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
+  //let allRounds = await getCourseRoundTerms(courseCode)
+  let allRounds = await getDetailedInformation(courseCode, responseLanguage)
   let allTempRounds = []
-  allRounds.forEach(t => {
-    const rounds = []
-    t.rounds.forEach(round => {
-      if (isDateWithInCurrentOrFutureSemester(round.firstTuitionDate, round.lastTuitionDate)) {
-        round.term = t.term
-        rounds.push(round)
-      }
-    })
-    allTempRounds = allTempRounds.concat(rounds)
+  const rounds = []
+  allRounds.roundInfos.map(t => {
+    if (isDateWithInCurrentOrFutureSemester(t.round.firstTuitionDate, t.round.lastTuitionDate)) {
+      t.round.term = t.round.startTerm.term
+      rounds.push(t.round)
+      allTempRounds = allTempRounds.concat(rounds)
+    }
   })
   allRounds = [...allTempRounds]
-  for await (let round of allRounds) {
-    const { ladokUID } = round
-    round.applicationCodes = [await getApplicationFromLadokID(ladokUID)]
-  }
   return allRounds
 }
 

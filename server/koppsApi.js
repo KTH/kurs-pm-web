@@ -130,15 +130,16 @@ async function getApplicationFromLadokID(ladokRoundId) {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
       const { body } = res
-      return body
+      const { application_code } = body
+      return application_code
     }
 
     log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for all courses')
 
-    return []
+    return ''
   } catch (err) {
     log.error('Kopps is not available', err)
-    return []
+    return ''
   }
 }
 

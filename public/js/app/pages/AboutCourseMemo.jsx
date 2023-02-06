@@ -73,15 +73,19 @@ function removePdfMemosDuplicates(flattenMemosList) {
   })
   return tmpUniqueMemosList.concat(tmpPdfMemos)
 }
-function extendPdfMemosShortName(cleanAllMemo, allTempRounds) {
+function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
   let arr = [...cleanAllMemo]
 
   cleanAllMemo.map(memo => {
     if (memo.isPdf === true && memo.ladokRoundIds.length > 1) {
       let extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.ladokRoundIds.includes(round.ladokRoundId) && round.shortName && round.shortName !== '') {
-          extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
+        if (memo.ladokRoundIds.includes(round.ladokRoundId)) {
+          if (round.shortName && round.shortName !== '') {
+            extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
+          } else {
+            extendedShortNames.push(seasonStr(extraInfo, round.term))
+          }
         }
       })
       memo.shortName = extendedShortNames.join(', ')
@@ -135,7 +139,14 @@ function extendMemo(memo, round) {
   return memo
 }
 
-function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal, memoToCheck, langAbbr = 'sv') {
+function makeAllSemestersRoundsWithMemos(
+  webAndPdfMiniMemos,
+  allRoundsMockOrReal,
+  memoToCheck,
+  langAbbr = 'sv',
+  extraInfo,
+  memoDatas
+) {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const locale = ['en-GB', 'sv-SE']
   const allSemestersRoundsWithMemos = []
@@ -151,7 +162,7 @@ function makeAllSemestersRoundsWithMemos(webAndPdfMiniMemos, allRoundsMockOrReal
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
       const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
-      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds)
+      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds, extraInfo)
 
       allTermRounds.map(round => {
         doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
@@ -194,8 +205,15 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const [webContext] = useWebContext()
 
-  const { allTypeMemos, courseCode, language: userLangAbbr, userLanguageIndex, allRoundsFromKopps } = webContext
-  console.log(allTypeMemos)
+  const {
+    allTypeMemos,
+    memoDatas,
+    courseCode,
+    language: userLangAbbr,
+    userLanguageIndex,
+    allRoundsFromKopps,
+  } = webContext
+
   const isThisTest = !!mockKursPmDataApi
 
   const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
@@ -205,7 +223,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
-  const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
+  const menuMemoItems = menuItemsForAboutMemo(memoDatas)
 
   const memoToCheck = useRef([])
 
@@ -215,7 +233,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
     webAndPdfMiniMemos,
     allRoundsMockOrReal,
     memoToCheck,
-    userLangAbbr
+    userLangAbbr,
+    extraInfo,
+    memoDatas
   )
   useEffect(() => {
     setAllRounds(allRoundsMockOrReal)
