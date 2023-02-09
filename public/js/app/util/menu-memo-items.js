@@ -7,8 +7,8 @@ function _removeDuplicates(memoMenuItems) {
 function _organizeMenuItems(memoDatas, activeFn) {
   if (!memoDatas || memoDatas.length === 0) return []
   const formattedMenuMemoItems = memoDatas.map(m => {
-    const { courseCode, outdated, memoEndPoint, semester, applicationCodes, ladokRoundIds, memoCommonLangAbbr } = m
-    const label = concatMemoName(semester, applicationCodes, ladokRoundIds, memoCommonLangAbbr)
+    const { courseCode, outdated, memoEndPoint, semester, applicationCodes, memoCommonLangAbbr } = m
+    const label = concatMemoName(semester, applicationCodes, memoCommonLangAbbr)
     return {
       id: memoEndPoint,
       semester,

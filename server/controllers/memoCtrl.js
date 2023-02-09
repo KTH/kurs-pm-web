@@ -129,7 +129,9 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
 
   // Course offering in memo has end year later or equal to previous year
   const offering = offerings.find(
-    o => memoData.ladokRoundIds.includes(o.round.ladokRoundId) && memoData.semester === String(o.round.startTerm.term)
+    o =>
+      memoData.applicationCodes.includes(o.round.applicationCodes[0].applicationCode) &&
+      memoData.semester === String(o.round.startTerm.term)
   )
   if (offering && offering.round.endWeek.year >= startSelectionYear) {
     return false
@@ -137,6 +139,14 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
 
   // Course memo does not meet the criteria
   return true
+}
+
+function extendMemoWithStartDate(offerings, memoData) {
+  const offering = offerings.filter(o =>
+    memoData.applicationCodes.includes(o.round.applicationCodes[0].applicationCode)
+  )
+  const startDate = offering.length > 0 ? offering[0].round.firstTuitionDate : ''
+  return startDate
 }
 
 function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
@@ -171,6 +181,7 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
 
   const offerings = roundInfos.filter(r =>
     r.round &&
+    r.round.applicationCodes &&
     r.round.ladokRoundId &&
     r.round.startTerm &&
     r.round.startTerm.term &&
@@ -187,53 +198,14 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
 
   const markedOutDatedMemoDatas = memoDatas.map(m => ({
     ...m,
-    ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) },
+    ...{
+      outdated: outdatedMemoData(offerings, startSelectionYear, m),
+      startDate: extendMemoWithStartDate(offerings, m),
+    },
   }))
 
   return markedOutDatedMemoDatas
 }
-
-/* function addApplicationCodesInAllTypeMemos(allTypeMemos, allRounds) {
-  Object.keys(allTypeMemos).forEach(semester => {
-    const semesterDetails = allTypeMemos[semester]
-    const rounds = allRounds.filter(round => round.term === semester)
-    if (rounds && rounds.length > 0) {
-      Object.keys(semesterDetails).forEach(key => {
-        const roundDetails = semesterDetails[key]
-        roundDetails.ladokRoundIds.forEach(roundId => {
-          const round = rounds.find(x => x.ladokRoundId === roundId)
-          if (round) {
-            if (roundDetails.applicationCodes && roundDetails.applicationCodes.length > 0) {
-              if (roundDetails.applicationCodes.findIndex(x => x !== round.applicationCodes[0].application_code) < 0) {
-                roundDetails.applicationCodes.push(round.applicationCodes[0].application_code)
-              }
-            } else {
-              roundDetails.applicationCodes = [round.applicationCodes[0].application_code]
-            }
-          }
-        })
-      })
-    }
-  })
-}
-
-function addApplicationCodesInMemosData(memosData, allRounds) {
-  memosData.forEach(memo => {
-    memo.ladokRoundIds.forEach(roundId => {
-      const round = allRounds.find(round => round.term === memo.semester && roundId === round.ladokRoundId)
-      if (round) {
-        const { applicationCodes } = round
-        if (memo.applicationCodes && memo.applicationCodes.length > 0) {
-          if (!memo.applicationCodes.includes(applicationCodes[0].application_code)) {
-            memo.applicationCodes.push(applicationCodes[0].application_code)
-          }
-        } else {
-          memo.applicationCodes = [applicationCodes[0].application_code]
-        }
-      }
-    })
-  })
-} */
 
 async function getContent(req, res, next) {
   try {
@@ -576,6 +548,7 @@ async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
   allRounds.roundInfos.map(t => {
     if (isDateWithInCurrentOrFutureSemester(t.round.firstTuitionDate, t.round.lastTuitionDate)) {
       t.round.term = t.round.startTerm.term
+      t.round.applicationCodes = [t.round.applicationCodes[0].applicationCode]
       rounds.push(t.round)
       allTempRounds = allTempRounds.concat(rounds)
     }

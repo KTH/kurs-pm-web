@@ -8,11 +8,13 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
     <section
       class="cover-page d-none d-print-block"
     >
-      <h1 />
+      <h1>
+        TEST121 undefined 7.5 credits
+      </h1>
       <p
         class="memo-subtitle"
       >
-        Kurs-PM VT 2018-0181
+        Kurs-PM VT 2018-12345
       </p>
       <p>
         Version 2 – 2018-01-27 13:04:37
@@ -121,72 +123,48 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-0181"
-                    class="nav-link memosLink text-overflow-ellipsis"
-                    href="/kurs-pm/TEST121/181"
-                    title="Course memo Spring 2018-0181"
+                    aria-label="Course memo Spring 2018-12345"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/12345"
+                    title="Course memo Spring 2018-12345"
                   >
-                    Course memo Spring 2018-0181
+                    Course memo Spring 2018-12345
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-1234-1823"
-                    class="nav-link memosLink text-overflow-ellipsis"
-                    href="/kurs-pm/TEST121/1823"
-                    title="Course memo Spring 2018-1234-1823"
+                    aria-label="Course memo Spring 2018-23456..."
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/34567"
+                    title="Course memo Spring 2018-23456..."
                   >
-                    Course memo Spring 2018-1234-1823
+                    Course memo Spring 2018-23456...
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-0184"
-                    class="nav-link memosLink text-overflow-ellipsis"
-                    href="/kurs-pm/TEST121/184"
-                    title="Course memo Spring 2018-0184"
+                    aria-label="Course memo Spring 2018-45678"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/45678"
+                    title="Course memo Spring 2018-45678"
                   >
-                    Course memo Spring 2018-0184
+                    Course memo Spring 2018-45678
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2019-1234-1924"
-                    class="nav-link memosLink text-overflow-ellipsis"
-                    href="/kurs-pm/TEST121/1924"
-                    title="Course memo Spring 2019-1234-1924"
-                  >
-                    Course memo Spring 2019-1234-1924
-                  </a>
-                </li>
-                <li
-                  class="nav-item leaf "
-                >
-                  <a
-                    aria-label="Course memo Spring 2019-0193"
-                    class="nav-link memosLink text-overflow-ellipsis"
-                    href="/kurs-pm/TEST121/193"
-                    title="Course memo Spring 2019-0193"
-                  >
-                    Course memo Spring 2019-0193
-                  </a>
-                </li>
-                <li
-                  class="nav-item leaf "
-                >
-                  <a
-                    aria-label="Course memo Autumn 2019-"
-                    class="nav-link memosLink text-overflow-ellipsis"
+                    aria-label="Course memo Autumn 2019-undefined"
+                    class="nav-link memosLink"
                     href="/kurs-pm/TEST121/190"
-                    title="Course memo Autumn 2019-"
+                    title="Course memo Autumn 2019-undefined"
                   >
-                    Course memo Autumn 2019-
+                    Course memo Autumn 2019-undefined
                   </a>
                 </li>
               </ul>
@@ -223,43 +201,37 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
           <div
             class="row"
           >
-            <div
-              class="top-holder"
+            <header
+              class="col memo-header"
             >
-              <p
-                class="d-print-none d-none d-sm-block"
-                id="page-sub-heading-admin-link"
+              <h1
+                aria-labelledby="page-heading page-sub-heading"
+                id="page-heading"
               >
-                <a
-                  href="/kursinfoadmin/kurser/kurs/TEST121?l=undefined"
-                  title="Administer About course"
-                >
-                  Administer About course
-                </a>
-              </p>
-              <header
-                class="col memo-header"
-                style="background-image: url(localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg); background-repeat: no-repeat; background-size: cover;"
+                Kurs-PM VT 2018
+              </h1>
+              <div
+                id="page-sub-heading-wrapper"
               >
-                <div
-                  id="page-sub-heading-wrapper"
+                <p
+                  aria-hidden="true"
+                  id="page-sub-heading"
                 >
-                  <h1
-                    aria-labelledby="page-heading page-sub-heading"
-                    id="page-heading"
-                    style="background-color: white;"
+                  TEST121 undefined 7.5 credits
+                </p>
+                <p
+                  class="d-print-none d-none d-sm-block"
+                  id="page-sub-heading-admin-link"
+                >
+                  <a
+                    href="/kursinfoadmin/kurser/kurs/TEST121?l=undefined"
+                    title="Administer About course"
                   >
-                    Kurs-PM VT 2018
-                  </h1>
-                  <p
-                    aria-hidden="true"
-                    id="page-sub-heading"
-                  >
-                    Missing mandatory information
-                  </p>
-                </div>
-              </header>
-            </div>
+                    Administer About course
+                  </a>
+                </p>
+              </div>
+            </header>
           </div>
           <div
             class="row"
@@ -278,6 +250,12 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 >
                   Presentation av kursen
                 </h2>
+                <img
+                  alt=""
+                  class="float-sm-left"
+                  id="course-presentation-image"
+                  src="localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg"
+                />
                 <article
                   aria-labelledby="course-presentation"
                 >

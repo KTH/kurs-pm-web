@@ -10,7 +10,7 @@ function sortBySemesterAndName(firstElement, secondElement) {
   if (firstElement.semester < secondElement.semester) {
     return 1
   }
-  return firstElement.ladokRoundIds.join('').localeCompare(secondElement.ladokRoundIds.join(''))
+  return firstElement.applicationCodes.join('').localeCompare(secondElement.applicationCodes.join(''))
 }
 
 async function getMemoVersion(courseCode, memoEndPoint, version) {

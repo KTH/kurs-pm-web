@@ -2,12 +2,7 @@ import React from 'react'
 
 import { Row } from 'reactstrap'
 import { adminLink } from '../util/links'
-
-const formatCredits = (credits, creditUnitAbbr, language) => {
-  const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
-  const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
-  return `${localeCredits} ${creditUnit}`
-}
+import { formatCredits } from '../util/helpers'
 
 const AboutHeader = ({
   courseCode = '',

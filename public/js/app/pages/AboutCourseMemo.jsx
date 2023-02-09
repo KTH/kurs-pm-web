@@ -63,7 +63,7 @@ function removePdfMemosDuplicates(flattenMemosList) {
           if (element.courseMemoFileName === round.courseMemoFileName) return true
           return false
         })
-        tmpPdfMemos[index].ladokRoundIds = tmpPdfMemos[index].ladokRoundIds.concat(round.ladokRoundIds)
+        tmpPdfMemos[index].applicationCodes = tmpPdfMemos[index].applicationCodes.concat(round.applicationCodes)
       } else {
         tmpPdfMemos.push(round)
       }
@@ -73,14 +73,25 @@ function removePdfMemosDuplicates(flattenMemosList) {
   })
   return tmpUniqueMemosList.concat(tmpPdfMemos)
 }
+
+function removeRoundsDuplicates(allTermRounds) {
+  const tmpUniqueRound = []
+  return allTermRounds.filter(round => {
+    if (round.applicationCodes && tmpUniqueRound.includes(round.applicationCodes[0])) return false
+    if (round.applicationCodes && !tmpUniqueRound.includes(round.applicationCodes[0]))
+      tmpUniqueRound.push(round.applicationCodes[0])
+    return true
+  })
+}
+
 function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
   let arr = [...cleanAllMemo]
 
   cleanAllMemo.map(memo => {
-    if (memo.isPdf === true && memo.ladokRoundIds.length > 1) {
+    if (memo.isPdf === true && memo.applicationCodes.length > 1) {
       let extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.ladokRoundIds.includes(round.ladokRoundId)) {
+        if (memo.applicationCodes.includes(round.applicationCodes[0])) {
           if (round.shortName && round.shortName !== '') {
             extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
           } else {
@@ -115,11 +126,11 @@ function doesArrIncludesElem(arr, element) {
 }
 
 function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
-  const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
+  const memo = memoList.find(x => x.applicationCodes.includes(round.applicationCodes[0]))
   const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
   if (memo) {
     if (refMemos.length > 0) {
-      const refMemo = refMemos.find(x => JSON.stringify(x.ladokRoundIds) === JSON.stringify(memo.ladokRoundIds))
+      const refMemo = refMemos.find(x => JSON.stringify(x.applicationCodes) === JSON.stringify(memo.applicationCodes))
       if (refMemo) {
         return false
       }
@@ -133,7 +144,8 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  if (memo.isPdf !== true || (memo.isPdf === true && memo.ladokRoundIds.length == 1)) memo.shortName = round.shortName
+  if (memo.isPdf !== true || (memo.isPdf === true && memo.applicationCodes.length == 1))
+    memo.shortName = round.shortName
   memo.firstTuitionDate = round.firstTuitionDate
 
   return memo
@@ -160,16 +172,17 @@ function makeAllSemestersRoundsWithMemos(
       const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
-      const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
+      const allSemesterMemosApplicationCodes = cleanAllMemos.map(memo => memo.applicationCodes)
       const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
-      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds, extraInfo)
+      const allTermRoundsClean = removeRoundsDuplicates(allTermRounds)
+      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
-      allTermRounds.map(round => {
-        doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
+      allTermRoundsClean.map(round => {
+        doesArrIncludesElem(allSemesterMemosApplicationCodes, round.applicationCodes[0])
           ? isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)
             ? allSemestersRoundsWithMemos.push(
                 extendMemo(
-                  extendedAllMemo.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
+                  extendedAllMemo.find(memo => memo.applicationCodes.includes(round.applicationCodes[0])),
                   round
                 )
               )
@@ -307,9 +320,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                       <React.Fragment key={semester}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         {semestersMemosAndRounds
-                          .filter(round => round.term === semester || round.semester === semester)
+                          .filter(round => round.term === semester || Number(round.semester) === semester)
                           .map(memo => (
-                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.ladokRoundId}>
+                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                               {'isPdf' in memo ? (
                                 (memo.isPdf && (
                                   <div className="mb-3">
@@ -322,7 +335,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                         courseCode,
                                         memo.semester,
                                         memo.applicationCodes,
-                                        memo.ladokRoundIds,
                                         userLangAbbr
                                       )}
                                     </a>
@@ -335,7 +347,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                         courseCode,
                                         memo.semester,
                                         memo.applicationCodes,
-                                        memo.ladokRoundIds,
                                         memo.memoCommonLangAbbr
                                       )}
                                     </a>

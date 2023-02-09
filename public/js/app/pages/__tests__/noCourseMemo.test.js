@@ -14,13 +14,13 @@ describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMem
       },
       memoDatas: [
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
         },
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',

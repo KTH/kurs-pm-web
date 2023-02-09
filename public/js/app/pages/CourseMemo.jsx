@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
-import { concatMemoName, memoNameWithoutApplicationCode, seasonStr } from '../util/helpers'
+import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { resolveCourseImage } from '../util/course-image'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
@@ -97,9 +97,12 @@ function CourseMemo() {
     memoLanguage,
     semester: querySemester,
     userLanguageIndex,
+    title,
+    credits,
+    creditUnitAbbr,
   } = webContext
 
-  const { ladokRoundIds = [], semester: memoSemester, syllabusValid = {}, applicationCodes = [] } = memo
+  const { semester: memoSemester, syllabusValid = {}, applicationCodes = [] } = memo
   const semester = querySemester || memoSemester
   const { validFromTerm = '' } = syllabusValid
 
@@ -122,6 +125,7 @@ function CourseMemo() {
   const courseImage = resolveCourseImage(webContext.imageFromAdmin, webContext.courseMainSubjects, memoLanguage)
   const courseImageUrl = `${webContext.browserConfig.imageStorageUri}${courseImage}`
   const memoLanguageIndex = getLangIndex(memoLanguage)
+  const courseTitle = `${courseCode} ${title} ${formatCredits(credits, creditUnitAbbr, language)}`
 
   const {
     coverPageLabels,
@@ -169,15 +173,15 @@ function CourseMemo() {
     }
     return null
   }
-
+  console.log(webContext)
   return (
     <Container fluid>
       <CoverPage
         labels={coverPageLabels}
         language={memoLanguage}
-        courseTitle={memo.courseTitle}
+        courseTitle={courseTitle}
         courseCode={courseCode}
-        memoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
+        memoName={concatMemoName(semester, applicationCodes, memoLanguage)}
         version={memo.version}
         lastChangeDate={memo.lastChangeDate}
         rounds={memo.memoName}
@@ -200,7 +204,7 @@ function CourseMemo() {
           <main id="mainContent">
             <CourseHeader
               courseMemoName={memoNameWithoutApplicationCode(semester, memoLanguage)}
-              courseTitle={memo.courseTitle}
+              courseTitle={courseTitle}
               courseCode={courseCode}
               labels={courseHeaderLabels}
               language={memoLanguage}
@@ -236,7 +240,7 @@ function CourseMemo() {
                       labels={courseMemoLinksLabels}
                       extraInfo={extraInfo}
                       memoData={memo}
-                      courseMemoName={concatMemoName(semester, applicationCodes, ladokRoundIds, memoLanguage)}
+                      courseMemoName={concatMemoName(semester, applicationCodes, memoLanguage)}
                       archivedMemo={isMemoArchived()}
                     />
                   </Col>

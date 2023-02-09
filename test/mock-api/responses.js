@@ -4,6 +4,7 @@ module.exports = {
   getAllMemosByCourseCodeAndType: [
     {
       _id: '1',
+      applicationCodes: ['90123'],
       ladokRoundIds: ['9'],
       lastChangeDate: 'Fri Mar 27 2020 12:04:37 GMT+0000 (Coordinated Universal Time)',
       semester: '20192',
@@ -122,7 +123,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '1',
+          applicationCodes: ['12345'],
           ladokUID: 'e67ddb10-3dfd-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -248,7 +249,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '2',
+          applicationCodes: ['23456'],
           ladokUID: 'f25eeedd-3dfd-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -401,7 +402,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '3',
+          applicationCodes: ['34567'],
           ladokUID: 'fd3cea6f-3dfd-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -500,7 +501,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '4',
+          applicationCodes: ['45678'],
           ladokUID: '1338f7ae-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -612,7 +613,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '5',
+          applicationCodes: ['56789'],
           ladokUID: '1e7d2f24-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -711,7 +712,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '6',
+          applicationCodes: ['67890'],
           ladokUID: '28f8714b-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -810,7 +811,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '7',
+          applicationCodes: ['78901'],
           ladokUID: '429dfe8e-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -921,7 +922,7 @@ module.exports = {
         ldapResponsibles: [],
         ldapTeachers: [],
         round: {
-          ladokRoundId: '8',
+          applicationCodes: ['89012'],
           ladokUID: '4cd7caf2-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {
@@ -1041,7 +1042,7 @@ module.exports = {
           },
         ],
         round: {
-          ladokRoundId: '9',
+          applicationCodes: ['90123'],
           ladokUID: '5a8dec5b-3dfe-11eb-b960-5f936a674375',
           state: 'APPROVED',
           tutoringTimeOfDay: {

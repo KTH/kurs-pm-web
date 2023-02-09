@@ -6,6 +6,7 @@ export const seasonStr = (translate, semesterCode = '') =>
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 //comment
 export const getDateFormat = (date, language) => {
+  console.log('date')
   if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
     return date
   }
@@ -19,19 +20,18 @@ export const getDateFormat = (date, language) => {
   return parsedDate.toLocaleString('en-GB', options)
 }
 
-export const concatMemoName = (semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
+export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
+
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
+    applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
   }`
 }
 
-export const concatMemoNameShort = (semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
+export const concatMemoNameShort = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
-  return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
-  }`
+  return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes.map(code => code).join('-')}`
 }
 
 export const memoNameWithoutApplicationCode = (semester, langAbbr = 'sv') => {
@@ -40,13 +40,13 @@ export const memoNameWithoutApplicationCode = (semester, langAbbr = 'sv') => {
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
 }
 
-export const memoNameWithCourseCode = (courseCode, semester, applicationCodes, ladokRoundIds, langAbbr = 'sv') => {
+export const memoNameWithCourseCode = (courseCode, semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
 
-  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
-    applicationCodes ? applicationCodes.map(code => code).join('-') : ladokRoundIds.join('-')
-  }`
+  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes
+    .map(code => code)
+    .join('-')}`
 }
 export const removeDuplicates = elements => {
   return elements.filter((term, index) => elements.indexOf(term) === index)
@@ -115,11 +115,17 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
   return sortedArray
 }
 
-export const memoNameWithoutCourseCode = (semester, ladokRoundIds, langAbbr = 'sv') => {
+export const memoNameWithoutCourseCode = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
   return `${memoLabel} ${prepositionFor} ${seasonStr(
     i18n.messages[langIndex].extraInfo,
     semester
-  )}-${ladokRoundIds.join('-')}`
+  )}-${applicationCodes.join('-')}`
+}
+
+export const formatCredits = (credits, creditUnitAbbr, language) => {
+  const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-GB')
+  const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
+  return `${localeCredits} ${creditUnit}`
 }

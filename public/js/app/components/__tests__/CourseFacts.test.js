@@ -10,7 +10,7 @@ const { courseFactsLabels } = i18n.messages[0]
 
 const TEST_MEMO_DATA_1_ROUND = {
   startDate: '2020-10-17',
-  applicationCodes: [{ application_code: '12345' }],
+  applicationCodes: ['12345'],
   memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: '',
   departmentName: '',
@@ -19,7 +19,7 @@ const TEST_MEMO_DATA_1_ROUND = {
 
 const TEST_MEMO_DATA_2_ROUNDS = {
   startDate: '2020-10-17',
-  applicationCodes: [{ application_code: '12345' }, { application_code: '23456' }],
+  applicationCodes: ['12345', '23456'],
   memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska), CMEDT1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: 'Svenska',
   departmentName: 'SCI/Matematik',
