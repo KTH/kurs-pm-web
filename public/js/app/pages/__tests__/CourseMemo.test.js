@@ -227,7 +227,7 @@ describe('Page CourseMemo', () => {
       ['Course memo Spring 2018-12345', '/kurs-pm/TEST121/12345'],
       ['Course memo Spring 2018-23456...', '/kurs-pm/TEST121/34567'],
       ['Course memo Spring 2018-45678', '/kurs-pm/TEST121/45678'],
-      ['Course memo Autumn 2019-undefined', '/kurs-pm/TEST121/190'],
+      ['Course memo Autumn 2019-', '/kurs-pm/TEST121/190'],
     ]
 
     links.forEach((l, index) => {

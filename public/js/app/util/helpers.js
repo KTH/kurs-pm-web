@@ -23,7 +23,9 @@ export const getDateFormat = (date, language) => {
 export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
-
+  if (applicationCodes.length === 0) {
+    return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${''}`
+  }
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
     applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
   }`

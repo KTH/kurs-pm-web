@@ -159,12 +159,12 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Autumn 2019-undefined"
+                    aria-label="Course memo Autumn 2019-"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/190"
-                    title="Course memo Autumn 2019-undefined"
+                    title="Course memo Autumn 2019-"
                   >
-                    Course memo Autumn 2019-undefined
+                    Course memo Autumn 2019-
                   </a>
                 </li>
               </ul>
