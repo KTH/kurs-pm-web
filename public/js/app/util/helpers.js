@@ -1,5 +1,21 @@
 import i18n from '../../../../i18n'
 
+export const getDateFormat = (date, language) => {
+  if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
+    return date
+  }
+
+  var parts = date.split('/')
+  var dt = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10))
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }
+
+  return dt.toLocaleDateString('en-GB', options)
+}
+
 export const seasonStr = (translate, semesterCode = '') =>
   `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
 
@@ -28,7 +44,7 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { startdate } = i18n.messages[langIndex].aboutMemoLabels
   // const roundShortNameArray = round.shortName.split(' ')
-  const roundStartDate = round.firstTuitionDate
+  const roundStartDate = getDateFormat(round.firstTuitionDate, langIndex)
   const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
   const pattern2 = /[a-zA-Z]\w*\s\d{4}/
   const memoNames = round.memoName

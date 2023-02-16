@@ -7,12 +7,22 @@ import { linkToArchive, linkToSyllabus } from '../util/links'
 const printDialog = () => window.print()
 
 const formatVersion = (languageIndex = 1, lastChangeDate) => {
-  const locale = ['en-US', 'sv-SE']
+  const locale = ['en-GB', 'sv-SE']
   const unixTime = Date.parse(lastChangeDate)
-  if (unixTime) {
-    return new Date(unixTime).toLocaleString(locale[languageIndex])
+
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
   }
-  return null
+
+  if (unixTime && languageIndex === 1) {
+    return new Date(unixTime).toLocaleString('sv-SE')
+  }
+  return new Date(unixTime).toLocaleString('en-GB', options)
 }
 
 const Version = ({ language, labels, lastChangeDate, version, archived }) => {
