@@ -127,14 +127,13 @@ async function getApplicationFromLadokID(ladokRoundId) {
   const uri = `${config.koppsApi.proxyBasePath}courses/offerings/roundnumber?ladokuid=${ladokRoundId}`
   log.info('Trying fetch courses application by', { ladokId: ladokRoundId, uri, config: config.koppsApi })
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-    if (res.body) {
-      const { body } = res
+    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
+    if (body) {
       const { application_code } = body
       return application_code
     }
 
-    log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for all courses')
+    log.warn('Kopps responded with', statusCode, statusMessage, 'for all courses')
 
     return ''
   } catch (err) {
