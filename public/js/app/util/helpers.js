@@ -6,7 +6,6 @@ export const seasonStr = (translate, semesterCode = '') =>
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 //comment
 export const getDateFormat = (date, language) => {
-  console.log('date')
   if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
     return date
   }

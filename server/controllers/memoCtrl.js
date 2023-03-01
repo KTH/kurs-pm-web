@@ -11,7 +11,7 @@ const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
-const { getDetailedInformation, getCourseRoundTerms, getApplicationFromLadokID } = require('../koppsApi')
+const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext } = require('../ssr-context/createServerSideContext')
 
@@ -128,13 +128,33 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   }
 
   // Course offering in memo has end year later or equal to previous year
-  const offering = offerings.find(
-    o =>
-      memoData.applicationCodes.includes(o.round.applicationCodes[0].applicationCode) &&
-      memoData.semester === String(o.round.startTerm.term)
-  )
-  if (offering && offering.round.endWeek.year >= startSelectionYear) {
-    return false
+  const offering = offerings.find(offer => {
+    const { round } = offer
+    if (round) {
+      const {
+        applicationCodes = [],
+        startTerm: { term },
+      } = round
+      if (applicationCodes.length > 0) {
+        const { applicationCode } = applicationCodes[0]
+        if (memoData.applicationCodes.includes(applicationCode) && memoData.semester === String(term)) {
+          return offer
+        }
+      }
+    }
+  })
+
+  if (offering) {
+    const { round } = offering
+    if (round) {
+      const { endWeek } = round
+      if (endWeek) {
+        const { year } = endWeek
+        if (year >= startSelectionYear) {
+          return false
+        }
+      }
+    }
   }
 
   // Course memo does not meet the criteria
@@ -142,11 +162,22 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
 }
 
 function extendMemoWithStartDate(offerings, memoData) {
-  const offering = offerings.filter(o =>
-    memoData.applicationCodes.includes(o.round.applicationCodes[0].applicationCode)
-  )
-  const startDate = offering.length > 0 ? offering[0].round.firstTuitionDate : ''
-  return startDate
+  const { applicationCodes: applicationCodesInMemo } = memoData
+  const offering = offerings.filter(o => {
+    const {
+      round: { applicationCodes },
+    } = o
+    const { applicationCode } = applicationCodes[0]
+    return applicationCodesInMemo.includes(applicationCode)
+  })
+  if (offering.length > 0) {
+    const {
+      round: { firstTuitionDate },
+    } = offering[0]
+    return firstTuitionDate
+  }
+
+  return ''
 }
 
 function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
@@ -182,18 +213,17 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
   const offerings = roundInfos.filter(r =>
     r.round &&
     r.round.applicationCodes &&
-    r.round.ladokRoundId &&
     r.round.startTerm &&
     r.round.startTerm.term &&
     r.round.endWeek &&
     r.round.endWeek.year &&
+    r.round.firstTuitionDate &&
     r.round.endWeek.year >= startSelectionYear
       ? {
-          ladokRoundId: r.round.ladokRoundId,
           semester: r.round.startTerm.term,
           endYear: r.round.endWeek.year,
         }
-      : {} && r.round.firstTuitionDate
+      : {}
   )
 
   const markedOutDatedMemoDatas = memoDatas.map(m => ({
@@ -445,15 +475,13 @@ async function getAboutContent(req, res, next) {
     webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 
-    const memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
+    webContext.memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
-
     webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode, responseLanguage)
     // Adding application codes in every memo
     // addApplicationCodesInAllTypeMemos(webContext.allTypeMemos, webContext.allRoundsFromKopps)
     // addApplicationCodesInMemosData(memoDatas, webContext.allRoundsFromKopps)
 
-    webContext.memoDatas = memoDatas
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
@@ -546,10 +574,19 @@ async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
   let allTempRounds = []
   const rounds = []
   allRounds.roundInfos.map(t => {
-    if (isDateWithInCurrentOrFutureSemester(t.round.firstTuitionDate, t.round.lastTuitionDate)) {
-      t.round.term = t.round.startTerm.term
-      t.round.applicationCodes = [t.round.applicationCodes[0].applicationCode]
-      rounds.push(t.round)
+    const { round: tRound } = t
+    const {
+      firstTuitionDate,
+      lastTuitionDate,
+      startTerm: { term },
+      applicationCodes,
+    } = tRound
+    if (isDateWithInCurrentOrFutureSemester(firstTuitionDate, lastTuitionDate)) {
+      tRound.term = term
+      const { applicationCode } = applicationCodes[0]
+      tRound.applicationCode = applicationCode
+      delete tRound.applicationCodes
+      rounds.push(tRound)
       allTempRounds = allTempRounds.concat(rounds)
     }
   })

@@ -5,7 +5,6 @@ module.exports = {
     {
       _id: '1',
       applicationCodes: ['90123'],
-      ladokRoundIds: ['9'],
       lastChangeDate: 'Fri Mar 27 2020 12:04:37 GMT+0000 (Coordinated Universal Time)',
       semester: '20192',
       status: 'published',

@@ -6,10 +6,10 @@ import { aboutCourseLink } from '../util/links'
 import { memoNameWithoutCourseCode } from '../util/helpers'
 import { aboutMemoLabels } from '../../../../i18n/messages.en'
 
-const Header = ({ courseCode, semester, roundIds, aboutMemoLabels, language }) => (
+const Header = ({ courseCode, semester, applicationCodes, aboutMemoLabels, language }) => (
   <h2 className="t4">
     {`
-      ${memoNameWithoutCourseCode(semester, roundIds, language)} ${aboutMemoLabels.notPublished}
+      ${memoNameWithoutCourseCode(semester, applicationCodes, language)} ${aboutMemoLabels.notPublished}
     `}
   </h2>
 )
@@ -26,7 +26,7 @@ const CourseInformation = ({ aboutMemoLabels, courseCode, language }) => (
   </p>
 )
 
-const AboutAlert = ({ courseCode, semester, roundIds, language }) => {
+const AboutAlert = ({ courseCode, semester, applicationCodes, language }) => {
   const languageIndex = language === 'en' ? 0 : 1
   const { aboutMemoLabels } = i18n.messages[languageIndex]
 
@@ -35,7 +35,7 @@ const AboutAlert = ({ courseCode, semester, roundIds, language }) => {
       <Header
         courseCode={courseCode}
         semester={semester}
-        roundIds={roundIds}
+        applicationCodes={applicationCodes}
         aboutMemoLabels={aboutMemoLabels}
         language={language}
       />

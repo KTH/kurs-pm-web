@@ -77,9 +77,9 @@ function removePdfMemosDuplicates(flattenMemosList) {
 function removeRoundsDuplicates(allTermRounds) {
   const tmpUniqueRound = []
   return allTermRounds.filter(round => {
-    if (round.applicationCodes && tmpUniqueRound.includes(round.applicationCodes[0])) return false
-    if (round.applicationCodes && !tmpUniqueRound.includes(round.applicationCodes[0]))
-      tmpUniqueRound.push(round.applicationCodes[0])
+    if (round.applicationCode && tmpUniqueRound.includes(round.applicationCode)) return false
+    if (round.applicationCode && !tmpUniqueRound.includes(round.applicationCode))
+      tmpUniqueRound.push(round.applicationCode)
     return true
   })
 }
@@ -91,7 +91,7 @@ function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
     if (memo.isPdf === true && memo.applicationCodes.length > 1) {
       let extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.applicationCodes.includes(round.applicationCodes[0])) {
+        if (memo.applicationCodes.includes(round.applicationCode)) {
           if (round.shortName && round.shortName !== '') {
             extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
           } else {
@@ -126,7 +126,7 @@ function doesArrIncludesElem(arr, element) {
 }
 
 function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
-  const memo = memoList.find(x => x.applicationCodes.includes(round.applicationCodes[0]))
+  const memo = memoList.find(x => x.applicationCodes.includes(round.applicationCode))
   const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
   if (memo) {
     if (refMemos.length > 0) {
@@ -178,11 +178,11 @@ function makeAllSemestersRoundsWithMemos(
       const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
       allTermRoundsClean.map(round => {
-        doesArrIncludesElem(allSemesterMemosApplicationCodes, round.applicationCodes[0])
+        doesArrIncludesElem(allSemesterMemosApplicationCodes, round.applicationCode)
           ? isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)
             ? allSemestersRoundsWithMemos.push(
                 extendMemo(
-                  extendedAllMemo.find(memo => memo.applicationCodes.includes(round.applicationCodes[0])),
+                  extendedAllMemo.find(memo => memo.applicationCodes.includes(round.applicationCode)),
                   round
                 )
               )
@@ -294,7 +294,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                   <AboutAlert
                     courseCode={courseCode}
                     semester={location.state.semester}
-                    roundIds={location.state.roundIds}
+                    applicationCodes={location.state.applicationCodes}
                     language={userLangAbbr}
                   />
                 </Col>
