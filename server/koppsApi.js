@@ -107,38 +107,18 @@ async function getCourseRoundTerms(courseCode) {
   const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
   log.info('Trying fetch course rounds by', { courseCode, uri, config: config.koppsApi })
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-    if (res.body) {
-      const { termsWithCourseRounds } = res.body
+    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
+    if (body) {
+      const { termsWithCourseRounds } = body
       return termsWithCourseRounds //array of objects(term, rounds)
     }
 
-    log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for course code', courseCode)
+    log.warn('Kopps responded with', statusCode, statusMessage, 'for course code', courseCode)
 
     return []
   } catch (err) {
     log.error('Kopps is not available', err)
     return []
-  }
-}
-
-async function getApplicationFromLadokID(ladokRoundId) {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.proxyBasePath}courses/offerings/roundnumber?ladokuid=${ladokRoundId}`
-  log.info('Trying fetch courses application by', { ladokId: ladokRoundId, uri, config: config.koppsApi })
-  try {
-    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
-    if (body) {
-      const { application_code } = body
-      return application_code
-    }
-
-    log.warn('Kopps responded with', statusCode, statusMessage, 'for all courses')
-
-    return ''
-  } catch (err) {
-    log.error('Kopps is not available', err)
-    return ''
   }
 }
 
@@ -146,5 +126,4 @@ module.exports = {
   koppsApi: api,
   getDetailedInformation,
   getCourseRoundTerms,
-  getApplicationFromLadokID,
 }

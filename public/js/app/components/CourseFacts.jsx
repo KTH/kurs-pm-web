@@ -7,11 +7,14 @@ import { getDateFormat, seasonStr } from '../util/helpers'
 const formatRoundsShort = (language, memoData) => {
   // Split rounds with comma after end parentheses and then add '),' in display
   const langIndex = language === 'en' ? 0 : 1
-  const splitRounds = memoData.memoName.split('),')
+  const { memoName } = memoData
+  const splitRounds = memoName.split('),')
+
   return (
     <>
       {splitRounds.map((round, thisIndex) => {
-        let shortName = round.slice(0, 7)
+        const shortName = round.split('(')[0].trim().replaceAll('m.fl.', '')
+        // memoName:"CINTE1  (Startdatum 2023-10-30, Svenska), CINTE2  (Startdatum 2023-10-30, Svenska)"
         return (
           <ul key={round}>
             <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${

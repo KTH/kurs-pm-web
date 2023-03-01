@@ -62,10 +62,10 @@ export const redirectToAbout = (courseCode, location) => {
   const fromPersonalMenu = `/${courseCode}/\\d*/\\d*`
   const withMemoEndPoint = `/${courseCode}/\\w*\\d*-\\d*`
   if (memopath.match(fromPersonalMenu)) {
-    const semesterAndRoundId = memopath.replace(`/${courseCode}/`, '')
-    const [semester, roundId] = semesterAndRoundId.split('/')
-    const roundIds = [roundId]
-    return { noMemoData: true, semester, roundIds }
+    const semesterAndRoundApplicationCode = memopath.replace(`/${courseCode}/`, '')
+    const [semester, applicationCode] = semesterAndRoundApplicationCode.split('/')
+    const applicationCodes = [applicationCode]
+    return { noMemoData: true, semester, applicationCodes }
   }
   if (memopath.match(withMemoEndPoint)) {
     const potentialMemoEndPoint = memopath.replace(`/${courseCode}/`, '')
@@ -73,8 +73,8 @@ export const redirectToAbout = (courseCode, location) => {
     if (potentialMemoEndPointParts.length > 1) {
       const [potentialCourseCodeAndSemester] = potentialMemoEndPointParts
       const semester = potentialCourseCodeAndSemester.replace(`${courseCode}`, '') || ''
-      const roundIds = potentialMemoEndPointParts.slice(1) || []
-      return { noMemoData: true, semester, roundIds }
+      const applicationCodes = potentialMemoEndPointParts.slice(1) || []
+      return { noMemoData: true, semester, applicationCodes }
     }
   }
   return null
@@ -173,7 +173,6 @@ function CourseMemo() {
     }
     return null
   }
-  console.log(webContext)
   return (
     <Container fluid>
       <CoverPage
