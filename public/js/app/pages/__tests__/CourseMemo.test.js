@@ -8,7 +8,6 @@ import { WebContextProvider } from '../../context/WebContext'
 import '@testing-library/jest-dom/extend-expect'
 
 import CourseMemo, { redirectToAbout } from '../CourseMemo'
-import { formatCredits } from '../../util/helpers'
 
 const { getAllByRole } = screen
 
@@ -100,9 +99,9 @@ describe('Component <CourseMemo>', () => {
 
 const spring181 = {
   courseCode: 'TEST121',
-  memoEndPoint: '12345',
+  memoEndPoint: '181',
   semester: '20181',
-  applicationCodes: ['12345'],
+  applicationCodes: [1],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
   lastChangeDate: 'Fri Jan 27 2018 12:04:37 GMT+0000 (Coordinated Universal Time)',
@@ -111,9 +110,9 @@ const spring181 = {
 }
 const spring1823 = {
   courseCode: 'TEST121',
-  memoEndPoint: '34567',
+  memoEndPoint: '1823',
   semester: '20181',
-  applicationCodes: ['23456', '34567'],
+  applicationCodes: [2, 3],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
   lastChangeDate: 'Fri Dec 1 2017 12:04:37 GMT+0000 (Coordinated Universal Time)',
@@ -122,27 +121,27 @@ const spring1823 = {
 }
 const spring184 = {
   courseCode: 'TEST121',
-  memoEndPoint: '45678',
+  memoEndPoint: '184',
   semester: '20181',
-  applicationCodes: ['45678'],
+  applicationCodes: [4],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
   syllabusValid: { validFromTerm: '20181' },
 }
 const spring1924 = {
   courseCode: 'TEST121',
-  memoEndPoint: '34567',
+  memoEndPoint: '1924',
   semester: '20191',
-  applicationCodes: ['23456', '34567'],
+  applicationCodes: [2, 4],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
   syllabusValid: { validFromTerm: '20191' },
 }
 const spring193 = {
   courseCode: 'TEST121',
-  memoEndPoint: '34567',
+  memoEndPoint: '193',
   semester: '20191',
-  applicationCodes: ['34567'],
+  applicationCodes: [3],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
   syllabusValid: { validFromTerm: '20191' },
@@ -176,8 +175,8 @@ describe('Page CourseMemo', () => {
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
       credits: 7.5,
-      activeMemoEndPoint: id => id === '12345',
-      applicationCodes: ['12345'],
+      activeMemoEndPoint: id => id === '181',
+      applicationCodes: [2, 3],
       courseCode: 'TEST121',
     }
 
@@ -204,7 +203,7 @@ describe('Page CourseMemo', () => {
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
       credits: 7.5,
-      activeMemoEndPoint: id => id === '12345',
+      activeMemoEndPoint: id => id === '181',
       courseCode: 'TEST121',
       applicationCodes: [],
     }
@@ -220,11 +219,13 @@ describe('Page CourseMemo', () => {
     )
 
     const links = getAllByRole('link', { name: /Course memo.*\d*-\d*/i })
-    expect(links.length).toEqual(4)
+    expect(links.length).toEqual(6)
     const expectedLinks = [
-      ['Course memo Spring 2018-12345', '/kurs-pm/TEST121/12345'],
-      ['Course memo Spring 2018-23456...', '/kurs-pm/TEST121/34567'],
-      ['Course memo Spring 2018-45678', '/kurs-pm/TEST121/45678'],
+      ['Course memo Spring 2018-1', '/kurs-pm/TEST121/181'],
+      ['Course memo Spring 2018-2-3', '/kurs-pm/TEST121/1823'],
+      ['Course memo Spring 2018-4', '/kurs-pm/TEST121/184'],
+      ['Course memo Spring 2019-2-4', '/kurs-pm/TEST121/1924'],
+      ['Course memo Spring 2019-3', '/kurs-pm/TEST121/193'],
       ['Course memo Autumn 2019-', '/kurs-pm/TEST121/190'],
     ]
 

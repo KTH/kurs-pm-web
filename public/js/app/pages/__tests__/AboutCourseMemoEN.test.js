@@ -111,6 +111,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       ],
       language: 'en',
       userLanguageIndex: 0,
+      applicationCodes: [],
     }
     render(
       <WebContextProvider configIn={context}>

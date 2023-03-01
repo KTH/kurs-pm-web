@@ -27,6 +27,8 @@ const mockMixKursPmDataApi = () => ({
       memoEndPoint: 'KIP272020192-1',
       applicationCodes: ['1'],
       semester: '20192',
+      memoCommonLangAbbr: 'en',
+      memoName: 'Autumn 2019-1 (Start date 26/08/2019, English)',
       isPdf: false,
     },
   ],
@@ -106,6 +108,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: () => false,
+      applicationCodes: [],
       examiners:
         '<p class = "person">\n      <img ' +
         'src="https://www.kth.se/files/thumbnail/kkkkkkkkkk" alt="Profile ' +
@@ -152,7 +155,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h4 ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(5)
+    expect(allH4Headers.length).toBe(4)
     const expectedh4ds = [
       'HT 2021 (Startdatum 2023-01-17)',
       'HT 2020 (Startdatum 2023-01-17)',
@@ -222,20 +225,20 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   test('renders "about memo" list, check web-based link as expected,  memo language', done => {
     const listItem = getByText('Course memo KIP2720 Autumn 2019-1')
     expect(listItem).toBeInTheDocument()
-    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP2720192-1')
+    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
     done()
   })
 
   test('renders "about memo" list, check web-based link as expected, memo language', done => {
     const listItem = getByText('Course memo KIP2720 Autumn 2020-1')
     expect(listItem).toBeInTheDocument()
-    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020201-1')
+    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
     done()
   })
 
   test('renders all links and check its number and labels', done => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(10)
+    expect(links.length).toBe(13)
     const expectedlinks = [
       'Kurs- och programkatalogen',
       'Om kursen KIP2720',
@@ -245,6 +248,9 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kursens utveckling',
       'Arkiv',
       'Administrera Om kursen',
+      'Course memo KIP2720 Autumn 2020-1',
+      'Kurs-PM KIP2720 HT 2019-2',
+      'Course memo KIP2720 Autumn 2019-1',
       'Arkiv',
       'Kip TestTeacher',
     ]

@@ -8,13 +8,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
     <section
       class="cover-page d-none d-print-block"
     >
-      <h1>
-        TEST121 undefined 7.5 credits
-      </h1>
+      <h1 />
       <p
         class="memo-subtitle"
       >
-        Kurs-PM VT 2018-12345
+        Kurs-PM VT 2018-1
       </p>
       <p>
         Version 2 – 2018-01-27 13:04:37
@@ -123,36 +121,60 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-12345"
+                    aria-label="Course memo Spring 2018-1"
                     class="nav-link memosLink"
-                    href="/kurs-pm/TEST121/12345"
-                    title="Course memo Spring 2018-12345"
+                    href="/kurs-pm/TEST121/181"
+                    title="Course memo Spring 2018-1"
                   >
-                    Course memo Spring 2018-12345
+                    Course memo Spring 2018-1
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-23456..."
+                    aria-label="Course memo Spring 2018-2..."
                     class="nav-link memosLink"
-                    href="/kurs-pm/TEST121/34567"
-                    title="Course memo Spring 2018-23456..."
+                    href="/kurs-pm/TEST121/1823"
+                    title="Course memo Spring 2018-2..."
                   >
-                    Course memo Spring 2018-23456...
+                    Course memo Spring 2018-2...
                   </a>
                 </li>
                 <li
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-45678"
+                    aria-label="Course memo Spring 2018-4"
                     class="nav-link memosLink"
-                    href="/kurs-pm/TEST121/45678"
-                    title="Course memo Spring 2018-45678"
+                    href="/kurs-pm/TEST121/184"
+                    title="Course memo Spring 2018-4"
                   >
-                    Course memo Spring 2018-45678
+                    Course memo Spring 2018-4
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2019-2..."
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/1924"
+                    title="Course memo Spring 2019-2..."
+                  >
+                    Course memo Spring 2019-2...
+                  </a>
+                </li>
+                <li
+                  class="nav-item leaf "
+                >
+                  <a
+                    aria-label="Course memo Spring 2019-3"
+                    class="nav-link memosLink"
+                    href="/kurs-pm/TEST121/193"
+                    title="Course memo Spring 2019-3"
+                  >
+                    Course memo Spring 2019-3
                   </a>
                 </li>
                 <li
@@ -162,7 +184,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Autumn 2019-"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/190"
-                    title="Course memo Autumn 2019-"
+                    title="Course memo Spring 2019-"
                   >
                     Course memo Autumn 2019-
                   </a>
@@ -208,7 +230,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 aria-labelledby="page-heading page-sub-heading"
                 id="page-heading"
               >
-                Kurs-PM VT 2018
+                Kurs-PM VT 2018-1
               </h1>
               <div
                 id="page-sub-heading-wrapper"
@@ -217,7 +239,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   aria-hidden="true"
                   id="page-sub-heading"
                 >
-                  TEST121 undefined 7.5 credits
+                  Missing mandatory information
                 </p>
                 <p
                   class="d-print-none d-none d-sm-block"
