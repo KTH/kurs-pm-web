@@ -173,7 +173,7 @@ function makeAllSemestersRoundsWithMemos(
       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
       const allSemesterMemosApplicationCodes = cleanAllMemos.map(memo => memo.applicationCodes)
-      const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
+      const allTermRounds = allRoundsMockOrReal.filter(round => round.term.toString() === semester.toString()).reverse()
       const allTermRoundsClean = removeRoundsDuplicates(allTermRounds)
       const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
@@ -190,7 +190,7 @@ function makeAllSemestersRoundsWithMemos(
           : allSemestersRoundsWithMemos.push(round)
       })
     } else {
-      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term === semester))
+      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term.toString() === semester.toString()))
     }
   })
   const arrDateFormat = allSemestersRoundsWithMemos.map(obj => {
@@ -209,7 +209,6 @@ function makeAllSemestersRoundsWithMemos(
       }),
     }
   })
-
   return sortedAscAllSemestersRoundsWithMemos
 }
 

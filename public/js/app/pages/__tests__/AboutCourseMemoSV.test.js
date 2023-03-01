@@ -14,50 +14,30 @@ jest.mock('react-router-dom', () => ({
 }))
 
 const mockMixKursPmDataApi = () => ({
-  20222: [
+  20192: [
     {
       courseCode: 'KIP2720',
-      courseMemoFileName: 'memo-KIP272020222-14341833da79.pdf',
-      applicationCodes: ['12345', '23456'],
-      semester: '20222',
+      courseMemoFileName: 'memo-KIP272020192-14341833da79.pdf',
+      applicationCodes: ['2'],
+      semester: '20192',
       isPdf: true,
     },
     {
       courseCode: 'KIP2720',
-      courseMemoFileName: 'memo-KIP272020222-14341833da79.pdf',
-      applicationCodes: ['23456'],
-      semester: '20222',
-      isPdf: true,
-    },
-    {
-      courseCode: 'KIP2720',
-      applicationCodes: ['34567'],
-      semester: '20222',
-      memoEndPoint: 'KIP272020222-34567',
-      memoCommonLangAbbr: 'en',
-      memoName: 'Autumn 2022 (Start date 17/01/2023, English)',
+      memoEndPoint: 'KIP272020192-1',
+      applicationCodes: ['1'],
+      semester: '20192',
       isPdf: false,
     },
   ],
-  20231: [
+  20202: [
     {
       courseCode: 'KIP2720',
-      applicationCodes: ['12345'],
-      semester: '20231',
-      memoEndPoint: 'KIP272020231-12345',
+      applicationCodes: ['1'],
+      semester: '20202',
+      memoEndPoint: 'KIP272020202-1',
       memoCommonLangAbbr: 'en',
-      memoName: 'Autumn 2023 (Start date 17/01/2023, English)',
-      isPdf: false,
-    },
-  ],
-  20241: [
-    {
-      courseCode: 'KIP2720',
-      applicationCodes: ['12345'],
-      semester: '20241',
-      memoEndPoint: 'KIP272020241-12345',
-      memoCommonLangAbbr: 'en',
-      memoName: 'Autumn 2024 (Start date 16 Jan 2024, English)',
+      memoName: 'Autumn 2020-1 (Start date 24/08/2020, English)',
       isPdf: false,
     },
   ],
@@ -66,39 +46,31 @@ const mockMixKursPmDataApi = () => ({
 const mockMixKoppsApi = () => [
   {
     shortName: '',
-    applicationCodes: ['12345'],
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
-    term: '20241',
-  },
-
-  {
-    shortName: '',
-    applicationCodes: ['12345'],
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
-    term: '20231',
+    term: '20212',
   },
   {
     shortName: '',
-    applicationCodes: ['12345'],
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
-    term: '20222',
+    term: '20202',
   },
   {
     shortName: '',
-    applicationCodes: ['23456'],
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
-    term: '20222',
+    term: '20192',
   },
   {
     shortName: '',
-    applicationCodes: ['34567'],
+    applicationCode: '2',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
-    term: '20222',
+    term: '20192',
   },
 ]
 
@@ -116,22 +88,21 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       memoDatas: [
         {
           courseCode: 'KIP2720',
-          applicationCodes: ['34567'],
-          semester: '20222',
-          memoEndPoint: 'KIP272020222-34567',
+          applicationCodes: ['1'],
+          semester: '20192',
+          memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
         },
         {
           courseCode: 'KIP2720',
-          applicationCodes: ['12345'],
-          semester: '20231',
-          memoEndPoint: 'KIP272020231-12345',
+          applicationCodes: ['1'],
+          semester: '20202',
+          memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
         },
       ],
-      // memoLanguageIndex: 0,
       language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: () => false,
@@ -171,9 +142,9 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(6)
     const expectedh3ds = [
-      'Kursomgångar som startar VT 2024',
-      'Kursomgångar som startar VT 2023',
-      'Kursomgångar som startar HT 2022',
+      'Kursomgångar som startar VT 2021',
+      'Kursomgångar som startar VT 2020',
+      'Kursomgångar som startar HT 2019',
       'Tidigare kursomgångar',
     ]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
@@ -182,7 +153,12 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   test('renders h4 ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     expect(allH4Headers.length).toBe(5)
-    const expectedh4ds = ['Autumn 2022 (Start date 17/01/2023)']
+    const expectedh4ds = [
+      'HT 2021 (Startdatum 2023-01-17)',
+      'HT 2020 (Startdatum 2023-01-17)',
+      'HT 2019 (Startdatum 2023-01-17)',
+      'HT 2019 (Startdatum 2023-01-17)',
+    ]
     expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
@@ -192,17 +168,17 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   })
 
   test('renders menu link of web-based memo as expected', done => {
-    const menuItem = getByText('Course memo Autumn 2022-34567')
+    const menuItem = getByText('Course memo Autumn 2019-1')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020222-34567')
+    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
 
     done()
   })
 
   test('renders menu link of web-based memo as expected', done => {
-    const menuItem = getByText('Course memo Spring 2023-12345')
+    const menuItem = getByText('Course memo Autumn 2020-1')
     expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020231-12345')
+    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
     done()
   })
 
@@ -236,24 +212,24 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 
-  xtest('renders "about memo" list, check pdf-based link as expected, user language', done => {
-    const listItem = getByText('Kurs-PM KIP2720 HT 2019-23456')
+  test('renders "about memo" list, check pdf-based link as expected, user language', done => {
+    const listItem = getByText('Kurs-PM KIP2720 HT 2019-2')
     expect(listItem).toBeInTheDocument()
     expect(listItem.href).toBe('http://localhost/kursinfostorage/memo-KIP272020192-14341833da79.pdf')
     done()
   })
 
-  xtest('renders "about memo" list, check web-based link as expected,  memo language', done => {
-    const listItem = getByText('Course memo KIP2720 Autumn 2019-12345')
+  test('renders "about memo" list, check web-based link as expected,  memo language', done => {
+    const listItem = getByText('Course memo KIP2720 Autumn 2019-1')
     expect(listItem).toBeInTheDocument()
-    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-12345')
+    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP2720192-1')
     done()
   })
 
-  xtest('renders "about memo" list, check web-based link as expected, memo language', done => {
-    const listItem = getByText('Course memo KIP2720 Autumn 2020-12345')
+  test('renders "about memo" list, check web-based link as expected, memo language', done => {
+    const listItem = getByText('Course memo KIP2720 Autumn 2020-1')
     expect(listItem).toBeInTheDocument()
-    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-12345')
+    expect(listItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020201-1')
     done()
   })
 
@@ -264,8 +240,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'Kurs- och programkatalogen',
       'Om kursen KIP2720',
       'Inför kursval',
-      'Course memo Autumn 2022-34567',
-      'Course memo Spring 2023-12345',
+      'Course memo Autumn 2019-1',
+      'Course memo Autumn 2020-1',
       'Kursens utveckling',
       'Arkiv',
       'Administrera Om kursen',
