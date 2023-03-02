@@ -81,6 +81,7 @@ describe('Component <CourseMemo>', () => {
           syllabusValid: { validFromTerm: '20181' },
         },
       ],
+      title: '',
       userLanguageIndex: 0,
       credits: 7.5,
       syllabusValid: { validFromTerm: '20181' },
@@ -175,6 +176,7 @@ describe('Page CourseMemo', () => {
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
       credits: 7.5,
+      title: '',
       activeMemoEndPoint: id => id === '181',
       applicationCodes: [2, 3],
       courseCode: 'TEST121',
@@ -203,6 +205,7 @@ describe('Page CourseMemo', () => {
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
       credits: 7.5,
+      title: '',
       activeMemoEndPoint: id => id === '181',
       courseCode: 'TEST121',
       applicationCodes: [],
@@ -222,9 +225,9 @@ describe('Page CourseMemo', () => {
     expect(links.length).toEqual(6)
     const expectedLinks = [
       ['Course memo Spring 2018-1', '/kurs-pm/TEST121/181'],
-      ['Course memo Spring 2018-2-3', '/kurs-pm/TEST121/1823'],
+      ['Course memo Spring 2018-2...', '/kurs-pm/TEST121/1823'],
       ['Course memo Spring 2018-4', '/kurs-pm/TEST121/184'],
-      ['Course memo Spring 2019-2-4', '/kurs-pm/TEST121/1924'],
+      ['Course memo Spring 2019-2...', '/kurs-pm/TEST121/1924'],
       ['Course memo Spring 2019-3', '/kurs-pm/TEST121/193'],
       ['Course memo Autumn 2019-', '/kurs-pm/TEST121/190'],
     ]

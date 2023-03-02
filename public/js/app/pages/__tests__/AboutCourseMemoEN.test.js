@@ -43,13 +43,6 @@ const mockMixKoppsApi = () => [
     applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
-    term: '20212',
-  },
-  {
-    shortName: '',
-    applicationCode: '1',
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
     term: '20202',
   },
   {
@@ -100,6 +93,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
         {
           applicationCodes: ['1'],
@@ -107,11 +101,11 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
       ],
       language: 'en',
       userLanguageIndex: 0,
-      applicationCodes: [],
     }
     render(
       <WebContextProvider configIn={context}>
@@ -137,9 +131,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(6)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
-      'Course offerings starting Autumn 2021',
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
       'Previous course offerings',
@@ -149,9 +142,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h4 ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(4)
+    expect(allH4Headers.length).toBe(3)
     const expectedh4ds = [
-      'Autumn 2021 (Start date 17/01/2023)',
       'Autumn 2020 (Start date 17/01/2023)',
       'Autumn 2019 (Start date 17/01/2023)',
       'Autumn 2019 (Start date 17/01/2023)',

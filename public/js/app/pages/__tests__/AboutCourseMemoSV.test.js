@@ -95,6 +95,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
         {
           courseCode: 'KIP2720',
@@ -103,12 +104,12 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
       ],
       language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: () => false,
-      applicationCodes: [],
       examiners:
         '<p class = "person">\n      <img ' +
         'src="https://www.kth.se/files/thumbnail/kkkkkkkkkk" alt="Profile ' +
@@ -145,8 +146,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(6)
     const expectedh3ds = [
-      'Kursomgångar som startar VT 2021',
-      'Kursomgångar som startar VT 2020',
+      'Kursomgångar som startar HT 2021',
+      'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
       'Tidigare kursomgångar',
     ]

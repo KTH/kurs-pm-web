@@ -8,7 +8,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
     <section
       class="cover-page d-none d-print-block"
     >
-      <h1 />
+      <h1>
+        TEST121  7.5 credits
+      </h1>
       <p
         class="memo-subtitle"
       >
@@ -184,7 +186,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Autumn 2019-"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/190"
-                    title="Course memo Spring 2019-"
+                    title="Course memo Autumn 2019-"
                   >
                     Course memo Autumn 2019-
                   </a>
@@ -230,7 +232,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 aria-labelledby="page-heading page-sub-heading"
                 id="page-heading"
               >
-                Kurs-PM VT 2018-1
+                Kurs-PM VT 2018
               </h1>
               <div
                 id="page-sub-heading-wrapper"
@@ -239,7 +241,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   aria-hidden="true"
                   id="page-sub-heading"
                 >
-                  Missing mandatory information
+                  TEST121  7.5 credits
                 </p>
                 <p
                   class="d-print-none d-none d-sm-block"
