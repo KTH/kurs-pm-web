@@ -19,7 +19,7 @@ export const getDateFormat = (date, language) => {
   return parsedDate.toLocaleString('en-GB', options)
 }
 
-export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
+export const concatMemoName = (semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
   if (applicationCodes.length === 0) {
@@ -30,7 +30,7 @@ export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   }`
 }
 
-export const concatMemoNameShort = (semester, applicationCodes, langAbbr = 'sv') => {
+export const concatMemoNameShort = (semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes.map(code => code).join('-')}`
 }
@@ -41,7 +41,7 @@ export const memoNameWithoutApplicationCode = (semester, langAbbr = 'sv') => {
   return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
 }
 
-export const memoNameWithCourseCode = (courseCode, semester, applicationCodes, langAbbr = 'sv') => {
+export const memoNameWithCourseCode = (courseCode, semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
 
@@ -116,7 +116,7 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
   return sortedArray
 }
 
-export const memoNameWithoutCourseCode = (semester, applicationCodes, langAbbr = 'sv') => {
+export const memoNameWithoutCourseCode = (semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
   return `${memoLabel} ${prepositionFor} ${seasonStr(
