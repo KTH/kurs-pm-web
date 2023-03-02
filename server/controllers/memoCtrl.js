@@ -566,28 +566,21 @@ async function getTermsWithCourseRounds(req, res, next) {
 }
 
 async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
-  //let allRounds = await getCourseRoundTerms(courseCode)
-  let allRounds = await getDetailedInformation(courseCode, responseLanguage)
-  let allTempRounds = []
-  const rounds = []
-  allRounds.roundInfos.map(t => {
-    const { round: tRound } = t
-    const {
-      firstTuitionDate,
-      lastTuitionDate,
-      startTerm: { term },
-      applicationCodes,
-    } = tRound
+  const courseDetailedInformation = await getDetailedInformation(courseCode, responseLanguage)
+  const { roundInfos = [] } = courseDetailedInformation
+  const allRounds = []
+  roundInfos.map(roundInfo => {
+    const { round } = roundInfo
+    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCodes } = round
+    const { term } = startTerm
     if (isDateWithInCurrentOrFutureSemester(firstTuitionDate, lastTuitionDate)) {
-      tRound.term = term
-      const { applicationCode } = applicationCodes[0]
-      tRound.applicationCode = applicationCode
-      delete tRound.applicationCodes
-      rounds.push(tRound)
-      allTempRounds = allTempRounds.concat(rounds)
+      round.term = term
+      const { applicationCode = '' } = applicationCodes[0]
+      round.applicationCode = applicationCode
+      delete round.applicationCodes
+      allRounds.push(round)
     }
   })
-  allRounds = [...allTempRounds]
   return allRounds
 }
 
