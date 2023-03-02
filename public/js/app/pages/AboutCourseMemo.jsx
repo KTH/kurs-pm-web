@@ -105,21 +105,6 @@ function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
   return cleanAllMemo
 }
 
-function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
-  // First visible semester according to left meny or getCurrentTerm
-
-  return menuMemoItems
-    .filter(m => !m.outdated)
-    .reduce((firstSemester, menuItem) => {
-      const menuItemSemester = Number.parseInt(menuItem.semester, 10)
-
-      if (menuItemSemester < firstSemester) {
-        return menuItemSemester
-      }
-      return firstSemester
-    }, getCurrentTerm()) // 21001
-}
-
 function doesArrIncludesElem(arr, element) {
   if (arr.filter(elem => elem.includes(element)).length > 0) return true
   return false
@@ -144,10 +129,11 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  if (memo.isPdf !== true || (memo.isPdf === true && memo.applicationCodes.length == 1))
+  if (!memo.isPdf || (memo.isPdf && memo.applicationCodes.length === 1)) {
     memo.shortName = round.shortName
-  memo.firstTuitionDate = round.firstTuitionDate
-
+    memo.firstTuitionDate = round.firstTuitionDate
+    memo.term = round.term
+  }
   return memo
 }
 
@@ -156,8 +142,7 @@ function makeAllSemestersRoundsWithMemos(
   allRoundsMockOrReal,
   memoToCheck,
   langAbbr = 'sv',
-  extraInfo,
-  memoDatas
+  extraInfo
 ) {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const locale = ['en-GB', 'sv-SE']
@@ -246,8 +231,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
     allRoundsMockOrReal,
     memoToCheck,
     userLangAbbr,
-    extraInfo,
-    memoDatas
+    extraInfo
   )
   useEffect(() => {
     setAllRounds(allRoundsMockOrReal)
@@ -319,7 +303,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                       <React.Fragment key={semester}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         {semestersMemosAndRounds
-                          .filter(round => round.term === semester || Number(round.semester) === semester)
+                          .filter(round => round.term.toString() === semester.toString())
                           .map(memo => (
                             <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                               {'isPdf' in memo ? (
