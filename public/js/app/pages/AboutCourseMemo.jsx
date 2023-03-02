@@ -298,9 +298,9 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                     btnClose={aboutMemoLabels.btnClose}
                     withModal
                   />
-                  {allActiveTerms.map(semester => {
+                  {allActiveTerms.map((semester, index) => {
                     return (
-                      <React.Fragment key={semester}>
+                      <React.Fragment key={semester + index}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         {semestersMemosAndRounds
                           .filter(round => round.term.toString() === semester.toString())
