@@ -16,7 +16,6 @@ import {
 } from '../util/helpers'
 import { linkToArchive, linkToPublishedMemo, sideMenuBackLink } from '../util/links'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
-import { getCurrentTerm } from '../util/term'
 
 import AboutAlert from '../components/AboutAlert'
 import AboutCourseContacts from '../components/AboutCourseContacts'
@@ -85,16 +84,16 @@ function removeRoundsDuplicates(allTermRounds) {
 }
 
 function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
-  let arr = [...cleanAllMemo]
   cleanAllMemo.map(memo => {
-    if (memo.isPdf === true && memo.applicationCodes.length > 1) {
-      let extendedShortNames = []
+    if (memo.isPdf) {
+      const extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.applicationCodes.includes(round.applicationCode)) {
-          if (round.shortName && round.shortName !== '') {
-            extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
+        const { shortName = '', applicationCode = '', term } = round
+        if (memo.applicationCodes.includes(applicationCode)) {
+          if (shortName) {
+            extendedShortNames.push(shortName.replace(/ m.fl./g, ''))
           } else {
-            extendedShortNames.push(seasonStr(extraInfo, round.term))
+            extendedShortNames.push(seasonStr(extraInfo, term))
           }
         }
       })
@@ -110,11 +109,13 @@ function doesArrIncludesElem(arr, element) {
 }
 
 function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
-  const memo = memoList.find(x => x.applicationCodes.includes(round.applicationCode))
+  const { applicationCode = '' } = round
+  const memo = memoList.find(x => x.applicationCodes.includes(applicationCode))
   const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
   if (memo) {
+    const { applicationCodes = [] } = memo
     if (refMemos.length > 0) {
-      const refMemo = refMemos.find(x => JSON.stringify(x.applicationCodes) === JSON.stringify(memo.applicationCodes))
+      const refMemo = refMemos.some(x => JSON.stringify(x.applicationCodes) === JSON.stringify(applicationCodes))
       if (refMemo) {
         return false
       }
@@ -126,9 +127,10 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  memo.shortName = round.shortName
+  if (!memo.isPdf) {
+    memo.shortName = round.shortName
+  }
   memo.firstTuitionDate = round.firstTuitionDate
-  memo.term = round.term
   return memo
 }
 
@@ -158,16 +160,19 @@ function makeAllSemestersRoundsWithMemos(
       const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
       allTermRoundsClean.map(round => {
-        doesArrIncludesElem(allSemesterMemosApplicationCodes, round.applicationCode)
-          ? isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)
-            ? allSemestersRoundsWithMemos.push(
-                extendMemo(
-                  extendedAllMemo.find(memo => memo.applicationCodes.includes(round.applicationCode)),
-                  round
-                )
+        const { applicationCode = '' } = round
+        if (doesArrIncludesElem(allSemesterMemosApplicationCodes, applicationCode)) {
+          if (isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)) {
+            allSemestersRoundsWithMemos.push(
+              extendMemo(
+                extendedAllMemo.find(memo => memo.applicationCodes.includes(applicationCode)),
+                round
               )
-            : ''
-          : allSemestersRoundsWithMemos.push(round)
+            )
+          }
+        } else {
+          allSemestersRoundsWithMemos.push(round)
+        }
       })
     } else {
       allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term.toString() === semester.toString()))
@@ -293,12 +298,16 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                     btnClose={aboutMemoLabels.btnClose}
                     withModal
                   />
-                  {allActiveTerms.map((semester, index) => {
+                  {allActiveTerms.map(semester => {
                     return (
-                      <React.Fragment key={semester + index}>
+                      <React.Fragment key={semester}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         {semestersMemosAndRounds
-                          .filter(round => round.term.toString() === semester.toString())
+                          .filter(round =>
+                            round.term
+                              ? round.term.toString() === semester.toString()
+                              : round.semester.toString() === semester.toString()
+                          )
                           .map(memo => (
                             <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                               {'isPdf' in memo ? (

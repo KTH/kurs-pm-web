@@ -1,5 +1,10 @@
 import i18n from '../../../../i18n'
 
+export const seasonStr = (translate, semesterCode = '') =>
+  `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
+
+export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
+
 export const getDateFormat = (date, language) => {
   if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
     return date
@@ -14,25 +19,6 @@ export const getDateFormat = (date, language) => {
   }
 
   return dt.toLocaleDateString('en-GB', options)
-}
-
-export const seasonStr = (translate, semesterCode = '') =>
-  `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
-
-export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
-//comment
-export const getDateFormat = (date, language) => {
-  if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
-    return date
-  }
-  const timestamp = Date.parse(date)
-  const parsedDate = new Date(timestamp)
-  const options = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  }
-  return parsedDate.toLocaleString('en-GB', options)
 }
 
 export const concatMemoName = (semester, applicationCodes = [], langAbbr = 'sv') => {
@@ -71,11 +57,9 @@ export const removeDuplicates = elements => {
 export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { startdate } = i18n.messages[langIndex].aboutMemoLabels
-  // const roundShortNameArray = round.shortName.split(' ')
   const roundStartDate = getDateFormat(round.firstTuitionDate, langIndex)
   const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1}/
-  const pattern2 = /[a-zA-Z]\w*\s\d{4}/
-  const memoNames = round.memoName
+  const { memoName: memoNames } = round
 
   if ('memoName' in round) return `${memoNames} (${startdate} ${roundStartDate})`
 
