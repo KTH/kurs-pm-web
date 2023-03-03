@@ -120,8 +120,6 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
         return false
       }
     }
-  }
-  if (memo) {
     refMemos.push(memo)
   }
   memoToCheck.current = refMemos
@@ -129,11 +127,9 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  if (!memo.isPdf || (memo.isPdf && memo.applicationCodes.length === 1)) {
-    memo.shortName = round.shortName
-    memo.firstTuitionDate = round.firstTuitionDate
-    memo.term = round.term
-  }
+  memo.shortName = round.shortName
+  memo.firstTuitionDate = round.firstTuitionDate
+  memo.term = round.term
   return memo
 }
 
