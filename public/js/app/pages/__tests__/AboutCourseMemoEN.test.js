@@ -43,6 +43,13 @@ const mockMixKoppsApi = () => [
     applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
+    term: '20212',
+  },
+  {
+    shortName: '',
+    applicationCode: '1',
+    firstTuitionDate: '2023-01-17',
+    lastTuitionDate: '2023-03-17',
     term: '20202',
   },
   {
@@ -131,8 +138,9 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(5)
+    expect(allH3Headers.length).toBe(6)
     const expectedh3ds = [
+      'Course offerings starting Autumn 2021',
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
       'Previous course offerings',
@@ -142,11 +150,12 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h4 ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(3)
+    expect(allH4Headers.length).toBe(4)
     const expectedh4ds = [
-      'Autumn 2020 (Start date 17/01/2023)',
-      'Autumn 2019 (Start date 17/01/2023)',
-      'Autumn 2019 (Start date 17/01/2023)',
+      'Autumn 2021 (Start date 17 Jan 2023)',
+      'Autumn 2020 (Start date 17 Jan 2023)',
+      'Autumn 2019 (Start date 17 Jan 2023)',
+      'Autumn 2019 (Start date 17 Jan 2023)',
     ]
     expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
