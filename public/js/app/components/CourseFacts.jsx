@@ -14,7 +14,6 @@ const formatRoundsShort = (language, memoData) => {
     <>
       {splitRounds.map((round, thisIndex) => {
         const shortName = round.split('(')[0].trim().replaceAll('m.fl.', '')
-        // memoName:"CINTE1  (Startdatum 2023-10-30, Svenska), CINTE2  (Startdatum 2023-10-30, Svenska)"
         return (
           <ul key={round}>
             <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
