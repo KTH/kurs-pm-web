@@ -86,7 +86,6 @@ function removeRoundsDuplicates(allTermRounds) {
 
 function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
   let arr = [...cleanAllMemo]
-
   cleanAllMemo.map(memo => {
     if (memo.isPdf === true && memo.applicationCodes.length > 1) {
       let extendedShortNames = []
