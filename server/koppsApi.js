@@ -1,5 +1,6 @@
 'use strict'
 
+const language = require('@kth/kth-node-web-common/lib/language')
 const log = require('@kth/log')
 const redis = require('kth-node-redis')
 const connections = require('@kth/api-call').Connections
@@ -106,15 +107,13 @@ async function getCourseRoundTerms(courseCode) {
   const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
   log.info('Trying fetch course rounds by', { courseCode, uri, config: config.koppsApi })
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-
-    if (res.body) {
-      const { termsWithCourseRounds } = res.body
-
+    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
+    if (body) {
+      const { termsWithCourseRounds } = body
       return termsWithCourseRounds //array of objects(term, rounds)
     }
 
-    log.warn('Kopps responded with', res.statusCode, res.statusMessage, 'for course code', courseCode)
+    log.warn('Kopps responded with', statusCode, statusMessage, 'for course code', courseCode)
 
     return []
   } catch (err) {

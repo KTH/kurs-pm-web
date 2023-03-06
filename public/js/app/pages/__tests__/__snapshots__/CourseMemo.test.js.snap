@@ -8,7 +8,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
     <section
       class="cover-page d-none d-print-block"
     >
-      <h1 />
+      <h1>
+        TEST121  7.5 credits
+      </h1>
       <p
         class="memo-subtitle"
       >
@@ -124,6 +126,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Spring 2018-1"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/181"
+                    title="Course memo Spring 2018-1"
                   >
                     Course memo Spring 2018-1
                   </a>
@@ -132,11 +135,12 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2018-2-3"
+                    aria-label="Course memo Spring 2018-2..."
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/1823"
+                    title="Course memo Spring 2018-2..."
                   >
-                    Course memo Spring 2018-2-3
+                    Course memo Spring 2018-2...
                   </a>
                 </li>
                 <li
@@ -146,6 +150,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Spring 2018-4"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/184"
+                    title="Course memo Spring 2018-4"
                   >
                     Course memo Spring 2018-4
                   </a>
@@ -154,11 +159,12 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   class="nav-item leaf "
                 >
                   <a
-                    aria-label="Course memo Spring 2019-2-4"
+                    aria-label="Course memo Spring 2019-2..."
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/1924"
+                    title="Course memo Spring 2019-2..."
                   >
-                    Course memo Spring 2019-2-4
+                    Course memo Spring 2019-2...
                   </a>
                 </li>
                 <li
@@ -168,6 +174,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Spring 2019-3"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/193"
+                    title="Course memo Spring 2019-3"
                   >
                     Course memo Spring 2019-3
                   </a>
@@ -179,6 +186,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                     aria-label="Course memo Autumn 2019-"
                     class="nav-link memosLink"
                     href="/kurs-pm/TEST121/190"
+                    title="Course memo Autumn 2019-"
                   >
                     Course memo Autumn 2019-
                   </a>
@@ -224,7 +232,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 aria-labelledby="page-heading page-sub-heading"
                 id="page-heading"
               >
-                Kurs-PM VT 2018-1
+                Kurs-PM VT 2018
               </h1>
               <div
                 id="page-sub-heading-wrapper"
@@ -233,7 +241,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                   aria-hidden="true"
                   id="page-sub-heading"
                 >
-                  Missing mandatory information
+                  TEST121  7.5 credits
                 </p>
                 <p
                   class="d-print-none d-none d-sm-block"
@@ -543,7 +551,13 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                       class="info-box text-break"
                     >
                       <h3>
-                        Kursen ges av
+                        Startdatum
+                      </h3>
+                      <p>
+                        Obligatoriskt innehåll saknas
+                      </p>
+                      <h3>
+                        Kursomgång
                       </h3>
                       <p>
                         Obligatoriskt innehåll saknas
@@ -555,7 +569,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                         Obligatoriskt innehåll saknas
                       </p>
                       <h3>
-                        Kursomgång
+                        Kursen ges av
                       </h3>
                       <p>
                         Obligatoriskt innehåll saknas

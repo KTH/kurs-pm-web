@@ -13,6 +13,7 @@ const CourseHeader = ({
   outdatedMemo,
   latestMemoLabel,
   latestMemoUrl,
+  courseImageUrl,
 }) => {
   const {
     adminLinkLabel,

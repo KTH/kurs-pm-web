@@ -1,31 +1,26 @@
-import React, { memo, useEffect, useState, useRef } from 'react'
-import ReactDOM from 'react-dom'
-import { Container, Row, Col } from 'reactstrap'
 import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import React, { useEffect, useRef, useState } from 'react'
+import ReactDOM from 'react-dom'
+import { Col, Container, Row } from 'reactstrap'
 
-import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 import i18n from '../../../../i18n'
 import { useWebContext } from '../context/WebContext'
-import { useLocation } from 'react-router-dom'
 
-import { resolveCourseImage } from '../util/course-image'
-import { sideMenuBackLink, linkToPublishedMemo, linkToArchive } from '../util/links'
 import {
-  concatMemoName,
-  memoNameWithCourseCode,
-  seasonStr,
-  roundShortNameWithStartdate,
   doubleSortOnAnArrayOfObjects,
+  memoNameWithCourseCode,
   removeDuplicates,
+  roundShortNameWithStartdate,
+  seasonStr,
 } from '../util/helpers'
-import { getCurrentTerm } from '../util/term'
+import { linkToArchive, linkToPublishedMemo, sideMenuBackLink } from '../util/links'
 import { menuItemsForAboutMemo } from '../util/menu-memo-items'
-import getTermsWithCourseRounds from '../util/internApi'
 
-import SideMenu from '../components/SideMenu'
-import AboutHeader from '../components/AboutHeader'
-import AboutCourseContacts from '../components/AboutCourseContacts'
 import AboutAlert from '../components/AboutAlert'
+import AboutCourseContacts from '../components/AboutCourseContacts'
+import AboutHeader from '../components/AboutHeader'
+import SideMenu from '../components/SideMenu'
 
 function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
   const breadcrumbContainer = document.getElementById('breadcrumbs-header')
@@ -67,7 +62,7 @@ function removePdfMemosDuplicates(flattenMemosList) {
           if (element.courseMemoFileName === round.courseMemoFileName) return true
           return false
         })
-        tmpPdfMemos[index].ladokRoundIds = tmpPdfMemos[index].ladokRoundIds.concat(round.ladokRoundIds)
+        tmpPdfMemos[index].applicationCodes = tmpPdfMemos[index].applicationCodes.concat(round.applicationCodes)
       } else {
         tmpPdfMemos.push(round)
       }
@@ -77,17 +72,28 @@ function removePdfMemosDuplicates(flattenMemosList) {
   })
   return tmpUniqueMemosList.concat(tmpPdfMemos)
 }
+
+function removeRoundsDuplicates(allTermRounds) {
+  const tmpUniqueRound = []
+  return allTermRounds.filter(round => {
+    if (round.applicationCode && tmpUniqueRound.includes(round.applicationCode)) return false
+    if (round.applicationCode && !tmpUniqueRound.includes(round.applicationCode))
+      tmpUniqueRound.push(round.applicationCode)
+    return true
+  })
+}
+
 function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
-  let arr = [...cleanAllMemo]
   cleanAllMemo.map(memo => {
-    if (memo.isPdf === true && memo.ladokRoundIds.length > 1) {
-      let extendedShortNames = []
+    if (memo.isPdf) {
+      const extendedShortNames = []
       allTempRounds.map(round => {
-        if (memo.ladokRoundIds.includes(round.ladokRoundId)) {
-          if (round.shortName && round.shortName !== '') {
-            extendedShortNames.push(round.shortName.replace(/ m.fl./g, ''))
+        const { shortName = '', applicationCode = '', term } = round
+        if (memo.applicationCodes.includes(applicationCode)) {
+          if (shortName) {
+            extendedShortNames.push(shortName.replace(/ m.fl./g, ''))
           } else {
-            extendedShortNames.push(seasonStr(extraInfo, round.term))
+            extendedShortNames.push(seasonStr(extraInfo, term))
           }
         }
       })
@@ -97,54 +103,23 @@ function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
   return cleanAllMemo
 }
 
-function resolveFirstVisibleSemesterInMenu(menuMemoItems) {
-  // First visible semester according to left meny or getCurrentTerm
-
-  return menuMemoItems
-    .filter(m => !m.outdated)
-    .reduce((firstSemester, menuItem) => {
-      const menuItemSemester = Number.parseInt(menuItem.semester, 10)
-
-      if (menuItemSemester < firstSemester) {
-        return menuItemSemester
-      }
-      return firstSemester
-    }, getCurrentTerm()) // 21001
-}
-
-function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
-  const currentDate = new Date()
-  const startSemester = new Date(startSemesterDate)
-  const endSemester = new Date(endSemesterDate)
-  if (startSemester.valueOf() >= currentDate.valueOf() || endSemester.valueOf() >= currentDate.valueOf()) {
-    return true
-  }
-  return false
-}
-
-function addElement(element) {
-  const arrWithObject = []
-  arrWithObject.push(element)
-  return arrWithObject
-}
-
 function doesArrIncludesElem(arr, element) {
   if (arr.filter(elem => elem.includes(element)).length > 0) return true
   return false
 }
 
 function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
-  const memo = memoList.find(x => x.ladokRoundIds.includes(round.ladokRoundId))
+  const { applicationCode = '' } = round
+  const memo = memoList.find(x => x.applicationCodes.includes(applicationCode))
   const refMemos = JSON.parse(JSON.stringify(memoToCheck.current))
   if (memo) {
+    const { applicationCodes = [] } = memo
     if (refMemos.length > 0) {
-      const refMemo = refMemos.find(x => JSON.stringify(x.ladokRoundIds) === JSON.stringify(memo.ladokRoundIds))
+      const refMemo = refMemos.some(x => JSON.stringify(x.applicationCodes) === JSON.stringify(applicationCodes))
       if (refMemo) {
         return false
       }
     }
-  }
-  if (memo) {
     refMemos.push(memo)
   }
   memoToCheck.current = refMemos
@@ -152,9 +127,10 @@ function isCurrentMemoIsUnqiue(memoList, round, memoToCheck) {
 }
 
 function extendMemo(memo, round) {
-  if (memo.isPdf !== true || (memo.isPdf === true && memo.ladokRoundIds.length == 1)) memo.shortName = round.shortName
+  if (!memo.isPdf) {
+    memo.shortName = round.shortName
+  }
   memo.firstTuitionDate = round.firstTuitionDate
-
   return memo
 }
 
@@ -178,24 +154,28 @@ function makeAllSemestersRoundsWithMemos(
       const flattenMemosList = removeKeysAndFlattenToArray(semesterMemos)
       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
-      const allSemesterMemosLadokRoundIds = cleanAllMemos.map(memo => memo.ladokRoundIds)
-      const allTermRounds = allRoundsMockOrReal.filter(round => round.term === semester).reverse()
-      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRounds, extraInfo)
+      const allSemesterMemosApplicationCodes = cleanAllMemos.map(memo => memo.applicationCodes)
+      const allTermRounds = allRoundsMockOrReal.filter(round => round.term.toString() === semester.toString()).reverse()
+      const allTermRoundsClean = removeRoundsDuplicates(allTermRounds)
+      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
-      allTermRounds.map(round => {
-        doesArrIncludesElem(allSemesterMemosLadokRoundIds, round.ladokRoundId)
-          ? isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)
-            ? allSemestersRoundsWithMemos.push(
-                extendMemo(
-                  extendedAllMemo.find(memo => memo.ladokRoundIds.includes(round.ladokRoundId)),
-                  round
-                )
+      allTermRoundsClean.map(round => {
+        const { applicationCode = '' } = round
+        if (doesArrIncludesElem(allSemesterMemosApplicationCodes, applicationCode)) {
+          if (isCurrentMemoIsUnqiue(extendedAllMemo, round, memoToCheck)) {
+            allSemestersRoundsWithMemos.push(
+              extendMemo(
+                extendedAllMemo.find(memo => memo.applicationCodes.includes(applicationCode)),
+                round
               )
-            : ''
-          : allSemestersRoundsWithMemos.push(round)
+            )
+          }
+        } else {
+          allSemestersRoundsWithMemos.push(round)
+        }
       })
     } else {
-      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term === semester))
+      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term.toString() === semester.toString()))
     }
   })
   const arrDateFormat = allSemestersRoundsWithMemos.map(obj => {
@@ -214,32 +194,33 @@ function makeAllSemestersRoundsWithMemos(
       }),
     }
   })
-
   return sortedAscAllSemestersRoundsWithMemos
 }
 
 function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
-  const [allRounds, setAllRounds] = useState([])
   const location = useLocation()
 
   const [webContext] = useWebContext()
 
   const {
     allTypeMemos,
+    memoDatas,
     courseCode,
     language: userLangAbbr,
-    proxyPrefixPath,
-    thisHostBaseUrl,
     userLanguageIndex,
+    allRoundsFromKopps,
   } = webContext
+
   const isThisTest = !!mockKursPmDataApi
+
+  const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
   const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
-  const menuMemoItems = menuItemsForAboutMemo(webContext.memoDatas)
+  const menuMemoItems = menuItemsForAboutMemo(memoDatas)
 
   const memoToCheck = useRef([])
 
@@ -252,26 +233,8 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
     userLangAbbr,
     extraInfo
   )
-
   useEffect(() => {
-    if (isThisTest) {
-      setAllRounds(allRoundsMockOrReal)
-    } else {
-      getTermsWithCourseRounds(courseCode, thisHostBaseUrl, proxyPrefixPath).then(data => {
-        let allTempRounds = []
-        data.forEach(t => {
-          const rounds = []
-          t.rounds.forEach(round => {
-            if (isDateWithInCurrentOrFutureSemester(round.firstTuitionDate, round.lastTuitionDate)) {
-              round.term = t.term
-              rounds.push(round)
-            }
-          })
-          allTempRounds = allTempRounds.concat(rounds)
-        })
-        setAllRounds(allTempRounds)
-      })
-    }
+    setAllRounds(allRoundsMockOrReal)
     let isMounted = true
     if (isMounted) {
       renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
@@ -314,7 +277,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                   <AboutAlert
                     courseCode={courseCode}
                     semester={location.state.semester}
-                    roundIds={location.state.roundIds}
+                    applicationCodes={location.state.applicationCodes}
                     language={userLangAbbr}
                   />
                 </Col>
@@ -340,9 +303,13 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                       <React.Fragment key={semester}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                         {semestersMemosAndRounds
-                          .filter(round => round.term === semester || round.semester === semester)
+                          .filter(round =>
+                            round.term
+                              ? round.term.toString() === semester.toString()
+                              : round.semester.toString() === semester.toString()
+                          )
                           .map(memo => (
-                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.ladokRoundId}>
+                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                               {'isPdf' in memo ? (
                                 (memo.isPdf && (
                                   <div className="mb-3">
@@ -354,7 +321,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                       {memoNameWithCourseCode(
                                         courseCode,
                                         memo.semester,
-                                        memo.ladokRoundIds,
+                                        memo.applicationCodes,
                                         userLangAbbr
                                       )}
                                     </a>
@@ -366,7 +333,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                       {memoNameWithCourseCode(
                                         courseCode,
                                         memo.semester,
-                                        memo.ladokRoundIds,
+                                        memo.applicationCodes,
                                         memo.memoCommonLangAbbr
                                       )}
                                     </a>

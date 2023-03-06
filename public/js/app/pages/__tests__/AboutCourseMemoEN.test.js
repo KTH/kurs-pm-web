@@ -10,13 +10,13 @@ const mockMixKursPmDataApi = () => ({
     {
       courseCode: 'KIP2720',
       courseMemoFileName: 'memo-KIP272020192-14341833da79.pdf',
-      ladokRoundIds: ['2'],
+      applicationCodes: ['2'],
       semester: '20192',
       isPdf: true,
     },
     {
       courseCode: 'KIP2720',
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       semester: '20192',
       memoEndPoint: 'KIP272020192-1',
       memoCommonLangAbbr: 'en',
@@ -27,7 +27,7 @@ const mockMixKursPmDataApi = () => ({
   20202: [
     {
       courseCode: 'KIP2720',
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       semester: '20202',
       memoEndPoint: 'KIP272020202-1',
       memoCommonLangAbbr: 'en',
@@ -40,28 +40,28 @@ const mockMixKursPmDataApi = () => ({
 const mockMixKoppsApi = () => [
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20212',
   },
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20202',
   },
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
   },
   {
     shortName: '',
-    ladokRoundId: '2',
+    applicationCode: '2',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
@@ -95,18 +95,20 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       },
       memoDatas: [
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
       ],
       language: 'en',
@@ -163,13 +165,13 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     expect(noInfo.length).toBe(2)
   })
 
-  xtest('renders menu link of web-based memo as expected', () => {
+  test('renders menu link of web-based memo as expected', () => {
     const menuItem = getByText('Course memo Autumn 2019-1')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
   })
 
-  xtest('renders menu link of web-based memo as expected', () => {
+  test('renders menu link of web-based memo as expected', () => {
     const menuItem = getByText('Course memo Autumn 2020-1')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')

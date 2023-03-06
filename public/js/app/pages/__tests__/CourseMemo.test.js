@@ -19,51 +19,51 @@ describe('Redirect function in <CourseMemo>', () => {
   })
   test('return data for redirect for the link from the personal meny', () => {
     const locationUrlFromPersonalMenu = { pathname: '/MF2140/20222/1' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('MF2140', locationUrlFromPersonalMenu)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('MF2140', locationUrlFromPersonalMenu)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20222')
-    expect(roundIds).toStrictEqual(['1'])
+    expect(applicationCodes).toStrictEqual(['1'])
   })
   test('return data for redirect for the link with the memos endpoint which is missing', () => {
     const locationUrlWithMissingMemoEndpoint = { pathname: '/SF1624/SF162420231-1' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20231')
-    expect(roundIds).toStrictEqual(['1'])
+    expect(applicationCodes).toStrictEqual(['1'])
   })
   test('return data with two rounds for redirect for the link with memo endpoint which is missing', () => {
     const locationUrlWithMissingMemoEndpoint = { pathname: '/SF1624/SF162420232-5-6' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20232')
-    expect(roundIds).toStrictEqual(['5', '6'])
+    expect(applicationCodes).toStrictEqual(['5', '6'])
   })
 
   test('return data for redirect for the full link from the personal meny', () => {
     const locationUrlFromPersonalMenu = { pathname: '/kurs-pm/MF2140/20222/1' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('MF2140', locationUrlFromPersonalMenu)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('MF2140', locationUrlFromPersonalMenu)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20222')
-    expect(roundIds).toStrictEqual(['1'])
+    expect(applicationCodes).toStrictEqual(['1'])
   })
 
   test('return data for redirect for the link with the memos endpoint which is missing', () => {
     const locationUrlWithMissingMemoEndpoint = { pathname: '/kurs-pm/SF1624/SF162420231-1' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20231')
-    expect(roundIds).toStrictEqual(['1'])
+    expect(applicationCodes).toStrictEqual(['1'])
   })
   test('return data with two rounds for redirect for the link with memo endpoint which is missing', () => {
     const locationUrlWithMissingMemoEndpoint = { pathname: '/kurs-pm/SF1624/SF162420232-5-6' }
-    const { noMemoData, semester, roundIds } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
+    const { noMemoData, semester, applicationCodes } = redirectToAbout('SF1624', locationUrlWithMissingMemoEndpoint)
     expect(noMemoData).toBeTruthy()
     expect(semester).toBe('20232')
-    expect(roundIds).toStrictEqual(['5', '6'])
+    expect(applicationCodes).toStrictEqual(['5', '6'])
   })
 })
 
-// {"pathname":"/MF2140/om-kurs-pm","search":"","hash":"","state":{"noMemoData":true,"semester":"20222","roundIds":["1"]},"key":"1wefohoy"}
+// {"pathname":"/MF2140/om-kurs-pm","search":"","hash":"","state":{"noMemoData":true,"semester":"20222","applicationCodes":["1"]},"key":"1wefohoy"}
 describe('Component <CourseMemo>', () => {
   test('renders a course memo', () => {
     const context = {
@@ -76,12 +76,14 @@ describe('Component <CourseMemo>', () => {
       memoDatas: [
         {
           semester: '',
-          ladokRoundIds: [],
+          applicationCodes: [],
           memoCommonLangAbbr: '',
           syllabusValid: { validFromTerm: '20181' },
         },
       ],
+      title: '',
       userLanguageIndex: 0,
+      credits: 7.5,
       syllabusValid: { validFromTerm: '20181' },
     }
     render(
@@ -100,8 +102,9 @@ const spring181 = {
   courseCode: 'TEST121',
   memoEndPoint: '181',
   semester: '20181',
-  ladokRoundIds: [1],
+  applicationCodes: [1],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   lastChangeDate: 'Fri Jan 27 2018 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 2,
   syllabusValid: { validFromTerm: '20181' },
@@ -110,8 +113,9 @@ const spring1823 = {
   courseCode: 'TEST121',
   memoEndPoint: '1823',
   semester: '20181',
-  ladokRoundIds: [2, 3],
+  applicationCodes: [2, 3],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   lastChangeDate: 'Fri Dec 1 2017 12:04:37 GMT+0000 (Coordinated Universal Time)',
   version: 6,
   syllabusValid: { validFromTerm: '20181' },
@@ -120,32 +124,36 @@ const spring184 = {
   courseCode: 'TEST121',
   memoEndPoint: '184',
   semester: '20181',
-  ladokRoundIds: [4],
+  applicationCodes: [4],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   syllabusValid: { validFromTerm: '20181' },
 }
 const spring1924 = {
   courseCode: 'TEST121',
   memoEndPoint: '1924',
   semester: '20191',
-  ladokRoundIds: [2, 4],
+  applicationCodes: [2, 4],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   syllabusValid: { validFromTerm: '20191' },
 }
 const spring193 = {
   courseCode: 'TEST121',
   memoEndPoint: '193',
   semester: '20191',
-  ladokRoundIds: [3],
+  applicationCodes: [3],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   syllabusValid: { validFromTerm: '20191' },
 }
 const fall190 = {
   courseCode: 'TEST121',
   memoEndPoint: '190',
   semester: '20192',
-  ladokRoundIds: [],
+  applicationCodes: [],
   memoCommonLangAbbr: 'en',
+  credits: 7.5,
   syllabusValid: { validFromTerm: '20191' },
 }
 
@@ -167,8 +175,10 @@ describe('Page CourseMemo', () => {
       memoDatas,
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
+      credits: 7.5,
+      title: '',
       activeMemoEndPoint: id => id === '181',
-      roundIds: [2, 3],
+      applicationCodes: [2, 3],
       courseCode: 'TEST121',
     }
 
@@ -194,9 +204,11 @@ describe('Page CourseMemo', () => {
       memoDatas,
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
+      credits: 7.5,
+      title: '',
       activeMemoEndPoint: id => id === '181',
-      roundIds: [],
       courseCode: 'TEST121',
+      applicationCodes: [],
     }
 
     const { asFragment } = render(
@@ -213,9 +225,9 @@ describe('Page CourseMemo', () => {
     expect(links.length).toEqual(6)
     const expectedLinks = [
       ['Course memo Spring 2018-1', '/kurs-pm/TEST121/181'],
-      ['Course memo Spring 2018-2-3', '/kurs-pm/TEST121/1823'],
+      ['Course memo Spring 2018-2...', '/kurs-pm/TEST121/1823'],
       ['Course memo Spring 2018-4', '/kurs-pm/TEST121/184'],
-      ['Course memo Spring 2019-2-4', '/kurs-pm/TEST121/1924'],
+      ['Course memo Spring 2019-2...', '/kurs-pm/TEST121/1924'],
       ['Course memo Spring 2019-3', '/kurs-pm/TEST121/193'],
       ['Course memo Autumn 2019-', '/kurs-pm/TEST121/190'],
     ]

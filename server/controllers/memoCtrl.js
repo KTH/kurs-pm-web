@@ -13,7 +13,7 @@ const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../k
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
-const { createServerSideContext, createAdditionalContext } = require('../ssr-context/createServerSideContext')
+const { createServerSideContext } = require('../ssr-context/createServerSideContext')
 
 const locales = { sv, en }
 
@@ -128,15 +128,56 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   }
 
   // Course offering in memo has end year later or equal to previous year
-  const offering = offerings.find(
-    o => memoData.ladokRoundIds.includes(o.round.ladokRoundId) && memoData.semester === String(o.round.startTerm.term)
-  )
-  if (offering && offering.round.endWeek.year >= startSelectionYear) {
-    return false
+  const offering = offerings.find(offer => {
+    const { round } = offer
+    if (round) {
+      const {
+        applicationCodes = [],
+        startTerm: { term },
+      } = round
+      if (applicationCodes.length > 0) {
+        const { applicationCode } = applicationCodes[0]
+        if (memoData.applicationCodes.includes(applicationCode) && memoData.semester === String(term)) {
+          return offer
+        }
+      }
+    }
+  })
+
+  if (offering) {
+    const { round } = offering
+    if (round) {
+      const { endWeek } = round
+      if (endWeek) {
+        const { year } = endWeek
+        if (year >= startSelectionYear) {
+          return false
+        }
+      }
+    }
   }
 
   // Course memo does not meet the criteria
   return true
+}
+
+function extendMemoWithStartDate(offerings, memoData) {
+  const { applicationCodes: applicationCodesInMemo } = memoData
+  const offering = offerings.filter(o => {
+    const {
+      round: { applicationCodes },
+    } = o
+    const { applicationCode } = applicationCodes[0]
+    return applicationCodesInMemo.includes(applicationCode)
+  })
+  if (offering.length > 0) {
+    const {
+      round: { firstTuitionDate },
+    } = offering[0]
+    return firstTuitionDate
+  }
+
+  return ''
 }
 
 function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
@@ -147,20 +188,6 @@ function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate)
     return true
   }
   return false
-}
-
-function getDateOfMondayOfTheWeek(startDate) {
-  const currentDate = new Date(startDate)
-  const first = currentDate.getDate() - currentDate.getDay() + 1
-  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
-  return firstMondayOfSpringSemester
-}
-
-function addDays(date, days) {
-  // return date.setDate(date.getDate() + days)
-  const copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
 }
 
 function removeDuplicates(elements) {
@@ -181,28 +208,32 @@ function markOutdatedMemoDatas(memoDatas = [], roundInfos = []) {
     isDateWithInCurrentOrFutureSemester(r.round.firstTuitionDate, r.round.lastTuitionDate)
   )
   const activeYears = removeDuplicates(allActiveTerms.map(term => term.round.startWeek.year)).sort()
-  const currentYear = new Date().getFullYear()
   const startSelectionYear = activeYears[0]
 
   const offerings = roundInfos.filter(r =>
     r.round &&
-    r.round.ladokRoundId &&
+    r.round.applicationCodes &&
     r.round.startTerm &&
     r.round.startTerm.term &&
     r.round.endWeek &&
     r.round.endWeek.year &&
+    r.round.firstTuitionDate &&
     r.round.endWeek.year >= startSelectionYear
       ? {
-          ladokRoundId: r.round.ladokRoundId,
           semester: r.round.startTerm.term,
           endYear: r.round.endWeek.year,
         }
       : {}
   )
+
   const markedOutDatedMemoDatas = memoDatas.map(m => ({
     ...m,
-    ...{ outdated: outdatedMemoData(offerings, startSelectionYear, m) },
+    ...{
+      outdated: outdatedMemoData(offerings, startSelectionYear, m),
+      startDate: extendMemoWithStartDate(offerings, m),
+    },
   }))
+
   return markedOutDatedMemoDatas
 }
 
@@ -446,6 +477,7 @@ async function getAboutContent(req, res, next) {
 
     webContext.memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
+    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode, responseLanguage)
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
@@ -531,6 +563,25 @@ async function getTermsWithCourseRounds(req, res, next) {
     log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
     next(err)
   }
+}
+
+async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
+  const courseDetailedInformation = await getDetailedInformation(courseCode, responseLanguage)
+  const { roundInfos = [] } = courseDetailedInformation
+  const allRounds = []
+  roundInfos.map(roundInfo => {
+    const { round } = roundInfo
+    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCodes } = round
+    const { term } = startTerm
+    if (isDateWithInCurrentOrFutureSemester(firstTuitionDate, lastTuitionDate)) {
+      round.term = term
+      const { applicationCode = '' } = applicationCodes[0]
+      round.applicationCode = applicationCode
+      delete round.applicationCodes
+      allRounds.push(round)
+    }
+  })
+  return allRounds
 }
 
 module.exports = {

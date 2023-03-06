@@ -9,24 +9,22 @@ import i18n from '../../../../../i18n'
 const { courseFactsLabels } = i18n.messages[0]
 
 const TEST_MEMO_DATA_1_ROUND = {
-  memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska)',
+  startDate: '2020-10-17',
+  applicationCodes: ['1'],
+  memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: '',
   departmentName: '',
+  semester: '20202',
 }
 
 const TEST_MEMO_DATA_2_ROUNDS = {
-  memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska), CMEDT1 (Startdatum 2020-10-26, Svenska)',
+  startDate: '2020-10-17',
+  applicationCodes: ['1', '2'],
+  memoName: 'CDEPR1 (Startdatum 2020-10-17, Svenska), CMEDT1 (Startdatum 2020-10-17, Svenska)',
   languageOfInstructions: 'Svenska',
   departmentName: 'SCI/Matematik',
+  semester: '20202',
 }
-
-// const CHECK_LABEL = {
-//   roundFacts: 'Round Facts',
-//   offeredByTitle: 'Offered By',
-//   languageOfInstructionTitle: 'Language Of Instruction',
-//   roundsTitle: 'Course offering',
-//   mandatoryFieldMissing: 'Missing mandatory information',
-// }
 
 describe('Component <CourseFacts>', () => {
   test('renders a facts section', done => {
@@ -43,16 +41,16 @@ describe('Component <CourseFacts>', () => {
 
   test('renders course memo name as one round ', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_1_ROUND} />)
-    const round = screen.getByText(TEST_MEMO_DATA_1_ROUND.memoName)
+    const round = screen.getByText('CDEPR1 HT 2020-1')
     expect(round).toBeInTheDocument()
     done()
   })
 
   test('renders course memo name as two rounds', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_2_ROUNDS} />)
-    const round1 = screen.getByText('CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska)')
+    const round1 = screen.getByText('CDEPR1 HT 2020-1')
     expect(round1).toBeInTheDocument()
-    const round2 = screen.getByText('CMEDT1 (Startdatum 2020-10-26, Svenska)')
+    const round2 = screen.getByText('CMEDT1 HT 2020-2')
     expect(round2).toBeInTheDocument()
     done()
   })

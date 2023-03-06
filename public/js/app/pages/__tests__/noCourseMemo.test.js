@@ -4,7 +4,7 @@ import { WebContextProvider } from '../../context/WebContext'
 
 import CourseMemo from '../CourseMemo'
 
-describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMemo> because no memo exists for some round, f.e., semester 20192, ladokRoundIds 2', () => {
+describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMemo> because no memo exists for some round, f.e., semester 20192, applicationCodes 2', () => {
   beforeEach(() => {
     const context = {
       browserConfig: { imageStorageUri: 'localhost://', memoStorageUri: 'kursinfostorage/' },
@@ -14,13 +14,13 @@ describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMem
       },
       memoDatas: [
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
         },
         {
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',

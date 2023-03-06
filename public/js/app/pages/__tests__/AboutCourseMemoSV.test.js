@@ -18,15 +18,15 @@ const mockMixKursPmDataApi = () => ({
     {
       courseCode: 'KIP2720',
       courseMemoFileName: 'memo-KIP272020192-14341833da79.pdf',
-      ladokRoundIds: ['2'],
+      applicationCodes: ['2'],
       semester: '20192',
       isPdf: true,
     },
     {
       courseCode: 'KIP2720',
-      ladokRoundIds: ['1'],
-      semester: '20192',
       memoEndPoint: 'KIP272020192-1',
+      applicationCodes: ['1'],
+      semester: '20192',
       memoCommonLangAbbr: 'en',
       memoName: 'Autumn 2019-1 (Start date 26/08/2019, English)',
       isPdf: false,
@@ -35,7 +35,7 @@ const mockMixKursPmDataApi = () => ({
   20202: [
     {
       courseCode: 'KIP2720',
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       semester: '20202',
       memoEndPoint: 'KIP272020202-1',
       memoCommonLangAbbr: 'en',
@@ -48,29 +48,28 @@ const mockMixKursPmDataApi = () => ({
 const mockMixKoppsApi = () => [
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20212',
   },
-
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20202',
   },
   {
     shortName: '',
-    ladokRoundId: '1',
+    applicationCode: '1',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
   },
   {
     shortName: '',
-    ladokRoundId: '2',
+    applicationCode: '2',
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
@@ -91,26 +90,26 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       memoDatas: [
         {
           courseCode: 'KIP2720',
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20192',
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
         {
           courseCode: 'KIP2720',
-          ladokRoundIds: ['1'],
+          applicationCodes: ['1'],
           semester: '20202',
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
+          courseCode: 'KIP2720',
         },
       ],
-      // memoLanguageIndex: 0,
       language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: () => false,
-      roundIds: [],
       examiners:
         '<p class = "person">\n      <img ' +
         'src="https://www.kth.se/files/thumbnail/kkkkkkkkkk" alt="Profile ' +
@@ -172,7 +171,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     expect(noInfo.length).toBe(1)
   })
 
-  xtest('renders menu link of web-based memo as expected', done => {
+  test('renders menu link of web-based memo as expected', done => {
     const menuItem = getByText('Course memo Autumn 2019-1')
     expect(menuItem).toBeInTheDocument()
     expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
