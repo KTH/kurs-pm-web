@@ -79,14 +79,33 @@ function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
       const potentialMemoEndPointParts = potentialMemoEndPoint.split('-')
       if (potentialMemoEndPointParts.length > 1) {
         const potentialCourseCodeAndSemester = potentialMemoEndPointParts[0]
-        const potentialCourseRounds = potentialMemoEndPointParts.slice(1)
+        const potentialCourseApplicationCodes = potentialMemoEndPointParts.slice(1)
         const memoData = memoDatas.find(m => {
-          const memoEndPointParts = m.memoEndPoint.split('-')
+          const { memoEndPoint, applicationCodes = [] } = m
+          const memoEndPointParts = memoEndPoint.split('-')
           if (memoEndPointParts.length > 1) {
             const courseCodeAndSemester = memoEndPointParts[0]
-            const courseRounds = memoEndPointParts.slice(1)
+            const courseApplicationCodes = memoEndPointParts.slice(1)
             if (potentialCourseCodeAndSemester === courseCodeAndSemester) {
-              return potentialCourseRounds.length === 1 && courseRounds.includes(potentialCourseRounds[0])
+              if (
+                potentialCourseApplicationCodes.length === 1 &&
+                courseApplicationCodes.includes(potentialCourseApplicationCodes[0])
+              ) {
+                return true
+              } else {
+                if (applicationCodes.length > 0) {
+                  let memoMatched = true
+                  potentialCourseApplicationCodes.forEach(courseApplicationCode => {
+                    const isApplicationCodeMatched = applicationCodes.some(
+                      x => x.toString() === courseApplicationCode.toString()
+                    )
+                    if (!isApplicationCodeMatched) {
+                      memoMatched = false
+                    }
+                  })
+                  return memoMatched
+                }
+              }
             }
           }
           return m.memoEndPoint === potentialMemoEndPoint
