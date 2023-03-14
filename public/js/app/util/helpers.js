@@ -47,9 +47,9 @@ export const memoNameWithCourseCode = (courseCode, semester, applicationCodes = 
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
 
-  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes
-    .map(code => code)
-    .join('-')}`
+  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
+    applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
+  }`
 }
 export const removeDuplicates = elements => {
   return elements.filter((term, index) => elements.indexOf(term) === index)

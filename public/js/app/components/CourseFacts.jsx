@@ -9,11 +9,22 @@ const formatRoundsShort = (language, memoData) => {
   const langIndex = language === 'en' ? 0 : 1
   const { memoName } = memoData
   const splitRounds = memoName.split('),')
+  const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1,5}/
 
   return (
     <>
       {splitRounds.map((round, thisIndex) => {
         const shortName = round.split('(')[0].trim().replaceAll('m.fl.', '')
+
+        if (pattern.test(shortName)) {
+          return (
+            <ul key={round}>
+              <li>{`${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
+                memoData.applicationCodes[thisIndex]
+              }`}</li>
+            </ul>
+          )
+        }
         return (
           <ul key={round}>
             <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
