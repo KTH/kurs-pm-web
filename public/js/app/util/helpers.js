@@ -6,19 +6,20 @@ export const seasonStr = (translate, semesterCode = '') =>
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 
 export const getDateFormat = (date, language) => {
-  if (language === 'Svenska' || language === 1 || language === 'sv' || date.length === 0) {
+  const pattern = /\d{2}[/]\d{2}[/]\d{4}/
+  if (language === 1 || language === 'Svenska' || language === 'Swedish' || language === 'sv') {
     return date
   }
 
-  var parts = date.split('/')
-  var dt = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10))
-  const options = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+  if (pattern.test(date)) {
+    const parts = date.split('/')
+    var parsedDate = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10))
+  } else {
+    const timestamp = Date.parse(date)
+    var parsedDate = new Date(timestamp)
   }
-
-  return dt.toLocaleDateString('en-GB', options)
+  const options = { day: 'numeric', month: 'short', year: 'numeric' }
+  return parsedDate.toLocaleDateString('en-GB', options)
 }
 
 export const concatMemoName = (semester, applicationCodes = [], langAbbr = 'sv') => {
