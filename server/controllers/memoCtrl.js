@@ -166,10 +166,12 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   if (offering) {
     const { round } = offering
     if (round) {
-      const { endWeek } = round
+      const { endWeek, lastTuitionDate } = round
+      const currentDate = new Date()
+      const endSemester = new Date(lastTuitionDate)
       if (endWeek) {
         const { year } = endWeek
-        if (year >= startSelectionYear) {
+        if (year >= startSelectionYear && endSemester.valueOf() >= currentDate.valueOf()) {
           return false
         }
       }
