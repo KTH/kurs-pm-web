@@ -105,7 +105,7 @@ const spring181 = {
   applicationCodes: [1],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
-  lastChangeDate: 'Fri Jan 27 2018 12:04:37 GMT+0000 (Coordinated Universal Time)',
+  lastChangeDate: 'Fri Jan 27 2018 12:04:37',
   version: 2,
   syllabusValid: { validFromTerm: '20181' },
 }
@@ -116,7 +116,7 @@ const spring1823 = {
   applicationCodes: [2, 3],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
-  lastChangeDate: 'Fri Dec 1 2017 12:04:37 GMT+0000 (Coordinated Universal Time)',
+  lastChangeDate: 'Fri Dec 1 2017 12:04:37',
   version: 6,
   syllabusValid: { validFromTerm: '20181' },
 }
