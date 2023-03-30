@@ -17,7 +17,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
         Kurs-PM VT 2018-1
       </p>
       <p>
-        Version 2 – 2018-01-27 00:00:00
+        Version 2 – 2018-01-27 01:00:00
       </p>
       <h2>
         Kursomgång
@@ -600,7 +600,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                         Version kurs-PM
                       </h3>
                       <p>
-                        Senaste: 2018-01-27 00:00:00
+                        Senaste: 2018-01-27 01:00:00
                       </p>
                       <h3>
                         Skriv ut eller spara
