@@ -1,5 +1,4 @@
 import React from 'react'
-// import { useWebContext } from '../context/WebContext'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { render, screen } from '@testing-library/react'
@@ -63,7 +62,6 @@ describe('Redirect function in <CourseMemo>', () => {
   })
 })
 
-// {"pathname":"/MF2140/om-kurs-pm","search":"","hash":"","state":{"noMemoData":true,"semester":"20222","applicationCodes":["1"]},"key":"1wefohoy"}
 describe('Component <CourseMemo>', () => {
   test('renders a course memo', () => {
     const context = {
@@ -105,7 +103,6 @@ const spring181 = {
   applicationCodes: [1],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
-  lastChangeDate: '2018-01-27',
   version: 2,
   syllabusValid: { validFromTerm: '20181' },
 }
@@ -116,7 +113,7 @@ const spring1823 = {
   applicationCodes: [2, 3],
   memoCommonLangAbbr: 'en',
   credits: 7.5,
-  lastChangeDate: '2017-12-01',
+  lastChangeDate: 'Fri Dec 1 2017 12:04:37',
   version: 6,
   syllabusValid: { validFromTerm: '20181' },
 }
