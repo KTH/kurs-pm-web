@@ -498,7 +498,7 @@ async function getAboutContent(req, res, next) {
 
     webContext.memoDatas = await markOutdatedMemoDatas(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
-    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(courseCode, responseLanguage)
+    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(roundInfos)
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
@@ -586,9 +586,7 @@ async function getTermsWithCourseRounds(req, res, next) {
   }
 }
 
-async function _getAllRoundsWithApplicationCodes(courseCode, responseLanguage) {
-  const courseDetailedInformation = await getDetailedInformation(courseCode, responseLanguage)
-  const { roundInfos = [] } = courseDetailedInformation
+async function _getAllRoundsWithApplicationCodes(roundInfos) {
   const allRounds = []
   roundInfos.map(roundInfo => {
     const { round } = roundInfo
