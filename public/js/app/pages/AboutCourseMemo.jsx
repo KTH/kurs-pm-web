@@ -131,6 +131,7 @@ function extendMemo(memo, round) {
     memo.shortName = round.shortName
   }
   memo.firstTuitionDate = round.firstTuitionDate
+  memo.state = round.state
   return memo
 }
 
@@ -175,7 +176,9 @@ function makeAllSemestersRoundsWithMemos(
         }
       })
     } else {
-      allSemestersRoundsWithMemos.push(allRoundsMockOrReal.find(round => round.term.toString() === semester.toString()))
+      allSemestersRoundsWithMemos.push(
+        ...allRoundsMockOrReal.filter(round => round.term.toString() === semester.toString())
+      )
     }
   })
   const arrDateFormat = allSemestersRoundsWithMemos.map(obj => {
@@ -311,7 +314,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                           .map(memo => (
                             <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                               {'isPdf' in memo ? (
-                                (memo.isPdf && (
+                                (memo.isPdf && (memo.state === 'APPROVED' || memo.state === 'FULL') && (
                                   <div className="mb-3">
                                     <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                     <a
@@ -339,11 +342,13 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                                     </a>
                                   </div>
                                 )
-                              ) : (
+                              ) : memo.state === 'APPROVED' || memo.state === 'FULL' ? (
                                 <div className="mb-3">
                                   <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                                   <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
                                 </div>
+                              ) : (
+                                ''
                               )}
                             </div>
                           ))}

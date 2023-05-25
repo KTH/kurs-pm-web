@@ -13,6 +13,7 @@ const mockMixKursPmDataApi = () => ({
       applicationCodes: ['2'],
       semester: '20192',
       isPdf: true,
+      state: 'FULL',
     },
     {
       courseCode: 'KIP2720',
@@ -22,6 +23,7 @@ const mockMixKursPmDataApi = () => ({
       memoCommonLangAbbr: 'en',
       memoName: 'Autumn 2019-1 (Start date 26/08/2019, English)',
       isPdf: false,
+      state: 'CANCELLED',
     },
   ],
   20202: [
@@ -33,6 +35,7 @@ const mockMixKursPmDataApi = () => ({
       memoCommonLangAbbr: 'en',
       memoName: 'Autumn 2020-1 (Start date 24/08/2020, English)',
       isPdf: false,
+      state: 'APPROVED',
     },
   ],
 })
@@ -44,6 +47,7 @@ const mockMixKoppsApi = () => [
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20212',
+    state: 'CANCELLED',
   },
   {
     shortName: '',
@@ -51,6 +55,7 @@ const mockMixKoppsApi = () => [
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20202',
+    state: 'APPROVED',
   },
   {
     shortName: '',
@@ -58,6 +63,7 @@ const mockMixKoppsApi = () => [
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
+    state: 'APPROVED',
   },
   {
     shortName: '',
@@ -65,6 +71,7 @@ const mockMixKoppsApi = () => [
     firstTuitionDate: '2023-01-17',
     lastTuitionDate: '2023-03-17',
     term: '20192',
+    state: 'APPROVED',
   },
 ]
 
@@ -150,9 +157,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h4 ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(4)
+    expect(allH4Headers.length).toBe(3)
     const expectedh4ds = [
-      'Autumn 2021 (Start date 17 Jan 2023)',
       'Autumn 2020 (Start date 17 Jan 2023)',
       'Autumn 2019 (Start date 17 Jan 2023)',
       'Autumn 2019 (Start date 17 Jan 2023)',
