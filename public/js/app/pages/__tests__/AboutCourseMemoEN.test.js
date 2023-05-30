@@ -205,7 +205,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders menu link Archive', () => {
     const menuItems = getAllByText('Archive page')
-    expect(menuItems.length).toBe(1)
+    expect(menuItems.length).toBe(2)
     menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv?l=en')
     })
@@ -237,7 +237,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(12)
+    expect(links.length).toBe(13)
     const expectedlinks = [
       'Course and programme directory',
       'About course KIP2720',
@@ -247,6 +247,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Course development',
       'Archive',
       'Administer About course',
+      'Archive',
       'Course memo KIP2720 Autumn 2020-1',
       'Course memo KIP2720 Autumn 2019-2',
       'Course memo KIP2720 Autumn 2019-1',
