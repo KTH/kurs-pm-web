@@ -218,8 +218,7 @@ module.exports = {
     aboutMemosText1:
       'Här listas publicerade kurs-PM för pågående och kommande kursomgångar. Kurs-PM är kursomgångens detaljerade plan för kursens genomförande. Ett kurs-PM innehåller information som hjälper dig att förbereda, planera och genomföra kursen.',
     aboutMemosText2:
-      'Kurs-PM ska vara publicerat senast vid kursens start. Saknas kurs-PM kan du kontakta kursens kontaktperson eller examinator.',
-    aboutMemosText3: 'Kurs-PM för tidigare kursomgångar visas på sidan ',
+      'Kurs-PM ska vara publicerat senast vid kursens start. Saknas kurs-PM kan du kontakta kursens kontaktperson eller examinator. Kurs-PM för tidigare kursomgångar visas på sidan ',
     currentMemos: 'Publicerade kurs-PM',
     currentMemosInfo:
       '<p>Kurs-PM listas under den termin då kursomgången startade. Finns det flera publicerade kurs-PM för en termin kan du ta reda på vilket kurs-PM som tillhör din kursomgång genom att kontrollera kursens startdatum.</p><p>Du når även din kursomgångs kurs-PM via kurs-PM-länken i “Personliga menyn” under “Kurser”.</p>',
