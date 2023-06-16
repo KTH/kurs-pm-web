@@ -46,10 +46,22 @@ const createPersonHtml = (personList = []) => {
   return personString
 }
 
+function getCurrentTerm(overrideDate) {
+  const JULY = 6
+  const SPRING = 1
+  const FALL = 2
+  const currentDate = overrideDate || new Date()
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentSemester = currentMonth < JULY ? SPRING : FALL
+  return `${currentYear * 10 + currentSemester}`
+}
+
 async function getDetailedInformation(courseCode, language) {
   const currentDate = new Date()
   const currentYear = currentDate.getFullYear()
-  const fromTerm = `${currentYear - 1}1`
+  const currentTerm = getCurrentTerm().slice(-1)
+  const fromTerm = `${currentYear - currentTerm}1`
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/detailedinformation?fromTerm=${fromTerm}&l=${language}`
   try {
