@@ -47,8 +47,11 @@ const createPersonHtml = (personList = []) => {
 }
 
 async function getDetailedInformation(courseCode, language) {
+  const currentDate = new Date()
+  const currentYear = currentDate.getFullYear()
+  const fromTerm = `${currentYear - 1}1`
   const { client } = api.koppsApi
-  const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/detailedinformation?l=${language}`
+  const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/detailedinformation?fromTerm=${fromTerm}&l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
