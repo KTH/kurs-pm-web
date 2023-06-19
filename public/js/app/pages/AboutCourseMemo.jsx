@@ -138,6 +138,7 @@ function extendMemo(memo, round) {
 function makeAllSemestersRoundsWithMemos(
   webAndPdfMiniMemos,
   allRoundsMockOrReal,
+  allActiveTerms,
   memoToCheck,
   langAbbr = 'sv',
   extraInfo
@@ -145,10 +146,9 @@ function makeAllSemestersRoundsWithMemos(
   const langIndex = langAbbr === 'en' ? 0 : 1
   const locale = ['en-GB', 'sv-SE']
   const allSemestersRoundsWithMemos = []
-  const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
   const allMemosSemesters = Object.keys(webAndPdfMiniMemos)
 
-  allActiveTerms.map(semester => {
+  allActiveTerms.forEach(semester => {
     memoToCheck.current = []
     if (doesArrIncludesElem(allMemosSemesters, semester)) {
       const semesterMemos = webAndPdfMiniMemos[semester]
@@ -232,10 +232,30 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(
     webAndPdfMiniMemos,
     allRoundsMockOrReal,
+    allActiveTerms,
     memoToCheck,
     userLangAbbr,
     extraInfo
   )
+
+  const allActiveTermsWithRounds = []
+
+  allActiveTerms.forEach(semester => {
+    const memos = semestersMemosAndRounds.filter(
+      round =>
+        (round.term
+          ? round.term.toString() === semester.toString()
+          : round.semester.toString() === semester.toString()) && round.state !== 'CANCELLED'
+    )
+
+    if (memos.length > 0) {
+      allActiveTermsWithRounds.push({
+        semester,
+        memos,
+      })
+    }
+  })
+
   useEffect(() => {
     setAllRounds(allRoundsMockOrReal)
     let isMounted = true
@@ -304,57 +324,43 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                     btnClose={aboutMemoLabels.btnClose}
                     withModal
                   />
-                  {allActiveTerms.map(semester => {
+                  {allActiveTermsWithRounds.map(({ semester, memos }) => {
                     return (
                       <React.Fragment key={semester}>
                         <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                        {semestersMemosAndRounds
-                          .filter(round =>
-                            round.term
-                              ? round.term.toString() === semester.toString()
-                              : round.semester.toString() === semester.toString()
-                          )
-                          .map(memo => (
-                            <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
+                        {memos.map(memo => (
+                          <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
+                            <div className="mb-3">
+                              <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
                               {'isPdf' in memo ? (
-                                (memo.isPdf && (memo.state === 'APPROVED' || memo.state === 'FULL') && (
-                                  <div className="mb-3">
-                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                    <a
-                                      className="pdf-link"
-                                      href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
-                                    >
-                                      {memoNameWithCourseCode(
-                                        courseCode,
-                                        memo.semester,
-                                        memo.applicationCodes,
-                                        userLangAbbr
-                                      )}
-                                    </a>
-                                  </div>
+                                (memo.isPdf && (
+                                  <a
+                                    className="pdf-link"
+                                    href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
+                                  >
+                                    {memoNameWithCourseCode(
+                                      courseCode,
+                                      memo.semester,
+                                      memo.applicationCodes,
+                                      userLangAbbr
+                                    )}
+                                  </a>
                                 )) || (
-                                  <div className="mb-3">
-                                    <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                    <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
-                                      {memoNameWithCourseCode(
-                                        courseCode,
-                                        memo.semester,
-                                        memo.applicationCodes,
-                                        memo.memoCommonLangAbbr
-                                      )}
-                                    </a>
-                                  </div>
+                                  <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
+                                    {memoNameWithCourseCode(
+                                      courseCode,
+                                      memo.semester,
+                                      memo.applicationCodes,
+                                      memo.memoCommonLangAbbr
+                                    )}
+                                  </a>
                                 )
-                              ) : memo.state === 'APPROVED' || memo.state === 'FULL' ? (
-                                <div className="mb-3">
-                                  <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                                  <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
-                                </div>
                               ) : (
-                                ''
+                                <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
                               )}
                             </div>
-                          ))}
+                          </div>
+                        ))}
                       </React.Fragment>
                     )
                   })}

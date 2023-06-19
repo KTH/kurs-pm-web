@@ -151,9 +151,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(6)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
-      'Kursomgångar som startar HT 2021',
       'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
       'Tidigare kursomgångar',

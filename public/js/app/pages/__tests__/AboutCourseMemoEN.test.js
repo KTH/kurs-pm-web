@@ -145,9 +145,8 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders h3 ', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(6)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
-      'Course offerings starting Autumn 2021',
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
       'Previous course offerings',
