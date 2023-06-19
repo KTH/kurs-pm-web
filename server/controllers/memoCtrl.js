@@ -19,7 +19,7 @@ const {
   findStartDateForMemo,
   enrichMemoDatasWithOutdatedFlag,
 } = require('./memoCtrlHelpers')
-const { getLastYearsTerm } = require('../utils/term')
+const { getLastYearsTerm, extractTerm } = require('../utils/term')
 
 const locales = { sv, en }
 
@@ -162,6 +162,8 @@ async function getContent(req, res, next) {
       userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
     }
 
+    let fromTerm = semester ?? extractTerm(courseCode, finalMemoEndPoint)
+
     const {
       courseMainSubjects,
       recruitmentText,
@@ -171,7 +173,7 @@ async function getContent(req, res, next) {
       infoContactName,
       examiners,
       roundInfos,
-    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage, fromTerm)
 
     const courseContext = {
       courseMainSubjects,
