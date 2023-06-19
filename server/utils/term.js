@@ -25,7 +25,15 @@ function getLastYearsTerm(overrideDate) {
   return `${lastYear}${currentSemester}`
 }
 
+function extractTerm(courseCode, memoEndPoint) {
+  const startIndex = courseCode.length
+  const endIndex = memoEndPoint.indexOf('-')
+  const term = memoEndPoint.slice(startIndex, endIndex)
+  return term
+}
+
 module.exports = {
   getCurrentTerm,
   getLastYearsTerm,
+  extractTerm,
 }
