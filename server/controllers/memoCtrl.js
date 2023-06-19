@@ -19,6 +19,7 @@ const {
   findStartDateForMemo,
   enrichMemoDatasWithOutdatedFlag,
 } = require('./memoCtrlHelpers')
+const { getLastYearsTerm } = require('../utils/term')
 
 const locales = { sv, en }
 
@@ -362,9 +363,12 @@ async function getAboutContent(req, res, next) {
 
     const rawMemos = await getMemoDataById(courseCode, 'published')
 
+    const fromTerm = getLastYearsTerm()
+
     const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
-      responseLanguage
+      responseLanguage,
+      fromTerm
     )
     webContext.title = title
     webContext.credits = credits
