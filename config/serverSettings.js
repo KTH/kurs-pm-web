@@ -75,6 +75,7 @@ module.exports = {
   cache: {
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
+      redisExpire: 1,
     },
   },
 
