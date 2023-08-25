@@ -86,7 +86,7 @@
     "file-loader": "^6.2.0",
     "husky": "^8.0.3",
     "jest": "^29.6.3",
-    "jest-environment-jsdom": "29.6.3",
+    "jest-environment-jsdom": "29.6.4",
     "mini-css-extract-plugin": "^2.7.6",
     "nodemon": "^3.0.1",
     "null-loader": "^4.0.1",
