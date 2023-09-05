@@ -187,7 +187,9 @@ async function getContent(req, res, next) {
     const memoDatas = enrichMemoDatasWithOutdatedFlag(rawMemos, roundInfos)
     const memoWithExtraProps = await findMemoWithMatchingEndpoint(memoDatas, finalMemoEndPoint)
 
-    memoWithExtraProps.startDate = await findStartDateForMemo(memoWithExtraProps, roundInfos)
+    if (memoWithExtraProps) {
+      memoWithExtraProps.startDate = await findStartDateForMemo(memoWithExtraProps, roundInfos)
+    }
 
     const allTypeMemos = !memoWithExtraProps ? await getMiniMemosPdfAndWeb(courseCode) : []
 
