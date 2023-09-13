@@ -1,7 +1,7 @@
 # Welcome to kurs-pm-web 👋
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-16-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-20-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -35,7 +35,7 @@ Kurs-pm-web fetches data from:
 
 ## Prerequisites
 
-- Node.js 16
+- Node.js 20
 
 ### Secrets for Development
 
