@@ -20,8 +20,28 @@ const {
   enrichMemoDatasWithOutdatedFlag,
 } = require('./memoCtrlHelpers')
 const { getLastYearsTerm, extractTerm } = require('../utils/term')
+const { redirectToAboutCourseConfig } = require('../utils/helpers')
 
 const locales = { sv, en }
+
+const extractApplicationCodesFromPotentialMemoEndpoint = potentialMemoEndPoint => {
+  const parts = potentialMemoEndPoint.split('-')
+
+  let applicationCodes = []
+  if (parts.length > 1) {
+    applicationCodes = parts.slice(1)
+  }
+  return applicationCodes
+}
+const extractSemesterFromPotentialMemoEndpoint = (potentialMemoEndPoint, courseCode) => {
+  let semester = ''
+
+  const containsCourseCode = potentialMemoEndPoint.indexOf(courseCode)
+  if (containsCourseCode >= 0) {
+    semester = potentialMemoEndPoint.slice(courseCode.length, courseCode.length + 5)
+  }
+  return semester
+}
 
 function findMemoWithMatchingEndpoint(memoDatas, memoEndPoint) {
   const memoData = memoDatas.find(m => m.memoEndPoint === memoEndPoint)
@@ -152,8 +172,28 @@ async function getContent(req, res, next) {
 
     const rawMemos = await getMemoDataById(courseCode, 'published')
 
+    if (rawMemos.length === 0) {
+      const queryParams = {
+        noMemoData: true,
+        semester: semester ?? 'noSemester',
+        applicationCodes: [],
+      }
+      return res.redirect(
+        ...redirectToAboutCourseConfig(queryParams, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
+      )
+    }
+
     const potentialMemoEndPoint = resolvePotentialMemoEndPoint(courseCode, semester, id)
     const finalMemoEndPoint = resolveMemoEndPoint(potentialMemoEndPoint, rawMemos)
+
+    if (!finalMemoEndPoint) {
+      const queryParams = createQueryParams(id, semester, potentialMemoEndPoint, courseCode)
+
+      return res.redirect(
+        ...redirectToAboutCourseConfig(queryParams, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
+      )
+    }
+
     const rawMemo = await findMemoWithMatchingEndpoint(rawMemos, finalMemoEndPoint)
 
     const languagesContext = {
@@ -243,6 +283,22 @@ async function getContent(req, res, next) {
     log.error('Error in getContent', { error: err })
     next(err)
   }
+}
+
+function createQueryParams(id, semester, potentialMemoEndPoint, courseCode) {
+  let applicationCodes = id.split('-')
+  let memoSemester = semester
+  if (!semester) {
+    applicationCodes = extractApplicationCodesFromPotentialMemoEndpoint(potentialMemoEndPoint, courseCode)
+    memoSemester = extractSemesterFromPotentialMemoEndpoint(potentialMemoEndPoint, courseCode)
+  }
+
+  const queryParams = {
+    noMemoData: true,
+    semester: memoSemester ?? 'noSemester',
+    applicationCodes,
+  }
+  return queryParams
 }
 
 async function getOldContent(req, res, next) {
