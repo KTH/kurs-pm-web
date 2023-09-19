@@ -1,4 +1,5 @@
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { WebContextProvider } from '../../context/WebContext'
@@ -53,9 +54,15 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       userLanguageIndex: 0,
     }
     render(
-      <WebContextProvider configIn={context}>
-        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} mockMixKoppsApi={mockMixKoppsApi()} location={{}} />
-      </WebContextProvider>
+      <MemoryRouter>
+        <WebContextProvider configIn={context}>
+          <AboutCourseMemo
+            mockKursPmDataApi={mockMixKursPmDataApi()}
+            mockMixKoppsApi={mockMixKoppsApi()}
+            location={{}}
+          />
+        </WebContextProvider>
+      </MemoryRouter>
     )
   })
 

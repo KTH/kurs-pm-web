@@ -117,17 +117,44 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
   return sortedArray
 }
 
-export const memoNameWithoutCourseCode = (semester, applicationCodes = [], langAbbr = 'sv') => {
-  const langIndex = langAbbr === 'en' ? 0 : 1
+const memoNameWithoutCourseCode = (semester, applicationCodes = [], langIndex) => {
   const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
-  return `${memoLabel} ${prepositionFor} ${seasonStr(
-    i18n.messages[langIndex].extraInfo,
-    semester
-  )}-${applicationCodes.join('-')}`
+
+  let constructedMemoName = `${memoLabel} ${prepositionFor} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
+
+  constructedMemoName += createApplicationCodeSuffix(applicationCodes)
+  return constructedMemoName
+}
+
+const createApplicationCodeSuffix = applicationCodes => {
+  let applicationCodeSuffix = ''
+  if (applicationCodes.length > 0) {
+    applicationCodeSuffix += `-${applicationCodes.join('-')}`
+  }
+  return applicationCodeSuffix
+}
+
+const memoNameWithoutApplicationCodes = (courseCode, langIndex) => {
+  const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
+  return `${memoLabel} ${prepositionFor} ${courseCode}`
+}
+
+export const createMemoName = (semester, applicationCodes = [], langAbbr = 'sv', courseCode) => {
+  const langIndex = getLangIndex(langAbbr)
+
+  if (!applicationCodes.length) {
+    return memoNameWithoutApplicationCodes(courseCode, langIndex)
+  }
+
+  return memoNameWithoutCourseCode(semester, applicationCodes, langIndex)
 }
 
 export const formatCredits = (credits, creditUnitAbbr, language) => {
   const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-GB')
   const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
   return `${localeCredits} ${creditUnit}`
+}
+
+export const getLangIndex = langAbbr => {
+  return langAbbr === 'en' ? 0 : 1
 }

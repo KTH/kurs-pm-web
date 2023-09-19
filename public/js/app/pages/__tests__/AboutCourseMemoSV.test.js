@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
+import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { WebContextProvider } from '../../context/WebContext'
@@ -33,7 +33,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
-          courseCode: 'KIP2720',
         },
         {
           courseCode: 'KIP2720',
@@ -42,7 +41,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
-          courseCode: 'KIP2720',
         },
       ],
       language: 'sv',
@@ -57,9 +55,15 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
         '</a> \n    </p>',
     }
     render(
-      <WebContextProvider configIn={context}>
-        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} mockMixKoppsApi={mockMixKoppsApi()} location={{}} />
-      </WebContextProvider>
+      <MemoryRouter>
+        <WebContextProvider configIn={context}>
+          <AboutCourseMemo
+            mockKursPmDataApi={mockMixKursPmDataApi()}
+            mockMixKoppsApi={mockMixKoppsApi()}
+            location={{}}
+          />
+        </WebContextProvider>
+      </MemoryRouter>
     )
   })
   test('renders a course memo About page with a list of memos', done => {

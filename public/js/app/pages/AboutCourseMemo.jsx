@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Col, Container, Row } from 'reactstrap'
 
-import { useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import i18n from '../../../../i18n'
 import { useWebContext } from '../context/WebContext'
 
@@ -201,7 +201,30 @@ function makeAllSemestersRoundsWithMemos(
 }
 
 function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
-  const location = useLocation()
+  const [paramsString, setSearchParams] = useSearchParams()
+
+  const [noMemoAlert, setNoMemoAlert] = useState(null)
+
+  useEffect(() => {
+    if (paramsString) {
+      const searchParams = new URLSearchParams(paramsString)
+      searchParams.get('noMemoData')
+
+      const nonEmptyApplicationCodes = searchParams
+        .getAll('applicationCodes')
+        .filter(applicationCode => applicationCode !== '')
+
+      const newNoMemoAlert = {
+        noMemoData: searchParams.get('noMemoData'),
+        semester: searchParams.get('semester'),
+        applicationCodes: nonEmptyApplicationCodes,
+      }
+
+      setNoMemoAlert(newNoMemoAlert)
+
+      setSearchParams({})
+    }
+  }, [])
 
   const [webContext] = useWebContext()
 
@@ -226,7 +249,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   const menuMemoItems = menuItemsForAboutMemo(memoDatas)
 
   const memoToCheck = useRef([])
-
   const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
 
   const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(
@@ -297,14 +319,15 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                 </section>
               </Col>
             </Row>
-            {location.state && location.state.noMemoData && (
+            {noMemoAlert && noMemoAlert.noMemoData && (
               <Row>
                 <Col>
                   <AboutAlert
                     courseCode={courseCode}
-                    semester={location.state.semester}
-                    applicationCodes={location.state.applicationCodes}
+                    semester={noMemoAlert.semester}
+                    applicationCodes={noMemoAlert.applicationCodes ?? []}
                     language={userLangAbbr}
+                    courseMemosExist={memoDatas.length > 0}
                   />
                 </Col>
               </Row>
