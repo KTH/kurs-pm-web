@@ -179,7 +179,7 @@ async function getContent(req, res, next) {
         applicationCodes: [],
       }
       return res.redirect(
-        ...redirectToAboutCourseConfig(queryParams, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
+        ...redirectToAboutCourseConfig({}, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
       )
     }
 
@@ -190,7 +190,7 @@ async function getContent(req, res, next) {
       const queryParams = createQueryParams(id, semester, potentialMemoEndPoint, courseCode)
 
       return res.redirect(
-        ...redirectToAboutCourseConfig(queryParams, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
+        ...redirectToAboutCourseConfig({}, serverConfig.hostUrl, serverConfig.proxyPrefixPath.uri, courseCode)
       )
     }
 
