@@ -1,10 +1,11 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
+import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { WebContextProvider } from '../../context/WebContext'
 
 import AboutCourseMemo from '../AboutCourseMemo'
+import { mockMixKoppsApi, mockMixKursPmDataApi } from '../mockApis'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -12,76 +13,6 @@ jest.mock('react-router-dom', () => ({
     pathname: 'localhost:3000/example/path',
   }),
 }))
-
-const mockMixKursPmDataApi = () => ({
-  20192: [
-    {
-      courseCode: 'KIP2720',
-      courseMemoFileName: 'memo-KIP272020192-14341833da79.pdf',
-      applicationCodes: ['2'],
-      semester: '20192',
-      isPdf: true,
-      state: 'APPROVED',
-    },
-    {
-      courseCode: 'KIP2720',
-      memoEndPoint: 'KIP272020192-1',
-      applicationCodes: ['1'],
-      semester: '20192',
-      memoCommonLangAbbr: 'en',
-      memoName: 'Autumn 2019-1 (Start date 26/08/2019, English)',
-      isPdf: false,
-      state: 'CANCELLED',
-    },
-  ],
-  20202: [
-    {
-      courseCode: 'KIP2720',
-      applicationCodes: ['1'],
-      semester: '20202',
-      memoEndPoint: 'KIP272020202-1',
-      memoCommonLangAbbr: 'en',
-      memoName: 'Autumn 2020-1 (Start date 24/08/2020, English)',
-      isPdf: false,
-      state: 'APPROVED',
-    },
-  ],
-})
-
-const mockMixKoppsApi = () => [
-  {
-    shortName: '',
-    applicationCode: '1',
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
-    term: '20212',
-    state: 'CANCELLED',
-  },
-  {
-    shortName: '',
-    applicationCode: '1',
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
-    term: '20202',
-    state: 'APPROVED',
-  },
-  {
-    shortName: '',
-    applicationCode: '1',
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
-    term: '20192',
-    state: 'APPROVED',
-  },
-  {
-    shortName: '',
-    applicationCode: '2',
-    firstTuitionDate: '2023-01-17',
-    lastTuitionDate: '2023-03-17',
-    term: '20192',
-    state: 'APPROVED',
-  },
-]
 
 const { getAllByRole, getAllByText, getByText } = screen
 
@@ -102,7 +33,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020192-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
-          courseCode: 'KIP2720',
         },
         {
           courseCode: 'KIP2720',
@@ -111,7 +41,6 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           memoEndPoint: 'KIP272020202-1',
           memoCommonLangAbbr: 'en',
           outdated: false,
-          courseCode: 'KIP2720',
         },
       ],
       language: 'sv',
@@ -126,9 +55,15 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
         '</a> \n    </p>',
     }
     render(
-      <WebContextProvider configIn={context}>
-        <AboutCourseMemo mockKursPmDataApi={mockMixKursPmDataApi()} mockMixKoppsApi={mockMixKoppsApi()} location={{}} />
-      </WebContextProvider>
+      <MemoryRouter>
+        <WebContextProvider configIn={context}>
+          <AboutCourseMemo
+            mockKursPmDataApi={mockMixKursPmDataApi()}
+            mockMixKoppsApi={mockMixKoppsApi()}
+            location={{}}
+          />
+        </WebContextProvider>
+      </MemoryRouter>
     )
   })
   test('renders a course memo About page with a list of memos', done => {
