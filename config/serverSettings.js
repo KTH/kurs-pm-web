@@ -83,6 +83,7 @@ module.exports = {
   cache: {
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
+      redisKey: 'CortinaBlock_kurs-pm-web_',
     },
   },
 

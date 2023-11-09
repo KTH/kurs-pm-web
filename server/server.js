@@ -159,6 +159,7 @@ server.use(
     redisConfig: config.cache.cortinaBlock.redis,
     globalLink: config.blockApi.globalLink,
     addBlocks: config.blockApi.addBlocks,
+    redisKey: config.cache.cortinaBlock.redisKey,
   })
 )
 
