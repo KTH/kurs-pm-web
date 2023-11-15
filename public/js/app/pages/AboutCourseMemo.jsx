@@ -222,7 +222,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
       setNoMemoAlert(newNoMemoAlert)
 
-      setSearchParams({})
+      setSearchParams({ l: searchParams.get('l') })
     }
   }, [])
 
