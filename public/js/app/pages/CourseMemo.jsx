@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Container, Row, Col } from 'reactstrap'
@@ -97,6 +97,8 @@ function CourseMemo() {
 
   const location = useLocation()
 
+  const [sourceUrl, setSourceUrl] = useState(null)
+
   useEffect(() => {
     let isMounted = true
     if (isMounted) {
@@ -107,6 +109,8 @@ function CourseMemo() {
       renderBreadcrumbsIntoKthHeader(courseCode, language)
       // Decide which content can have wider content (exempel tables, to make them more readable)
       determineContentFlexibility()
+
+      setSourceUrl(getUrl())
     }
     return () => (isMounted = false)
   }, [])
@@ -176,7 +180,7 @@ function CourseMemo() {
         departmentName={memo.departmentName}
         languageOfInstruction={memo.languageOfInstructions}
         syllabusValid={memo.syllabusValid}
-        url={getUrl()}
+        url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
       <Row>
