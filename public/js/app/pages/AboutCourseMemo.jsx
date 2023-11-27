@@ -1,6 +1,5 @@
-import { Breadcrumbs, HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import React, { useEffect, useRef, useState } from 'react'
-import ReactDOM from 'react-dom'
 import { Col, Container, Row } from 'reactstrap'
 
 import { useSearchParams } from 'react-router-dom'
@@ -21,16 +20,7 @@ import AboutAlert from '../components/AboutAlert'
 import AboutCourseContacts from '../components/AboutCourseContacts'
 import AboutHeader from '../components/AboutHeader'
 import SideMenu from '../components/SideMenu'
-
-function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
-  const breadcrumbContainer = document.getElementById('breadcrumbs-header')
-  if (breadcrumbContainer) {
-    ReactDOM.render(
-      <Breadcrumbs include={'aboutCourse'} courseCode={courseCode} language={languageAbbr} />,
-      breadcrumbContainer
-    )
-  }
-}
+import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 function removeKeysAndFlattenToArray(memosWithRoundKeys) {
   return Object.keys(memosWithRoundKeys).map(roundid => memosWithRoundKeys[roundid])

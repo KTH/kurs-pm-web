@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Container, Row, Col } from 'reactstrap'
-import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
 import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
@@ -23,16 +21,7 @@ import CourseMemoLinks from '../components/CourseMemoLinks'
 import CoverPage from '../components/print/CoverPage'
 import Contacts from '../components/print/Contacts'
 import AllSections from '../components/AllSections'
-
-function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
-  const breadcrumbContainer = document.getElementById('breadcrumbs-header')
-  if (breadcrumbContainer) {
-    ReactDOM.render(
-      <Breadcrumbs include={'aboutCourse'} courseCode={courseCode} language={languageAbbr} />,
-      breadcrumbContainer
-    )
-  }
-}
+import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 const determineContentFlexibility = () => {
   const lastColLastElem = document.getElementById('last-element-which-determines-styles')
