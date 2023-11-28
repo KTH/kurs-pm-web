@@ -197,6 +197,10 @@ APPINSIGHTS_INSTRUMENTATIONKEY=[key]
 REDIS_URI=[uri]
 ```
 
+## Pre-\*\*-git-hooks
+
+We use `husky` to run [pre-commit](/.husky/pre-commit) and [pre-push](/.husky/pre-push) hooks and `lint-staged` to run eslint and prettier.
+
 ## Nomenclature
 
 | Name             | Aliases           | Example                                       | Notes                                              |
