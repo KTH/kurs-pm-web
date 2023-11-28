@@ -170,7 +170,7 @@ docker-compose up
 
 ## Deploy
 
-The deployment process is described in [Build, release, deploy](https://confluence.sys.kth.se/confluence/x/aY3_Ag). Technical details, such as configuration, is described in [How to deploy your 🐳 application using Cellus-Registy](https://gita.sys.kth.se/Infosys/cellus-registry/blob/master/HOW-TO-DEPLOY.md) and [🔧 How To Configure Your Application For The Pipeline](https://gita.sys.kth.se/Infosys/cellus-registry/blob/master/HOW-TO-CONFIGURE.md).
+The deployment process is described in [Om kursen: Release till produktion](https://confluence.sys.kth.se/confluence/x/xIjCCg).
 
 ### Edit secrets.env
 
