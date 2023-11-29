@@ -14,7 +14,7 @@ The course information project (KIP) is an initiative at KTH that was launched i
 
 A course memo is an actual plan for taking the course. A course memo help students to plan and prepare for all the learning activities during the course offering. A course memo contains information about the goals of the course, activities, preparations, detailed information about the examination, and contacts. It is particularly important for students just before the start of the course. A teacher, or a course coordinator, creates a course memo, and it must be published no later than by course the start.
 
-Kurs-pm-web is a microservice with the public view of course memos. It uses [React](https://reactjs.org/), [MobX](https://mobx.js.org/), and is based on [node-web](https://github.com/KTH/node-web).
+Kurs-pm-web is a microservice with the public view of course memos. It uses [React](https://reactjs.org/) and is based on [node-web](https://github.com/KTH/node-web).
 
 ### API:s
 
