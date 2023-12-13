@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { WebContextProvider } from '../../context/WebContext'
 
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 
 import CourseMemo, { redirectToAbout } from '../CourseMemo'
 

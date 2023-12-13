@@ -1,24 +1,13 @@
 import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
 
 import { Container, Row, Col } from 'reactstrap'
-import { Breadcrumbs } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 import i18n from '../../../../i18n'
 import { sideMenuBackLink } from '../util/links'
 import { useWebContext } from '../context/WebContext'
 
 import SideMenu from '../components/SideMenu'
-
-function renderBreadcrumbsIntoKthHeader(courseCode, languageAbbr) {
-  const breadcrumbContainer = document.getElementById('breadcrumbs-header')
-  if (breadcrumbContainer) {
-    ReactDOM.render(
-      <Breadcrumbs include={'aboutCourse'} courseCode={courseCode} language={languageAbbr} />,
-      breadcrumbContainer
-    )
-  }
-}
+import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 function AboutCourseMemos() {
   const [webContext] = useWebContext()

@@ -1,5 +1,5 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { WebContextProvider } from '../../context/WebContext'
 
 import { MemoryRouter, Route, Routes } from 'react-router-dom'

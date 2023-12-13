@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { WebContextProvider } from '../../context/WebContext'
 
 import AboutCourseMemo from '../AboutCourseMemo'

@@ -269,14 +269,14 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 class="d-print-none"
               >
                 <h2
-                  class="sr-only"
+                  class="visually-hidden"
                   id="course-presentation"
                 >
                   Presentation av kursen
                 </h2>
                 <img
                   alt=""
-                  class="float-sm-left"
+                  class="float-sm-start"
                   id="course-presentation-image"
                   src="localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg"
                 />
