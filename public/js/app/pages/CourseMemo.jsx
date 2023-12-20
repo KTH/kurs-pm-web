@@ -166,6 +166,13 @@ function CourseMemo() {
     }
     return null
   }
+
+  const [latestMemoUrl, setLatestMemoUrl] = useState(null)
+
+  useEffect(() => {
+    setLatestMemoUrl(resolveLatestMemoUrl())
+  }, [])
+
   return (
     <Container fluid>
       <CoverPage
@@ -203,7 +210,7 @@ function CourseMemo() {
               oldMemo={isMemoOld()}
               outdatedMemo={isMemoOutdated()}
               latestMemoLabel={webContext.latestMemoLabel}
-              latestMemoUrl={resolveLatestMemoUrl()}
+              latestMemoUrl={latestMemoUrl}
               courseImageUrl={courseImageUrl}
             />
             <Row>
