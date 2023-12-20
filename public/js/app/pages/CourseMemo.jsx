@@ -99,6 +99,10 @@ function CourseMemo() {
 
   const [sourceUrl, setSourceUrl] = useState(null)
 
+  function hasNoMemoData() {
+    return Object.keys(memo).length === 0 && memo.constructor === Object
+  }
+
   useEffect(() => {
     let isMounted = true
     if (isMounted) {
@@ -145,10 +149,6 @@ function CourseMemo() {
 
   function isMemoArchived() {
     return isMemoOld() || isMemoOutdated()
-  }
-
-  function hasNoMemoData() {
-    return Object.keys(memo).length === 0 && memo.constructor === Object
   }
 
   function resolveLatestMemoUrl() {
