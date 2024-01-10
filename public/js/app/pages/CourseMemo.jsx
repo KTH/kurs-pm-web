@@ -22,6 +22,7 @@ import CoverPage from '../components/print/CoverPage'
 import Contacts from '../components/print/Contacts'
 import AllSections from '../components/AllSections'
 import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
+import { usePrintStyle } from '../hooks/usePrintStyle'
 
 const determineContentFlexibility = () => {
   const lastColLastElem = document.getElementById('last-element-which-determines-styles')
@@ -119,6 +120,19 @@ function CourseMemo() {
     return () => (isMounted = false)
   }, [])
 
+  const { printStyle } = usePrintStyle()
+  const printStrap = printStyle ? 'm-5 pt-5' : ''
+  // const [printStyle, setPrintStyle] = useState(false)
+
+  // useEffect(() => {
+  //   window.onbeforeprint = () => {
+  //     setPrintStyle(true)
+  //   }
+  //   window.onafterprint = () => {
+  //     setPrintStyle(false)
+  //   }
+  // }, [])
+
   const courseImage = resolveCourseImage(webContext.imageFromAdmin, webContext.courseMainSubjects, memoLanguage)
   const courseImageUrl = `${webContext.browserConfig.imageStorageUri}${courseImage}`
   const memoLanguageIndex = getLangIndex(memoLanguage)
@@ -190,7 +204,7 @@ function CourseMemo() {
         url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
-      <Row>
+      <Row className={printStrap}>
         <SideMenu
           courseCode={courseCode}
           courseMemoItems={courseMemoItems}

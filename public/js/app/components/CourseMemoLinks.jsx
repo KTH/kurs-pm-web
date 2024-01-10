@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button } from 'reactstrap'
-
-const printDialog = () => window.print()
+import { usePrintStyle } from '../hooks/usePrintStyle'
 
 const formatVersion = (languageIndex = 1, lastChangeDate) => {
   const unixTime = Date.parse(lastChangeDate)
@@ -39,15 +38,18 @@ const Version = ({ language, labels, lastChangeDate, version, archived }) => {
   )
 }
 
-const PrintDialogLink = ({ labels }) => (
-  <>
-    <h3>{labels.courseMemoPrint}</h3>
-    <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
-      <svg className="print-icon" />
-      {labels.printDialog}
-    </Button>
-  </>
-)
+const PrintDialogLink = ({ labels }) => {
+  const { printDialog } = usePrintStyle()
+  return (
+    <>
+      <h3>{labels.courseMemoPrint}</h3>
+      <Button id="print-link" className="print-link" color="link" onClick={printDialog}>
+        <svg className="print-icon" />
+        {labels.printDialog}
+      </Button>
+    </>
+  )
+}
 
 const CourseMemoLinks = ({ language, labels, memoData = {}, courseMemoName, archivedMemo }) => (
   <aside aria-labelledby="memo-documents">
