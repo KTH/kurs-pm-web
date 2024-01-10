@@ -119,6 +119,17 @@ function CourseMemo() {
     return () => (isMounted = false)
   }, [])
 
+  const [printStyle, setPrintStyle] = useState(false)
+
+  useEffect(() => {
+    window.onbeforeprint = () => {
+      setPrintStyle(true)
+    }
+    window.onafterprint = () => {
+      setPrintStyle(false)
+    }
+  }, [])
+
   const courseImage = resolveCourseImage(webContext.imageFromAdmin, webContext.courseMainSubjects, memoLanguage)
   const courseImageUrl = `${webContext.browserConfig.imageStorageUri}${courseImage}`
   const memoLanguageIndex = getLangIndex(memoLanguage)
@@ -190,7 +201,7 @@ function CourseMemo() {
         url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
-      <Row>
+      <Row className={printStyle ? 'm-5 pt-5' : ''}>
         <SideMenu
           courseCode={courseCode}
           courseMemoItems={courseMemoItems}

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button } from 'reactstrap'
 
-const printDialog = () => window.print()
+// setTimeout used to queue rendering of print styles before printing
+const printDialog = () => setTimeout(() => window.print())
 
 const formatVersion = (languageIndex = 1, lastChangeDate) => {
   const unixTime = Date.parse(lastChangeDate)
