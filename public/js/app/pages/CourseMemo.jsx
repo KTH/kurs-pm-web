@@ -190,7 +190,7 @@ function CourseMemo() {
         url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
-      <Row>
+      <Row className="p-print-4">
         <SideMenu
           courseCode={courseCode}
           courseMemoItems={courseMemoItems}
