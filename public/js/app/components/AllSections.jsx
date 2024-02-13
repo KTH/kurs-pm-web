@@ -4,6 +4,7 @@ import { Alert } from 'reactstrap'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { EMPTY } from '../util/constants'
+import { getAllSectionsAndHeadingsToShow, headingAllowedToBeShownEvenIfNoContent } from '../util/AllSectionsUtils'
 
 import Section from './Section'
 import ContentFromNewSectionEditor from './ContentFromNewSectionEditor'
@@ -14,110 +15,77 @@ function AllSections({ memoData, memoLanguageIndex }) {
   }
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
-  // TODO Refactor logic for visible sections
-  const sectionsWithContent = []
-  sections.forEach(({ id, content, extraHeaderTitle }) => {
-    content.forEach(contentId => {
-      const { isRequired, type } = context[contentId]
-      let contentHtml = memoData[contentId]
-      let visibleInMemo = memoData.visibleInMemo[contentId]
-      if (typeof visibleInMemo === 'undefined') {
-        visibleInMemo = true
-      }
+  const sectionsAndContent = getAllSectionsAndHeadingsToShow({ sections, context, memoData })
 
-      if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
-        contentHtml = EMPTY[memoLanguageIndex]
-      } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
-        visibleInMemo = false
-      } else if (!contentHtml) {
-        visibleInMemo = false
-      }
-      if (visibleInMemo && !sectionsWithContent.includes(id)) {
-        sectionsWithContent.push(id)
-      }
-    })
-
-    if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
-      memoData[extraHeaderTitle].forEach(m => {
-        if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
-          sectionsWithContent.push(id)
-        }
-      })
-    }
-  })
-
-  // TODO Refactor logic for visible sections
-  return sections.map(({ id, content, extraHeaderTitle }) => {
-    if (!sectionsWithContent.includes(id)) {
-      return (
-        <section key={id} aria-labelledby={id}>
-          <h2 id={id} key={'header-' + id}>
-            {sectionsLabels[id]}
-          </h2>
-          <p>
-            <i>{EMPTY[memoLanguageIndex]}</i>
-          </p>
-        </section>
-      )
+  return sectionsAndContent.map(({ id, headings, hasHeadingOrExtraHeading, extraHeaderTitle }) => {
+    if (!hasHeadingOrExtraHeading) {
+      return <EmptySection key={id} id={id} sectionsLabels={sectionsLabels} memoLanguageIndex={memoLanguageIndex} />
     }
 
     return (
-      id !== 'contacts' && (
-        <section key={id} aria-labelledby={id}>
-          <h2 id={id} key={'header-' + id}>
-            {sectionsLabels[id]}
-          </h2>
-          {content.map(contentId => {
-            const menuId = id + '-' + contentId
+      <SectionWrapper key={id} id={id} sectionsLabels={sectionsLabels}>
+        <Sections headings={headings} id={id} memoData={memoData} memoLanguageIndex={memoLanguageIndex} />
 
-            const { isRequired, type } = context[contentId]
-            let contentHtml = memoData[contentId]
-            let visibleInMemo = memoData.visibleInMemo[contentId]
-            if (typeof visibleInMemo === 'undefined') {
-              visibleInMemo = true
-            }
-
-            if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
-              contentHtml = EMPTY[memoLanguageIndex]
-            } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
-              visibleInMemo = false
-            } else if (!contentHtml) {
-              visibleInMemo = false
-            }
-
-            return (
-              visibleInMemo && (
-                <Section
-                  memoLangIndex={memoLanguageIndex}
-                  contentId={contentId}
-                  menuId={menuId}
-                  key={contentId}
-                  visibleInMemo={visibleInMemo}
-                  html={contentHtml}
-                />
-              )
-            )
-          })}
-          {extraHeaderTitle &&
-            Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
-              <ContentFromNewSectionEditor
-                contentId={extraHeaderTitle}
-                key={uKey}
-                initialTitle={title}
-                initialValue={htmlContent}
-                visibleInMemo={visibleInMemo}
-                isEmptyNew={isEmptyNew}
-                uKey={uKey}
-                onEditorChange={() => {}}
-                onBlur={() => {}}
-                onRemove={() => {}}
-              />
-            ))}
-        </section>
-      )
+        <ExtraHeaders extraHeaderTitle={extraHeaderTitle} memoData={memoData} />
+      </SectionWrapper>
     )
   })
 }
 
 export default AllSections
+
+const EmptySection = ({ id, sectionsLabels, memoLanguageIndex }) => (
+  <SectionWrapper id={id} sectionsLabels={sectionsLabels}>
+    <p>
+      <i>{EMPTY[memoLanguageIndex]}</i>
+    </p>
+  </SectionWrapper>
+)
+
+const SectionWrapper = ({ id, sectionsLabels, children }) => (
+  <section key={id} aria-labelledby={id}>
+    <h2 id={id} key={'header-' + id}>
+      {sectionsLabels[id]}
+    </h2>
+    {children}
+  </section>
+)
+
+const Sections = ({ headings, id, memoData, memoLanguageIndex }) =>
+  headings.map(contentId => {
+    const menuId = id + '-' + contentId
+
+    const { isRequired, type } = context[contentId]
+    let contentHtml = memoData[contentId]
+
+    if (headingAllowedToBeShownEvenIfNoContent(isRequired, type) && !contentHtml) {
+      contentHtml = EMPTY[memoLanguageIndex]
+    }
+
+    return (
+      <Section
+        memoLangIndex={memoLanguageIndex}
+        contentId={contentId}
+        menuId={menuId}
+        key={contentId}
+        visibleInMemo={true}
+        html={contentHtml}
+      />
+    )
+  })
+
+const ExtraHeaders = ({ extraHeaderTitle, memoData }) => {
+  if (!extraHeaderTitle) {
+    return null
+  }
+
+  return memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
+    <ContentFromNewSectionEditor
+      key={uKey}
+      title={title}
+      htmlContent={htmlContent}
+      isEmptyNew={isEmptyNew}
+      visibleInMemo={visibleInMemo}
+    />
+  ))
+}
