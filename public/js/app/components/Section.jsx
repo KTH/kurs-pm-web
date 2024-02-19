@@ -1,7 +1,7 @@
 import React from 'react'
-import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
+import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import HtmlWrapper from './HtmlWrapper'
 
 const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* en */ }) => {
