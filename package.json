@@ -72,7 +72,7 @@
     "@kth/eslint-config-kth": "^3.1.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.1.2",
-    "@types/jest": "^29.5.10",
+    "@types/jest": "^29.5.12",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.3",
     "concurrently": "^8.2.2",
