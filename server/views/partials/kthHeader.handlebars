@@ -1,36 +1,69 @@
 <!--indexOff: all-->
-<header lang={{lang}}>
-  <div class="container-fluid">
-    <div class="container">
-      <div class="header-container__top">
-        {{{blocks.image}}}
-        <div class="block siteName">
-          <a href={{aboutCourse.siteUrl}}>{{aboutCourse.siteName}}</a>
-        </div>
-        <div class="block list links secondaryMenu" lang={{lang}}>
-          {{{blocks.secondaryMenu}}}
-        </div>
-        <div id="mobileMenuWrapper">
-          <button id="nav-icon" class="navbar-toggler nav-icon" type="button"
-            title="{{i18n 'button_mobile_menu_label' lang}}">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <nav id="mobileMenu" aria-label="{{i18n 'mobile_menu_aria_label' lang}}"
-            class="block navbar navbar-expand-lg navbar-light">
-            <div id="mobileMenuContent" class="navbar-collapse collapse">
-              <ul id="mobileMenuList" class="menu navbar-nav mr-auto"></ul>
+<header class="kth-header {{{theme}}}">
+      <div class="kth-header__container">
+        <a href="/" class="kth-logotype">
+          <figure>
+            <img class="blue" alt="Till KTH:s startsida" width="64" height="64" src="{{{proxyPrefix}}}/assets/logotype/logotype-blue.svg">
+            <img class="white" alt="Till KTH:s startsida" width="64" height="64" src="{{{proxyPrefix}}}/assets/logotype/logotype-white.svg">
+          </figure>
+        </a>
+    {{{blocks.megaMenu}}}
+    <ul class="kth-header__tools">
+      <li>
+        <button class="kth-menu-item search">
+          <span>Search</span>
+        </button>
+        <dialog class="kth-menu-panel">
+          <div class="kth-menu-panel__container">
+            <button class="kth-icon-button close">
+              <span class="kth-visually-hidden">Close</span>
+            </button>
+            <div class="kth-menu-panel__content search">
+              <form action="https://kth.se/search" method="get">
+                <div class="kth-search">
+                  <label for="search-input">Sök på Studentwebben</label>
+                  <input
+                      type="hidden"
+                      name="urlFilter"
+                      value="https://www.kth.se/student"
+                    /><input
+                      type="hidden"
+                      name="entityFilter"
+                      value="kth-profile,kth-course,kth-place,kth-program,kth-system"
+                    /><input type="hidden" name="documentFilter" value="" /><input
+                      type="hidden"
+                      name="filterLabel"
+                      value="Sök på Studentwebben"
+                    /><input type="hidden" name="l" value="sv" /><input
+                      type="hidden"
+                      value="false"
+                      name="noscript"
+                      class="noscriptInput"
+                    />
+                  <input type="text" id="search-input" name="q" autocomplete="off" autofocus="">
+                  <button type="submit">
+                    <span class="kth-visually-hidden">Search</span>
+                  </button>
+                </div>
+              </form>
             </div>
-          </nav>
-        </div>
-      </div>
-      <div class="header-container__bottom">{{{blocks.studentMegaMenu}}} {{{blocks.studentSearch}}}</div>
-    </div>
+          </div>
+      </dialog>
+    </li>
+      <li>
+        <a href="" class="kth-menu-item language">
+          <span>English</span>
+        </a>
+      </li>
+      <li>
+        <nav class="kth-mega-menu--collapsable">
+          <button class="kth-menu-item">
+            <span>Menu in mobile</span>
+          </button>
+        </nav>
+      </li>
+    </ul>
   </div>
-  <div id="gradientBorder"></div>
-
   <div class="container articleNavigation d-print-none">
     <div id="breadcrumbs-header" class="row justify-content-between d-print-none">
       {{!-- HERE WILL BE RENDERED REACT COMPONENT Breadcrumbs --}}

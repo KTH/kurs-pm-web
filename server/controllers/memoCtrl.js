@@ -273,11 +273,12 @@ async function getContent(req, res, next) {
         siteUrl: '/student/kurser/kurs/' + courseCode,
       },
       compressedData,
-      description: shortDescription,
-      instrumentationKey: serverConfig.appInsights.instrumentationKey,
-      html: view,
-      lang: responseLanguage,
       proxyPrefix,
+      lang: responseLanguage,
+      description: shortDescription,
+      html: view,
+      instrumentationKey: serverConfig.appInsights.instrumentationKey,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -381,9 +382,11 @@ async function getOldContent(req, res, next) {
       },
       compressedData,
       description: shortDescription,
-      html: view,
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
+      html: view,
       lang: responseLanguage,
+      proxyPrefix,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -459,11 +462,14 @@ async function getAboutContent(req, res, next) {
         siteUrl: '/student/kurser/kurs/' + courseCode,
       },
       compressedData,
+      proxyPrefix,
+      lang: responseLanguage,
       description: shortDescription,
       html: view,
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
-      lang: responseLanguage,
       klaroAnalyticsConsentCookie,
+      theme: 'student-web',
+
     })
   } catch (err) {
     log.error('Error', { error: err })
@@ -503,9 +509,11 @@ async function getNoContent(req, res, next) {
         siteUrl: '',
       },
       compressedData,
+      proxyPrefix,
+      lang: responseLanguage,
       description: shortDescription,
       html: view,
-      lang: responseLanguage,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getNoContent', { error: err })
