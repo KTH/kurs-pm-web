@@ -12,6 +12,7 @@ const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
+const { createBreadcrumbs } = require('../utils/breadcrumbUtil')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext } = require('../ssr-context/createServerSideContext')
 const {
@@ -267,6 +268,8 @@ async function getContent(req, res, next) {
       context: webContext,
     })
 
+    const breadcrumbsList = createBreadcrumbs(responseLanguage, courseCode)
+
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -278,6 +281,7 @@ async function getContent(req, res, next) {
       html: view,
       lang: responseLanguage,
       proxyPrefix,
+      breadcrumbsList,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -374,6 +378,8 @@ async function getOldContent(req, res, next) {
       context: webContext,
     })
 
+    const breadcrumbsList = createBreadcrumbs(responseLanguage, courseCode)
+
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -384,6 +390,7 @@ async function getOldContent(req, res, next) {
       html: view,
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
+      breadcrumbsList,
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -453,6 +460,8 @@ async function getAboutContent(req, res, next) {
       context: webContext,
     })
 
+    const breadcrumbsList = createBreadcrumbs(responseLanguage, courseCode)
+
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -464,6 +473,7 @@ async function getAboutContent(req, res, next) {
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
       klaroAnalyticsConsentCookie,
+      breadcrumbsList,
     })
   } catch (err) {
     log.error('Error', { error: err })
@@ -497,6 +507,8 @@ async function getNoContent(req, res, next) {
       context: webContext,
     })
 
+    const breadcrumbsList = createBreadcrumbs(responseLanguage, undefined)
+
     res.render('memo/index', {
       aboutCourse: {
         siteName: shortDescription,
@@ -506,6 +518,7 @@ async function getNoContent(req, res, next) {
       description: shortDescription,
       html: view,
       lang: responseLanguage,
+      breadcrumbsList,
     })
   } catch (err) {
     log.error('Error in getNoContent', { error: err })

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Container, Row, Col } from 'reactstrap'
 
@@ -7,20 +7,11 @@ import { sideMenuBackLink } from '../util/links'
 import { useWebContext } from '../context/WebContext'
 
 import SideMenu from '../components/SideMenu'
-import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 function AboutCourseMemos() {
   const [webContext] = useWebContext()
   const translate = i18n.messages[webContext.userLanguageIndex]
   const { courseCode, language } = webContext
-
-  useEffect(() => {
-    let isMounted = true
-    if (isMounted) {
-      renderBreadcrumbsIntoKthHeader(courseCode, language)
-    }
-    return () => (isMounted = false)
-  }, [])
 
   return (
     <Container fluid>

@@ -21,7 +21,6 @@ import CourseMemoLinks from '../components/CourseMemoLinks'
 import CoverPage from '../components/print/CoverPage'
 import Contacts from '../components/print/Contacts'
 import AllSections from '../components/AllSections'
-import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 const determineContentFlexibility = () => {
   const lastColLastElem = document.getElementById('last-element-which-determines-styles')
@@ -110,7 +109,6 @@ function CourseMemo() {
         const stateForRedirect = redirectToAbout(courseCode, location)
         navigate(`/${courseCode}/om-kurs-pm`, { state: stateForRedirect })
       }
-      renderBreadcrumbsIntoKthHeader(courseCode, language)
       // Decide which content can have wider content (exempel tables, to make them more readable)
       determineContentFlexibility()
 
