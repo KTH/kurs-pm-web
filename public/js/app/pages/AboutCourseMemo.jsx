@@ -20,7 +20,6 @@ import AboutAlert from '../components/AboutAlert'
 import AboutCourseContacts from '../components/AboutCourseContacts'
 import AboutHeader from '../components/AboutHeader'
 import SideMenu from '../components/SideMenu'
-import { renderBreadcrumbsIntoKthHeader } from '../util/breadcrumbs'
 
 function removeKeysAndFlattenToArray(memosWithRoundKeys) {
   return Object.keys(memosWithRoundKeys).map(roundid => memosWithRoundKeys[roundid])
@@ -270,11 +269,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   useEffect(() => {
     setAllRounds(allRoundsMockOrReal)
-    let isMounted = true
-    if (isMounted) {
-      renderBreadcrumbsIntoKthHeader(courseCode, userLangAbbr)
-    }
-    return () => (isMounted = false)
   }, [])
 
   return (
