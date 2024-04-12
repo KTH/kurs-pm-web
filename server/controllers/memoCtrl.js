@@ -280,6 +280,7 @@ async function getContent(req, res, next) {
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       html: view,
       lang: responseLanguage,
+      toolbarUrl: serverConfig.toolbar.url,
       proxyPrefix,
       breadcrumbsList,
     })
@@ -390,6 +391,7 @@ async function getOldContent(req, res, next) {
       html: view,
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
+      toolbarUrl: serverConfig.toolbar.url,
       breadcrumbsList,
     })
   } catch (err) {
@@ -473,6 +475,7 @@ async function getAboutContent(req, res, next) {
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
       klaroAnalyticsConsentCookie,
+      toolbarUrl: serverConfig.toolbar.url,
       breadcrumbsList,
     })
   } catch (err) {
@@ -518,6 +521,7 @@ async function getNoContent(req, res, next) {
       description: shortDescription,
       html: view,
       lang: responseLanguage,
+      toolbarUrl: serverConfig.toolbar.url,
       breadcrumbsList,
     })
   } catch (err) {

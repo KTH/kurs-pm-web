@@ -28,13 +28,7 @@
   {{prefixScript '/static/kth-style/js/menus.js' 'head-scripts'}}
   {{prefixScript '/static/kth-style/js/backtotop.js' 'head-scripts'}}
 
-  {{#extend 'head-scripts'}}
-    <script src="//www.kth.se/social/toolbar/widget.js"></script>
-  {{/extend}}
-
-  {{#if debug}}
-    {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
-  {{/if}}
+  <script src="{{toolbarUrl}}"></script>
 
   {{{render 'head-scripts'}}}
   {{#if instrumentationKey}}
