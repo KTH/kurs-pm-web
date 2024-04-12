@@ -47,7 +47,7 @@ describe('Component <SideMenu>', () => {
   test('renders memos', done => {
     const { getAllByRole } = render(<SideMenu labels={sideMenuLabels} courseMemoItems={mockCourseMemoItems} />)
     const listItems = getAllByRole('listitem')
-    expect(listItems).toHaveLength(10)
+    expect(listItems).toHaveLength(8)
     done()
   })
 })
