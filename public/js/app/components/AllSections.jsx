@@ -43,7 +43,7 @@ const EmptySection = ({ id, sectionsLabels, memoLanguageIndex }) => (
 )
 
 const SectionWrapper = ({ id, sectionsLabels, children }) => (
-  <section key={id} aria-labelledby={id}>
+  <section key={id} aria-labelledby={id} className="section-wrapper">
     <h2 id={id} key={'header-' + id}>
       {sectionsLabels[id]}
     </h2>

@@ -224,38 +224,22 @@ function CourseMemo() {
               <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
             </Col>
             <Col lg="4" className="d-print-none content-right">
-              <Row className="mb-lg-4">
-                <Col>
-                  <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memo} />
-                </Col>
-              </Row>
-              <Row className="my-lg-4">
-                <Col>
-                  <CourseMemoLinks
-                    language={memoLanguageIndex}
-                    labels={courseMemoLinksLabels}
-                    extraInfo={extraInfo}
-                    memoData={memo}
-                    courseMemoName={concatMemoName(semester, applicationCodes, memoLanguage)}
-                    archivedMemo={isMemoArchived()}
-                  />
-                </Col>
-              </Row>
-              <Row className="mt-lg-4">
-                <Col>
-                  <CourseLinks language={memoLanguage} labels={courseLinksLabels} />
-                </Col>
-              </Row>
-              <Row id="row-for-the-last-element-which-determines-styles" className="mt-lg-4">
-                <Col>
-                  <CourseContacts
-                    styleId="last-element-which-determines-styles"
-                    language={memoLanguage}
-                    memoData={memo}
-                    labels={courseContactsLabels}
-                  />
-                </Col>
-              </Row>
+              <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memo} />
+              <CourseMemoLinks
+                language={memoLanguageIndex}
+                labels={courseMemoLinksLabels}
+                extraInfo={extraInfo}
+                memoData={memo}
+                courseMemoName={concatMemoName(semester, applicationCodes, memoLanguage)}
+                archivedMemo={isMemoArchived()}
+              />
+              <CourseLinks language={memoLanguage} labels={courseLinksLabels} />
+              <CourseContacts
+                styleId="last-element-which-determines-styles"
+                language={memoLanguage}
+                memoData={memo}
+                labels={courseContactsLabels}
+              />
             </Col>
           </Row>
         </main>

@@ -290,33 +290,26 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
           labels={aboutHeaderLabels}
           language={userLangAbbr}
         />
-        <Row>
-          <Col>
-            <section>
-              <p>{aboutMemoLabels.aboutMemosText1}</p>
-              <p>
-                {aboutMemoLabels.aboutMemosText2}
-                <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-              </p>
-            </section>
-          </Col>
-        </Row>
+        <section className="prose">
+          <p>{aboutMemoLabels.aboutMemosText1}</p>
+          <p>
+            {aboutMemoLabels.aboutMemosText2}
+            <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
+          </p>
+        </section>
+
         {noMemoAlert && noMemoAlert.noMemoData && (
-          <Row>
-            <Col>
-              <AboutAlert
-                courseCode={courseCode}
-                semester={noMemoAlert.semester}
-                applicationCodes={noMemoAlert.applicationCodes ?? []}
-                language={userLangAbbr}
-                courseMemosExist={memoDatas.length > 0}
-              />
-            </Col>
-          </Row>
+          <AboutAlert
+            courseCode={courseCode}
+            semester={noMemoAlert.semester}
+            applicationCodes={noMemoAlert.applicationCodes ?? []}
+            language={userLangAbbr}
+            courseMemosExist={memoDatas.length > 0}
+          />
         )}
         <Row>
           <Col lg="8" className="text-break">
-            <section>
+            <section className="prose">
               <HeadingAsteriskModal
                 headingTag="h2"
                 langAbbr={userLangAbbr}
@@ -334,43 +327,39 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
                   <React.Fragment key={semester}>
                     <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                     {memos.map(memo => (
-                      <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
-                        <div className="mb-3">
-                          <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                          {'isPdf' in memo ? (
-                            (memo.isPdf && (
-                              <a
-                                className="pdf-link"
-                                href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
-                              >
-                                {memoNameWithCourseCode(courseCode, memo.semester, memo.applicationCodes, userLangAbbr)}
-                              </a>
-                            )) || (
-                              <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
-                                {memoNameWithCourseCode(
-                                  courseCode,
-                                  memo.semester,
-                                  memo.applicationCodes,
-                                  memo.memoCommonLangAbbr
-                                )}
-                              </a>
-                            )
-                          ) : (
-                            <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
-                          )}
-                        </div>
-                      </div>
+                      <React.Fragment key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
+                        <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
+                        {'isPdf' in memo ? (
+                          (memo.isPdf && (
+                            <a
+                              className="pdf-link"
+                              href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
+                            >
+                              {memoNameWithCourseCode(courseCode, memo.semester, memo.applicationCodes, userLangAbbr)}
+                            </a>
+                          )) || (
+                            <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
+                              {memoNameWithCourseCode(
+                                courseCode,
+                                memo.semester,
+                                memo.applicationCodes,
+                                memo.memoCommonLangAbbr
+                              )}
+                            </a>
+                          )
+                        ) : (
+                          <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                        )}
+                      </React.Fragment>
                     ))}
                   </React.Fragment>
                 )
               })}
               <h3>{aboutMemoLabels.previousOfferings}</h3>
-              <ul>
-                <li>
-                  {aboutMemoLabels.previousOfferingsText}
-                  <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-                </li>
-              </ul>
+              <p>
+                {aboutMemoLabels.previousOfferingsText}
+                <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
+              </p>
             </section>
           </Col>
           <Col lg="4" className="content-right">
