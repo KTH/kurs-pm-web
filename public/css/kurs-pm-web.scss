@@ -20,7 +20,6 @@
 @use '~@kth/style/scss/components/content.scss';
 @use '~@kth/style/scss/components/local-navigation.scss';
 
-
 @import 'node_modules/kth-style/public/sass/custom/common/icons';
 
 @import 'shared';
@@ -40,84 +39,6 @@ $icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 
 article {
   @include prose.prose;
-}
-
-.memo-header {
-  width: 100%;
-  height: auto;
-}
-
-.col-like {
-  padding: 0 15px;
-  width: 100%;
-}
-
-header.col.memo-header {
-  padding-left: 0;
-}
-
-#page-sub-heading-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 100%;
-  margin: 15px 0;
-  padding-left: 15px;
-}
-
-#page-sub-heading-admin-link {
-  line-height: 1.375;
-  margin-bottom: 14px;
-  margin-top: 0.325rem;
-  text-align: right;
-}
-
-@media (max-width: 991.98px) {
-  #page-sub-heading-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: normal;
-  }
-  #page-sub-heading-admin-link {
-    text-align: left;
-  }
-}
-
-@media (min-width: 992px) {
-  #mainMenu.col.navbar.navbar-expand-lg.navbar-light
-    #navbarNav.collapse.navbar-collapse
-    ul.nav.nav-list.expandable
-    li.nav-item.node.expanded {
-    background: url($icon-expanded-svg) 100% 14px/14px no-repeat;
-  }
-  #mainMenu.col.navbar {
-    padding: 0 35px 15px 1rem;
-  }
-  #mainMenu.col.navbar .nav-link.active {
-    font-weight: 700;
-  }
-  .nav-link.active {
-    color: var(--color-text);
-  }
-  .nav-item.leaf.selected {
-    letter-spacing: -0.01rem;
-  }
-}
-
-#mobileMenu.navbar.navbar-expand-lg.navbar-light {
-  #mobileMenuContent.navbar-collapse.collapse.show ul.menu.navbar-nav.mr-auto {
-    & > li.nav-item.node.selected.expanded {
-      background: url($icon-expanded-svg) 100% 14px/14px no-repeat;
-    }
-    a.aboutMemos.memosLink {
-      border-top: 1px solid #d4d4d4;
-    }
-    a.memosLink {
-      padding-left: 10px;
-    }
-  }
 }
 
 section[aria-labelledby='course-presentation'] {
@@ -254,10 +175,6 @@ h2.info {
     text-indent: 0;
     padding-inline-start: 0;
   }
-}
-
-.container.main {
-  padding-top: 2em;
 }
 
 .inline-alert {

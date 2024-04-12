@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Container, Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { sideMenuBackLink } from '../util/links'
@@ -14,27 +14,25 @@ function AboutCourseMemos() {
   const { courseCode, language } = webContext
 
   return (
-    <Container fluid>
-      <Row>
-        <SideMenu
-          courseCode=""
-          courseMemoItems={[]}
-          aboutCourseMemo
-          backLink={sideMenuBackLink[language]}
-          labels={translate.sideMenuLabels}
-          language={language}
-        />
-        <Col className="col-print-12" lang={language}>
-          <main>
-            <Row>
-              <Col>
-                <h1 className="course-header-title">{translate.messages.memoLabel}</h1>
-              </Col>
-            </Row>
-          </main>
-        </Col>
-      </Row>
-    </Container>
+    <Row>
+      <SideMenu
+        courseCode=""
+        courseMemoItems={[]}
+        aboutCourseMemo
+        backLink={sideMenuBackLink[language]}
+        labels={translate.sideMenuLabels}
+        language={language}
+      />
+      <Col id="mainContent" className="col-print-12" lang={language}>
+        <main>
+          <Row>
+            <Col>
+              <h1 className="course-header-title">{translate.messages.memoLabel}</h1>
+            </Col>
+          </Row>
+        </main>
+      </Col>
+    </Row>
   )
 }
 
