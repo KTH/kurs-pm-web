@@ -101,6 +101,8 @@ server.use(
 server.use(config.proxyPrefixPath.uri + '/static/browserConfig', browserConfigHandler)
 // Files/statics routes
 server.use(config.proxyPrefixPath.uri + '/static/kth-style', express.static('./node_modules/kth-style/dist'))
+server.use(config.proxyPrefixPath.uri + '/assets', express.static('./node_modules/@kth/style/assets'))
+
 // Map static content like images, css and js.
 server.use(config.proxyPrefixPath.uri + '/static', express.static('./dist'))
 
