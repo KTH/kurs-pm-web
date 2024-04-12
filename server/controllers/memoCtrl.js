@@ -283,6 +283,7 @@ async function getContent(req, res, next) {
       toolbarUrl: serverConfig.toolbar.url,
       proxyPrefix,
       breadcrumbsList,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -392,7 +393,9 @@ async function getOldContent(req, res, next) {
       instrumentationKey: serverConfig.appInsights.instrumentationKey,
       lang: responseLanguage,
       toolbarUrl: serverConfig.toolbar.url,
+      proxyPrefix,
       breadcrumbsList,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getContent', { error: err })
@@ -476,7 +479,9 @@ async function getAboutContent(req, res, next) {
       lang: responseLanguage,
       klaroAnalyticsConsentCookie,
       toolbarUrl: serverConfig.toolbar.url,
+      proxyPrefix,
       breadcrumbsList,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error', { error: err })
@@ -522,7 +527,9 @@ async function getNoContent(req, res, next) {
       html: view,
       lang: responseLanguage,
       toolbarUrl: serverConfig.toolbar.url,
+      proxyPrefix,
       breadcrumbsList,
+      theme: 'student-web',
     })
   } catch (err) {
     log.error('Error in getNoContent', { error: err })
