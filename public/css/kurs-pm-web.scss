@@ -23,6 +23,7 @@
 @import 'node_modules/kth-style/public/sass/custom/common/icons';
 
 @import 'shared';
+@import 'fix';
 @import 'table'; // defines %table-style
 @import 'print';
 
@@ -94,7 +95,12 @@ section[aria-labelledby='course-presentation'] {
   box-shadow: none !important;
 }
 
+span:has(> .btn-info-modal) {
+  display: inline-flex;
+}
+
 .btn-info-modal {
+  font-size: 16px;
   margin-left: 10px;
 }
 
