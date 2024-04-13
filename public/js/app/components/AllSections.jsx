@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from 'reactstrap'
+import Alert from '../components-shared/Alert'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'

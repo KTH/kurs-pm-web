@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from 'reactstrap'
+import Alert from '../components-shared/Alert'
 
 import i18n from '../../../../i18n'
 import { aboutCourseLink } from '../util/links'
@@ -9,25 +9,14 @@ const AboutAlert = ({ courseCode, semester, applicationCodes, language, courseMe
   const languageIndex = getLangIndex(language)
   const { aboutMemoLabels } = i18n.messages[languageIndex]
 
+  const headerText = getHeaderText(courseCode, language, applicationCodes, semester, courseMemosExist)
+
   return (
-    <Alert className="inline-alert" color="danger">
-      <Header
-        courseCode={courseCode}
-        semester={semester}
-        applicationCodes={applicationCodes}
-        language={language}
-        courseMemosExist={courseMemosExist}
-      />
+    <Alert className="inline-alert" color="warning" header={headerText}>
       <p>{aboutMemoLabels.shouldBePublished}</p>
       <CourseInformation aboutMemoLabels={aboutMemoLabels} courseCode={courseCode} language={language} />
     </Alert>
   )
-}
-
-const Header = ({ courseCode, semester, applicationCodes, language, courseMemosExist }) => {
-  let headerText = getHeaderText(courseCode, language, applicationCodes, semester, courseMemosExist)
-
-  return <h2 className="t4">{headerText}</h2>
 }
 
 const getHeaderText = (courseCode, language, applicationCodes, semester, courseMemosExist) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Row, Alert } from 'reactstrap'
+import Alert from '../components-shared/Alert'
 import { adminLink, aboutCourseMemoLink } from '../util/links'
 
 const CourseHeader = ({
@@ -13,7 +13,6 @@ const CourseHeader = ({
   outdatedMemo,
   latestMemoLabel,
   latestMemoUrl,
-  courseImageUrl,
 }) => {
   const {
     adminLinkLabel,

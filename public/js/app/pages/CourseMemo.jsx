@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { Container, Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
@@ -217,7 +217,7 @@ function CourseMemo() {
                 introText={webContext.sellingText}
                 labels={coursePresentationLabels}
               />
-              <p>
+              <p className="mb-4">
                 {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, validFromTerm)}
               </p>
               <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />

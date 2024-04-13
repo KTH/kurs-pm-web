@@ -333,7 +333,9 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
               <div />
             </article>
           </section>
-          <p>
+          <p
+            class="mb-4"
+          >
             Rubriker markerade med en asterisk ( * ) kommer från kursplan version VT 2018
           </p>
           <section
@@ -643,13 +645,10 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 Skriv ut eller spara
               </h3>
               <button
-                class="print-link btn btn-link"
+                class="print-link"
+                color="link"
                 id="print-link"
-                type="button"
               >
-                <svg
-                  class="print-icon"
-                />
                 Skriv ut eller spara kurs-PM
               </button>
             </div>
