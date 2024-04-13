@@ -1,7 +1,22 @@
+@use '~@kth/style/scss/utils/prose.scss';
+
 // Spacing, make sure this is the same as $spacer from bootstrap
 $spacer: 1.3rem;
 
 @media print {
+  @page {
+    margin: 13mm;
+  }
+  #app {
+    padding: 0;
+  }
+  .kth-local-navigation,
+  .kth-local-navigation--mobile,
+  .kth-mega-menu,
+  .kth-header__tools,
+  .kth-content.articleNavigation {
+    display: none !important;
+  }
   .p-print-0 {
     padding: 0 !important;
   }
@@ -23,8 +38,9 @@ $spacer: 1.3rem;
 
   h1 {
     font-size: 32pt;
-    margin-bottom: 6pt;
+    margin-bottom: 12pt;
   }
+
   .memo-subtitle {
     font-size: 24pt;
     font-weight: 600;
@@ -42,13 +58,22 @@ $spacer: 1.3rem;
     margin-left: 13mm;
     margin-right: 13mm;
     break-after: page;
+    p {
+      margin-bottom: 1rem;
+    }
+    h1 {
+      line-height: 3.5rem;
+    }
+    h2 {
+      font-size: 32pt;
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
   }
   .cover-page-links {
     margin-top: 82px; // h2: 28+40+14
   }
-  .container,
-  .container-fluid,
-  .header-container__top {
+  .kth-content {
     max-width: none !important;
     min-width: 0 !important;
     margin: 0 !important;
@@ -66,5 +91,11 @@ $spacer: 1.3rem;
     img {
       display: none;
     }
+  }
+  .section-wrapper article > h3:first-of-type {
+    margin-block-start: 2rem !important;
+  }
+  .print-contacts {
+    @include prose.prose;
   }
 }

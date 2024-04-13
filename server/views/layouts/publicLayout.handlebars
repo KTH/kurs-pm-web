@@ -64,23 +64,7 @@
     </div>
   </div>
   {{> kthFooter }}
-  {{{render 'scripts'}}}
-    <script type="text/javascript">
-    // @page in CSS causes style override issues
-    (function () {
-      var m = window.matchMedia('print')
-      function h(e) {
-        if (e.matches) {
-          document.body.style = 'margin-top: 0 !important;'
-        } else {
-          document.body.style = ''
-        }
-      }
-      m.addListener(h)
-      h(m)
-    })();
-  </script>
-  
+  {{{render 'scripts'}}}  
 </body>
 
 </html>

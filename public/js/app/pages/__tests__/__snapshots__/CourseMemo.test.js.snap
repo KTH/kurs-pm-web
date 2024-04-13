@@ -556,7 +556,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
           </section>
           <section
             aria-labelledby="print-memo-contacts"
-            class="d-none d-print-block"
+            class="d-none d-print-block print-contacts"
           >
             <h2
               class="info"
