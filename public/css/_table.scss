@@ -3,7 +3,7 @@
 %table-style {
   .flexible-section-style {
     table {
-      @media (min-width: 1000px) {
+      @media (min-width: 992px) {
         width: 150% !important;
         table-layout: fixed;
       }

@@ -188,7 +188,7 @@ function CourseMemo() {
         url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
-      <Row className="p-print-4">
+      <Row className={`p-print-4 ${isMemoArchived() ? 'archivedMemoPage' : ''}`}>
         <SideMenu
           courseCode={courseCode}
           courseMemoItems={courseMemoItems}

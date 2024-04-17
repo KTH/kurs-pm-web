@@ -49,7 +49,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
     </ul>
   </section>
   <div
-    class="p-print-4 row"
+    class="p-print-4  row"
   >
     <nav
       aria-labelledby="kth-local-navigation-title--mobile"

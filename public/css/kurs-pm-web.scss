@@ -73,6 +73,12 @@ section[aria-labelledby='course-presentation'] {
   }
 }
 
+.archivedMemoPage {
+  #local-navigation-title {
+    display: none;
+  }
+}
+
 .content-center {
   @extend %table-style;
 }
@@ -145,8 +151,6 @@ h2:has(+ .info-box) {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
-
-
 
 .text-overflow-ellipsis {
   white-space: nowrap;

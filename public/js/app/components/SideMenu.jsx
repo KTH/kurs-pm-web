@@ -13,7 +13,6 @@ import {
 const removedOutdated = courseMemoItem => !courseMemoItem.outdated
 
 const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoItems, archivedMemo }) => {
-  const classNames = 'kth-local-navigation col col-lg-3 d-print-none'
   const title = `${labels.aboutCourse} ${courseCode}`
   const ancestorItem = {
     label: labels.directory,
@@ -21,11 +20,13 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
   }
 
   return archivedMemo ? (
-    <nav className={classNames}>
-      <a href={linkToArchive(courseCode, language)} className="kth-button back">
-        {labels.archive}
-      </a>
-    </nav>
+    <MainMenu
+      title={title}
+      ancestorItem={{
+        label: labels.archive,
+        href: linkToArchive(courseCode, language),
+      }}
+    />
   ) : (
     <MainMenu title={title} ancestorItem={ancestorItem}>
       <ul>
