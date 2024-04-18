@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang={{lang}}>
+<html lang="{{lang}}">
 
 <head>
   <title>KTH | {{aboutCourse.siteName}}</title>
@@ -7,13 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{description}}">
-  <link rel="shortcut icon" id="favicon" href="/kurs-pm/static/icon/favicon">
+  <link rel="shortcut icon" id="favicon" href="{{proxyPrefix}}/static/icon/favicon">
 
   {{#if canonicalUrl}}
     <link href="{{canonicalUrl}}" rel="canonical">
   {{/if}}
 
   {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'all'}}
+  {{prefixStyle '/assets/fonts.css' 'styles' 'all'}}
   {{prefixStyle '/static/app.css' 'styles' 'all'}}
 
   {{{render 'styles'}}}
@@ -24,18 +25,10 @@
   {{/if}}
 
   {{prefixScript '/static/browserConfig' 'head-scripts'}}
-  {{!-- Script for mobile menu and scroll --}}
-  {{prefixScript '/static/kth-style/js/menus.js' 'head-scripts'}}
   {{prefixScript '/static/kth-style/js/backtotop.js' 'head-scripts'}}
 
-  {{#extend 'head-scripts'}}
-    <script src="//www.kth.se/social/toolbar/widget.js"></script>
-  {{/extend}}
-
-  {{#if debug}}
-    {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
-  {{/if}}
-
+  <script src="{{toolbarUrl}}"></script>
+  
   {{{render 'head-scripts'}}}
   {{#if instrumentationKey}}
     {{#if klaroAnalyticsConsentCookie}}
@@ -54,7 +47,7 @@
     {{/if}}
   {{/if}}
 
-  {{#if blocks.matomoAnalytics}}
+    {{#if blocks.matomoAnalytics}}
     <!-- analytics start -->
       {{{blocks.matomoAnalytics}}}
     <!-- analytics end -->
@@ -62,36 +55,16 @@
 </head>
 
 <body class="p-print-5">
-  {{#if lang}}
-    <a class="skipToMainContent" href="#mainContent" tabindex="0">{{i18n 'skip_to_main_content' lang}}</a>
-  {{else}}
-    <a class="skipToMainContent" href="#mainContent" tabindex="0">{{i18n 'skip_to_main_content' 'en'}}</a>
-  {{/if}}
-
+  <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
+  
   {{> kthHeader }}
-  <div class="container main">
+  <div class="kth-content">
     <div class="row">
       {{{body}}}
     </div>
   </div>
   {{> kthFooter }}
-  {{{render 'scripts'}}}
-  <script type="text/javascript">
-    // @page in CSS causes style override issues
-    (function () {
-      var m = window.matchMedia('print')
-      function h(e) {
-        if (e.matches) {
-          document.body.style = 'margin-top: 0 !important;'
-        } else {
-          document.body.style = ''
-        }
-      }
-      m.addListener(h)
-      h(m)
-    })();
-  </script>
-
+  {{{render 'scripts'}}}  
 </body>
 
 </html>

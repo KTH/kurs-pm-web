@@ -1,6 +1,6 @@
 import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import React, { useEffect, useRef, useState } from 'react'
-import { Col, Container, Row } from 'reactstrap'
+import { Col, Row } from 'reactstrap'
 
 import { useSearchParams } from 'react-router-dom'
 import i18n from '../../../../i18n'
@@ -272,130 +272,110 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
   }, [])
 
   return (
-    <Container className="kip-container about-container" fluid>
-      <Row>
-        <SideMenu
+    <Row>
+      <SideMenu
+        courseCode={courseCode}
+        courseMemoItems={menuMemoItems}
+        aboutCourseMemo
+        backLink={sideMenuBackLink[userLangAbbr]}
+        labels={sideMenuLabels}
+        language={userLangAbbr}
+      />
+      <main id="mainContent" className="col col-print-12 about-container">
+        <AboutHeader
           courseCode={courseCode}
-          courseMemoItems={menuMemoItems}
-          aboutCourseMemo
-          backLink={sideMenuBackLink[userLangAbbr]}
-          labels={sideMenuLabels}
+          title={webContext.title}
+          credits={webContext.credits}
+          creditUnitAbbr={webContext.creditUnitAbbr}
+          labels={aboutHeaderLabels}
           language={userLangAbbr}
         />
-        <Col className="col-print-12">
-          <main id="mainContent">
-            <AboutHeader
-              courseCode={courseCode}
-              title={webContext.title}
-              credits={webContext.credits}
-              creditUnitAbbr={webContext.creditUnitAbbr}
-              labels={aboutHeaderLabels}
-              language={userLangAbbr}
-            />
-            <Row>
-              <Col>
-                <section>
-                  <p>{aboutMemoLabels.aboutMemosText1}</p>
-                  <p>
-                    {aboutMemoLabels.aboutMemosText2}
-                    <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-                  </p>
-                </section>
-              </Col>
-            </Row>
-            {noMemoAlert && noMemoAlert.noMemoData && (
-              <Row>
-                <Col>
-                  <AboutAlert
-                    courseCode={courseCode}
-                    semester={noMemoAlert.semester}
-                    applicationCodes={noMemoAlert.applicationCodes ?? []}
-                    language={userLangAbbr}
-                    courseMemosExist={memoDatas.length > 0}
-                  />
-                </Col>
-              </Row>
-            )}
-            <Row>
-              <Col lg="8" className="text-break">
-                <section>
-                  <HeadingAsteriskModal
-                    headingTag="h2"
-                    langAbbr={userLangAbbr}
-                    modalId="current-memos-title"
-                    modalBtnAriaLabel={aboutMemoLabels.ariaLabel}
-                    titleAndInfo={{
-                      header: aboutMemoLabels.currentMemos,
-                      body: aboutMemoLabels.currentMemosInfo,
-                    }}
-                    btnClose={aboutMemoLabels.btnClose}
-                    withModal
-                  />
-                  {allActiveTermsWithRounds.map(({ semester, memos }) => {
-                    return (
-                      <React.Fragment key={semester}>
-                        <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
-                        {memos.map(memo => (
-                          <div key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
-                            <div className="mb-3">
-                              <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
-                              {'isPdf' in memo ? (
-                                (memo.isPdf && (
-                                  <a
-                                    className="pdf-link"
-                                    href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
-                                  >
-                                    {memoNameWithCourseCode(
-                                      courseCode,
-                                      memo.semester,
-                                      memo.applicationCodes,
-                                      userLangAbbr
-                                    )}
-                                  </a>
-                                )) || (
-                                  <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
-                                    {memoNameWithCourseCode(
-                                      courseCode,
-                                      memo.semester,
-                                      memo.applicationCodes,
-                                      memo.memoCommonLangAbbr
-                                    )}
-                                  </a>
-                                )
-                              ) : (
-                                <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+        <section className="prose">
+          <p>{aboutMemoLabels.aboutMemosText1}</p>
+          <p>
+            {aboutMemoLabels.aboutMemosText2}
+            <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
+          </p>
+        </section>
+
+        {noMemoAlert && noMemoAlert.noMemoData && (
+          <AboutAlert
+            courseCode={courseCode}
+            semester={noMemoAlert.semester}
+            applicationCodes={noMemoAlert.applicationCodes ?? []}
+            language={userLangAbbr}
+            courseMemosExist={memoDatas.length > 0}
+          />
+        )}
+        <Row>
+          <Col lg="8" className="text-break">
+            <section className="prose">
+              <HeadingAsteriskModal
+                headingTag="h2"
+                langAbbr={userLangAbbr}
+                modalId="current-memos-title"
+                modalBtnAriaLabel={aboutMemoLabels.ariaLabel}
+                titleAndInfo={{
+                  header: aboutMemoLabels.currentMemos,
+                  body: aboutMemoLabels.currentMemosInfo,
+                }}
+                btnClose={aboutMemoLabels.btnClose}
+                withModal
+              />
+              {allActiveTermsWithRounds.map(({ semester, memos }) => {
+                return (
+                  <React.Fragment key={semester}>
+                    <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
+                    {memos.map(memo => (
+                      <React.Fragment key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
+                        <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>
+                        {'isPdf' in memo ? (
+                          (memo.isPdf && (
+                            <a
+                              className="pdf-link"
+                              href={`${webContext.browserConfig.memoStorageUri}${memo.courseMemoFileName}`}
+                            >
+                              {memoNameWithCourseCode(courseCode, memo.semester, memo.applicationCodes, userLangAbbr)}
+                            </a>
+                          )) || (
+                            <a href={linkToPublishedMemo(courseCode || memo.courseCode, memo.memoEndPoint)}>
+                              {memoNameWithCourseCode(
+                                courseCode,
+                                memo.semester,
+                                memo.applicationCodes,
+                                memo.memoCommonLangAbbr
                               )}
-                            </div>
-                          </div>
-                        ))}
+                            </a>
+                          )
+                        ) : (
+                          <i>{`${aboutHeaderLabels.memoLabel} ${aboutMemoLabels.notPublished}`}</i>
+                        )}
                       </React.Fragment>
-                    )
-                  })}
-                  <h3>{aboutMemoLabels.previousOfferings}</h3>
-                  <ul>
-                    <li>
-                      {aboutMemoLabels.previousOfferingsText}
-                      <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-                    </li>
-                  </ul>
-                </section>
-              </Col>
-              <Col lg="4" className="content-right">
-                <section>
-                  <h2>{courseContactsLabels.courseContactsTitle}</h2>
-                  <AboutCourseContacts
-                    languageIndex={userLanguageIndex}
-                    infoContactName={webContext.infoContactName}
-                    examiners={webContext.examiners}
-                    labels={courseContactsLabels}
-                  />
-                </section>
-              </Col>
-            </Row>
-          </main>
-        </Col>
-      </Row>
-    </Container>
+                    ))}
+                  </React.Fragment>
+                )
+              })}
+              <h3>{aboutMemoLabels.previousOfferings}</h3>
+              <p>
+                {aboutMemoLabels.previousOfferingsText}
+                <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
+              </p>
+            </section>
+          </Col>
+          <Col lg="4" className="content-right">
+            <section>
+              <h2>{courseContactsLabels.courseContactsTitle}</h2>
+              <AboutCourseContacts
+                languageIndex={userLanguageIndex}
+                infoContactName={webContext.infoContactName}
+                examiners={webContext.examiners}
+                labels={courseContactsLabels}
+              />
+            </section>
+          </Col>
+        </Row>
+      </main>
+    </Row>
   )
 }
 

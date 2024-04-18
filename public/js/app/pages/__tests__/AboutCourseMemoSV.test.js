@@ -1,6 +1,6 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { WebContextProvider } from '../../context/WebContext'
 
@@ -78,14 +78,16 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   })
 
   test('renders h2 ', () => {
-    const allH2Headers = getAllByRole('heading', { level: 2 })
+    const mainContent = screen.getByRole('main')
+    const allH2Headers = within(mainContent).getAllByRole('heading', { level: 2 })
     expect(allH2Headers.length).toBe(2)
     const expectedh2ds = ['Publicerade kurs-PM', 'Kontakter']
     expectedh2ds.map((h2, index) => expect(allH2Headers[index]).toHaveTextContent(h2))
   })
 
   test('renders h3 ', () => {
-    const allH3Headers = getAllByRole('heading', { level: 3 })
+    const mainContent = screen.getByRole('main')
+    const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
       'Kursomgångar som startar HT 2020',
@@ -112,37 +114,48 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   })
 
   test('renders menu link of web-based memo as expected', done => {
-    const menuItem = getByText('Course memo Autumn 2019-1')
-    expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
-
+    const menuItems = getAllByText('Course memo Autumn 2019-1')
+    expect(menuItems.length).toBe(2)
+    expect(menuItems[0]).toBeInTheDocument()
+    expect(menuItems[0].href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
+    expect(menuItems[1]).toBeInTheDocument()
+    expect(menuItems[1].href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020192-1')
     done()
   })
 
   test('renders menu link of web-based memo as expected', done => {
-    const menuItem = getByText('Course memo Autumn 2020-1')
-    expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
+    const menuItems = getAllByText('Course memo Autumn 2020-1')
+    expect(menuItems.length).toBe(2)
+    expect(menuItems[0]).toBeInTheDocument()
+    expect(menuItems[0].href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
+    expect(menuItems[1]).toBeInTheDocument()
+    expect(menuItems[1].href).toBe('http://localhost/kurs-pm/KIP2720/KIP272020202-1')
     done()
   })
 
   test('renders menu link Before course selection', done => {
-    const menuItem = getByText('Inför kursval')
-    expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/student/kurser/kurs/KIP2720')
+    const menuItems = getAllByText('Inför kursval')
+    expect(menuItems.length).toBe(2)
+    expect(menuItems[0]).toBeInTheDocument()
+    expect(menuItems[0].href).toBe('http://localhost/student/kurser/kurs/KIP2720')
+    expect(menuItems[1]).toBeInTheDocument()
+    expect(menuItems[1].href).toBe('http://localhost/student/kurser/kurs/KIP2720')
     done()
   })
 
   test('renders menu link Kursens utveckling', done => {
-    const menuItem = getByText('Kursens utveckling')
-    expect(menuItem).toBeInTheDocument()
-    expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720')
+    const menuItems = getAllByText('Kursens utveckling')
+    expect(menuItems.length).toBe(2)
+    expect(menuItems[0]).toBeInTheDocument()
+    expect(menuItems[0].href).toBe('http://localhost/kursutveckling/KIP2720')
+    expect(menuItems[1]).toBeInTheDocument()
+    expect(menuItems[1].href).toBe('http://localhost/kursutveckling/KIP2720')
     done()
   })
 
   test('renders menu link Arkiv', done => {
     const menuItems = getAllByText('Arkiv')
-    expect(menuItems.length).toBe(3)
+    expect(menuItems.length).toBe(4)
     menuItems.forEach(menuItem => {
       expect(menuItem.href).toBe('http://localhost/kursutveckling/KIP2720/arkiv')
     })
@@ -182,8 +195,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     expect(links.length).toBe(14)
     const expectedlinks = [
       'Kurs- och programkatalogen',
-      'Om kursen KIP2720',
       'Inför kursval',
+      'Kurs-PM',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
       'Kursens utveckling',

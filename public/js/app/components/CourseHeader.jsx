@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Row, Alert } from 'reactstrap'
+import Alert from '../components-shared/Alert'
 import { adminLink, aboutCourseMemoLink } from '../util/links'
 
 const CourseHeader = ({
@@ -13,7 +13,6 @@ const CourseHeader = ({
   outdatedMemo,
   latestMemoLabel,
   latestMemoUrl,
-  courseImageUrl,
 }) => {
   const {
     adminLinkLabel,
@@ -25,8 +24,8 @@ const CourseHeader = ({
     mandatoryFieldMissing,
   } = labels
   return (
-    <Row>
-      <header className="col memo-header">
+    <>
+      <header>
         <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading">
           {courseMemoName}
         </h1>
@@ -42,7 +41,7 @@ const CourseHeader = ({
         </div>
       </header>
       {oldMemo && (
-        <div className="col-like">
+        <div>
           <Alert color="info">
             {`${notLatestMemo} ${show} `}
             {latestMemoUrl ? <a href={latestMemoUrl}>{latestMemoLabel}</a> : null}
@@ -51,7 +50,7 @@ const CourseHeader = ({
         </div>
       )}
       {outdatedMemo && (
-        <div className="col-like">
+        <div>
           <Alert color="info">
             {`${laterMemos} `}
             <a href={aboutCourseMemoLink(courseCode)}>{aboutCourseMemo}</a>
@@ -59,7 +58,7 @@ const CourseHeader = ({
           </Alert>
         </div>
       )}
-    </Row>
+    </>
   )
 }
 

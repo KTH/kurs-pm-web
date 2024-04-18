@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from 'reactstrap'
+import Alert from '../components-shared/Alert'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
@@ -43,7 +43,7 @@ const EmptySection = ({ id, sectionsLabels, memoLanguageIndex }) => (
 )
 
 const SectionWrapper = ({ id, sectionsLabels, children }) => (
-  <section key={id} aria-labelledby={id}>
+  <section key={id} aria-labelledby={id} className="section-wrapper">
     <h2 id={id} key={'header-' + id}>
       {sectionsLabels[id]}
     </h2>

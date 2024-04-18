@@ -79,7 +79,7 @@ const Contacts = ({ memoData = {}, labels = {} }) => {
   } = visibleInMemo
 
   return (
-    <section className="d-none d-print-block" aria-labelledby="print-memo-contacts">
+    <section className="d-none d-print-block print-contacts" aria-labelledby="print-memo-contacts">
       <h2 id="print-memo-contacts" className="info">
         {labels.courseContactsTitle}
       </h2>

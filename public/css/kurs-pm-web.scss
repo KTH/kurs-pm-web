@@ -1,233 +1,67 @@
-@import 'node_modules/kth-style/public/sass/custom/common/icons';
+@use '~@kth/style/scss/utils/layers.scss';
+@use '~@kth/style/scss/utils/reset.scss';
+@use '~@kth/style/scss/utils/mixins.scss';
+@use '~@kth/style/scss/utils/prose.scss';
 
-$grey: #65656c;
-$lightGrey: #f6f6f6;
-$white: #fff;
-$icon-expanded-svg: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iOTJweCIgaGVpZ2h0PSI1M3B4IiB2aWV3Qm94PSIwIDAgOTIgNTMiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT7vhKU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iQXJ0Ym9hcmQtNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI0MC4wMDAwMDAsIC0zOTcuMDAwMDAwKSIgZmlsbD0iIzAwMDAwMCI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yOTQuNzM0Mzc5LDQyMy41NTQxNyBMMjYwLjgxMjUwNCwzODguMjEwNDIgQzI1OS43MjkxNjUsMzg3LjEyNzA4MiAyNTkuNzI5MTY1LDM4Ni4wNDM3NTkgMjYwLjgxMjUwNCwzODQuOTYwNDIgTDI2Ni45MDYyNTQsMzc4Ljg2NjY3IEMyNjguMTI1MDEsMzc3Ljc4MzMzMiAyNjkuMjA4MzMzLDM3Ny43MTU2MjQgMjcwLjE1NjI1NCwzNzguNjYzNTQ1IEwzMTEuNTkzNzU0LDQyMS45MjkxNyBDMzEyLjAwMDAwNiw0MjIuMzM1NDIyIDMxMi4yMDMxMjksNDIyLjg3NzA4NCAzMTIuMjAzMTI5LDQyMy41NTQxNyBDMzEyLjIwMzEyOSw0MjQuMjMxMjU3IDMxMi4wMDAwMDYsNDI0Ljc3MjkxOCAzMTEuNTkzNzU0LDQyNS4xNzkxNyBMMjcwLjE1NjI1NCw0NjguNDQ0Nzk1IEMyNjkuMDcyOTE1LDQ2OS41MjgxMzQgMjY3Ljk4OTU5Myw0NjkuNTI4MTM0IDI2Ni45MDYyNTQsNDY4LjQ0NDc5NSBMMjYwLjgxMjUwNCw0NjIuMTQ3OTIgQzI1OS43MjkxNjUsNDYxLjA2NDU4MiAyNTkuNzI5MTY1LDQ1OS45ODEyNTkgMjYwLjgxMjUwNCw0NTguODk3OTIgTDI5NC43MzQzNzksNDIzLjU1NDE3IFoiIGlkPSLvhKUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI4Ni4xMDE1NjUsIDQyMy42Mjg2NTApIHJvdGF0ZSg5MC4wMDAwMDApIHRyYW5zbGF0ZSgtMjg2LjEwMTU2NSwgLTQyMy42Mjg2NTApICI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+';
+@use '~@kth/style/scss/tokens/typography.scss';
+@use '~@kth/style/scss/tokens/colors.scss';
 
-// Spacing, make sure this is the same as $spacer from bootstrap
-$spacer: 1.3rem;
+@use '~@kth/style/scss/components/logotype.scss';
+@use '~@kth/style/scss/components/search.scss';
+@use '~@kth/style/scss/components/alert.scss';
+@use '~@kth/style/scss/components/footer.scss';
+@use '~@kth/style/scss/components/mega-menu.scss';
+@use '~@kth/style/scss/components/visually-hidden.scss';
+@use '~@kth/style/scss/components/button.scss';
+@use '~@kth/style/scss/components/header.scss';
+@use '~@kth/style/scss/components/mobile-menu.scss';
+@use '~@kth/style/scss/components/menu-item.scss';
+@use '~@kth/style/scss/components/menu-panel.scss';
+@use '~@kth/style/scss/components/content.scss';
+@use '~@kth/style/scss/components/local-navigation.scss';
 
-%long-text-font-style {
-  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5625;
-  margin-top: 0;
+@use '~kth-style/public/sass/variables/_svg_data' as svgData;
+
+@import 'shared';
+@import 'fix';
+@import 'table'; // defines %table-style
+@import 'print';
+
+// Override of kth-style
+table {
+  border-collapse: collapse;
 }
 
-%short-text-font-style {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5;
+.prose {
+  @include prose.prose;
 }
 
-%table-style {
-  .flexible-section-style {
-    table {
-      @media (min-width: 1000px) {
-        width: 150% !important;
-        table-layout: fixed;
-      }
-      @media print {
-        // must be here, to make it more specific and stronger rule
-        width: 100%;
-      }
-    }
+.section-wrapper {
+  h2 {
+    margin-block-start: 2rem;
+    margin-block-end: 1rem;
   }
-
-  table {
-    width: 100% !important;
-
-    text-align: left;
-    p,
-    ul,
-    li,
-    ol,
-    h1,
-    h2,
-    h3,
-    h4,
-    span,
-    div {
-      @extend %short-text-font-style;
-      margin-bottom: 0 !important;
-    }
-
-    tr {
-      th {
-        color: $white !important;
-        background-color: $grey !important;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
-        border-top: 0;
-        padding: 0.75rem;
-        h4 {
-          color: $white;
-        }
-        &:first-of-type {
-          border-top: 0;
-        }
-        &[scope='row'] {
-          vertical-align: middle;
-          border-top: 1px solid $white;
-          border-right: 0;
-        }
-      }
-
-      &:first-child {
-        th {
-          border-top: 1px solid $white;
-        }
-      }
-
-      td {
-        padding: 0.75rem;
-        background-color: $lightGrey;
-        border-top: 1px solid $white;
-      }
-    }
-
-    th {
-      border-top: 0;
-    }
-
-    //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
-    tbody:first-child {
-      tr:first-of-type > td {
-        color: $white;
-        background-color: $grey !important;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
-        border-top: 0;
-        p {
-          color: $white;
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-}
-
-#kth-node {
-  background: pink;
-}
-.top-holder {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0 15px 15px 15px;
-}
-
-.memo-header {
-  width: 100%;
-  height: auto;
-}
-
-.col-like {
-  padding: 0 15px;
-  width: 100%;
-}
-
-header.col.memo-header {
-  padding-left: 0;
-}
-
-.menu-memos {
-  margin-left: 1rem;
-}
-
-.menu-memos a {
-  color: #000000;
-}
-
-.menu-memos .active {
-  font-weight: 700;
-}
-
-#page-sub-heading-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  background-color: white;
-  width: 100%;
-  margin: 15px 0;
-  padding-left: 15px;
-}
-
-#page-sub-heading-admin-link {
-  font-size: 1rem;
-  line-height: 1.375;
-  margin-bottom: 14px;
-  margin-top: 0.325rem;
-  text-align: right;
-}
-
-@media (max-width: 767.98px) {
-  #page-sub-heading {
-    font-size: 1rem !important;
-  }
-}
-@media (max-width: 991.98px) {
-  #page-sub-heading-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: normal;
-  }
-  #page-sub-heading-admin-link {
-    text-align: left;
-  }
-}
-
-@media (min-width: 992px) {
-  #mainMenu.col.navbar.navbar-expand-lg.navbar-light
-    #navbarNav.collapse.navbar-collapse
-    ul.nav.nav-list.expandable
-    li.nav-item.node.expanded {
-    background: url($icon-expanded-svg) 100% 14px/14px no-repeat;
-  }
-  #mainMenu.col.navbar {
-    padding: 0 35px 15px 1rem;
-  }
-  #mainMenu.col.navbar .nav-link.active {
-    font-weight: 700;
-  }
-  .nav-link.active {
-    color: black;
-  }
-  .nav-item.leaf.selected {
-    letter-spacing: -0.01rem;
-  }
-}
-
-#mobileMenu.navbar.navbar-expand-lg.navbar-light {
-  #mobileMenuContent.navbar-collapse.collapse.show ul.menu.navbar-nav.mr-auto {
-    & > li.nav-item.node.selected.expanded {
-      background: url($icon-expanded-svg) 100% 14px/14px no-repeat;
-    }
-    a.aboutMemos.memosLink {
-      border-top: 1px solid #d4d4d4;
-    }
-    a.memosLink {
-      padding-left: 10px;
+  article {
+    @include prose.prose;
+    & > h3:first-of-type {
+      margin-block-start: 0;
     }
   }
 }
 
 section[aria-labelledby='course-presentation'] {
   min-height: 150px;
+  @include prose.prose;
+  div {
+    & > p:first-of-type {
+      margin-block-start: 0;
+    }
+  }
 }
 
 #course-presentation-image {
   height: 112.5px;
-  margin: 8px 30px 19px 0;
+  margin: 0px 30px 19px 0;
 }
 
 @media (max-width: 575.98px) {
@@ -239,84 +73,45 @@ section[aria-labelledby='course-presentation'] {
   }
 }
 
+.archivedMemoPage {
+  #local-navigation-title {
+    display: none;
+  }
+}
+
 .content-center {
-  p {
-    @extend %long-text-font-style;
-    margin-bottom: 16px;
-  }
-  li {
-    @extend %long-text-font-style;
-  }
-  @media (min-width: 768px) {
-    p,
-    li {
-      font-size: 1.125rem;
-    }
-  }
-  ul {
-    margin-bottom: 16px;
-  }
-  h2 {
-    margin-top: 32px !important; // Resets to KTH Style
-    margin-bottom: 0 !important; // According to sketch
-  }
-  h2 + p {
-    margin-top: 24px;
-  }
   @extend %table-style;
 }
 
-.info-box {
-  background-color: #f4f4f4;
-  margin-bottom: 30px;
-  padding: 20px;
-  h2,
-  h3 {
-    font-size: 1.25rem;
-  }
-  h2,
-  h3 {
-    margin-bottom: 0.5rem;
-  }
-  h2,
-  h3:first-child {
-    margin-top: 0;
-  }
-  p + h2,
-  p + h3 {
-    margin-top: 1.5rem;
-  }
-}
-
-.content-right {
-  @media (max-width: 991.98px) {
-    .info-box {
-      margin: 20px 0;
-    }
-  }
-}
-
-.pdf-link {
-  margin: 0;
-}
-
-.print-icon {
-  background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
-  background-repeat: no-repeat;
-  height: 20px;
-  width: 20px;
-  vertical-align: middle;
-  margin-right: 0.3em;
-}
-
 .print-link {
+  &::before {
+    content: '';
+    display: inline-block;
+    background: svgData.$data-print-blue-svg no-repeat;
+    background-size: cover;
+    width: 22px;
+    height: 20px;
+    margin-right: 0.625rem;
+    vertical-align: middle;
+  }
+}
+button.print-link {
+  color: var(--color-tertiary);
+  border: none;
   padding: 0;
-  text-align: left;
-  outline: none !important;
-  box-shadow: none !important;
+  text-align: start;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+  cursor: pointer;
+  @include typography.font-default;
+}
+
+span:has(> .btn-info-modal) {
+  display: inline-flex;
 }
 
 .btn-info-modal {
+  font-size: 16px;
   margin-left: 10px;
 }
 
@@ -336,15 +131,8 @@ section[aria-labelledby='course-presentation'] {
 }
 
 p.sub-section-header {
-  @extend %short-text-font-style;
   padding-top: 0.8rem;
   margin-bottom: 0;
-}
-
-@media (min-width: 768px) {
-  p.sub-section-header {
-    font-size: 1rem;
-  }
 }
 
 .syllabus-marker-icon-small {
@@ -359,105 +147,13 @@ sup {
   }
 }
 
-h2.info {
-  margin-top: 0;
-}
-
-.about-container {
-  ul {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-    text-indent: 0;
-    padding-inline-start: 0;
-  }
-}
-
-.container.main {
-  padding-top: 2em;
-}
-
-.inline-alert {
-  margin: 50px 0 22px 0 !important;
-}
-
-@page {
-  margin: 13mm;
-}
-
-@media print {
-  body {
-    background-color: #fff !important;
-  }
-  h1 {
-    font-size: 32pt;
-    margin-bottom: 6pt;
-  }
-  .memo-subtitle {
-    font-size: 24pt;
-    font-weight: 600;
-  }
-  .mainLogo {
-    margin: 0 !important;
-    padding: 0 !important;
-    img {
-      width: 26mm !important;
-      height: auto !important;
-    }
-  }
-  .cover-page {
-    margin-top: 17mm;
-    margin-left: 13mm;
-    margin-right: 13mm;
-    break-after: page;
-  }
-  .cover-page-links {
-    margin-top: 82px; // h2: 28+40+14
-  }
-  .container,
-  .container-fluid,
-  .header-container__top {
-    max-width: none !important;
-    min-width: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .col-print-12 {
-    position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    max-width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .person {
-    img {
-      display: none;
-    }
-  }
+h2:has(+ .info-box) {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .text-overflow-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.p-print-0 {
-  padding: 0 !important;
-}
-.p-print-1 {
-  padding: $spacer * 0.25 !important;
-}
-.p-print-2 {
-  padding: $spacer * 0.5 !important;
-}
-.p-print-3 {
-  padding: $spacer * 0.75 !important;
-}
-.p-print-4 {
-  padding: $spacer * 1 !important;
-}
-.p-print-5 {
-  padding: $spacer * 1.3 !important;
 }

@@ -230,7 +230,7 @@ describe('Page CourseMemo', () => {
     ]
 
     links.forEach((l, index) => {
-      expect(l.getAttribute('aria-label')).toBe(expectedLinks[index][0])
+      expect(l).toHaveAccessibleName(expectedLinks[index][0])
       expect(l.textContent).toBe(expectedLinks[index][0])
       expect(l.href).toBe(`http://localhost${expectedLinks[index][1]}`)
     })

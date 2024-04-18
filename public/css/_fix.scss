@@ -1,0 +1,22 @@
+@use '~@kth/style/scss/components/button.scss';
+
+// Fix for modal opened by HeadingAsteriskModal
+// Should be fixed in @kth/kth-reactstraps?
+
+.modal {
+  .modal-header {
+    button {
+      @extend .kth-icon-button;
+      @extend .close;
+      span {
+        display: none;
+      }
+    }
+  }
+  .modal-footer {
+    .btn.btn-secondary {
+      @extend .kth-button;
+      @extend .secondary;
+    }
+  }
+}

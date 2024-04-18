@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { Container, Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 
 import i18n from '../../../../i18n'
 import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
@@ -172,7 +172,7 @@ function CourseMemo() {
   }, [])
 
   return (
-    <Container fluid>
+    <>
       <CoverPage
         labels={coverPageLabels}
         language={memoLanguage}
@@ -188,7 +188,7 @@ function CourseMemo() {
         url={sourceUrl}
         startDate={memo.firstTuititionDate}
       />
-      <Row className="p-print-4">
+      <Row className={`p-print-4 ${isMemoArchived() ? 'archivedMemoPage' : ''}`}>
         <SideMenu
           courseCode={courseCode}
           courseMemoItems={courseMemoItems}
@@ -197,72 +197,54 @@ function CourseMemo() {
           language={language}
           archivedMemo={isMemoArchived()}
         />
-        <Col className="col-print-12" lang={memoLanguage}>
-          <main id="mainContent">
-            <CourseHeader
-              courseMemoName={memoNameWithoutApplicationCode(semester, memoLanguage)}
-              courseTitle={courseTitle}
-              courseCode={courseCode}
-              labels={courseHeaderLabels}
-              language={memoLanguage}
-              oldMemo={isMemoOld()}
-              outdatedMemo={isMemoOutdated()}
-              latestMemoLabel={webContext.latestMemoLabel}
-              latestMemoUrl={latestMemoUrl}
-              courseImageUrl={courseImageUrl}
-            />
-            <Row>
-              <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
-                <CoursePresentation
-                  courseImageUrl={courseImageUrl}
-                  introText={webContext.sellingText}
-                  labels={coursePresentationLabels}
-                />
-                <p>
-                  {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, validFromTerm)}
-                </p>
-                <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
-                <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
-              </Col>
-              <Col lg="4" className="d-print-none content-right">
-                <Row className="mb-lg-4">
-                  <Col>
-                    <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memo} />
-                  </Col>
-                </Row>
-                <Row className="my-lg-4">
-                  <Col>
-                    <CourseMemoLinks
-                      language={memoLanguageIndex}
-                      labels={courseMemoLinksLabels}
-                      extraInfo={extraInfo}
-                      memoData={memo}
-                      courseMemoName={concatMemoName(semester, applicationCodes, memoLanguage)}
-                      archivedMemo={isMemoArchived()}
-                    />
-                  </Col>
-                </Row>
-                <Row className="mt-lg-4">
-                  <Col>
-                    <CourseLinks language={memoLanguage} labels={courseLinksLabels} />
-                  </Col>
-                </Row>
-                <Row id="row-for-the-last-element-which-determines-styles" className="mt-lg-4">
-                  <Col>
-                    <CourseContacts
-                      styleId="last-element-which-determines-styles"
-                      language={memoLanguage}
-                      memoData={memo}
-                      labels={courseContactsLabels}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </main>
-        </Col>
+        <main id="mainContent" className="col col-print-12" lang={memoLanguage}>
+          <CourseHeader
+            courseMemoName={memoNameWithoutApplicationCode(semester, memoLanguage)}
+            courseTitle={courseTitle}
+            courseCode={courseCode}
+            labels={courseHeaderLabels}
+            language={memoLanguage}
+            oldMemo={isMemoOld()}
+            outdatedMemo={isMemoOutdated()}
+            latestMemoLabel={webContext.latestMemoLabel}
+            latestMemoUrl={latestMemoUrl}
+            courseImageUrl={courseImageUrl}
+          />
+          <Row>
+            <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
+              <CoursePresentation
+                courseImageUrl={courseImageUrl}
+                introText={webContext.sellingText}
+                labels={coursePresentationLabels}
+              />
+              <p className="mb-4">
+                {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, validFromTerm)}
+              </p>
+              <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
+              <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
+            </Col>
+            <Col lg="4" className="d-print-none content-right">
+              <CourseFacts language={memoLanguage} labels={courseFactsLabels} memoData={memo} />
+              <CourseMemoLinks
+                language={memoLanguageIndex}
+                labels={courseMemoLinksLabels}
+                extraInfo={extraInfo}
+                memoData={memo}
+                courseMemoName={concatMemoName(semester, applicationCodes, memoLanguage)}
+                archivedMemo={isMemoArchived()}
+              />
+              <CourseLinks language={memoLanguage} labels={courseLinksLabels} />
+              <CourseContacts
+                styleId="last-element-which-determines-styles"
+                language={memoLanguage}
+                memoData={memo}
+                labels={courseContactsLabels}
+              />
+            </Col>
+          </Row>
+        </main>
       </Row>
-    </Container>
+    </>
   )
 }
 
