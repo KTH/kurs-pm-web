@@ -2,6 +2,9 @@
 
 require('dotenv').config()
 
+const { KthAppinsights } = require('@kth/appinsights')
+KthAppinsights.init({ name: 'kurs-pm-web' })
+
 const log = require('@kth/log')
 const config = require('./server/configuration').server
 const server = require('./server/server')
