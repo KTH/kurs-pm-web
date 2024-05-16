@@ -39,33 +39,7 @@ Kurs-pm-web fetches data from:
 
 ### Secrets for Development
 
-Secrets during local development are stored in a `.env` file in the root of your project. This file should be in `.gitignore`.
-
-Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
-
-```sh
-# If KURS_PM_DATA_API_URI is omitted, http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000 will be used
-KURS_PM_DATA_API_URI=https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000
-# If KURS_PM_DATA_API_KEY is omitted, default key 1234 will be used
-KURS_PM_DATA_API_KEY=[key]
-
-# If KURS_INFO_API_URI is omitted, http://localhost:3002/api/kursinfo?defaultTimeout=10000 will be used
-KURS_INFO_API_URI=https://app-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000
-# If KURS_INFO_API_KEY is omitted, default key 1234 will be used
-KURS_INFO_API_KEY=[key]
-
-# If KURSPLAN_API_URI is omitted, http://localhost:3003/api/kursplan?defaultTimeout=10000 will be used
-KURSPLAN_API_URI=https://app-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000
-# If KURSPLAN_API_KEY is omitted, default key 5678 will be used
-KURSPLAN_API_KEY=[key]
-
-# If KOPPS_URI is omitted, https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000 will be used
-
-SESSION_SECRET=[secret]
-SESSION_KEY=[key]
-```
-
-These settings are also available in the `env.in` file.
+Secrets during local development are stored in a gitignored `.env` file (`env.in` can be used as template for your `.env` file). More details about environment variable setup and secrets can be found in [confluence](https://confluence.sys.kth.se/confluence/x/OYKBDQ).
 
 ## For Development
 
@@ -171,31 +145,6 @@ docker-compose up
 ## Deploy
 
 The deployment process is described in [Om kursen: Release till produktion](https://confluence.sys.kth.se/confluence/x/xIjCCg).
-
-### Edit secrets.env
-
-```sh
-ansible-vault edit secrets.env
-```
-
-### Configure secrets.env
-
-Secrets (names, passwords, keys, and uri:s) for dev and prod are stored in the the course information project’s Azure key vault.
-
-```sh
-KURS_PM_DATA_API_URI=localhost:portNumber/api/kurs-pm-data?defaultTimeout=10000
-KURS_PM_DATA_API_KEY=[key]
-
-KURS_INFO_API_URI=localhost:portNumber/api/kursinfo?defaultTimeout=10000
-KURS_INFO_API_KEY=[key]
-
-# If KOPPS_URI is omitted, pathToKopps/api/kopps/v2/?defaultTimeout=10000 will be used
-
-SESSION_SECRET=[secret]
-SESSION_KEY=[key]
-APPLICATIONINSIGHTS_CONNECTION_STRING=[connection string]
-REDIS_URI=[uri]
-```
 
 ## Pre-\*\*-git-hooks
 
