@@ -22,8 +22,8 @@ services:
       - LOGGING_ACCESS_LOG=true
       - KURS_PM_DATA_API_URI=http://mock-api:3000/kurs-pm
       - KURS_PM_DATA_API_KEY=secretpassword
-      - KURS_INFO_API_URI=http://mock-api:3000/kursinfo
-      - KURS_INFO_API_KEY=secretpassword
+      - KURSINFO_API_URI=http://mock-api:3000/kursinfo
+      - KURSINFO_API_KEY=secretpassword
       - KURSPLAN_API_URI=http://mock-api:3000/kursplan
       - KURSPLAN_API_KEY=secretpassword
       - REDIS_URI=redis://redis:6379
