@@ -272,4 +272,9 @@ module.exports = {
   coursePresentationLabels: {
     coursePresentation: 'Course presentation',
   },
+  breadCrumbs: {
+    student: 'Student web',
+    studies: 'Studies',
+    directory: 'Course and programme directory',
+  },
 }
