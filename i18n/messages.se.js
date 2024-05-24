@@ -243,7 +243,7 @@ module.exports = {
     coursePresentation: 'Presentation av kursen',
   },
   breadCrumbs: {
-    student: 'Studentwebb',
+    student: 'Studentwebben',
     studies: 'Studier',
     directory: 'Kurs- och programkatalogen',
   },
