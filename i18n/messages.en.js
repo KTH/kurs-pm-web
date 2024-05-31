@@ -269,9 +269,6 @@ module.exports = {
     previousOfferings: 'Previous course offerings',
     startdate: 'Start date',
   },
-  coursePresentationLabels: {
-    coursePresentation: 'Course presentation',
-  },
   breadCrumbs: {
     student: 'Student web',
     studies: 'Studies',

@@ -311,28 +311,6 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
           class="text-break col-print-12 content-center col-lg-8"
           id="flexible-content-of-center"
         >
-          <section
-            aria-labelledby="course-presentation"
-            class="d-print-none"
-          >
-            <h2
-              class="visually-hidden"
-              id="course-presentation"
-            >
-              Presentation av kursen
-            </h2>
-            <img
-              alt=""
-              class="float-sm-start"
-              id="course-presentation-image"
-              src="localhost://Picture_by_MainFieldOfStudy_26_Default_picture.jpg"
-            />
-            <article
-              aria-labelledby="course-presentation"
-            >
-              <div />
-            </article>
-          </section>
           <p
             class="mb-4"
           >
