@@ -11,7 +11,6 @@ import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
 
 import { useWebContext } from '../context/WebContext'
 
-import CoursePresentation from '../components/CoursePresentation'
 import SideMenu from '../components/SideMenu'
 import CourseHeader from '../components/CourseHeader'
 import CourseContacts from '../components/CourseContacts'
@@ -127,7 +126,6 @@ function CourseMemo() {
     courseFactsLabels,
     courseMemoLinksLabels,
     extraInfo,
-    coursePresentationLabels,
     courseLinksLabels,
     courseContactsLabels,
     sectionsLabels,
@@ -212,13 +210,8 @@ function CourseMemo() {
           />
           <Row>
             <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
-              <CoursePresentation
-                courseImageUrl={courseImageUrl}
-                introText={webContext.sellingText}
-                labels={coursePresentationLabels}
-              />
               <p className="mb-4">
-                {sectionsLabels.asterisk} {seasonStr(i18n.messages[memoLanguageIndex].extraInfo, validFromTerm)}
+                {sectionsLabels.asterisk} {seasonStr(extraInfo, validFromTerm)}
               </p>
               <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
               <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />

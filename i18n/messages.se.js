@@ -239,9 +239,6 @@ module.exports = {
     previousOfferings: 'Tidigare kursomgångar',
     startdate: 'Startdatum',
   },
-  coursePresentationLabels: {
-    coursePresentation: 'Presentation av kursen',
-  },
   breadCrumbs: {
     student: 'Studentwebben',
     studies: 'Studier',
