@@ -10,7 +10,7 @@
 const { getEnv, devDefaults } = require('kth-node-configuration')
 
 const devPrefixPath = devDefaults('/kurs-pm')
-const devMemoStorageUri = 'https://kursinfostoragestage.blob.core.windows.net/memo-blob-container/'
+const devMemoStorageUri = devDefaults('https://kursinfostoragestage.blob.core.windows.net/memo-blob-container/')
 
 module.exports = {
   // The proxy prefix path if the application is proxied. E.g /places
