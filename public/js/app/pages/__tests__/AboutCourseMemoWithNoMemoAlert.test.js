@@ -31,7 +31,7 @@ const renderWithOptions = (memoDatas, languageSetting, applicationCodes = []) =>
   }
 
   const context = {
-    browserConfig: { imageStorageUri: 'localhost://', memoStorageUri: 'kursinfostorage/' },
+    browserConfig: { memoStorageUri: 'kursinfostorage/' },
     memoData: {
       courseTitle: 'DD2380 Artificiell intelligens 6.0 hp',
       visibleInMemo: {},

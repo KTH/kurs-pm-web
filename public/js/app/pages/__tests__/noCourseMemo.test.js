@@ -7,7 +7,7 @@ import CourseMemo from '../CourseMemo'
 describe('User language: Swedish. Component <CourseMemo> renders <AboutCourseMemo> because no memo exists for some round, f.e., semester 20192, applicationCodes 2', () => {
   beforeEach(() => {
     const context = {
-      browserConfig: { imageStorageUri: 'localhost://', memoStorageUri: 'kursinfostorage/' },
+      browserConfig: { memoStorageUri: 'kursinfostorage/' },
       memoData: {
         courseTitle: 'KIP2720 Projektstyrning 7,5 hp',
         visibleInMemo: {},

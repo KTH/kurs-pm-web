@@ -21,7 +21,6 @@ Kurs-pm-web is a microservice with the public view of course memos. It uses [Rea
 Kurs-pm-web fetches data from:
 
 - Course memo API `/api/kurs-pm-data`
-- Course information API `/api/kursinfo`
 - API to store information about course syllabuses `/api/kursplan`
 - API för kurs- och programinformation `/api/kopps/v2/`
 
@@ -29,7 +28,6 @@ Kurs-pm-web fetches data from:
 
 - [kurs-pm-data-admin-web](https://github.com/KTH/kurs-pm-data-admin-web)
 - [kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
-- [kursinfo-api](https://github.com/KTH/kursinfo-api)
 - [kursplan-api](https://github.com/KTH/kursplan-api)
 - [node-web](https://github.com/KTH/node-web)
 

@@ -1,8 +1,6 @@
 const {
   getAllMemosByCourseCodeAndType: getAllMemosByCourseCodeAndTypeResponse,
   detailedInformation: detailedInformationResponse,
-  getSellingTextByCourseCode: getSellingTextByCourseCodeResponse,
-  imageBlobStorage: imageBlobStorageResponse,
 } = require('./responses')
 
 module.exports = {
@@ -33,26 +31,6 @@ module.exports = {
     },
     {
       method: 'get',
-      url: '/kursinfo/_monitor',
-      response: 'Response from kursinfo _monitor',
-    },
-    {
-      method: 'get',
-      url: '/kursinfo/_checkAPIkey',
-      response: 'Response from kursinfo _checkAPIkey',
-    },
-    {
-      method: 'get',
-      url: '/kursinfo/_paths',
-      response: { api: { getSellingTextByCourseCode: { uri: '/kursinfo/getSellingTextByCourseCode' } } },
-    },
-    {
-      method: 'get',
-      url: '/kursinfo/getSellingTextByCourseCode',
-      response: getSellingTextByCourseCodeResponse,
-    },
-    {
-      method: 'get',
       url: '/kursplan/_monitor',
       response: 'Response from kursplan _monitor',
     },
@@ -75,11 +53,6 @@ module.exports = {
       method: 'get',
       url: '/cm/*',
       response: '',
-    },
-    {
-      method: 'get',
-      url: '/images/*',
-      response: imageBlobStorageResponse,
     },
   ],
 }

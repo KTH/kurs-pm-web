@@ -4,7 +4,6 @@ jest.mock('../../kursPmDataApi', () => ({
   getMemoDataById: () => {},
   getMiniMemosPdfAndWeb: () => {},
 }))
-jest.mock('../../kursInfoApi', () => ({ getCourseInfo: () => {} }))
 
 jest.mock('@kth/log', () => ({ error: jest.fn(), debug: jest.fn }))
 

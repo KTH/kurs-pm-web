@@ -6,7 +6,6 @@ import { Row, Col } from 'reactstrap'
 import i18n from '../../../../i18n'
 import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
-import { resolveCourseImage } from '../util/course-image'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
 
 import { useWebContext } from '../context/WebContext'
@@ -116,8 +115,6 @@ function CourseMemo() {
     return () => (isMounted = false)
   }, [])
 
-  const courseImage = resolveCourseImage(webContext.imageFromAdmin, webContext.courseMainSubjects, memoLanguage)
-  const courseImageUrl = `${webContext.browserConfig.imageStorageUri}${courseImage}`
   const memoLanguageIndex = getLangIndex(memoLanguage)
   const courseTitle = `${courseCode} ${title} ${formatCredits(credits, creditUnitAbbr, language)}`
 
@@ -206,7 +203,6 @@ function CourseMemo() {
             outdatedMemo={isMemoOutdated()}
             latestMemoLabel={webContext.latestMemoLabel}
             latestMemoUrl={latestMemoUrl}
-            courseImageUrl={courseImageUrl}
           />
           <Row>
             <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
