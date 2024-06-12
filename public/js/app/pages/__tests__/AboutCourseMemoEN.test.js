@@ -27,7 +27,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
   beforeEach(() => {
     const context = {
       courseCode: 'KIP2720',
-      browserConfig: { imageStorageUri: 'localhost://', memoStorageUri: 'kursinfostorage/' },
+      browserConfig: { memoStorageUri: 'kursinfostorage/' },
       memoData: {
         courseTitle: 'KIP2720 Projektstyrning 7,5 hp',
         visibleInMemo: {},

@@ -65,7 +65,7 @@ describe('Redirect function in <CourseMemo>', () => {
 describe('Component <CourseMemo>', () => {
   test('renders a course memo', () => {
     const context = {
-      browserConfig: { imageStorageUri: 'localhost://' },
+      browserConfig: {},
       memoData: {
         courseTitle: '',
         visibleInMemo: {},
@@ -167,7 +167,7 @@ describe('Page CourseMemo', () => {
   test('renders a side menu and a page structure', done => {
     const memoDatas = [spring181, spring1823, spring184, spring1924, spring193, fall190]
     const context = {
-      browserConfig: { imageStorageUri: 'localhost://' },
+      browserConfig: {},
       memoData: { ...spring181, courseTitle: '', visibleInMemo: {} },
       memoDatas,
       memoLanguageIndex: 0,
@@ -196,7 +196,7 @@ describe('Page CourseMemo', () => {
   test('renders a side menu links', done => {
     const memoDatas = [spring181, spring1823, spring184, spring1924, spring193, fall190]
     const context = {
-      browserConfig: { imageStorageUri: 'localhost://' },
+      browserConfig: {},
       memoData: { ...spring181, courseTitle: '', visibleInMemo: {} },
       memoDatas,
       memoLanguageIndex: 0,

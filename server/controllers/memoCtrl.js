@@ -10,7 +10,6 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
-const { getCourseInfo } = require('../kursInfoApi')
 const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
 const { createBreadcrumbs } = require('../utils/breadcrumbUtil')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
@@ -139,10 +138,6 @@ function resolveMemoEndPoint(potentialMemoEndPoint, memoDatas) {
   return memoDatas[0] ? memoDatas[0].memoEndPoint : ''
 }
 
-function resolveSellingText(sellingText = {}, recruitmentText, lang) {
-  return sellingText[lang] ? sellingText[lang] : recruitmentText
-}
-
 function resolveLatestMemoLanguage(latestMemoDatas) {
   return latestMemoDatas ? latestMemoDatas.memoCommonLangAbbr : null
 }
@@ -242,17 +237,10 @@ async function getContent(req, res, next) {
       semester: semester || memoWithExtraProps?.semester,
     }
 
-    const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    const courseIntroductionContext = {
-      sellingText: resolveSellingText(sellingText, recruitmentText, languagesContext.memoLanguage),
-      imageFromAdmin: imageInfo,
-    }
-
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
     const webContext = {
       ...rawContext, // always first
-      ...courseIntroductionContext,
       ...languagesContext,
       ...courseContext,
       ...memoContext,
@@ -354,17 +342,10 @@ async function getOldContent(req, res, next) {
       examiners,
     }
 
-    const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    const courseIntroductionContext = {
-      sellingText: resolveSellingText(sellingText, recruitmentText, languagesContext.memoLanguage),
-      imageFromAdmin: imageInfo,
-    }
-
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
 
     const webContext = {
       ...rawContext, // always first
-      ...courseIntroductionContext,
       ...languagesContext,
       ...courseContext,
       ...memoContext,
