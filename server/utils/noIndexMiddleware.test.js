@@ -17,7 +17,6 @@ describe('noIndexMiddleware', () => {
     noIndexMiddleware(req, res, next)
 
     expect(res.getHeader('X-Robots-Tag')).toBeUndefined()
-    // expect(next).toHaveBeenCalledOnce()
     expect(next).toHaveBeenCalledTimes(1)
   })
 
@@ -32,7 +31,6 @@ describe('noIndexMiddleware', () => {
     noIndexMiddleware(req, res, next)
 
     expect(res.getHeader('X-Robots-Tag')).toBeUndefined()
-    // expect(next).toHaveBeenCalledOnce()
     expect(next).toHaveBeenCalledTimes(1)
   })
 
@@ -47,7 +45,6 @@ describe('noIndexMiddleware', () => {
     noIndexMiddleware(req, res, next)
 
     expect(res.getHeader('X-Robots-Tag')).toBe('noindex')
-    // expect(next).toHaveBeenCalledOnce()
     expect(next).toHaveBeenCalledTimes(1)
   })
 })
