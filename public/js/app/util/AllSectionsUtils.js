@@ -1,24 +1,27 @@
-export const headingAllowedToBeShownEvenIfNoContent = (isRequired, type) => {
-  const mandatoryTypes = ['mandatory', 'mandatoryAndEditable']
-  return isRequired && mandatoryTypes.includes(type)
+const isMandatory = type => type === 'mandatory' || type === 'mandatoryAndEditable'
+
+const isMandatoryForSome = type => type === 'mandatoryForSome'
+
+const isStoredAsVisibleInDB = (contentId, memoData) => memoData?.visibleInMemo?.[contentId] === true
+
+const htmlHasContent = contentHtml => contentHtml !== undefined && contentHtml !== ''
+
+const isStandardHeadingVisibleInPublished = (contentId, context, memoData) => {
+  const { type } = context[contentId]
+  const htmlContent = memoData[contentId]
+
+  const mandatory = isMandatory(type)
+  const mandatoryForSomeOrStoredAsVisible = isMandatoryForSome(type) || isStoredAsVisibleInDB(contentId, memoData)
+
+  return mandatory || (htmlHasContent(htmlContent) && mandatoryForSomeOrStoredAsVisible)
 }
 
-const headingHasContent = contentHtml => contentHtml !== undefined && contentHtml !== ''
+const isExtraHeadingVisibleInPublished = (extraHeaderTitle, index, memoData) => {
+  const headingObject = memoData[extraHeaderTitle]?.[index]
+  const { visibleInMemo, htmlContent } = headingObject
+  const storedAsVisible = visibleInMemo === true
 
-export const headingShouldBeShown = ({ isRequired, type, contentHtml, visibleInMemo = true }) => {
-  if (headingHasContent(contentHtml) || headingAllowedToBeShownEvenIfNoContent(isRequired, type)) {
-    return visibleInMemo
-  }
-
-  return false
-}
-
-const headingHasAtLeastOneVisibleExtraHeader = (extraHeaderTitle, extraHeaderTitles) => {
-  if (extraHeaderTitle && extraHeaderTitles && Array.isArray(extraHeaderTitles)) {
-    return extraHeaderTitles.some(({ visibleInMemo }) => visibleInMemo)
-  }
-
-  return false
+  return storedAsVisible && htmlHasContent(htmlContent)
 }
 
 const sectionsToSkip = ['contacts']
@@ -29,27 +32,33 @@ export const getAllSectionsAndHeadingsToShow = ({ sections, context, memoData })
     .filter(({ id }) => !sectionsToSkip.includes(id))
     .forEach(({ id, content, extraHeaderTitle }) => {
       sectionsAndHeadings[id] = []
-      const headings = []
+      const standardHeadingIds = []
+      const extraHeadingIndices = []
 
       content.forEach(contentId => {
-        const { isRequired, type } = context[contentId]
-        const contentHtml = memoData[contentId]
-        const visibleInMemo = memoData.visibleInMemo[contentId]
+        const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
 
-        if (headingShouldBeShown({ isRequired, type, contentHtml, visibleInMemo })) {
-          headings.push(contentId)
+        if (visibleInMemo) {
+          standardHeadingIds.push(contentId)
         }
       })
 
-      const hasExtraHeading = headingHasAtLeastOneVisibleExtraHeader(extraHeaderTitle, memoData[extraHeaderTitle])
+      memoData[extraHeaderTitle]?.forEach((headingObject, index) => {
+        const visibleInMemo = isExtraHeadingVisibleInPublished(extraHeaderTitle, index, memoData)
 
-      const hasHeadingOrExtraHeading = headings.length > 0 || hasExtraHeading
+        if (visibleInMemo) {
+          extraHeadingIndices.push(index)
+        }
+      })
+
+      const isEmptySection = standardHeadingIds.length === 0 && extraHeadingIndices.length === 0
 
       sectionsAndHeadings.push({
         id,
-        headings,
-        hasHeadingOrExtraHeading,
-        extraHeaderTitle: hasExtraHeading ? extraHeaderTitle : undefined,
+        standardHeadingIds,
+        extraHeaderTitle,
+        extraHeadingIndices,
+        isEmptySection,
       })
     })
 
