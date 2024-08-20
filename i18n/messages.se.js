@@ -127,7 +127,7 @@ module.exports = {
     },
   },
   sourceInfo: {
-    noInfoYet: 'Ingen information tillagd.',
+    noInfoYet: 'Ingen information tillagd',
     insertedSubSection: 'Avsnittet nedan kommer inte från kursplanen:',
   },
   sectionsLabels: {
