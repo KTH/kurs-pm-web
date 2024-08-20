@@ -6,7 +6,7 @@ const isStoredAsVisibleInDB = (contentId, memoData) => memoData?.visibleInMemo?.
 
 const htmlHasContent = contentHtml => contentHtml !== undefined && contentHtml !== ''
 
-const isStandardHeadingVisibleInPublished = (contentId, context, memoData) => {
+export const isStandardHeadingVisibleInPublished = (contentId, context, memoData) => {
   const { type } = context[contentId]
   const htmlContent = memoData[contentId]
 
@@ -16,7 +16,7 @@ const isStandardHeadingVisibleInPublished = (contentId, context, memoData) => {
   return mandatory || (htmlHasContent(htmlContent) && mandatoryForSomeOrStoredAsVisible)
 }
 
-const isExtraHeadingVisibleInPublished = (extraHeaderTitle, index, memoData) => {
+export const isExtraHeadingVisibleInPublished = (extraHeaderTitle, index, memoData) => {
   const headingObject = memoData[extraHeaderTitle]?.[index]
   const { visibleInMemo, htmlContent } = headingObject
   const storedAsVisible = visibleInMemo === true

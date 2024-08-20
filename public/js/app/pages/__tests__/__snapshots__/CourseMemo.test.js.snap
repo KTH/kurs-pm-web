@@ -351,7 +351,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 </sup>
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
             <article
@@ -380,7 +384,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 </sup>
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
           </section>
@@ -403,7 +411,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 Kurslitteratur
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
             <article
@@ -416,7 +428,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 Stöd för studenter med funktionsnedsättning
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
           </section>
@@ -455,7 +471,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 </sup>
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
             <article
@@ -484,7 +504,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 </sup>
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
             <article
@@ -513,7 +537,11 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                 </sup>
               </h3>
               <span>
-                Ingen information tillagd
+                <p>
+                  <i>
+                    Ingen information tillagd
+                  </i>
+                </p>
               </span>
             </article>
           </section>
@@ -526,11 +554,13 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
             >
               Ytterligare Information
             </h2>
-            <p>
-              <i>
-                Ingen information tillagd
-              </i>
-            </p>
+            <article>
+              <p>
+                <i>
+                  Ingen information tillagd
+                </i>
+              </p>
+            </article>
           </section>
           <section
             aria-labelledby="print-memo-contacts"

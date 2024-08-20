@@ -1,129 +1,107 @@
-import { headingShouldBeShown } from '../AllSectionsUtils'
+import { isStandardHeadingVisibleInPublished, isExtraHeadingVisibleInPublished } from '../AllSectionsUtils'
 
-describe('headingShouldBeShown', () => {
-  test.each([
-    { isRequired: true, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: true, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: true, type: 'mandatory', contentHtml: '', visibleInMemo: true },
-    { isRequired: true, type: 'mandatory', contentHtml: '', visibleInMemo: false },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: true },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: false },
-  ])(
-    'if isRequired and type is mandatory or mandatoryAndEditable, return visibleInMemo, regardless if contentHTML is empty or not',
-    params => {
-      expect(headingShouldBeShown(params)).toBe(params.visibleInMemo)
+const context = {
+  courseContent: { type: 'mandatory', isRequired: true },
+  literature: { type: 'mandatoryAndEditable', isRequired: true },
+  learningActivities: { type: 'optionalEditable', isRequired: false },
+  scheduleDetails: { type: 'optionalEditable', isRequired: false },
+  prerequisites: { type: 'optional', isRequired: false },
+  permanentDisabilitySubSection: { isRequired: false },
+  additionalRegulations: { type: 'mandatoryForSome', isRequired: true },
+  otherRequirementsForFinalGrade: { type: 'mandatoryForSome', isRequired: true },
+  examinationSubSection: { isRequired: false },
+  ethicalApproachSubSection: { isRequired: false },
+}
+
+const memoData = {
+  courseContent: '<p>Some text</p>',
+  literature: '',
+  learningActivities: '',
+  scheduleDetails: '<p>Some text</p>',
+  prerequisites: '',
+  additionalRegulations: '',
+  otherRequirementsForFinalGrade: '<p>Some text</p>',
+  examinationSubSection: '<p>Some text</p>',
+  ethicalApproachSubSection: '',
+  permanentDisabilitySubSection: '<p>Some text</p>',
+  extraHeaders1: [
+    { title: 'Extra Heading 1', htmlContent: '', visibleInMemo: true },
+    { title: 'Extra Heading 2', htmlContent: '<p>Some text</p>', visibleInMemo: true },
+    { title: 'Extra Heading 3', htmlContent: '<p>Some text</p>', visibleInMemo: false },
+  ],
+  extraHeaders2: [],
+  visibleInMemo: {
+    prerequisites: true,
+    permanentDisabilitySubSection: false,
+    additionalRegulations: true,
+    examinationSubSection: true,
+    ethicalApproachSubSection: true,
+  },
+}
+
+describe('isStandardHeadingVisibleInPublished', () => {
+  test.each(['courseContent', 'literature'])('if type is mandatory or mandatoryAndEditable, return true', contentId => {
+    const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
+    expect(visibleInMemo).toBe(true)
+  })
+
+  describe('if type is not mandatory or mandatoryAndEditable', () => {
+    test.each(['learningActivities', 'prerequisites', 'ethicalApproachSubSection', 'additionalRegulations'])(
+      'if html does not have content, return false',
+      contentId => {
+        const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
+        expect(visibleInMemo).toBe(false)
+      }
+    )
+
+    test.each(['otherRequirementsForFinalGrade'])(
+      'if html has content and type is mandatoryForSome, return true',
+      contentId => {
+        const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
+        expect(visibleInMemo).toBe(true)
+      }
+    )
+
+    test.each(['examinationSubSection'])(
+      'if html has content and visibility is stored as true in db, return true',
+      contentId => {
+        const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
+        expect(visibleInMemo).toBe(true)
+      }
+    )
+
+    test.each(['scheduleDetails'])(
+      'if html has content, visibility is not stored or is stored as false in db and type is not mandatoryForSome, return false',
+      contentId => {
+        const visibleInMemo = isStandardHeadingVisibleInPublished(contentId, context, memoData)
+        expect(visibleInMemo).toBe(false)
+      }
+    )
+  })
+})
+
+describe('isExtraHeadingVisibleInPublished', () => {
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 0 }])(
+    'if html does not have content and visibility is stored as true in db, return false',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPublished(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(false)
     }
   )
 
-  test.each([
-    { isRequired: true, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: true, type: 'mandatory', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: true, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: undefined },
-  ])(
-    'if isRequired, type is mandatory or mandatoryAndEditable and visibleInMemo is undefined, return true, regardless if contentHTML is empty or not',
-    params => {
-      expect(headingShouldBeShown(params)).toBe(true)
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 1 }])(
+    'if html has content and visibility is stored as true in db, return true',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPublished(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(true)
     }
   )
 
-  test.each([
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: true },
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: false },
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: undefined, visibleInMemo: true },
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: undefined, visibleInMemo: false },
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: undefined, visibleInMemo: undefined },
-  ])('if is required, and mandatoryForSome but no contentHTML, should return false', params => {
-    expect(headingShouldBeShown(params)).toBe(false)
-  })
-
-  test.each([
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: true, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: false, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: false, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: true },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: true },
-  ])('if visibleInMemo and has content, return true regardless of isRequired and type', params => {
-    expect(headingShouldBeShown(params)).toBe(true)
-  })
-
-  test.each([
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: true, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: false, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: false, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: undefined },
-  ])('if visibleInMemo is undefined and has content, return true regardless of isRequired and type', params => {
-    expect(headingShouldBeShown(params)).toBe(true)
-  })
-
-  test.each([
-    { isRequired: true, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: true, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: true, type: 'somethingElse', contentHtml: '', visibleInMemo: false },
-    { isRequired: false, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: false, type: 'mandatory', contentHtml: '', visibleInMemo: false },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: false },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: false },
-    { isRequired: false, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: false, type: 'somethingElse', contentHtml: '', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatory', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatory', contentHtml: '', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: false },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: 'someContent', visibleInMemo: false },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: '', visibleInMemo: false },
-  ])('if visibleInMemo is false, return false regardless of isRequired, type and contentHTML', params => {
-    expect(headingShouldBeShown(params)).toBe(false)
-  })
-
-  test.each([
-    { isRequired: undefined, type: 'mandatory', contentHtml: '', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatory', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: true },
-    { isRequired: undefined, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: '', visibleInMemo: true },
-    { isRequired: undefined, type: 'somethingElse', contentHtml: '', visibleInMemo: undefined },
-  ])('if isRequired is undefined (false) and contentHtml is empty, return false', params => {
-    expect(headingShouldBeShown(params)).toBe(false)
-  })
-
-  test.each([
-    { isRequired: false, type: 'somethingElse', contentHtml: '', visibleInMemo: true },
-    { isRequired: false, type: 'somethingElse', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: true, type: 'somethingElse', contentHtml: '', visibleInMemo: true },
-    { isRequired: true, type: 'somethingElse', contentHtml: '', visibleInMemo: undefined },
-  ])('if type is somethingElse and contentHtml is empty, return false', params => {
-    expect(headingShouldBeShown(params)).toBe(false)
-  })
-
-  test.each([
-    { isRequired: false, type: 'mandatory', contentHtml: '', visibleInMemo: true },
-    { isRequired: false, type: 'mandatory', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: true },
-    { isRequired: false, type: 'mandatoryForSome', contentHtml: '', visibleInMemo: undefined },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: true },
-    { isRequired: false, type: 'mandatoryAndEditable', contentHtml: '', visibleInMemo: undefined },
-  ])('if isRequired is false, type is one of the special types and contentHtml is empty, return false', params => {
-    expect(headingShouldBeShown(params)).toBe(false)
-  })
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 2 }])(
+    'if html has content and visibility is stored as false in db, return false',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPublished(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(false)
+    }
+  )
 })
