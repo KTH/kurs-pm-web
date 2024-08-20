@@ -39,14 +39,12 @@ const context = {
     source: '(s)',
   },
   ethicalApproachSubSection: {
-    openIfContent: true,
     isEditable: true,
     isRequired: false,
     hasParentTitle: true,
   },
   examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationSubSection: {
-    openIfContent: true,
     isEditable: true,
     isRequired: false,
     hasParentTitle: true,
@@ -58,7 +56,6 @@ const context = {
   extraHeaders4: { isEditable: true, isRequired: false },
   extraHeaders5: { isEditable: true, isRequired: false },
   equipment: {
-    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
@@ -81,7 +78,6 @@ const context = {
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
-    openIfContent: true,
     type: 'mandatoryAndEditable',
     isEditable: true,
     isRequired: true,
@@ -95,19 +91,16 @@ const context = {
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
   permanentDisabilitySubSection: {
-    openIfContent: true,
     isEditable: true,
     isRequired: false,
     hasParentTitle: true,
   },
   possibilityToCompletion: {
-    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
   }, // default
   possibilityToAddition: {
-    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
@@ -119,7 +112,6 @@ const context = {
   },
   preparations: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Förberedelser inför kursstart
   prerequisites: {
-    openIfContent: true,
     type: 'optional',
     isEditable: false,
     isRequired: false,
@@ -127,14 +119,12 @@ const context = {
   }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {
-    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
   },
   software: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Programvara
   teacherAssistants: {
-    openIfContent: true,
     type: 'optional',
     isEditable: false,
     isRequired: false,
