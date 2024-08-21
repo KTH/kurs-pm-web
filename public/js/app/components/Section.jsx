@@ -4,7 +4,7 @@ import { context } from '../util/fieldsByType'
 import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import HtmlWrapper from './HtmlWrapper'
 
-const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* en */ }) => {
+const Section = ({ contentId, menuId, htmlContent, memoLangIndex = 0 /* en */ }) => {
   const { noInfoYet, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
   const fromSyllabus = {
     is: context[contentId].source === '(s)',
@@ -18,7 +18,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex = 0 /* 
       ) : (
         <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} fromSyllabus={fromSyllabus} />
       )}
-      {visibleInMemo && <HtmlWrapper mode="inline" html={html || `<p><i>${noInfoYet}</i></p>`} />}
+      <HtmlWrapper mode="inline" html={htmlContent || `<p><i>${noInfoYet}</i></p>`} />
     </article>
   )
 }

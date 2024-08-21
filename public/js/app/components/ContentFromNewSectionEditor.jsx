@@ -1,32 +1,15 @@
 import React from 'react'
 import i18n from '../../../../i18n'
-import { useWebContext } from '../context/WebContext'
 import { ExtraHeaderHead } from './ContentHead'
 import HtmlWrapper from './HtmlWrapper'
 
-function ContentFromNewSectionEditor({ htmlContent = '', title = '', isEmptyNew = false, visibleInMemo }) {
-  const [webContext] = useWebContext()
-  const { userLanguageIndex = 1 } = webContext
-
-  const { sourceInfo } = i18n.messages[userLanguageIndex]
+function ContentFromNewSectionEditor({ htmlContent = '', title = '', memoLanguageIndex = 0 /* en */ }) {
+  const { noInfoYet } = i18n.messages[memoLanguageIndex].sourceInfo
 
   return (
     <article aria-label={title}>
-      {!isEmptyNew && <ExtraHeaderHead header={title} />}
-
-      {!isEmptyNew &&
-        /* is included in memo, preview text without editor */
-        ((visibleInMemo && (
-          <HtmlWrapper html={(htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet}</i></p>`} />
-        )) ||
-          /* editor has content but is not yet included in pm */
-          (htmlContent !== '' && (
-            <span>
-              <p>
-                <i>{sourceInfo.noInfoYet}</i>
-              </p>
-            </span>
-          )))}
+      <ExtraHeaderHead header={title} />
+      <HtmlWrapper html={htmlContent || `<p><i>${noInfoYet}</i></p>`} />
     </article>
   )
 }
