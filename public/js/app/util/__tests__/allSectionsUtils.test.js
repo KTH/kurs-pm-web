@@ -1,4 +1,4 @@
-import { isStandardHeadingVisibleInPublished, isExtraHeadingVisibleInPublished } from '../AllSectionsUtils'
+import { isStandardHeadingVisibleInPublished, isExtraHeadingVisibleInPublished } from '../allSectionsUtils'
 
 const context = {
   courseContent: { type: 'mandatory', isRequired: true },

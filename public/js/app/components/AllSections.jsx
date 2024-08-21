@@ -3,7 +3,7 @@ import Alert from '../components-shared/Alert'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
-import { getAllSectionsAndHeadingsToShow } from '../util/AllSectionsUtils'
+import { getAllSectionsAndHeadingsToShow } from '../util/allSectionsUtils'
 
 import Section from './Section'
 import ContentFromNewSectionEditor from './ContentFromNewSectionEditor'
