@@ -98,13 +98,16 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
                  Before course selection
               </a>
             </li>
-            <li
-              class="kth-local-navigation__submenu"
-            >
-              <h3>
+            <li>
+              <a
+                class="expandable expanded"
+                href="/kurs-pm/TEST121/om-kurs-pm"
+              >
                 Prepare and take course
-              </h3>
-              <ul>
+              </a>
+              <ul
+                class="kth-local-navigation__submenu"
+              >
                 <li>
                   <a
                     href="/kurs-pm/TEST121/om-kurs-pm"
@@ -197,13 +200,16 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
              Before course selection
           </a>
         </li>
-        <li
-          class="kth-local-navigation__submenu"
-        >
-          <h3>
+        <li>
+          <a
+            class="expandable expanded"
+            href="/kurs-pm/TEST121/om-kurs-pm"
+          >
             Prepare and take course
-          </h3>
-          <ul>
+          </a>
+          <ul
+            class="kth-local-navigation__submenu"
+          >
             <li>
               <a
                 href="/kurs-pm/TEST121/om-kurs-pm"

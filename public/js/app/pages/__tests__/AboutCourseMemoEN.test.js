@@ -195,10 +195,11 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders all links and check its number and labels', () => {
     const links = getAllByRole('link')
-    expect(links.length).toBe(13)
+    expect(links.length).toBe(14)
     const expectedlinks = [
       'Course and programme directory',
       'Before course selection',
+      'Prepare and take course',
       'Course memo',
       'Course memo Autumn 2019-1',
       'Course memo Autumn 2020-1',
