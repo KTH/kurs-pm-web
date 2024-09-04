@@ -34,9 +34,11 @@ const SideMenu = ({ labels, courseCode, language, aboutCourseMemo, courseMemoIte
           <a href={aboutCourseLink(courseCode, language)}> {labels.beforeChoosingCourse}</a>
         </li>
 
-        <li className="kth-local-navigation__submenu">
-          <h3>{labels.courseMemo}</h3>
-          <ul>
+        <li>
+          <a href={aboutCourseMemoLink(courseCode)} className={'expandable expanded'}>
+            {labels.courseMemo}
+          </a>
+          <ul className="kth-local-navigation__submenu">
             <li>
               <a href={aboutCourseMemoLink(courseCode)} {...(aboutCourseMemo ? { 'aria-current': 'page' } : {})}>
                 {labels.aboutCourseMemos}
