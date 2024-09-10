@@ -200,19 +200,13 @@ async function getContent(req, res, next) {
 
     let fromTerm = semester ?? extractTerm(courseCode, finalMemoEndPoint)
 
-    const {
-      courseMainSubjects,
-      recruitmentText,
-      title,
-      credits,
-      creditUnitAbbr,
-      infoContactName,
-      examiners,
-      roundInfos,
-    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage, fromTerm)
+    const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
+      courseCode,
+      languagesContext.memoLanguage,
+      fromTerm
+    )
 
     const courseContext = {
-      courseMainSubjects,
       title,
       credits,
       creditUnitAbbr,
@@ -330,11 +324,12 @@ async function getOldContent(req, res, next) {
       memoDatas: [],
     }
 
-    const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
-      await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { title, credits, creditUnitAbbr, infoContactName, examiners } = await getDetailedInformation(
+      courseCode,
+      languagesContext.memoLanguage
+    )
 
     const courseContext = {
-      courseMainSubjects,
       title,
       credits,
       creditUnitAbbr,
