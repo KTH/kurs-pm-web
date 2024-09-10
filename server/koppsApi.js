@@ -55,15 +55,13 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
-      const { mainSubjects, course, examiners, roundInfos } = res.body
+      const { course, examiners, roundInfos } = res.body
       const isCreditNotStandard =
         course &&
         course.credits &&
         course.credits.toString().indexOf('.') < 0 &&
         course.credits.toString().indexOf(',') < 0
       return {
-        courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
-        recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
         title: course && course.title ? course.title : '',
         credits: isCreditNotStandard ? course.credits + '.0' : course.credits || '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
@@ -83,8 +81,6 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
       language
     )
     return {
-      courseMainSubjects: '',
-      recruitmentText: '',
       title: '',
       credits: '',
       creditUnitAbbr: '',
@@ -94,8 +90,6 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   } catch (err) {
     log.error('Kopps is not available', err)
     return {
-      courseMainSubjects: '',
-      recruitmentText: '',
       title: '',
       credits: '',
       creditUnitAbbr: '',

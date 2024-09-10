@@ -15,7 +15,6 @@ function createServerSideContext() {
   const context = {
     browserConfig: {},
     courseCode: '',
-    courseMainSubjects: '',
     language: 'sv',
     memoData: {},
     memoDatas: [],
