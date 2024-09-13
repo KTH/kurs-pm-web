@@ -217,18 +217,11 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const [webContext] = useWebContext()
 
-  const {
-    allTypeMemos,
-    memoDatas,
-    courseCode,
-    language: userLangAbbr,
-    userLanguageIndex,
-    allRoundsFromKopps,
-  } = webContext
+  const { allTypeMemos, memoDatas, courseCode, language: userLangAbbr, userLanguageIndex, allRoundInfos } = webContext
 
   const isThisTest = !!mockKursPmDataApi
 
-  const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
+  const [allRounds, setAllRounds] = useState(allRoundInfos)
 
   const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
   const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
