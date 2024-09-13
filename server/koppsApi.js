@@ -55,11 +55,10 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
-      const { examiners, roundInfos } = res.body
+      const { examiners } = res.body
       return {
         infoContactName: '',
         examiners: createPersonHtml(examiners),
-        roundInfos: roundInfos || [],
       }
     }
 
