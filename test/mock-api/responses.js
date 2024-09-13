@@ -1116,7 +1116,6 @@ module.exports = {
         },
       },
     ],
-    // mainSubjects: ['Matematik', 'Teknik'],
     examinationSets: {
       20072: {
         startingTerm: {
