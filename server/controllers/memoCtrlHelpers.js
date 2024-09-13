@@ -125,6 +125,7 @@ async function findMatchingRound(memo, roundInfos) {
 
 function lookForMatchingRoundInRoundInfos(semester, memoApplicationCodes, roundInfos) {
   const matchingRoundInfo = roundInfos.find(({ round: { applicationCodes } }) => {
+    if (!applicationCodes) return false
     const hasMatchingTermAndApplicationCode = applicationCodes.some(({ applicationCode, term }) => {
       return term === semester && memoApplicationCodes.includes(applicationCode)
     })

@@ -55,17 +55,9 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
-      const { course, examiners, roundInfos } = res.body
-      const isCreditNotStandard =
-        course &&
-        course.credits &&
-        course.credits.toString().indexOf('.') < 0 &&
-        course.credits.toString().indexOf(',') < 0
+      const { examiners, roundInfos } = res.body
       return {
-        title: course && course.title ? course.title : '',
-        credits: isCreditNotStandard ? course.credits + '.0' : course.credits || '',
-        creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
-        infoContactName: course && course.infoContactName ? course.infoContactName : '',
+        infoContactName: '',
         examiners: createPersonHtml(examiners),
         roundInfos: roundInfos || [],
       }
