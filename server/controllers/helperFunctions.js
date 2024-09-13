@@ -2,7 +2,7 @@ const createRoundInfos = (ladokRounds, koppsRoundInfos) => {
   return ladokRounds.map(ladokRound => {
     const { round: koppsRound } = koppsRoundInfos.find(roundInfo => roundInfo?.round?.ladokUID === ladokRound.uid) || {}
     const { forstaUndervisningsdatum, sistaUndervisningsdatum, kortnamn, startperiod } = ladokRound
-    const { applicationCodes, shortName } = koppsRound || {}
+    const { applicationCodes } = koppsRound || {}
     return {
       round: {
         firstTuitionDate: forstaUndervisningsdatum.date,
@@ -10,9 +10,9 @@ const createRoundInfos = (ladokRounds, koppsRoundInfos) => {
         startWeek: forstaUndervisningsdatum,
         endWeek: sistaUndervisningsdatum,
         applicationCodes,
-        shortName: kortnamn || shortName,
+        shortName: kortnamn,
         startTerm: {
-          term: startperiod.code,
+          term: startperiod.inDigits,
         },
       },
     }

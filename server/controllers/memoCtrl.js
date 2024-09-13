@@ -22,7 +22,7 @@ const {
 } = require('./memoCtrlHelpers')
 const { getLastYearsTerm, extractTerm } = require('../utils/term')
 const { redirectToAboutCourseConfig } = require('../utils/helpers')
-const { createRoundInfos } = require('./controllerFunctions')
+const { createRoundInfos } = require('./helperFunctions')
 
 const locales = { sv, en }
 
