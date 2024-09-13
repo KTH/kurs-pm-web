@@ -204,13 +204,13 @@ async function getContent(req, res, next) {
 
     const { title, credits, creditUnitAbbr } = await getLadokCourseData(courseCode, responseLanguage)
     const ladokRounds = await getActiveCourseRoundsByCourseCodeAndFromTerm(courseCode, fromTerm, responseLanguage)
-    const {
-      infoContactName,
-      examiners,
-      roundInfos: koppsRoundInfos,
-    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage, fromTerm)
+    const { infoContactName, examiners } = await getDetailedInformation(
+      courseCode,
+      languagesContext.memoLanguage,
+      fromTerm
+    )
 
-    const roundInfos = createRoundInfos(ladokRounds, koppsRoundInfos)
+    const roundInfos = createRoundInfos(ladokRounds)
 
     const courseContext = {
       title,
@@ -417,13 +417,9 @@ async function getAboutContent(req, res, next) {
 
     const { title, credits, creditUnitAbbr } = await getLadokCourseData(courseCode, responseLanguage)
     const ladokRounds = await getActiveCourseRoundsByCourseCodeAndFromTerm(courseCode, fromTerm, responseLanguage)
-    const {
-      infoContactName,
-      examiners,
-      roundInfos: koppsRoundInfos,
-    } = await getDetailedInformation(courseCode, responseLanguage, fromTerm)
+    const { infoContactName, examiners } = await getDetailedInformation(courseCode, responseLanguage, fromTerm)
 
-    const roundInfos = createRoundInfos(ladokRounds, koppsRoundInfos)
+    const roundInfos = createRoundInfos(ladokRounds)
 
     webContext.title = title
     webContext.credits = credits
@@ -536,12 +532,11 @@ async function _getAllRoundsWithApplicationCodes(roundInfos) {
   const allRounds = []
   roundInfos.map(roundInfo => {
     const { round } = roundInfo
-    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCodes } = round
+    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCode } = round
     const { term } = startTerm
     if (isDateWithInCurrentOrFutureSemester(firstTuitionDate, lastTuitionDate)) {
       round.term = term
-      const { applicationCode = '' } = applicationCodes[0]
-      round.applicationCode = applicationCode
+      round.applicationCode = applicationCode || ''
       delete round.applicationCodes
       allRounds.push(round)
     }
