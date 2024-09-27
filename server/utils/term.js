@@ -22,7 +22,7 @@ function getLastYearsTerm(overrideDate) {
   const { currentYear, currentSemester } = getCurrentTermAndTermId(overrideDate)
   const lastYear = currentYear - 1
 
-  return `${lastYear}${currentSemester}`
+  return `${currentSemester === '2' ? 'HT' : 'VT'}${lastYear}`
 }
 
 function extractTerm(courseCode, memoEndPoint) {
