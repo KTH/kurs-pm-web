@@ -278,8 +278,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
         <AboutHeader
           courseCode={courseCode}
           title={webContext.title}
-          credits={webContext.credits}
-          creditUnitAbbr={webContext.creditUnitAbbr}
+          creditsLabel={webContext.creditsLabel}
           labels={aboutHeaderLabels}
           language={userLangAbbr}
         />
