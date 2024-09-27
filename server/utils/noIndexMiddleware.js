@@ -20,7 +20,6 @@ module.exports = function (req, res, next) {
     const serverHostUrl = new URL(serverConfig.hostUrl)
     const serverHost = serverHostUrl.host
     if (serverHost !== forwardedHost) {
-      console.log('Hello world')
       res.set('x-robots-tag', 'noindex')
     }
   }

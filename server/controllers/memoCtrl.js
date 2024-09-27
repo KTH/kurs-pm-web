@@ -202,7 +202,7 @@ async function getContent(req, res, next) {
 
     let fromTerm = semester ?? extractTerm(courseCode, finalMemoEndPoint)
 
-    const { title, credits, creditUnitAbbr } = await getLadokCourseData(courseCode, responseLanguage)
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
     const ladokRounds = await getActiveCourseRoundsByCourseCodeAndFromTerm(courseCode, fromTerm, responseLanguage)
     const { infoContactName, examiners } = await getDetailedInformation(
       courseCode,
@@ -214,8 +214,7 @@ async function getContent(req, res, next) {
 
     const courseContext = {
       title,
-      credits,
-      creditUnitAbbr,
+      creditsLabel,
       infoContactName,
       examiners,
     }
@@ -330,13 +329,12 @@ async function getOldContent(req, res, next) {
       memoDatas: [],
     }
 
-    const { title, credits, creditUnitAbbr } = await getLadokCourseData(courseCode)
+    const { title, creditsLabel } = await getLadokCourseData(courseCode)
     const { infoContactName, examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
       title,
-      credits,
-      creditUnitAbbr,
+      creditsLabel,
       infoContactName,
       examiners,
     }
@@ -415,15 +413,14 @@ async function getAboutContent(req, res, next) {
 
     const fromTerm = getLastYearsTerm()
 
-    const { title, credits, creditUnitAbbr } = await getLadokCourseData(courseCode, responseLanguage)
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
     const ladokRounds = await getActiveCourseRoundsByCourseCodeAndFromTerm(courseCode, fromTerm, responseLanguage)
     const { infoContactName, examiners } = await getDetailedInformation(courseCode, responseLanguage, fromTerm)
 
     const roundInfos = createRoundInfos(ladokRounds)
 
     webContext.title = title
-    webContext.credits = credits
-    webContext.creditUnitAbbr = creditUnitAbbr
+    webContext.creditsLabel = creditsLabel
     webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 

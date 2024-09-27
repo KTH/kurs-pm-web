@@ -19,7 +19,7 @@ describe('Redirect function in <CourseMemo>', () => {
   test('return data for redirect for the link from the personal meny', () => {
     const locationUrlFromPersonalMenu = { pathname: '/MF2140/20222/1' }
     const { noMemoData, semester, applicationCodes } = redirectToAbout('MF2140', locationUrlFromPersonalMenu)
-    expect(noMemoData).toBeTruthy()
+    expect(noMemoData).toBeTruthy
     expect(semester).toBe('20222')
     expect(applicationCodes).toStrictEqual(['1'])
   })
@@ -81,7 +81,7 @@ describe('Component <CourseMemo>', () => {
       ],
       title: '',
       userLanguageIndex: 0,
-      credits: 7.5,
+      creditsLabel: '7.5 credits',
       syllabusValid: { validFromTerm: '20181' },
     }
     render(
@@ -102,7 +102,7 @@ const spring181 = {
   semester: '20181',
   applicationCodes: [1],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   version: 2,
   syllabusValid: { validFromTerm: '20181' },
 }
@@ -112,7 +112,7 @@ const spring1823 = {
   semester: '20181',
   applicationCodes: [2, 3],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   lastChangeDate: 'Fri Dec 1 2017 12:04:37',
   version: 6,
   syllabusValid: { validFromTerm: '20181' },
@@ -123,7 +123,7 @@ const spring184 = {
   semester: '20181',
   applicationCodes: [4],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   syllabusValid: { validFromTerm: '20181' },
 }
 const spring1924 = {
@@ -132,7 +132,7 @@ const spring1924 = {
   semester: '20191',
   applicationCodes: [2, 4],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   syllabusValid: { validFromTerm: '20191' },
 }
 const spring193 = {
@@ -141,7 +141,7 @@ const spring193 = {
   semester: '20191',
   applicationCodes: [3],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   syllabusValid: { validFromTerm: '20191' },
 }
 const fall190 = {
@@ -150,7 +150,7 @@ const fall190 = {
   semester: '20192',
   applicationCodes: [],
   memoCommonLangAbbr: 'en',
-  credits: 7.5,
+  creditsLabel: '7.5 credits',
   syllabusValid: { validFromTerm: '20191' },
 }
 
@@ -172,7 +172,7 @@ describe('Page CourseMemo', () => {
       memoDatas,
       memoLanguageIndex: 0,
       userLanguageIndex: 0,
-      credits: 7.5,
+      creditsLabel: '7.5 credits',
       title: '',
       activeMemoEndPoint: id => id === '181',
       applicationCodes: [2, 3],

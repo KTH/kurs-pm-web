@@ -8,19 +8,12 @@ async function getLadokCourseData(courseCode, lang) {
   const course = await client.getLatestCourseVersion(courseCode, lang)
   const {
     benamning: ladokCourseTitle,
-    omfattning: ladokCourseCredits,
-    utbildningstyp: { creditsUnitCode: ladokCreditUnitAbbr },
+    omfattning: { formattedWithUnit: ladokCreditsLabel },
   } = course
-
-  const isCreditNotStandard =
-    ladokCourseCredits &&
-    ladokCourseCredits.toString().indexOf('.') < 0 &&
-    ladokCourseCredits.toString().indexOf(',') < 0
 
   return {
     title: ladokCourseTitle ?? '',
-    credits: isCreditNotStandard ? ladokCourseCredits + '.0' : ladokCourseCredits || '',
-    creditUnitAbbr: ladokCreditUnitAbbr ?? '',
+    creditsLabel: ladokCreditsLabel ?? '',
   }
 }
 

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Row, Col } from 'reactstrap'
 
 import i18n from '../../../../i18n'
-import { concatMemoName, memoNameWithoutApplicationCode, seasonStr, formatCredits } from '../util/helpers'
+import { concatMemoName, memoNameWithoutApplicationCode, seasonStr } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
 
@@ -84,8 +84,7 @@ function CourseMemo() {
     semester: querySemester,
     userLanguageIndex,
     title,
-    credits,
-    creditUnitAbbr,
+    creditsLabel,
   } = webContext
 
   const { semester: memoSemester, syllabusValid = {}, applicationCodes = [] } = memo
@@ -116,7 +115,7 @@ function CourseMemo() {
   }, [])
 
   const memoLanguageIndex = getLangIndex(memoLanguage)
-  const courseTitle = `${courseCode} ${title} ${formatCredits(credits, creditUnitAbbr, language)}`
+  const courseTitle = `${courseCode} ${title} ${creditsLabel}`
 
   const {
     coverPageLabels,
