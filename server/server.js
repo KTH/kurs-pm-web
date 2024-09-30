@@ -191,11 +191,6 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 
 appRoute.get(
-  'api.getTermsWithCourseRounds',
-  config.proxyPrefixPath.uri + '/internApi/termsWithCourseRounds/:courseCode',
-  CourseMemo.getTermsWithCourseRounds
-)
-appRoute.get(
   'CourseMemoPdf.getPdfProxy',
   config.proxyPrefixPath.uri + '/memo/pdf/:id',
   CourseMemoPdf.getPdfProxy(config.nodeApi.kursPmDataApi, config.apiKey.kursPmDataApi)
