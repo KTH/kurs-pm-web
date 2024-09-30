@@ -249,7 +249,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
       round =>
         (round.term
           ? round.term.toString() === semester.toString()
-          : round.semester.toString() === semester.toString()) && round.state !== 'CANCELLED'
+          : round.semester.toString() === semester.toString()) && !round.cancelled
     )
 
     if (memos.length > 0) {
