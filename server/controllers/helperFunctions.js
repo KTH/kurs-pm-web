@@ -1,7 +1,13 @@
 const createRoundInfos = ladokRounds => {
   return ladokRounds.map(ladokRound => {
-    const { forstaUndervisningsdatum, sistaUndervisningsdatum, utbildningstillfalleskod, kortnamn, startperiod } =
-      ladokRound
+    const {
+      forstaUndervisningsdatum,
+      sistaUndervisningsdatum,
+      utbildningstillfalleskod,
+      kortnamn,
+      startperiod,
+      installt,
+    } = ladokRound
     return {
       round: {
         firstTuitionDate: forstaUndervisningsdatum.date,
@@ -13,6 +19,7 @@ const createRoundInfos = ladokRounds => {
         startTerm: {
           term: startperiod.inDigits,
         },
+        cancelled: installt,
       },
     }
   })
