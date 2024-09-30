@@ -8,10 +8,13 @@ import { useWebContext } from '../context/WebContext'
 
 import SideMenu from '../components/SideMenu'
 
+/**
+ * Page displayed when accessing this app without course code.
+ */
 function AboutCourseMemos() {
   const [webContext] = useWebContext()
   const translate = i18n.messages[webContext.userLanguageIndex]
-  const { courseCode, language } = webContext
+  const { language } = webContext
 
   return (
     <Row>
@@ -25,11 +28,7 @@ function AboutCourseMemos() {
       />
       <Col id="mainContent" className="col-print-12" lang={language}>
         <main>
-          <Row>
-            <Col>
-              <h1 className="course-header-title">{translate.messages.memoLabel}</h1>
-            </Col>
-          </Row>
+          <h1 className="course-header-title">{translate.messages.memoLabel}</h1>
         </main>
       </Col>
     </Row>
