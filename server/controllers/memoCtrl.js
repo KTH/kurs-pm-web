@@ -10,7 +10,7 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
-const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
+const { getDetailedInformation } = require('../koppsApi')
 const { getLadokCourseData, getActiveCourseRoundsByCourseCodeAndFromTerm } = require('../ladokApi')
 const { createBreadcrumbs } = require('../utils/breadcrumbUtil')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
@@ -512,19 +512,6 @@ async function getNoContent(req, res, next) {
   }
 }
 
-async function getTermsWithCourseRounds(req, res, next) {
-  const { params, query } = req
-  const { courseCode } = params
-  try {
-    log.info('Get request to fetch course rounds', { function: 'getTermsWithCourseRounds', courseCode, params, query })
-    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
-    res.send(termsWithCourseRounds)
-  } catch (err) {
-    log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
-    next(err)
-  }
-}
-
 async function _getAllRoundsWithApplicationCodes(roundInfos) {
   const allRounds = []
   roundInfos.map(roundInfo => {
@@ -546,5 +533,4 @@ module.exports = {
   getOldContent,
   getNoContent,
   getAboutContent,
-  getTermsWithCourseRounds,
 }
