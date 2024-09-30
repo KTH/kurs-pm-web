@@ -1,9 +1,9 @@
-const { extractTerm } = require('../utils/term')
+const { convertTermToLadokPeriod } = require('../utils/term')
 
-describe('extractTerm', () => {
-  it('should extract a correct term', () => {
-    expect(extractTerm('AK1214', 'AK121420221-45001')).toStrictEqual('20221')
-    expect(extractTerm('AK1210', 'AK121020002-434001')).toStrictEqual('20002')
-    expect(extractTerm('MG10001', 'MG1000120231-2')).toStrictEqual('20231')
+describe('convertTermToLadokPeriod', () => {
+  it('should convert term to Ladok period format', () => {
+    expect(convertTermToLadokPeriod('20221')).toStrictEqual('VT2022')
+    expect(convertTermToLadokPeriod('20002')).toStrictEqual('HT2000')
+    expect(convertTermToLadokPeriod('20231')).toStrictEqual('VT2023')
   })
 })

@@ -1,8 +1,8 @@
 'use strict'
 
 const log = require('@kth/log')
-const { getCourseRoundTerms } = require('../koppsApi')
-const { getCurrentTerm } = require('../utils/term')
+const { getCourseRoundsForPeriod } = require('../ladokApi')
+const { getCurrentTerm, convertTermToLadokPeriod } = require('../utils/term')
 
 function enrichMemoDatasWithOutdatedFlag(memoDatas = [], roundInfos = []) {
   if (!Array.isArray(memoDatas)) {
@@ -103,70 +103,40 @@ function getIsMemoOutdated(offerings, startSelectionYear, memoData) {
   return true
 }
 
-async function findStartDateForMemo(memo, roundInfos) {
-  const matchingRound = await findMatchingRound(memo, roundInfos)
+/**
+ * Get round for memo. Looks in roundInfos first (i.e. will be rounds
+ * from last year and after)
+ * If not found in roundInfos; it fetch correct period from Ladok seperatly.
+ */
+async function getMemoRoundFromRoundInfosOrApi(memo, roundInfos, lang) {
+  let matchingRoundInfo = findMemoRoundFromRoundInfos(memo, roundInfos)
 
-  return matchingRound.firstTuitionDate
-}
+  if (!matchingRoundInfo) {
+    const memoPeriod = convertTermToLadokPeriod(memo.semester)
+    const roundsInfoForMemoPeriod = await getCourseRoundsForPeriod(memo.courseCode, memoPeriod, lang)
+    matchingRoundInfo = findMemoRoundFromRoundInfos(memo, roundsInfoForMemoPeriod)
 
-async function findMatchingRound(memo, roundInfos) {
-  const { semester, applicationCodes, courseCode } = memo
-  let matchingRound = lookForMatchingRoundInRoundInfos(semester, applicationCodes, roundInfos)
-
-  if (!matchingRound) {
-    log.debug(
-      `Could not find matching round for courseCode ${courseCode} and applicationCodes ${applicationCodes}. Fetching courseRoundTerms from KOPPS.`
-    )
-
-    matchingRound = lookForMatchingRoundsInCourseRoundTerms(courseCode, semester, applicationCodes)
-  }
-  return matchingRound
-}
-
-function lookForMatchingRoundInRoundInfos(semester, memoApplicationCodes, roundInfos) {
-  const matchingRoundInfo = roundInfos.find(({ round: { applicationCodes } }) => {
-    if (!applicationCodes) return false
-    const hasMatchingTermAndApplicationCode = applicationCodes.some(({ applicationCode, term }) => {
-      return term === semester && memoApplicationCodes.includes(applicationCode)
-    })
-
-    return hasMatchingTermAndApplicationCode
-  })
-
-  if (matchingRoundInfo) {
-    return matchingRoundInfo.round
+    if (!matchingRoundInfo) {
+      log.error(
+        `Could not find matching round for courseCode: ${memo.courseCode}, semester: ${memo.semester} and applicationCode: ${memo.applicationCodes}`
+      )
+    }
   }
 
-  return undefined
+  return matchingRoundInfo?.round
 }
 
-async function lookForMatchingRoundsInCourseRoundTerms(courseCode, semester, applicationCodes) {
-  const courseRoundTerms = await getCourseRoundTerms(courseCode)
+function findMemoRoundFromRoundInfos(memo, roundInfos) {
+  const { semester: memoSemester, applicationCodes: memoApplicationCodes } = memo
 
-  const courseRoundForTerm = courseRoundTerms.find(({ term }) => term === semester)
-
-  if (!courseRoundForTerm) {
-    log.error(`Could not find matching round for courseCode ${courseCode} and term ${semester}.`)
-    return { firstTuitionDate: '' }
-  }
-
-  const firstRoundWithMatchingApplicationCode = courseRoundForTerm.rounds.find(({ applicationCode }) =>
-    applicationCodes.includes(applicationCode)
+  return roundInfos.find(
+    ({ round: { applicationCode, startTerm } }) =>
+      memoSemester === startTerm.term && applicationCode && memoApplicationCodes.includes(applicationCode)
   )
-
-  if (firstRoundWithMatchingApplicationCode && firstRoundWithMatchingApplicationCode.firstTuitionDate) {
-    return firstRoundWithMatchingApplicationCode
-  }
-
-  log.error(
-    `Could not find matching round with firstTuitionDate in courseRoundInfo for courseCode ${courseCode} and applicationCodes ${applicationCodes}.`
-  )
-
-  return { firstTuitionDate: '' }
 }
 
 module.exports = {
   enrichMemoDatasWithOutdatedFlag,
   isDateWithInCurrentOrFutureSemester,
-  findStartDateForMemo,
+  getMemoRoundFromRoundInfosOrApi,
 }

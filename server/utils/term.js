@@ -18,22 +18,21 @@ function getCurrentTerm(overrideDate) {
   return `${currentYear * 10 + currentSemester}`
 }
 
-function getLastYearsTerm(overrideDate) {
-  const { currentYear, currentSemester } = getCurrentTermAndTermId(overrideDate)
+function getLastYearsLadokPeriod() {
+  const { currentYear, currentSemester } = getCurrentTermAndTermId()
   const lastYear = currentYear - 1
 
   return `${currentSemester === '2' ? 'HT' : 'VT'}${lastYear}`
 }
 
-function extractTerm(courseCode, memoEndPoint) {
-  const startIndex = courseCode.length
-  const endIndex = memoEndPoint.indexOf('-')
-  const term = memoEndPoint.slice(startIndex, endIndex)
-  return term
+function convertTermToLadokPeriod(term) {
+  const year = term.slice(0, 4)
+  const semester = term.slice(4, 5)
+  return `${semester === '2' ? 'HT' : 'VT'}${year}`
 }
 
 module.exports = {
   getCurrentTerm,
-  getLastYearsTerm,
-  extractTerm,
+  getLastYearsLadokPeriod,
+  convertTermToLadokPeriod,
 }
