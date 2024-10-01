@@ -33,7 +33,7 @@ export const mockMixKursPmDataApi = () => ({
   ],
 })
 
-export const mockMixKoppsApi = () => [
+export const mockMixLadokApi = () => [
   {
     shortName: '',
     applicationCode: '1',
@@ -41,6 +41,7 @@ export const mockMixKoppsApi = () => [
     lastTuitionDate: '2023-03-17',
     term: '20212',
     state: 'CANCELLED',
+    cancelled: true,
   },
   {
     shortName: '',
@@ -49,6 +50,7 @@ export const mockMixKoppsApi = () => [
     lastTuitionDate: '2023-03-17',
     term: '20202',
     state: 'APPROVED',
+    cancelled: false,
   },
   {
     shortName: '',
@@ -57,6 +59,7 @@ export const mockMixKoppsApi = () => [
     lastTuitionDate: '2023-03-17',
     term: '20192',
     state: 'APPROVED',
+    cancelled: false,
   },
   {
     shortName: '',
@@ -65,5 +68,6 @@ export const mockMixKoppsApi = () => [
     lastTuitionDate: '2023-03-17',
     term: '20192',
     state: 'APPROVED',
+    cancelled: false,
   },
 ]
