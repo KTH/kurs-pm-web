@@ -60,21 +60,6 @@
   }
 }
 
-.kth-content.articleNavigation {
-  #breadcrumbs {
-    width: 100%;
-    margin-top: 15px;
-    ol {
-      margin: 0;
-    }
-
-    display: none;
-    @media (min-width: 992px) {
-      display: flex;
-    }
-  }
-}
-
 .kth-alert {
   margin-bottom: 30px;
 }
