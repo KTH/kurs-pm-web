@@ -198,9 +198,8 @@ async function getContent(req, res, next) {
       userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
     }
 
-    const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
-    const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
-
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
+    const roundInfos = await getCourseRoundsFromLastYear(courseCode, languagesContext.memoLanguage)
     const { infoContactName, examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
@@ -320,7 +319,7 @@ async function getOldContent(req, res, next) {
       memoDatas: [],
     }
 
-    const { title, creditsLabel } = await getLadokCourseData(courseCode)
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
     const { infoContactName, examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
