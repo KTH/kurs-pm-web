@@ -200,23 +200,17 @@ async function getContent(req, res, next) {
 
     let fromTerm = semester ?? extractTerm(courseCode, finalMemoEndPoint)
 
-    const {
-      courseMainSubjects,
-      recruitmentText,
-      title,
-      credits,
-      creditUnitAbbr,
-      infoContactName,
-      examiners,
-      roundInfos,
-    } = await getDetailedInformation(courseCode, languagesContext.memoLanguage, fromTerm)
+    const { courseMainSubjects, title, credits, creditUnitAbbr, examiners, roundInfos } = await getDetailedInformation(
+      courseCode,
+      languagesContext.memoLanguage,
+      fromTerm
+    )
 
     const courseContext = {
       courseMainSubjects,
       title,
       credits,
       creditUnitAbbr,
-      infoContactName,
       examiners,
     }
 
@@ -330,15 +324,16 @@ async function getOldContent(req, res, next) {
       memoDatas: [],
     }
 
-    const { courseMainSubjects, recruitmentText, title, credits, creditUnitAbbr, infoContactName, examiners } =
-      await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { courseMainSubjects, title, credits, creditUnitAbbr, examiners } = await getDetailedInformation(
+      courseCode,
+      languagesContext.memoLanguage
+    )
 
     const courseContext = {
       courseMainSubjects,
       title,
       credits,
       creditUnitAbbr,
-      infoContactName,
       examiners,
     }
 
@@ -416,7 +411,7 @@ async function getAboutContent(req, res, next) {
 
     const fromTerm = getLastYearsTerm()
 
-    const { title, credits, creditUnitAbbr, infoContactName, examiners, roundInfos } = await getDetailedInformation(
+    const { title, credits, creditUnitAbbr, examiners, roundInfos } = await getDetailedInformation(
       courseCode,
       responseLanguage,
       fromTerm
@@ -424,7 +419,6 @@ async function getAboutContent(req, res, next) {
     webContext.title = title
     webContext.credits = credits
     webContext.creditUnitAbbr = creditUnitAbbr
-    webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 
     webContext.memoDatas = enrichMemoDatasWithOutdatedFlag(rawMemos, roundInfos)
