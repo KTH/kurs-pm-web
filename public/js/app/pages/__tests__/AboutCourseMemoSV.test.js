@@ -88,7 +88,7 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
   test('renders h3 ', () => {
     const mainContent = screen.getByRole('main')
     const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(4)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
       'Kursomgångar som startar HT 2020',
       'Kursomgångar som startar HT 2019',
@@ -106,6 +106,11 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
       'HT 2019 (Startdatum 2023-01-17)',
     ]
     expectedh4ds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+  })
+
+  test('renders text about empty fields (Kontaktperson) ', () => {
+    const noInfo = getAllByText('Ingen information tillagd')
+    expect(noInfo.length).toBe(1)
   })
 
   test('renders menu link of web-based memo as expected', done => {

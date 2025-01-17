@@ -67,6 +67,7 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
         title: course && course.title ? course.title : '',
         credits: isCreditNotStandard ? course.credits + '.0' : course.credits || '',
         creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
+        infoContactName: course && course.infoContactName ? course.infoContactName : '',
         examiners: createPersonHtml(examiners),
         roundInfos: roundInfos || [],
       }
