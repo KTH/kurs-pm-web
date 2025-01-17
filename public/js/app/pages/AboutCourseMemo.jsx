@@ -367,6 +367,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
               <h2>{courseContactsLabels.courseContactsTitle}</h2>
               <AboutCourseContacts
                 languageIndex={userLanguageIndex}
+                infoContactName={webContext.infoContactName}
                 examiners={webContext.examiners}
                 labels={courseContactsLabels}
               />

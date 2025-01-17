@@ -87,7 +87,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
     const mainContent = screen.getByRole('main')
 
     const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(4)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [
       'Course offerings starting Autumn 2020',
       'Course offerings starting Autumn 2019',
@@ -109,7 +109,7 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
 
   test('renders text about empty fields (Course Contact, Examiner) ', () => {
     const noInfo = getAllByText('No information inserted')
-    expect(noInfo.length).toBe(1)
+    expect(noInfo.length).toBe(2)
   })
 
   test('renders menu link of web-based memo as expected', () => {

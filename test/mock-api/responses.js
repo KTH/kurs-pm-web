@@ -41,6 +41,7 @@ module.exports = {
       extraHeaders4: '',
       extraHeaders5: '',
       equipment: '',
+      infoContactName: '',
       literature: '',
       possibilityToCompletion: '',
       possibilityToAddition: '',
