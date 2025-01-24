@@ -24,7 +24,6 @@ function createServerSideContext() {
     title: '',
     credits: '',
     creditUnitAbbr: '',
-    infoContactName: '',
     semester: '',
     examiners: '',
     userLanguageIndex: 1,
