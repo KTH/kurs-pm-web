@@ -200,12 +200,11 @@ async function getContent(req, res, next) {
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
     const roundInfos = await getCourseRoundsFromLastYear(courseCode, languagesContext.memoLanguage)
-    const { infoContactName, examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
       title,
       creditsLabel,
-      infoContactName,
       examiners,
     }
 
@@ -320,12 +319,11 @@ async function getOldContent(req, res, next) {
     }
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
-    const { infoContactName, examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
       title,
       creditsLabel,
-      infoContactName,
       examiners,
     }
 
@@ -403,11 +401,10 @@ async function getAboutContent(req, res, next) {
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
     const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
-    const { infoContactName, examiners } = await getDetailedInformation(courseCode, responseLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, responseLanguage)
 
     webContext.title = title
     webContext.creditsLabel = creditsLabel
-    webContext.infoContactName = infoContactName
     webContext.examiners = examiners
 
     webContext.memoDatas = enrichMemoDatasWithOutdatedFlag(rawMemos, roundInfos)

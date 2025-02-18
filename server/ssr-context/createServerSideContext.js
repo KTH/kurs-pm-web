@@ -22,7 +22,6 @@ function createServerSideContext() {
     memoLanguage: 'sv',
     title: '',
     creditsLabel: '',
-    infoContactName: '',
     semester: '',
     examiners: '',
     userLanguageIndex: 1,
