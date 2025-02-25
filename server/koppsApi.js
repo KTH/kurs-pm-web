@@ -54,7 +54,6 @@ async function getDetailedInformation(courseCode, language) {
     if (res.body) {
       const { examiners } = res.body
       return {
-        infoContactName: '',
         examiners: createPersonHtml(examiners),
       }
     }

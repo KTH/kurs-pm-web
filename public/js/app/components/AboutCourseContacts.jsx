@@ -4,22 +4,6 @@ import { EMPTY } from '../util/constants'
 import HtmlWrapper from './HtmlWrapper'
 
 // Mandatory information
-const InfoContact = ({ languageIndex, infoContactName, labels }) =>
-  infoContactName ? (
-    <>
-      <h3 className="t4">{labels.infoContactName}</h3>
-      <HtmlWrapper id="links-info-contact-name" html={infoContactName} />
-    </>
-  ) : (
-    <>
-      <h3 className="t4">{labels.infoContactName}</h3>
-      <p>
-        <i>{EMPTY[languageIndex]}</i>
-      </p>
-    </>
-  )
-
-// Mandatory information
 const ExaminerContacts = ({ languageIndex, examiners, labels }) =>
   examiners ? (
     <>
@@ -35,10 +19,9 @@ const ExaminerContacts = ({ languageIndex, examiners, labels }) =>
     </>
   )
 
-const CourseContacts = ({ languageIndex, infoContactName = '', examiners = '', labels = {} }) => (
+const CourseContacts = ({ languageIndex, examiners = '', labels = {} }) => (
   <>
     <div className="info-box text-break">
-      <InfoContact languageIndex={languageIndex} infoContactName={infoContactName} labels={labels} />
       <ExaminerContacts languageIndex={languageIndex} examiners={examiners} labels={labels} />
     </div>
   </>
