@@ -126,7 +126,7 @@ function extendMemo(memo, round) {
 
 function makeAllSemestersRoundsWithMemos(
   webAndPdfMiniMemos,
-  allRoundsMockOrReal,
+  allRounds,
   allActiveTerms,
   memoToCheck,
   langAbbr = 'sv',
@@ -145,7 +145,7 @@ function makeAllSemestersRoundsWithMemos(
       const cleanFlatMemosList = removeWebMemosDuplicates(flattenMemosList)
       const cleanAllMemos = removePdfMemosDuplicates(cleanFlatMemosList)
       const allSemesterMemosApplicationCodes = cleanAllMemos.map(memo => memo.applicationCodes)
-      const allTermRounds = allRoundsMockOrReal.filter(round => round.term.toString() === semester.toString()).reverse()
+      const allTermRounds = allRounds.filter(round => round.term.toString() === semester.toString()).reverse()
       const allTermRoundsClean = removeRoundsDuplicates(allTermRounds)
       const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
 
@@ -165,9 +165,7 @@ function makeAllSemestersRoundsWithMemos(
         }
       })
     } else {
-      allSemestersRoundsWithMemos.push(
-        ...allRoundsMockOrReal.filter(round => round.term.toString() === semester.toString())
-      )
+      allSemestersRoundsWithMemos.push(...allRounds.filter(round => round.term.toString() === semester.toString()))
     }
   })
   const arrDateFormat = allSemestersRoundsWithMemos.map(obj => {
@@ -189,7 +187,7 @@ function makeAllSemestersRoundsWithMemos(
   return sortedAscAllSemestersRoundsWithMemos
 }
 
-function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false }) {
+function AboutCourseMemo() {
   const [paramsString, setSearchParams] = useSearchParams()
 
   const [noMemoAlert, setNoMemoAlert] = useState(null)
@@ -217,32 +215,19 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
 
   const [webContext] = useWebContext()
 
-  const {
-    allTypeMemos,
-    memoDatas,
-    courseCode,
-    language: userLangAbbr,
-    userLanguageIndex,
-    allRoundsFromKopps,
-  } = webContext
+  const { allTypeMemos, memoDatas, courseCode, language: userLangAbbr, userLanguageIndex, allRoundInfos } = webContext
 
-  const isThisTest = !!mockKursPmDataApi
-
-  const [allRounds, setAllRounds] = useState(allRoundsFromKopps)
-
-  const webAndPdfMiniMemos = isThisTest ? mockKursPmDataApi : allTypeMemos
-  const allRoundsMockOrReal = isThisTest ? mockMixKoppsApi : allRounds
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
 
   const menuMemoItems = menuItemsForAboutMemo(memoDatas)
 
   const memoToCheck = useRef([])
-  const allActiveTerms = removeDuplicates(allRoundsMockOrReal.map(t => t.term))
+  const allActiveTerms = removeDuplicates(allRoundInfos.map(t => t.term))
 
   const semestersMemosAndRounds = makeAllSemestersRoundsWithMemos(
-    webAndPdfMiniMemos,
-    allRoundsMockOrReal,
+    allTypeMemos,
+    allRoundInfos,
     allActiveTerms,
     memoToCheck,
     userLangAbbr,
@@ -256,7 +241,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
       round =>
         (round.term
           ? round.term.toString() === semester.toString()
-          : round.semester.toString() === semester.toString()) && round.state !== 'CANCELLED'
+          : round.semester.toString() === semester.toString()) && !round.cancelled
     )
 
     if (memos.length > 0) {
@@ -266,10 +251,6 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
       })
     }
   })
-
-  useEffect(() => {
-    setAllRounds(allRoundsMockOrReal)
-  }, [])
 
   return (
     <Row>
@@ -285,8 +266,7 @@ function AboutCourseMemo({ mockKursPmDataApi = false, mockMixKoppsApi = false })
         <AboutHeader
           courseCode={courseCode}
           title={webContext.title}
-          credits={webContext.credits}
-          creditUnitAbbr={webContext.creditUnitAbbr}
+          creditsLabel={webContext.creditsLabel}
           labels={aboutHeaderLabels}
           language={userLangAbbr}
         />

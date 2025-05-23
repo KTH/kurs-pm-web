@@ -10,16 +10,16 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
-const { getDetailedInformation, getCourseRoundTerms } = require('../koppsApi')
+const { getDetailedInformation } = require('../koppsApi')
+const { getLadokCourseData, getCourseRoundsFromLastYear } = require('../ladokApi')
 const { createBreadcrumbs } = require('../utils/breadcrumbUtil')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext } = require('../ssr-context/createServerSideContext')
 const {
   isDateWithInCurrentOrFutureSemester,
-  findStartDateForMemo,
+  getMemoRoundFromRoundInfosOrApi,
   enrichMemoDatasWithOutdatedFlag,
 } = require('./memoCtrlHelpers')
-const { getLastYearsTerm, extractTerm } = require('../utils/term')
 const { redirectToAboutCourseConfig } = require('../utils/helpers')
 
 const locales = { sv, en }
@@ -198,27 +198,21 @@ async function getContent(req, res, next) {
       userLanguageIndex: responseLanguage === 'en' ? 0 : 1,
     }
 
-    let fromTerm = semester ?? extractTerm(courseCode, finalMemoEndPoint)
-
-    const { courseMainSubjects, title, credits, creditUnitAbbr, examiners, roundInfos } = await getDetailedInformation(
-      courseCode,
-      languagesContext.memoLanguage,
-      fromTerm
-    )
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
+    const roundInfos = await getCourseRoundsFromLastYear(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
-      courseMainSubjects,
       title,
-      credits,
-      creditUnitAbbr,
+      creditsLabel,
       examiners,
     }
 
     const memoDatas = enrichMemoDatasWithOutdatedFlag(rawMemos, roundInfos)
     const memoWithExtraProps = await findMemoWithMatchingEndpoint(memoDatas, finalMemoEndPoint)
-
     if (memoWithExtraProps) {
-      memoWithExtraProps.startDate = await findStartDateForMemo(memoWithExtraProps, roundInfos)
+      const memoRound = await getMemoRoundFromRoundInfosOrApi(memoWithExtraProps, roundInfos, responseLanguage)
+      memoWithExtraProps.startDate = memoRound.firstTuitionDate
     }
 
     const allTypeMemos = !memoWithExtraProps ? await getMiniMemosPdfAndWeb(courseCode) : []
@@ -324,16 +318,12 @@ async function getOldContent(req, res, next) {
       memoDatas: [],
     }
 
-    const { courseMainSubjects, title, credits, creditUnitAbbr, examiners } = await getDetailedInformation(
-      courseCode,
-      languagesContext.memoLanguage
-    )
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
 
     const courseContext = {
-      courseMainSubjects,
       title,
-      credits,
-      creditUnitAbbr,
+      creditsLabel,
       examiners,
     }
 
@@ -409,21 +399,17 @@ async function getAboutContent(req, res, next) {
 
     const rawMemos = await getMemoDataById(courseCode, 'published')
 
-    const fromTerm = getLastYearsTerm()
+    const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
+    const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
+    const { examiners } = await getDetailedInformation(courseCode, responseLanguage)
 
-    const { title, credits, creditUnitAbbr, examiners, roundInfos } = await getDetailedInformation(
-      courseCode,
-      responseLanguage,
-      fromTerm
-    )
     webContext.title = title
-    webContext.credits = credits
-    webContext.creditUnitAbbr = creditUnitAbbr
+    webContext.creditsLabel = creditsLabel
     webContext.examiners = examiners
 
     webContext.memoDatas = enrichMemoDatasWithOutdatedFlag(rawMemos, roundInfos)
     webContext.allTypeMemos = await getMiniMemosPdfAndWeb(courseCode)
-    webContext.allRoundsFromKopps = await _getAllRoundsWithApplicationCodes(roundInfos)
+    webContext.allRoundInfos = await _getAllRoundsWithApplicationCodes(roundInfos)
 
     // TODO: Proper language constant
     const shortDescription = (responseLanguage === 'sv' ? 'Om kursen ' : 'About course ') + courseCode
@@ -509,29 +495,15 @@ async function getNoContent(req, res, next) {
   }
 }
 
-async function getTermsWithCourseRounds(req, res, next) {
-  const { params, query } = req
-  const { courseCode } = params
-  try {
-    log.info('Get request to fetch course rounds', { function: 'getTermsWithCourseRounds', courseCode, params, query })
-    const termsWithCourseRounds = await getCourseRoundTerms(courseCode)
-    res.send(termsWithCourseRounds)
-  } catch (err) {
-    log.error(` Exception from getTermsWithCourseRounds for ${courseCode}`, { error: err })
-    next(err)
-  }
-}
-
 async function _getAllRoundsWithApplicationCodes(roundInfos) {
   const allRounds = []
   roundInfos.map(roundInfo => {
     const { round } = roundInfo
-    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCodes } = round
+    const { firstTuitionDate, lastTuitionDate, startTerm, applicationCode } = round
     const { term } = startTerm
     if (isDateWithInCurrentOrFutureSemester(firstTuitionDate, lastTuitionDate)) {
       round.term = term
-      const { applicationCode = '' } = applicationCodes[0]
-      round.applicationCode = applicationCode
+      round.applicationCode = applicationCode || ''
       delete round.applicationCodes
       allRounds.push(round)
     }
@@ -544,5 +516,4 @@ module.exports = {
   getOldContent,
   getNoContent,
   getAboutContent,
-  getTermsWithCourseRounds,
 }

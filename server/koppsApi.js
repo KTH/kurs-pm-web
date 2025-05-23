@@ -1,6 +1,5 @@
 'use strict'
 
-const language = require('@kth/kth-node-web-common/lib/language')
 const log = require('@kth/log')
 const redis = require('kth-node-redis')
 const connections = require('@kth/api-call').Connections
@@ -46,29 +45,16 @@ const createPersonHtml = (personList = []) => {
   return personString
 }
 
-async function getDetailedInformation(courseCode, language, fromTerm) {
+async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   let uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/detailedinformation?l=${language}`
-  if (fromTerm) {
-    uri += `&fromTerm=${fromTerm}`
-  }
+
   try {
     const res = await client.getAsync({ uri, useCache: true })
     if (res.body) {
-      const { mainSubjects, course, examiners, roundInfos } = res.body
-      const isCreditNotStandard =
-        course &&
-        course.credits &&
-        course.credits.toString().indexOf('.') < 0 &&
-        course.credits.toString().indexOf(',') < 0
+      const { examiners } = res.body
       return {
-        courseMainSubjects: mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : '',
-        recruitmentText: course && course.recruitmentText ? course.recruitmentText : '',
-        title: course && course.title ? course.title : '',
-        credits: isCreditNotStandard ? course.credits + '.0' : course.credits || '',
-        creditUnitAbbr: course && course.creditUnitAbbr ? course.creditUnitAbbr : '',
         examiners: createPersonHtml(examiners),
-        roundInfos: roundInfos || [],
       }
     }
 
@@ -82,8 +68,6 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
       language
     )
     return {
-      courseMainSubjects: '',
-      recruitmentText: '',
       title: '',
       credits: '',
       creditUnitAbbr: '',
@@ -93,8 +77,6 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   } catch (err) {
     log.error('Kopps is not available', err)
     return {
-      courseMainSubjects: '',
-      recruitmentText: '',
       title: '',
       credits: '',
       creditUnitAbbr: '',
@@ -104,28 +86,6 @@ async function getDetailedInformation(courseCode, language, fromTerm) {
   }
 }
 
-async function getCourseRoundTerms(courseCode) {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.proxyBasePath}course/${courseCode}/courseroundterms`
-  log.info('Trying fetch course rounds by', { courseCode, uri, config: config.koppsApi })
-  try {
-    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
-    if (body) {
-      const { termsWithCourseRounds } = body
-      return termsWithCourseRounds //array of objects(term, rounds)
-    }
-
-    log.warn('Kopps responded with', statusCode, statusMessage, 'for course code', courseCode)
-
-    return []
-  } catch (err) {
-    log.error('Kopps is not available', err)
-    return []
-  }
-}
-
 module.exports = {
-  koppsApi: api,
   getDetailedInformation,
-  getCourseRoundTerms,
 }

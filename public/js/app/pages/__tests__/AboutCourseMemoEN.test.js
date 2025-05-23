@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { WebContextProvider } from '../../context/WebContext'
 
 import AboutCourseMemo from '../AboutCourseMemo'
-import { mockMixKoppsApi, mockMixKursPmDataApi } from '../mockApis'
+import { mockMixLadokApi, mockMixKursPmDataApi } from '../mockApis'
 
 const { getAllByRole, getAllByText, getByText } = screen
 jest.mock('react-router-dom', () => ({
@@ -50,17 +50,15 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
           courseCode: 'KIP2720',
         },
       ],
+      allTypeMemos: mockMixKursPmDataApi(),
+      allRoundInfos: mockMixLadokApi(),
       language: 'en',
       userLanguageIndex: 0,
     }
     render(
       <MemoryRouter>
         <WebContextProvider configIn={context}>
-          <AboutCourseMemo
-            mockKursPmDataApi={mockMixKursPmDataApi()}
-            mockMixKoppsApi={mockMixKoppsApi()}
-            location={{}}
-          />
+          <AboutCourseMemo location={{}} />
         </WebContextProvider>
       </MemoryRouter>
     )

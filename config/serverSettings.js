@@ -49,6 +49,15 @@ module.exports = {
     kursplanApi: unpackNodeApiConfig('KURSPLAN_API_URI', devKursplanApi),
   },
 
+  ladokMellanlagerApi: {
+    clientId: getEnv('LADOK_AUTH_CLIENT_ID', null),
+    clientSecret: getEnv('LADOK_AUTH_CLIENT_SECRET', null),
+    tokenUrl: getEnv('LADOK_AUTH_TOKEN_URL', null),
+    scope: getEnv('LADOK_AUTH_SCOPE', null),
+    baseUrl: getEnv('LADOK_BASE_URL', null),
+    ocpApimSubscriptionKey: getEnv('LADOK_OCP_APIM_SUBSCRIPTION_KEY', null),
+  },
+
   // koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
   koppsApi: unpackNodeApiConfig('KOPPS_URI', devKoppsApi),
 

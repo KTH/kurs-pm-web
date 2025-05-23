@@ -1,4 +1,4 @@
-const { enrichMemoDatasWithOutdatedFlag, findStartDateForMemo } = require('../memoCtrlHelpers')
+const { enrichMemoDatasWithOutdatedFlag, getMemoRoundFromRoundInfosOrApi } = require('../memoCtrlHelpers')
 
 jest.mock('../../kursPmDataApi', () => ({
   getMemoDataById: () => {},
@@ -7,7 +7,7 @@ jest.mock('../../kursPmDataApi', () => ({
 
 jest.mock('@kth/log', () => ({ error: jest.fn(), debug: jest.fn }))
 
-jest.mock('../../koppsApi', () => ({ getDetailedInformation: () => {}, getCourseRoundTerms: jest.fn() }))
+jest.mock('../../ladokApi', () => ({ getCourseRoundsForPeriod: jest.fn() }))
 jest.mock('../../api', () => {})
 jest.mock('../../server', () => ({
   getPaths: () => [],
@@ -34,44 +34,40 @@ jest.mock('../../configuration', () => ({
   },
 }))
 
-const { getCourseRoundTerms } = require('../../koppsApi')
+const { getCourseRoundsForPeriod } = require('../../ladokApi')
 const log = require('@kth/log')
 
 const matchingTuitionDate = '2017-01-01'
 
-getCourseRoundTerms.mockResolvedValue([
+getCourseRoundsForPeriod.mockResolvedValue([
   {
-    term: '20171',
-    rounds: [
-      {
-        applicationCode: '45001',
-        firstTuitionDate: matchingTuitionDate,
+    round: {
+      applicationCode: '45001',
+      startTerm: {
+        term: '20171',
       },
-    ],
+      firstTuitionDate: matchingTuitionDate,
+    },
   },
 ])
 
-describe('findStartDateForMemo', () => {
+describe('getMemoRoundFromRoundInfosOrApi', () => {
   const roundInfosForFindStartDate = [
     {
       round: {
-        applicationCodes: [
-          {
-            applicationCode: '45008',
-            term: '20231',
-          },
-        ],
+        applicationCode: '45008',
+        startTerm: {
+          term: '20231',
+        },
         firstTuitionDate: '2023-06-01',
       },
     },
     {
       round: {
-        applicationCodes: [
-          {
-            applicationCode: '45000',
-            term: '20222',
-          },
-        ],
+        applicationCode: '45000',
+        startTerm: {
+          term: '20222',
+        },
         firstTuitionDate: '2022-06-01',
       },
     },
@@ -89,60 +85,64 @@ describe('findStartDateForMemo', () => {
     courseCode: 'SF1615',
   }
 
-  it('should return matching startDate if there is one in roundInfos', async () => {
-    const result = await findStartDateForMemo(memoMatchingRoundInfos, roundInfosForFindStartDate)
-
-    expect(result).toStrictEqual('2022-06-01')
+  it('should return matching round with startDate if there is one in roundInfos', async () => {
+    const result = await getMemoRoundFromRoundInfosOrApi(memoMatchingRoundInfos, roundInfosForFindStartDate)
+    expect(result?.firstTuitionDate).toStrictEqual('2022-06-01')
   })
 
-  it('should not call getCourseRoundTerms if matching round in roundInfos', async () => {
-    await findStartDateForMemo(memoMatchingRoundInfos, roundInfosForFindStartDate)
-    expect(getCourseRoundTerms).not.toHaveBeenCalled()
+  it('should not call getCourseRoundsForPeriod if matching round in roundInfos', async () => {
+    await getMemoRoundFromRoundInfosOrApi(memoMatchingRoundInfos, roundInfosForFindStartDate)
+    expect(getCourseRoundsForPeriod).not.toHaveBeenCalled()
   })
 
-  it('should call getCourseRoundTerms with courseCode if no matching round in roundInfos', async () => {
-    await findStartDateForMemo(memoMatchingCourseRoundTerms, roundInfosForFindStartDate)
-    expect(getCourseRoundTerms).toHaveBeenCalledWith('SF1615')
+  it('should call getCourseRoundsForPeriod with courseCode if no matching round in roundInfos', async () => {
+    await getMemoRoundFromRoundInfosOrApi(memoMatchingCourseRoundTerms, roundInfosForFindStartDate, 'sv')
+    expect(getCourseRoundsForPeriod).toHaveBeenCalledWith('SF1615', 'VT2017', 'sv')
   })
 
-  describe('when courseRoundTerms do not contain a matching round for courseCode and term', () => {
+  describe('when result from getCourseRoundsForPeriod do not contain a matching round for courseCode and term', () => {
     const memoNotMatchingTerm = {
       semester: '20172',
       applicationCodes: ['45001'],
       courseCode: 'SF1615',
     }
     it('should log to error', async () => {
-      await findStartDateForMemo(memoNotMatchingTerm, roundInfosForFindStartDate)
-      expect(log.error).toHaveBeenCalledWith('Could not find matching round for courseCode SF1615 and term 20172.')
+      await getMemoRoundFromRoundInfosOrApi(memoNotMatchingTerm, roundInfosForFindStartDate)
+      expect(log.error).toHaveBeenCalledWith(
+        'Could not find matching round for courseCode: SF1615, semester: 20172 and applicationCode: 45001'
+      )
     })
 
-    it('should return empty string as startDate', async () => {
-      const result = await findStartDateForMemo(memoNotMatchingTerm, roundInfosForFindStartDate)
-      expect(result).toStrictEqual('')
+    it('should return undefined as as round', async () => {
+      const result = await getMemoRoundFromRoundInfosOrApi(memoNotMatchingTerm, roundInfosForFindStartDate)
+      expect(result).toStrictEqual(undefined)
     })
   })
 
-  describe('when courseRoundTerms do not contain a matching round for courseCode and applicationCodes', () => {
+  describe('when result from getCourseRoundsForPeriod  do not contain a matching round for courseCode and applicationCodes', () => {
     const memoMatchingTermButNotApplicationCode = {
       semester: '20171',
       applicationCodes: ['39000', '39001'],
       courseCode: 'SF1615',
     }
     it('should log to error', async () => {
-      await findStartDateForMemo(memoMatchingTermButNotApplicationCode, roundInfosForFindStartDate)
+      await getMemoRoundFromRoundInfosOrApi(memoMatchingTermButNotApplicationCode, roundInfosForFindStartDate)
       expect(log.error).toHaveBeenCalledWith(
-        'Could not find matching round with firstTuitionDate in courseRoundInfo for courseCode SF1615 and applicationCodes 39000,39001.'
+        'Could not find matching round for courseCode: SF1615, semester: 20171 and applicationCode: 39000,39001'
       )
     })
-    it('should return empty string as startDate', async () => {
-      const result = await findStartDateForMemo(memoMatchingTermButNotApplicationCode, roundInfosForFindStartDate)
-      expect(result).toStrictEqual('')
+    it('should return undefined as as round', async () => {
+      const result = await getMemoRoundFromRoundInfosOrApi(
+        memoMatchingTermButNotApplicationCode,
+        roundInfosForFindStartDate
+      )
+      expect(result).toStrictEqual(undefined)
     })
   })
 
   it('should return matching startDate if it can be found in courseRoundTerms', async () => {
-    const startDate = await findStartDateForMemo(memoMatchingCourseRoundTerms, roundInfosForFindStartDate)
-    expect(startDate).toStrictEqual(matchingTuitionDate)
+    const round = await getMemoRoundFromRoundInfosOrApi(memoMatchingCourseRoundTerms, roundInfosForFindStartDate)
+    expect(round?.firstTuitionDate).toStrictEqual(matchingTuitionDate)
   })
 })
 

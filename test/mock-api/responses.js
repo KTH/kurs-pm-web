@@ -81,8 +81,6 @@ module.exports = {
       titleOther: 'Algebra and Geometry',
       cancelled: false,
       deactivated: false,
-      recruitmentText:
-        '<p>Algebra och geometri &#228;r en grundl&#228;ggande kurs i linj&#228;r algebra med vektorgeometri. Ett centralt begrepp i kursen &#228;r linj&#228;ritet som ligger till grund f&#246;r stora delar av anv&#228;ndningen av matematik inom s&#229;v&#228;l naturvetenskap som inom ingenj&#246;rstill&#228;mpningar.</p>',
       credits: 7.5,
       creditUnitLabel: 'Högskolepoäng',
       creditUnitAbbr: 'hp',
@@ -1117,7 +1115,6 @@ module.exports = {
         },
       },
     ],
-    mainSubjects: ['Matematik', 'Teknik'],
     examinationSets: {
       20072: {
         startingTerm: {

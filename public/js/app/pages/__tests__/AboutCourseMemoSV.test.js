@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import { WebContextProvider } from '../../context/WebContext'
 
 import AboutCourseMemo from '../AboutCourseMemo'
-import { mockMixKoppsApi, mockMixKursPmDataApi } from '../mockApis'
+import { mockMixLadokApi, mockMixKursPmDataApi } from '../mockApis'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -43,6 +43,8 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
           outdated: false,
         },
       ],
+      allTypeMemos: mockMixKursPmDataApi(),
+      allRoundInfos: mockMixLadokApi(),
       language: 'sv',
       userLanguageIndex: 1,
       activeMemoEndPoint: () => false,
@@ -54,14 +56,11 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
         'property="teach:teacher">\n          Kip TestTeacher \n      ' +
         '</a> \n    </p>',
     }
+
     render(
       <MemoryRouter>
         <WebContextProvider configIn={context}>
-          <AboutCourseMemo
-            mockKursPmDataApi={mockMixKursPmDataApi()}
-            mockMixKoppsApi={mockMixKoppsApi()}
-            location={{}}
-          />
+          <AboutCourseMemo location={{}} />
         </WebContextProvider>
       </MemoryRouter>
     )

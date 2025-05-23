@@ -1,18 +1,10 @@
 import React from 'react'
 
 import { adminLink } from '../util/links'
-import { formatCredits } from '../util/helpers'
 
-const AboutHeader = ({
-  courseCode = '',
-  title = '',
-  credits = '',
-  creditUnitAbbr = '',
-  labels = {},
-  language = 'sv',
-}) => {
+const AboutHeader = ({ courseCode = '', title = '', creditsLabel = '', labels = {}, language = 'sv' }) => {
   const { adminLinkLabel } = labels
-  const subHeadingText = `${courseCode} ${title} ${formatCredits(credits, creditUnitAbbr, language)}`
+  const subHeadingText = `${courseCode} ${title} ${creditsLabel}`
   return (
     <header>
       <h1 id="page-heading" aria-labelledby="page-heading page-sub-heading">

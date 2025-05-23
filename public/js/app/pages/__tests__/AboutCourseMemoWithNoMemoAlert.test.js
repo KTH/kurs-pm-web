@@ -4,7 +4,7 @@ import { WebContextProvider } from '../../context/WebContext'
 
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import AboutCourseMemo from '../AboutCourseMemo'
-import { mockMixKoppsApi, mockMixKursPmDataApi } from '../mockApis'
+import { mockMixLadokApi, mockMixKursPmDataApi } from '../mockApis'
 import { render, screen } from '@testing-library/react'
 
 const Language = {
@@ -36,6 +36,8 @@ const renderWithOptions = (memoDatas, languageSetting, applicationCodes = []) =>
       courseTitle: 'DD2380 Artificiell intelligens 6.0 hp',
       visibleInMemo: {},
     },
+    allTypeMemos: mockMixKursPmDataApi(),
+    allRoundInfos: mockMixLadokApi(),
     courseCode: 'DD2380',
     memoDatas,
     userLanguageIndex,
@@ -46,16 +48,7 @@ const renderWithOptions = (memoDatas, languageSetting, applicationCodes = []) =>
     <MemoryRouter initialEntries={[`/DD2380/om-kurs-pm?noMemoData=true&semester=20232${applicationCodesString}`]}>
       <WebContextProvider configIn={context}>
         <Routes>
-          <Route
-            path={'/:courseCode/om-kurs-pm'}
-            element={
-              <AboutCourseMemo
-                mockKursPmDataApi={mockMixKursPmDataApi()}
-                mockMixKoppsApi={mockMixKoppsApi()}
-                location={{}}
-              />
-            }
-          ></Route>
+          <Route path={'/:courseCode/om-kurs-pm'} element={<AboutCourseMemo location={{}} />}></Route>
         </Routes>
       </WebContextProvider>
     </MemoryRouter>

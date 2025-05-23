@@ -149,12 +149,6 @@ export const createMemoName = (semester, applicationCodes = [], langAbbr = 'sv',
   return memoNameWithoutCourseCode(semester, applicationCodes, langIndex)
 }
 
-export const formatCredits = (credits, creditUnitAbbr, language) => {
-  const localeCredits = language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-GB')
-  const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
-  return `${localeCredits} ${creditUnit}`
-}
-
 export const getLangIndex = langAbbr => {
   return langAbbr === 'en' ? 0 : 1
 }
