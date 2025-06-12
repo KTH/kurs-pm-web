@@ -15,7 +15,6 @@ const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000')
 const devKursplanApi = devDefaults('https://api-r.referens.sys.kth.se/api/kursplan?defaultTimeout=10000')
-const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devSessionKey = devDefaults('kurs-pm-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -51,9 +50,6 @@ module.exports = {
     baseUrl: getEnv('LADOK_BASE_URL', null),
     ocpApimSubscriptionKey: getEnv('LADOK_OCP_APIM_SUBSCRIPTION_KEY', null),
   },
-
-  // koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
-  koppsApi: unpackNodeApiConfig('KOPPS_URI', devKoppsApi),
 
   // Cortina
   blockApi: {
