@@ -10,17 +10,18 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server: serverConfig } = require('../configuration')
 const { getMemoDataById, getMemoVersion, getMiniMemosPdfAndWeb } = require('../kursPmDataApi')
-const { getDetailedInformation } = require('../koppsApi')
 const { getLadokCourseData, getCourseRoundsFromLastYear } = require('../ladokApi')
 const { createBreadcrumbs } = require('../utils/breadcrumbUtil')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { createServerSideContext } = require('../ssr-context/createServerSideContext')
+const { redirectToAboutCourseConfig } = require('../utils/helpers')
+
+const { getCourseEmployees } = require('../ugRestApi')
 const {
   isDateWithInCurrentOrFutureSemester,
   getMemoRoundFromRoundInfosOrApi,
   enrichMemoDatasWithOutdatedFlag,
 } = require('./memoCtrlHelpers')
-const { redirectToAboutCourseConfig } = require('../utils/helpers')
 
 const locales = { sv, en }
 
@@ -200,7 +201,7 @@ async function getContent(req, res, next) {
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
     const roundInfos = await getCourseRoundsFromLastYear(courseCode, languagesContext.memoLanguage)
-    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getCourseEmployees({ courseCode })
 
     const courseContext = {
       title,
@@ -319,7 +320,7 @@ async function getOldContent(req, res, next) {
     }
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, languagesContext.memoLanguage)
-    const { examiners } = await getDetailedInformation(courseCode, languagesContext.memoLanguage)
+    const { examiners } = await getCourseEmployees({ courseCode })
 
     const courseContext = {
       title,
@@ -401,7 +402,7 @@ async function getAboutContent(req, res, next) {
 
     const { title, creditsLabel } = await getLadokCourseData(courseCode, responseLanguage)
     const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
-    const { examiners } = await getDetailedInformation(courseCode, responseLanguage)
+    const { examiners } = await getCourseEmployees({ courseCode })
 
     webContext.title = title
     webContext.creditsLabel = creditsLabel

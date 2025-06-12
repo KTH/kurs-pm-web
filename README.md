@@ -22,7 +22,8 @@ Kurs-pm-web fetches data from:
 
 - Course memo API `/api/kurs-pm-data`
 - API to store information about course syllabuses `/api/kursplan`
-- API för kurs- och programinformation `/api/kopps/v2/`
+- API för kurs- och programinformation `/api/ladokApi`
+- API för examinator `/api/ugRestApi`
 
 ### Related projects
 

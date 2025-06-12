@@ -28,7 +28,6 @@ services:
       KURSPLAN_API_URI: 'http://mock-api:3000/kursplan'
       KURSPLAN_API_KEY: 'secretpassword'
       REDIS_URI: 'redis://redis:6379'
-      KOPPS_URI: 'http://mock-api:3000/kopps/'
       IMAGE_STORAGE_URI: 'http://localhost:3001/images/'
       CM_HOST_URL: 'http://mock-api:3000/cm/'
     ports:
