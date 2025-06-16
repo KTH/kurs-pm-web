@@ -7,13 +7,7 @@
  * *************************************************
  *
  */
-const {
-  getEnv,
-  devDefaults,
-  unpackRedisConfig,
-  unpackNodeApiConfig,
-  unpackKOPPSConfig,
-} = require('kth-node-configuration')
+const { getEnv, devDefaults, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
 const devPort = devDefaults(3000)
@@ -21,7 +15,6 @@ const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000')
 const devKursplanApi = devDefaults('https://api-r.referens.sys.kth.se/api/kursplan?defaultTimeout=10000')
-const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devSessionKey = devDefaults('kurs-pm-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -58,12 +51,9 @@ module.exports = {
     ocpApimSubscriptionKey: getEnv('LADOK_OCP_APIM_SUBSCRIPTION_KEY', null),
   },
 
-  // koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
-  koppsApi: unpackNodeApiConfig('KOPPS_URI', devKoppsApi),
-
   // Cortina
   blockApi: {
-    //blockUrl: getEnv('CM_HOST_URL', devDefaults('https://app-r.referens.sys.kth.se/cm/')), // Block API base URL
+    // blockUrl: getEnv('CM_HOST_URL', devDefaults('https://app-r.referens.sys.kth.se/cm/')), // Block API base URL
     blockUrl: getEnv('CM_HOST_URL', devDefaults('https://www.kth.se/cm/')),
     addBlocks: {
       studentMegaMenu: '1.1066510',
@@ -89,6 +79,18 @@ module.exports = {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
       redisKey: 'CortinaBlock_kurs-pm-web_',
     },
+  },
+
+  // UG API auth properties
+  ugAuth: {
+    authTokenURL: getEnv('UG_REST_AUTH_API_TOKEN_URI', null),
+    authClientId: getEnv('UG_REST_AUTH_CLIENT_ID', null),
+    authClientSecret: getEnv('UG_REST_AUTH_CLIENT_SECRET', null),
+  },
+  // ug redis api base url
+  ugRestApiURL: {
+    url: getEnv('UG_REST_API_URI', null),
+    key: getEnv('UG_REST_API_SUBSCRIPTION_KEY', null),
   },
 
   // Session
