@@ -213,7 +213,7 @@ async function getContent(req, res, next) {
     const memoWithExtraProps = await findMemoWithMatchingEndpoint(memoDatas, finalMemoEndPoint)
     if (memoWithExtraProps) {
       const memoRound = await getMemoRoundFromRoundInfosOrApi(memoWithExtraProps, roundInfos, responseLanguage)
-      memoWithExtraProps.startDate = memoRound.firstTuitionDate
+      memoWithExtraProps.startDate = memoRound?.firstTuitionDate
     }
 
     const allTypeMemos = !memoWithExtraProps ? await getMiniMemosPdfAndWeb(courseCode) : []
