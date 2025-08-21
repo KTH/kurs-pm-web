@@ -2,8 +2,8 @@ import React from 'react'
 import Alert from '../components-shared/Alert'
 
 import i18n from '../../../../i18n'
-import { context, sections } from '../util/fieldsByType'
-import { getAllSectionsAndHeadingsToShow } from '../util/allSectionsUtils'
+import { standardSections } from '../util/sectionAndHeaderUtils'
+import { getAllSectionsAndHeadingsToShow, MemoViewMode } from '../util/visibilityUtils'
 
 import Section from './Section'
 import ContentFromNewSectionEditor from './ContentFromNewSectionEditor'
@@ -15,7 +15,11 @@ function AllSections({ memoData, memoLanguageIndex }) {
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
   const { noInfoYet } = i18n.messages[memoLanguageIndex].sourceInfo
 
-  const sectionsAndContent = getAllSectionsAndHeadingsToShow({ sections, context, memoData })
+  const sectionsAndContent = getAllSectionsAndHeadingsToShow({
+    sections: standardSections,
+    memoData,
+    mode: MemoViewMode.Published,
+  })
 
   return sectionsAndContent.map(({ id, standardHeadingIds, extraHeaderTitle, extraHeadingIndices, isEmptySection }) => {
     if (isEmptySection) {
@@ -58,8 +62,8 @@ const SectionWrapper = ({ id, sectionsLabels, children }) => (
   </section>
 )
 
-const Sections = ({ headings, id, memoData, memoLanguageIndex }) => {
-  return headings.map(contentId => {
+const Sections = ({ headings, id, memoData, memoLanguageIndex }) =>
+  headings.map(contentId => {
     const menuId = id + '-' + contentId
     const htmlContent = memoData[contentId]
 
@@ -73,11 +77,10 @@ const Sections = ({ headings, id, memoData, memoLanguageIndex }) => {
       />
     )
   })
-}
 
-const ExtraHeaders = ({ headingIndices, extraHeaderTitle, memoData, memoLanguageIndex }) => {
-  return headingIndices.map(index => {
-    const { uKey, title, htmlContent } = memoData[extraHeaderTitle]?.[index]
+const ExtraHeaders = ({ headingIndices, extraHeaderTitle, memoData, memoLanguageIndex }) =>
+  headingIndices.map(index => {
+    const { uKey, title, htmlContent } = memoData[extraHeaderTitle]?.[index] || {}
     return (
       <ContentFromNewSectionEditor
         key={uKey}
@@ -87,4 +90,3 @@ const ExtraHeaders = ({ headingIndices, extraHeaderTitle, memoData, memoLanguage
       />
     )
   })
-}

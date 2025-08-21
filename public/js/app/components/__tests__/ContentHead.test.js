@@ -6,7 +6,7 @@ import { ContentHead, ExtraHeaderHead, SubSectionHeaderMessage } from '../Conten
 
 describe('Component <ContentHead>', () => {
   test('renders a header', done => {
-    render(<ContentHead memoLangIndex={0} fromSyllabus={{}} />)
+    render(<ContentHead memoLangIndex={0} isFromSyllabus={{}} />)
     done()
   })
 })
