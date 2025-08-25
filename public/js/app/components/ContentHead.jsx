@@ -2,10 +2,9 @@ import React from 'react'
 import { FaAsterisk } from 'react-icons/fa'
 import i18n from '../../../../i18n'
 
-export const ContentHead = ({ contentId, memoLangIndex, fromSyllabus }) => {
+export const ContentHead = ({ contentId, memoLangIndex, isFromSyllabus }) => {
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
   const header = memoTitlesByMemoLang[contentId]
-  const { is: isFromSyllabus } = fromSyllabus
   return header ? (
     <>
       <h3 id={contentId}>
