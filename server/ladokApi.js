@@ -21,14 +21,14 @@ async function getLadokCourseData(courseCode, lang) {
 async function getCourseRoundsFromLastYear(courseCode, lang) {
   const fromPeriod = getLastYearsLadokPeriod()
   const client = createApiClient(serverConfig.ladokMellanlagerApi)
-  const rounds = await client.getCourseRoundsFromPeriod(courseCode, fromPeriod, lang)
+  const rounds = await client.getCourseInstancesFromPeriod(courseCode, fromPeriod, lang)
   const mappedRounds = rounds.map(mapRound)
   return mappedRounds
 }
 
 async function getCourseRoundsForPeriod(courseCode, startPeriod, lang) {
   const client = createApiClient(serverConfig.ladokMellanlagerApi)
-  const rounds = await client.getCourseRoundsForExactStartPeriod(courseCode, startPeriod, lang)
+  const rounds = await client.getCourseInstancesForExactStartPeriod(courseCode, startPeriod, lang)
   const mappedRounds = rounds.map(mapRound)
   return mappedRounds
 }
