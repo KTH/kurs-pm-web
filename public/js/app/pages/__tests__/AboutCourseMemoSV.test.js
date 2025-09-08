@@ -208,3 +208,45 @@ describe('User language: Swedish. Component <AboutCourseMemo> show all memos: pd
     done()
   })
 })
+
+describe('User language: Swedish. Component <AboutCourseMemo> when there are no course memos', () => {
+  beforeEach(() => {
+    const context = {
+      courseCode: 'KIP9999',
+      browserConfig: { memoStorageUri: 'kursinfostorage/' },
+      memoData: {
+        courseTitle: 'KIP9999 Påhittad kurs',
+        visibleInMemo: {},
+      },
+      memoDatas: [], // no memos
+      allTypeMemos: {}, // empty
+      allRoundInfos: [], // no rounds
+      language: 'sv',
+      userLanguageIndex: 1,
+    }
+
+    render(
+      <MemoryRouter>
+        <WebContextProvider configIn={context}>
+          <AboutCourseMemo location={{}} />
+        </WebContextProvider>
+      </MemoryRouter>
+    )
+  })
+
+  test('renders "no memos" message', () => {
+    expect(screen.getByText('Denna kurs har inga publicerade kurs-PM.')).toBeInTheDocument()
+  })
+
+  test('does not render any h4 memo headings', () => {
+    expect(screen.queryAllByRole('heading', { level: 4 }).length).toBe(0)
+  })
+
+  test('renders Archive page link even if no memos', () => {
+    const archiveLinks = screen.getAllByText('Arkiv')
+    expect(archiveLinks.length).toBeGreaterThan(0)
+    archiveLinks.forEach(link => {
+      expect(link).toHaveAttribute('href', expect.stringContaining('/arkiv'))
+    })
+  })
+})

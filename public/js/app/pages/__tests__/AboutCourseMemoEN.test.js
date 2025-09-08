@@ -7,7 +7,7 @@ import { WebContextProvider } from '../../context/WebContext'
 import AboutCourseMemo from '../AboutCourseMemo'
 import { mockMixLadokApi, mockMixKursPmDataApi } from '../mockApis'
 
-const { getAllByRole, getAllByText, getByText } = screen
+const { getAllByRole, getAllByText, getByText, queryAllByRole } = screen
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useLocation: () => ({
@@ -211,5 +211,47 @@ describe('User language: English. Component <AboutCourseMemo> show all memos: pd
       'Archive',
     ]
     expectedlinks.map((link, index) => expect(links[index]).toHaveTextContent(link))
+  })
+})
+
+describe('User language: English. Component <AboutCourseMemo> when there are no course memos', () => {
+  beforeEach(() => {
+    const context = {
+      courseCode: 'KIP9999',
+      browserConfig: { memoStorageUri: 'kursinfostorage/' },
+      memoData: {
+        courseTitle: 'KIP9999 Imaginary course',
+        visibleInMemo: {},
+      },
+      memoDatas: [], // no memos
+      allTypeMemos: {}, // empty
+      allRoundInfos: [], // no rounds
+      language: 'en',
+      userLanguageIndex: 0,
+    }
+
+    render(
+      <MemoryRouter>
+        <WebContextProvider configIn={context}>
+          <AboutCourseMemo location={{}} />
+        </WebContextProvider>
+      </MemoryRouter>
+    )
+  })
+
+  test('renders "no memos" message', () => {
+    expect(screen.getByText('This course has no published course memos.')).toBeInTheDocument()
+  })
+
+  test('does not render any h4 memo headings', () => {
+    expect(screen.queryAllByRole('heading', { level: 4 }).length).toBe(0)
+  })
+
+  test('renders Archive page link even if no memos', () => {
+    const archiveLinks = screen.getAllByText('Archive page')
+    expect(archiveLinks.length).toBeGreaterThan(0)
+    archiveLinks.forEach(link => {
+      expect(link).toHaveAttribute('href', expect.stringContaining('/arkiv?l=en'))
+    })
   })
 })
