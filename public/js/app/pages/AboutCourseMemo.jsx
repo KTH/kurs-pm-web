@@ -302,8 +302,8 @@ function AboutCourseMemo() {
                 btnClose={aboutMemoLabels.btnClose}
                 withModal
               />
-              {allActiveTermsWithRounds.map(({ semester, memos }) => {
-                return (
+              {allActiveTermsWithRounds.length ? (
+                allActiveTermsWithRounds.map(({ semester, memos }) => (
                   <React.Fragment key={semester}>
                     <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
                     {memos.map(memo => (
@@ -333,13 +333,19 @@ function AboutCourseMemo() {
                       </React.Fragment>
                     ))}
                   </React.Fragment>
-                )
-              })}
-              <h3>{aboutMemoLabels.previousOfferings}</h3>
-              <p>
-                {aboutMemoLabels.previousOfferingsText}
-                <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
-              </p>
+                ))
+              ) : (
+                <p className="inline-information">{aboutMemoLabels.noMemos}</p>
+              )}
+              {allActiveTermsWithRounds.length > 0 && (
+                <>
+                  <h3>{aboutMemoLabels.previousOfferings}</h3>
+                  <p>
+                    {aboutMemoLabels.previousOfferingsText}
+                    <a href={linkToArchive(courseCode, userLangAbbr)}>{courseMemoLinksLabels.archivePageLabel}</a>
+                  </p>
+                </>
+              )}
             </section>
           </Col>
           <Col lg="4" className="content-right">

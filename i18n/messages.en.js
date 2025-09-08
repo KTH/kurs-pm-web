@@ -238,6 +238,7 @@ module.exports = {
     previousOfferingsText: 'Course memos for previous course offerings are displayed on the ',
     previousOfferings: 'Previous course offerings',
     startdate: 'Start date',
+    noMemos: 'This course has no published course memos.',
   },
   breadCrumbs: {
     student: 'Student web',
