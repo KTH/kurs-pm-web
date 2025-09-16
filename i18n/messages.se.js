@@ -209,6 +209,7 @@ module.exports = {
     previousOfferingsText: 'Kurs-PM för tidigare kursomgångar visas på sidan ',
     previousOfferings: 'Tidigare kursomgångar',
     startdate: 'Startdatum',
+    noMemos: 'Denna kurs har inga publicerade kurs-PM.',
   },
   breadCrumbs: {
     student: 'Studentwebben',
