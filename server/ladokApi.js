@@ -7,7 +7,7 @@ const serverConfig = require('./configuration').server
 async function getLadokCourseData(courseCode, lang) {
   const client = createApiClient(serverConfig.ladokMellanlagerApi)
   const course = await client.getLatestCourseVersionIncludingCancelled(courseCode, lang)
-  const ladokCourseTitle = course?.benamning.name
+  const ladokCourseTitle = course?.benamning?.name
   const ladokCreditsLabel = course?.omfattning?.formattedWithUnit
 
   return {
