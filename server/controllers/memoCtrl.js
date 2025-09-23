@@ -303,9 +303,8 @@ async function getOldContent(req, res, next) {
     const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
     const versionMemo = await getMemoVersion(courseCode, memoEndPoint, version)
     const allTypeMemos = !versionMemo ? await getMiniMemosPdfAndWeb(courseCode) : []
-
-    const memoRound = await getMemoRoundFromRoundInfosOrApi(versionMemo, roundInfos, responseLanguage)
-    versionMemo.startDate = memoRound.firstTuitionDate
+    const memoRound = await getMemoRoundFromRoundInfosOrApi(versionMemo, roundInfos, versionMemo?.memoCommonLangAbbr)
+    versionMemo.startDate = memoRound?.firstTuitionDate
 
     const languagesContext = {
       language: responseLanguage,
