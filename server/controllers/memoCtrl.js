@@ -300,12 +300,8 @@ async function getOldContent(req, res, next) {
 
     rawContext.setBrowserConfig(browser, serverPaths, apis, serverConfig.hostUrl)
 
-    const roundInfos = await getCourseRoundsFromLastYear(courseCode, responseLanguage)
     const versionMemo = await getMemoVersion(courseCode, memoEndPoint, version)
     const allTypeMemos = !versionMemo ? await getMiniMemosPdfAndWeb(courseCode) : []
-
-    const memoRound = await getMemoRoundFromRoundInfosOrApi(versionMemo, roundInfos, responseLanguage)
-    versionMemo.startDate = memoRound.firstTuitionDate
 
     const languagesContext = {
       language: responseLanguage,
