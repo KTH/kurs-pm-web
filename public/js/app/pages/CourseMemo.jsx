@@ -7,6 +7,7 @@ import i18n from '../../../../i18n'
 import { concatMemoName, memoNameWithoutApplicationCode, seasonStr } from '../util/helpers'
 import { sideMenuBackLink } from '../util/links'
 import { menuItemsForCurrentMemo } from '../util/menu-memo-items'
+import { EMPTY } from '../util/constants'
 
 import { useWebContext } from '../context/WebContext'
 
@@ -205,9 +206,14 @@ function CourseMemo() {
           />
           <Row>
             <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
-              <p className="mb-4">
-                {sectionsLabels.asterisk} {seasonStr(extraInfo, validFromTerm)}
-              </p>
+              {(() => {
+                const season = seasonStr(extraInfo, validFromTerm)
+                return (
+                  <p className="mb-4">
+                    {season !== undefined ? sectionsLabels.asterisk + ' ' + season : EMPTY[userLanguageIndex]}
+                  </p>
+                )
+              })()}
               <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
               <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
             </Col>

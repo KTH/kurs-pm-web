@@ -1,7 +1,7 @@
 import i18n from '../../../../i18n'
 
 export const seasonStr = (translate, semesterCode = '') =>
-  `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
+  semesterCode ? `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}` : undefined
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 
