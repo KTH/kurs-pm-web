@@ -1,5 +1,4 @@
 import React from 'react'
-import i18n from '../../../../i18n'
 
 import { linkToSchool } from '../util/links'
 import { getDateFormat, seasonStr } from '../util/helpers'
@@ -19,17 +18,13 @@ const formatRoundsShort = (language, memoData) => {
         if (pattern.test(shortName)) {
           return (
             <ul key={round}>
-              <li>{`${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
-                memoData.applicationCodes[thisIndex]
-              }`}</li>
+              <li>{`${seasonStr(langIndex, memoData.semester)}-${memoData.applicationCodes[thisIndex]}`}</li>
             </ul>
           )
         }
         return (
           <ul key={round}>
-            <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
-              memoData.applicationCodes[thisIndex]
-            }`}</li>
+            <li>{`${shortName} ${seasonStr(langIndex, memoData.semester)}-${memoData.applicationCodes[thisIndex]}`}</li>
           </ul>
         )
       })}
