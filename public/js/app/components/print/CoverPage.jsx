@@ -40,6 +40,7 @@ const SyllabusLabel = ({ labels, language, syllabusValid, courseCode }) => {
   if (!syllabusValid.textFromTo) {
     return <>{`* ${syllabusInformation} N/A`}</>
   }
+  console.log(`syllabusValid.textFromTo: ${syllabusValid.textFromTo}`)
   const syllabusLinkLabel = `${syllabusLinkStart} ${courseCode} ${syllabusLinkMiddle}${syllabusValid.textFromTo}${syllabusLinkEnd}`
   const syllabusLink = (
     <a className="pdf-post-link" href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}>
@@ -64,6 +65,11 @@ const MemoSourceLabel = ({ labels, url }) => {
   )
 }
 
+/**
+ * CoverPage is rendered as the front page of the printable PDF version of the course memo
+ * @param {*} param0
+ * @returns
+ */
 const CoverPage = ({
   labels,
   language,

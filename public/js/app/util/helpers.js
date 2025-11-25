@@ -1,7 +1,21 @@
 import i18n from '../../../../i18n'
+import { parseSemesterIntoYearSemesterNumber } from '../../../../shared/semesterUtils'
 
-export const seasonStr = (translate, semesterCode = '') =>
-  `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
+// export const seasonStr = (translate, semesterCode = '') => {
+//   console.log(`semesterCode: ${semesterCode}`)
+//   return `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
+// }
+
+const convertLangToIndex = langShortName => (langShortName === 'en' ? 0 : 1)
+
+export const seasonStr = (language, semesterRaw) => {
+  if (!semesterRaw) return ''
+  const isLangANumber = typeof language === 'number'
+  const langIndex = isLangANumber ? language : convertLangToIndex(language)
+  const { extraInfo } = i18n.messages[langIndex]
+  const { year, semesterNumber } = parseSemesterIntoYearSemesterNumber(semesterRaw)
+  return `${extraInfo.season[semesterNumber]}${year}`
+}
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 

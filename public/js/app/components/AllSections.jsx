@@ -29,7 +29,6 @@ function AllSections({ memoData, memoLanguageIndex }) {
     return (
       <SectionWrapper key={id} id={id} sectionsLabels={sectionsLabels}>
         <Sections headings={standardHeadingIds} id={id} memoData={memoData} memoLanguageIndex={memoLanguageIndex} />
-
         <ExtraHeaders
           headingIndices={extraHeadingIndices}
           extraHeaderTitle={extraHeaderTitle}
@@ -66,7 +65,6 @@ const Sections = ({ headings, id, memoData, memoLanguageIndex }) =>
   headings.map(contentId => {
     const menuId = id + '-' + contentId
     const htmlContent = memoData[contentId]
-
     return (
       <Section
         memoLangIndex={memoLanguageIndex}

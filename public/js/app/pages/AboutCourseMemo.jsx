@@ -72,7 +72,7 @@ function removeRoundsDuplicates(allTermRounds) {
   })
 }
 
-function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
+function extendPdfMemosShortName(cleanAllMemo, allTempRounds, langIndex) {
   cleanAllMemo.map(memo => {
     if (memo.isPdf) {
       const extendedShortNames = []
@@ -82,7 +82,7 @@ function extendPdfMemosShortName(cleanAllMemo, allTempRounds, extraInfo) {
           if (shortName) {
             extendedShortNames.push(shortName.replace(/ m.fl./g, ''))
           } else {
-            extendedShortNames.push(seasonStr(extraInfo, term))
+            extendedShortNames.push(seasonStr(langIndex, term))
           }
         }
       })
@@ -147,7 +147,7 @@ function makeAllSemestersRoundsWithMemos(
       const allSemesterMemosApplicationCodes = cleanAllMemos.map(memo => memo.applicationCodes)
       const allTermRounds = allRounds.filter(round => round.term.toString() === semester.toString()).reverse()
       const allTermRoundsClean = removeRoundsDuplicates(allTermRounds)
-      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, extraInfo)
+      const extendedAllMemo = extendPdfMemosShortName(cleanAllMemos, allTermRoundsClean, langIndex)
 
       allTermRoundsClean.map(round => {
         const { applicationCode = '' } = round
@@ -215,7 +215,15 @@ function AboutCourseMemo() {
 
   const [webContext] = useWebContext()
 
-  const { allTypeMemos, memoDatas, courseCode, language: userLangAbbr, userLanguageIndex, allRoundInfos } = webContext
+  const {
+    allTypeMemos,
+    memoDatas,
+    courseCode,
+    language: userLangAbbr,
+    userLanguageIndex,
+    allRoundInfos,
+    memoLanguage,
+  } = webContext
 
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
@@ -305,7 +313,7 @@ function AboutCourseMemo() {
               {allActiveTermsWithRounds.length ? (
                 allActiveTermsWithRounds.map(({ semester, memos }) => (
                   <React.Fragment key={semester}>
-                    <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(extraInfo, semester)}`}</h3>
+                    <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(memoLanguage, semester)}`}</h3>
                     {memos.map(memo => (
                       <React.Fragment key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                         <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>

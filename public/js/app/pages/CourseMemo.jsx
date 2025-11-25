@@ -165,6 +165,9 @@ function CourseMemo() {
     setLatestMemoUrl(resolveLatestMemoUrl())
   }, [])
 
+  console.log(`This is what semester looks like: ${validFromTerm}`)
+  console.log(`This is what it look like: ${seasonStr(memoLanguage, validFromTerm)}`)
+
   return (
     <>
       <CoverPage
@@ -206,7 +209,7 @@ function CourseMemo() {
           <Row>
             <Col id="flexible-content-of-center" lg="8" className="text-break col-print-12 content-center">
               <p className="mb-4">
-                {sectionsLabels.asterisk} {seasonStr(extraInfo, validFromTerm)}
+                {sectionsLabels.asterisk} {seasonStr(memoLanguage, validFromTerm)}
               </p>
               <AllSections memoData={memo} memoLanguageIndex={memoLanguageIndex} />
               <Contacts language={memoLanguage} memoData={memo} labels={courseContactsLabels} />
