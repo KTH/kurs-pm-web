@@ -215,15 +215,7 @@ function AboutCourseMemo() {
 
   const [webContext] = useWebContext()
 
-  const {
-    allTypeMemos,
-    memoDatas,
-    courseCode,
-    language: userLangAbbr,
-    userLanguageIndex,
-    allRoundInfos,
-    memoLanguage,
-  } = webContext
+  const { allTypeMemos, memoDatas, courseCode, language: userLangAbbr, userLanguageIndex, allRoundInfos } = webContext
 
   const { sideMenuLabels, aboutHeaderLabels, aboutMemoLabels, courseContactsLabels, extraInfo, courseMemoLinksLabels } =
     i18n.messages[userLanguageIndex]
@@ -313,7 +305,7 @@ function AboutCourseMemo() {
               {allActiveTermsWithRounds.length ? (
                 allActiveTermsWithRounds.map(({ semester, memos }) => (
                   <React.Fragment key={semester}>
-                    <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(memoLanguage, semester)}`}</h3>
+                    <h3>{`${aboutMemoLabels.currentOfferings} ${seasonStr(userLanguageIndex, semester)}`}</h3>
                     {memos.map(memo => (
                       <React.Fragment key={memo.memoEndPoint || memo.courseMemoFileName || memo.applicationCodes}>
                         <h4>{roundShortNameWithStartdate(memo, userLangAbbr)}</h4>

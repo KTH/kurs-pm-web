@@ -1,11 +1,6 @@
 import i18n from '../../../../i18n'
 import { parseSemesterIntoYearSemesterNumber } from '../../../../shared/semesterUtils'
 
-// export const seasonStr = (translate, semesterCode = '') => {
-//   console.log(`semesterCode: ${semesterCode}`)
-//   return `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0, 4)}`
-// }
-
 const convertLangToIndex = langShortName => (langShortName === 'en' ? 0 : 1)
 
 export const seasonStr = (language, semesterRaw) => {
@@ -16,6 +11,8 @@ export const seasonStr = (language, semesterRaw) => {
   const { year, semesterNumber } = parseSemesterIntoYearSemesterNumber(semesterRaw)
   return `${extraInfo.season[semesterNumber]}${year}`
 }
+
+export const getLangIndex = langAbbr => (langAbbr === 'en' ? 0 : 1)
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 
@@ -40,29 +37,29 @@ export const concatMemoName = (semester, applicationCodes = [], langAbbr = 'sv')
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
   if (applicationCodes.length === 0) {
-    return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${''}`
+    return `${memoLabel} ${seasonStr(langIndex, semester)}-${''}`
   }
-  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
+  return `${memoLabel} ${seasonStr(langIndex, semester)}-${
     applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
   }`
 }
 
 export const concatMemoNameShort = (semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
-  return `${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes.map(code => code).join('-')}`
+  return `${seasonStr(langIndex, semester)}-${applicationCodes.map(code => code).join('-')}`
 }
 
 export const memoNameWithoutApplicationCode = (semester, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
-  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
+  return `${memoLabel} ${seasonStr(langIndex, semester)}`
 }
 
 export const memoNameWithCourseCode = (courseCode, semester, applicationCodes = [], langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
 
-  return `${memoLabel} ${courseCode} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${
+  return `${memoLabel} ${courseCode} ${seasonStr(langIndex, semester)}-${
     applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
   }`
 }
@@ -81,16 +78,13 @@ export const roundShortNameWithStartdate = (round, langAbbr = 'sv') => {
   if ('shortName' in round && round.shortName !== '') {
     let shortMemoNames = ''
     if (pattern.test(round.shortName)) {
-      shortMemoNames = `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
+      shortMemoNames = `${seasonStr(langIndex, round.term || round.semester)}`
     } else {
       shortMemoNames = round.shortName.replace(/ m.fl./g, '')
     }
     return `${shortMemoNames} (${startdate} ${roundStartDate})`
   }
-  return `${seasonStr(
-    i18n.messages[langIndex].extraInfo,
-    round.term || round.semester
-  )} (${startdate} ${roundStartDate})`
+  return `${seasonStr(langIndex, round.term || round.semester)} (${startdate} ${roundStartDate})`
 }
 
 export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
@@ -101,7 +95,7 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
       const memoNames = round.memoName.replace(regEx, '').replace(/ m.fl./g, '')
       const memoNamesArray = memoNames.split(', ').map(item => {
         if (pattern.test(item)) {
-          return `${seasonStr(i18n.messages[langIndex].extraInfo, round.term || round.semester)}`
+          return `${seasonStr(langIndex, round.term || round.semester)}`
         }
         return item
       })
@@ -119,7 +113,7 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
     return round
   })
 
-  let sortedArray = arrWithSortedMemoNames.sort((a, b) => {
+  const sortedArray = arrWithSortedMemoNames.sort((a, b) => {
     if (Number(a[par1]) == Number(b[par1])) {
       if (a[par2] === b[par2]) return 0
       return a[par2] < b[par2] ? -1 : 1
@@ -131,21 +125,21 @@ export const doubleSortOnAnArrayOfObjects = (arr, par1, par2, langIndex) => {
   return sortedArray
 }
 
-const memoNameWithoutCourseCode = (semester, applicationCodes = [], langIndex) => {
-  const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
-
-  let constructedMemoName = `${memoLabel} ${prepositionFor} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}`
-
-  constructedMemoName += createApplicationCodeSuffix(applicationCodes)
-  return constructedMemoName
-}
-
 const createApplicationCodeSuffix = applicationCodes => {
   let applicationCodeSuffix = ''
   if (applicationCodes.length > 0) {
     applicationCodeSuffix += `-${applicationCodes.join('-')}`
   }
   return applicationCodeSuffix
+}
+
+const memoNameWithoutCourseCode = (semester, applicationCodes = [], langIndex) => {
+  const { memoLabel, prepositionFor } = i18n.messages[langIndex].messages
+
+  let constructedMemoName = `${memoLabel} ${prepositionFor} ${seasonStr(langIndex, semester)}`
+
+  constructedMemoName += createApplicationCodeSuffix(applicationCodes)
+  return constructedMemoName
 }
 
 const memoNameWithoutApplicationCodes = (courseCode, langIndex) => {
@@ -161,8 +155,4 @@ export const createMemoName = (semester, applicationCodes = [], langAbbr = 'sv',
   }
 
   return memoNameWithoutCourseCode(semester, applicationCodes, langIndex)
-}
-
-export const getLangIndex = langAbbr => {
-  return langAbbr === 'en' ? 0 : 1
 }
