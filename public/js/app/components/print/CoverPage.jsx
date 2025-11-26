@@ -40,7 +40,6 @@ const SyllabusLabel = ({ labels, language, syllabusValid, courseCode }) => {
   if (!syllabusValid.textFromTo) {
     return <>{`* ${syllabusInformation} N/A`}</>
   }
-  console.log(`syllabusValid.textFromTo: ${syllabusValid.textFromTo}`)
   const syllabusLinkLabel = `${syllabusLinkStart} ${courseCode} ${syllabusLinkMiddle}${syllabusValid.textFromTo}${syllabusLinkEnd}`
   const syllabusLink = (
     <a className="pdf-post-link" href={linkToSyllabus(courseCode, syllabusValid.validFromTerm, language)}>

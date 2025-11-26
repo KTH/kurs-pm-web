@@ -165,9 +165,6 @@ function CourseMemo() {
     setLatestMemoUrl(resolveLatestMemoUrl())
   }, [])
 
-  console.log(`This is what semester looks like: ${validFromTerm}`)
-  console.log(`This is what it look like: ${seasonStr(memoLanguage, validFromTerm)}`)
-
   return (
     <>
       <CoverPage
