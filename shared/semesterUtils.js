@@ -102,7 +102,7 @@ const parseLadokSemester = semester => {
 const parseSemester = semester => {
   let match = undefined
   if (semester) {
-    match = semester.match(/^(\d{4})([1|2])$/)
+    match = semester.match(/^(\d{4})([12])$/)
   }
 
   if (!match) throw new Error("Invalid semester format. Expected 'YYYYS' where S is 1 for VT or 2 for HT.")

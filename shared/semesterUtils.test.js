@@ -64,11 +64,14 @@ describe('semesterUtils', () => {
         })
       })
 
-      test.each(['99999', 1111111, '2024T', 'TTT'])('throws error if invalid KTHSemester format "%s"', illegalInput => {
-        expect(() => parseSemesterIntoYearSemesterNumber(illegalInput)).toThrow(
-          "Invalid semester format. Expected 'YYYYS' where S is 1 for VT or 2 for HT."
-        )
-      })
+      test.each(['99999', 1111111, '2024T', 'TTT', '2024|'])(
+        'throws error if invalid KTHSemester format "%s"',
+        illegalInput => {
+          expect(() => parseSemesterIntoYearSemesterNumber(illegalInput)).toThrow(
+            "Invalid semester format. Expected 'YYYYS' where S is 1 for VT or 2 for HT."
+          )
+        }
+      )
     })
 
     describe('works in ladok format', () => {
@@ -98,22 +101,19 @@ describe('semesterUtils', () => {
         expect(() => parseSemesterIntoYearSemesterNumber(illegalInput)).toThrow(
           "Invalid semester format. Expected 'HTYYYY' or 'VTYYYY'."
         )
-        expect(() => parseSemesterIntoYearSemesterNumber(illegalInput)).toThrow(
-          "Invalid semester format. Expected 'HTYYYY' or 'VTYYYY'."
-        )
       })
     })
   })
 
   describe('parseLadokSemester', () => {
-    test('parseLadokSemester', () => {
+    test('correctly parses ladok semester strings into year and semester number array', () => {
       expect(parseLadokSemester('HT2024')).toEqual([2024, 2])
       expect(parseLadokSemester('VT2024')).toEqual([2024, 1])
     })
   })
 
   describe('parseSemesterIntoYearSemesterNumberArray', () => {
-    test('parseSemesterIntoYearSemesterNumberArray', () => {
+    test('correctly parses KTH semester strings into year and semester number array', () => {
       expect(parseSemesterIntoYearSemesterNumberArray('20241')).toEqual([2024, 1])
       expect(parseSemesterIntoYearSemesterNumberArray('11112')).toEqual([1111, 2])
     })

@@ -14,6 +14,7 @@ COPY ["config", "config"]
 COPY ["i18n", "i18n"]
 COPY ["public", "public"]
 COPY ["server", "server"]
+COPY ["shared", "shared"]
 
 COPY ["app.js", "app.js"]
 COPY ["build.sh", "build.sh"]
