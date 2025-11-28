@@ -1,18 +1,16 @@
 import i18n from '../../../../i18n'
 import { parseSemesterIntoYearSemesterNumber } from '../../../../shared/semesterUtils'
 
-const convertLangToIndex = langShortName => (langShortName === 'en' ? 0 : 1)
+export const getLangIndex = langAbbr => (langAbbr === 'en' ? 0 : 1)
 
 export const seasonStr = (language, semesterRaw) => {
   if (!semesterRaw) return ''
   const isLangANumber = typeof language === 'number'
-  const langIndex = isLangANumber ? language : convertLangToIndex(language)
+  const langIndex = isLangANumber ? language : getLangIndex(language)
   const { extraInfo } = i18n.messages[langIndex]
   const { year, semesterNumber } = parseSemesterIntoYearSemesterNumber(semesterRaw)
   return `${extraInfo.season[semesterNumber]}${year}`
 }
-
-export const getLangIndex = langAbbr => (langAbbr === 'en' ? 0 : 1)
 
 export const aboutCourseStr = (translate, courseCode = '') => `${translate.aboutCourse} ${courseCode}`
 
