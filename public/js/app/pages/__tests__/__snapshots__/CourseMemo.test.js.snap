@@ -558,7 +558,7 @@ exports[`Page CourseMemo renders a side menu and a page structure 1`] = `
             <h2
               id="extra"
             >
-              Ytterligare Information
+              Ytterligare information
             </h2>
             <article>
               <p>

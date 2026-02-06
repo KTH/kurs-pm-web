@@ -133,7 +133,7 @@ module.exports = {
     contentAndOutcomes: 'Innehåll och lärandemål',
     prep: 'Förberedelser inför kursstart',
     reqToFinal: 'Examination och slutförande',
-    extra: 'Ytterligare Information',
+    extra: 'Ytterligare information',
     contacts: 'Kontakter',
     asterisk: 'Rubriker markerade med en asterisk ( * ) kommer från kursplan version',
   },
