@@ -13,7 +13,6 @@ on:
         type: boolean
       working_directory:
         required: false
-        default: ${{ null }}
         type: string
   workflow_call:
     inputs:
