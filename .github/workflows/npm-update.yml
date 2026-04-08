@@ -49,7 +49,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npx npm-check-updates -u -t minor --cooldown 2
+      - run: npx npm-check-updates -t minor --cooldown 2 -x axios -x jest-environment-jsdom -u
       - run: npm install
 
       - run: npm audit fix
