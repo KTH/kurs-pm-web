@@ -1,6 +1,20 @@
 name: Npm Update
 
 on:
+  workflow_dispatch:
+    inputs:
+      skip_audit:
+        required: false
+        default: false
+        type: boolean
+      monorepo:
+        required: false
+        default: false
+        type: boolean
+      working_directory:
+        required: false
+        default: ${{ null }}
+        type: string
   workflow_call:
     inputs:
       skip_audit:
