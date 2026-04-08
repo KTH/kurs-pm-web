@@ -1,0 +1,59 @@
+name: Npm Update
+
+on:
+  workflow_call:
+    inputs:
+      skip_audit:
+        required: false
+        default: false
+        type: boolean
+      monorepo:
+        required: false
+        default: false
+        type: boolean
+      working_directory:
+        required: false
+        default: ${{ null }}
+        type: string
+
+jobs:
+  Npm-Update:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory || github.workspace }}
+    steps:
+      - name: Check out my other private repo
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - run: |
+          git config --global user.email "studadm.developers@kth.se"
+          git config --global user.name "studadm-developers"
+
+      - run: npm ci
+
+      - run: npx npm-check-updates -u -t minor --cooldown 2
+      - run: npm install
+
+      - run: npm audit fix
+        if: ${{ !inputs.skip_audit }}
+
+      - run: npm test
+
+      - run: git add package*.json
+
+      - run: git add ../package*.json
+        if: ${{ inputs.monorepo }}
+
+      - name: Commit changes
+        run: |
+          # Only commit if there are changes
+          if ! git diff-index --quiet HEAD; then
+            git commit -m 'chore(deps): Update packages - minor by github workflow'
+          fi
+
+      - run: git push
